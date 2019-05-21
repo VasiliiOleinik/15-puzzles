@@ -23,7 +23,7 @@ class UserPermission extends Model
      */
     public function permission()
     {
-        return $this->belongsTo('App\Permission');
+        return $this->belongsTo('App\Models\Permission');
     }
 
     /**
@@ -31,6 +31,6 @@ class UserPermission extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 }

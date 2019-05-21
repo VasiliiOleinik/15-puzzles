@@ -23,7 +23,7 @@ class UserRole extends Model
      */
     public function role()
     {
-        return $this->belongsTo('App\Role');
+        return $this->belongsTo('App\Models\Role');
     }
 
     /**
@@ -31,6 +31,6 @@ class UserRole extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User\User');
     }
 }
