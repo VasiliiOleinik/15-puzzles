@@ -5,7 +5,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2019-05-20 07:08:24.
+    * Generated on 2019-05-21 05:50:28.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -35,6 +35,7 @@ namespace PHPSTORM_META {
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
         'KodiComponents\Navigation\Contracts\BadgeInterface' => \SleepingOwl\Admin\Navigation\Badge::class,
         'KodiComponents\Navigation\Contracts\PageInterface' => \SleepingOwl\Admin\Navigation\Page::class,
+        'Krlove\EloquentModelGenerator\EloquentModelBuilder' => \Krlove\EloquentModelGenerator\EloquentModelBuilder::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'SleepingOwl\Admin\Contracts\Display\TableHeaderColumnInterface' => \SleepingOwl\Admin\Display\TableHeaderColumn::class,
@@ -206,6 +207,7 @@ namespace PHPSTORM_META {
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
         'KodiComponents\Navigation\Contracts\BadgeInterface' => \SleepingOwl\Admin\Navigation\Badge::class,
         'KodiComponents\Navigation\Contracts\PageInterface' => \SleepingOwl\Admin\Navigation\Page::class,
+        'Krlove\EloquentModelGenerator\EloquentModelBuilder' => \Krlove\EloquentModelGenerator\EloquentModelBuilder::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'SleepingOwl\Admin\Contracts\Display\TableHeaderColumnInterface' => \SleepingOwl\Admin\Display\TableHeaderColumn::class,
@@ -377,6 +379,7 @@ namespace PHPSTORM_META {
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
         'KodiComponents\Navigation\Contracts\BadgeInterface' => \SleepingOwl\Admin\Navigation\Badge::class,
         'KodiComponents\Navigation\Contracts\PageInterface' => \SleepingOwl\Admin\Navigation\Page::class,
+        'Krlove\EloquentModelGenerator\EloquentModelBuilder' => \Krlove\EloquentModelGenerator\EloquentModelBuilder::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'SleepingOwl\Admin\Contracts\Display\TableHeaderColumnInterface' => \SleepingOwl\Admin\Display\TableHeaderColumn::class,
@@ -548,6 +551,7 @@ namespace PHPSTORM_META {
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
         'KodiComponents\Navigation\Contracts\BadgeInterface' => \SleepingOwl\Admin\Navigation\Badge::class,
         'KodiComponents\Navigation\Contracts\PageInterface' => \SleepingOwl\Admin\Navigation\Page::class,
+        'Krlove\EloquentModelGenerator\EloquentModelBuilder' => \Krlove\EloquentModelGenerator\EloquentModelBuilder::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'SleepingOwl\Admin\Contracts\Display\TableHeaderColumnInterface' => \SleepingOwl\Admin\Display\TableHeaderColumn::class,
@@ -719,6 +723,7 @@ namespace PHPSTORM_META {
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
         'KodiComponents\Navigation\Contracts\BadgeInterface' => \SleepingOwl\Admin\Navigation\Badge::class,
         'KodiComponents\Navigation\Contracts\PageInterface' => \SleepingOwl\Admin\Navigation\Page::class,
+        'Krlove\EloquentModelGenerator\EloquentModelBuilder' => \Krlove\EloquentModelGenerator\EloquentModelBuilder::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'SleepingOwl\Admin\Contracts\Display\TableHeaderColumnInterface' => \SleepingOwl\Admin\Display\TableHeaderColumn::class,
@@ -890,6 +895,7 @@ namespace PHPSTORM_META {
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
         'KodiComponents\Navigation\Contracts\BadgeInterface' => \SleepingOwl\Admin\Navigation\Badge::class,
         'KodiComponents\Navigation\Contracts\PageInterface' => \SleepingOwl\Admin\Navigation\Page::class,
+        'Krlove\EloquentModelGenerator\EloquentModelBuilder' => \Krlove\EloquentModelGenerator\EloquentModelBuilder::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'SleepingOwl\Admin\Contracts\Display\TableHeaderColumnInterface' => \SleepingOwl\Admin\Display\TableHeaderColumn::class,
@@ -1061,6 +1067,7 @@ namespace PHPSTORM_META {
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
         'KodiComponents\Navigation\Contracts\BadgeInterface' => \SleepingOwl\Admin\Navigation\Badge::class,
         'KodiComponents\Navigation\Contracts\PageInterface' => \SleepingOwl\Admin\Navigation\Page::class,
+        'Krlove\EloquentModelGenerator\EloquentModelBuilder' => \Krlove\EloquentModelGenerator\EloquentModelBuilder::class,
         'NunoMaduro\Collision\Contracts\Adapters\Phpunit\Listener' => \NunoMaduro\Collision\Adapters\Phpunit\Listener::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'SleepingOwl\Admin\Contracts\Display\TableHeaderColumnInterface' => \SleepingOwl\Admin\Display\TableHeaderColumn::class,
