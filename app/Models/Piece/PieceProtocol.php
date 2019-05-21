@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\Piece;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +23,7 @@ class PieceProtocol extends Model
      */
     public function piece()
     {
-        return $this->belongsTo('App\Piece');
+        return $this->belongsTo('App\Models\Piece\Piece');
     }
 
     /**
@@ -31,6 +31,6 @@ class PieceProtocol extends Model
      */
     public function protocol()
     {
-        return $this->belongsTo('App\Protocol');
+        return $this->belongsTo('App\Models\Protocol');
     }
 }

@@ -22,6 +22,6 @@ class Marker extends Model
      */
     public function pieceMarkers()
     {
-        return $this->hasMany('App\PieceMarker');
+        return $this->hasMany('App\Models\Piece\PieceMarker');
     }
 }

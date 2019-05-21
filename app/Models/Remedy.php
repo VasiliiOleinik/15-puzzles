@@ -22,6 +22,6 @@ class Remedy extends Model
      */
     public function pieceRemedies()
     {
-        return $this->hasMany('App\PieceRemedy');
+        return $this->hasMany('App\Models\Piece\PieceRemedy');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,7 +40,7 @@ class User extends Authenticatable
      */
     public function cases()
     {
-        return $this->hasMany('App\Case');
+        return $this->hasMany('App\Models\Case');
     }
 
     /**
@@ -48,7 +48,7 @@ class User extends Authenticatable
      */
     public function userPermissions()
     {
-        return $this->hasMany('App\UserPermission');
+        return $this->hasMany('App\Models\User\UserPermission');
     }
 
     /**
@@ -56,6 +56,6 @@ class User extends Authenticatable
      */
     public function userRoles()
     {
-        return $this->hasMany('App\UserRole');
+        return $this->hasMany('App\Models\User\UserRole');
     }
 }

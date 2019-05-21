@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\Piece;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,7 +25,7 @@ class Piece extends Model
      */
     public function categories()
     {
-        return $this->hasMany('App\Category');
+        return $this->hasMany('App\Models\Category');
     }
 
     /**
@@ -33,7 +33,7 @@ class Piece extends Model
      */
     public function pieceMarkers()
     {
-        return $this->hasMany('App\PieceMarker');
+        return $this->hasMany('App\Models\Piece\PieceMarker');
     }
 
     /**
@@ -41,7 +41,7 @@ class Piece extends Model
      */
     public function pieceProtocols()
     {
-        return $this->hasMany('App\PieceProtocol');
+        return $this->hasMany('App\Models\Piece\PieceProtocol');
     }
 
     /**
@@ -49,6 +49,6 @@ class Piece extends Model
      */
     public function pieceRemedies()
     {
-        return $this->hasMany('App\PieceRemedy');
+        return $this->hasMany('App\Models\Piece\PieceRemedy');
     }
 }

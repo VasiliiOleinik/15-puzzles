@@ -23,6 +23,6 @@ class Category extends Model
      */
     public function piece()
     {
-        return $this->belongsTo('App\Piece');
+        return $this->belongsTo('App\Models\Piece\Piece');
     }
 }

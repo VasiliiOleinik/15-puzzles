@@ -22,6 +22,6 @@ class Protocol extends Model
      */
     public function pieceProtocols()
     {
-        return $this->hasMany('App\PieceProtocol');
+        return $this->hasMany('App\Models\Piece\PieceProtocol');
     }
 }

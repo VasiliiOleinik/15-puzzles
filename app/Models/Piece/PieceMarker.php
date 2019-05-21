@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\Piece;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,7 +23,7 @@ class PieceMarker extends Model
      */
     public function marker()
     {
-        return $this->belongsTo('App\Marker');
+        return $this->belongsTo('App\Models\Marker');
     }
 
     /**
@@ -31,6 +31,6 @@ class PieceMarker extends Model
      */
     public function piece()
     {
-        return $this->belongsTo('App\Piece');
+        return $this->belongsTo('App\Models\Piece\Piece');
     }
 }
