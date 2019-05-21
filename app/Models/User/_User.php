@@ -10,7 +10,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property integer $id
- * @property int $role_id
  * @property string $name
  * @property string $email
  * @property string $email_verified_at
@@ -18,9 +17,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $remember_token
  * @property string $created_at
  * @property string $updated_at
- * @property Role $role
  * @property Case[] $cases
  * @property UserPermission[] $userPermissions
+ * @property UserRole[] $userRoles
  */
 class User extends Authenticatable
 {
@@ -34,15 +33,7 @@ class User extends Authenticatable
     /**
      * @var array
      */
-    protected $fillable = ['role_id', 'name', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function role()
-    {
-        return $this->belongsTo('App\Models\Role');
-    }
+    protected $fillable = ['name', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -58,5 +49,13 @@ class User extends Authenticatable
     public function userPermissions()
     {
         return $this->hasMany('App\Models\User\UserPermission');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function userRoles()
+    {
+        return $this->hasMany('App\Models\User\UserRole');
     }
 }
