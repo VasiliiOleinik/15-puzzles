@@ -22,8 +22,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property Case[] $cases
  * @property UserPermission[] $userPermissions
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
+	use Notifiable;
+	
     /**
      * The "type" of the auto-incrementing ID.
      * 
