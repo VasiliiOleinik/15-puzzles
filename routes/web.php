@@ -11,13 +11,24 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+use Illuminate\Http\Response;
+
+Route::get('/', function (\Illuminate\Http\Request $request) {
+	 
+	$user = $request->user();
+	$role = null;
+
+	if($user){
+		$user = App\Models\User\User::where('id','=',$user->id)->first();
+		$role = $user->role;
+	}
+	
+    return view('welcome', compact('role'));
 });
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+/*Route::get('/', function () {
+    return view('welcome');
+});*/
 
 Auth::routes(['verify' => true]);
 

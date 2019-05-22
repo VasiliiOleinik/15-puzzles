@@ -37,7 +37,7 @@
             .top-right {
                 position: absolute;
                 right: 10px;
-                top: 18px;
+                top: 18px;				
             }
 
             .content {
@@ -68,7 +68,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/home') }}"  style="float:right;">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -76,12 +76,16 @@
                             <a href="{{ route('register') }}">Register</a>
                         @endif
                     @endauth
+					@if($role)
+						<br><br>LOGGED IN WITH ROLE:<h4 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> {{$role->name}}</h4>
+					@endif
                 </div>
             @endif
 
-            <div class="content">
+            <div class="content">			
                 <div class="title m-b-md">
-                    Laravel
+                    Laravel	
+					
                 </div>
 
                 <div class="links">
