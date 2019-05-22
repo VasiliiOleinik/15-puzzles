@@ -1,36 +1,36 @@
 <?php
 
-namespace App\Models\User;
+namespace App\Models\Role;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property integer $user_id
+ * @property int $role_id
  * @property int $permission_id
  * @property Permission $permission
- * @property User $user
+ * @property Role $role
  */
-class UserPermission extends Model
+class RolePermission extends Model
 {
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'permission_id'];
+    protected $fillable = ['role_id', 'permission_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function permission()
     {
-        return $this->belongsTo('App\Models\Permission');
+        return $this->belongsTo('App\Permission');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function role()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\Role\Role');
     }
 }
