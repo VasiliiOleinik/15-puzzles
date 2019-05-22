@@ -19,8 +19,8 @@ class Permission extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function userPermissions()
+    public function rolePermissions()
     {
-        return $this->hasMany('App\Models\User\UserPermission');
+        return $this->hasMany('App\Models\Role\RolePermission');
     }
 }

@@ -16,4 +16,19 @@ class Role extends Model
      */
     protected $fillable = ['name'];
 
+	/**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rolePermissions()
+    {
+        return $this->hasMany('App\Models\Role\RolePermission');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->hasMany('App\Models\User\User');
+    }
 }
