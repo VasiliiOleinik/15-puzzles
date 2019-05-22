@@ -78,6 +78,10 @@
                     @endauth
 					@if($role)
 						<br><br>LOGGED IN WITH ROLE:<h4 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> {{$role->name}}</h4>
+						<br><br>ROLE PERMISSIONS:
+						@foreach($permissions as $permission)
+							<h4 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> {{$permission->name}}</h4><br>
+						@endforeach
 					@endif
                 </div>
             @endif
