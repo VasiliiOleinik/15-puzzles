@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateCasesTable extends Migration {
+class CreateMemberCasesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class CreateCasesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('cases', function(Blueprint $table)
+		Schema::create('member_cases', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->bigInteger('user_id')->unsigned()->default(1)->index('FK_cases_users');
@@ -29,7 +29,7 @@ class CreateCasesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('cases');
+		Schema::drop('member_cases');
 	}
 
 }

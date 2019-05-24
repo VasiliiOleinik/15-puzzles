@@ -12,8 +12,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property User $user
  */
-class Case extends Model
+class MemberCase extends Model
 {
+    //public $timestamps = false;
+
     /**
      * @var array
      */

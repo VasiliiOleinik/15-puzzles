@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class AddForeignKeysToCasesTable extends Migration {
+class AddForeignKeysToMemberCasesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,7 +12,7 @@ class AddForeignKeysToCasesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('cases', function(Blueprint $table)
+		Schema::table('member_cases', function(Blueprint $table)
 		{
 			$table->foreign('user_id', 'FK_cases_users')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
@@ -26,7 +26,7 @@ class AddForeignKeysToCasesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('cases', function(Blueprint $table)
+		Schema::table('member_cases', function(Blueprint $table)
 		{
 			$table->dropForeign('FK_cases_users');
 		});
