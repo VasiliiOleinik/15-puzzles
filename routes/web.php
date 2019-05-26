@@ -16,26 +16,7 @@ use Illuminate\Http\Response;
 use App\Models\User\User;
 use App\Models\Permission;
 
-Route::get('/', function (\Illuminate\Http\Request $request) {
-	 
-	$user = $request->user();
-	$role = null;
-	$role_permissions = null;
-	$permissions = array();
-
-	if($user){
-		
-		$user = User::where('id','=',$user->id)->first();
-		$role = $user->role;				
-		$role_permissions = $role->rolePermissions;
-
-		foreach($role_permissions as $obj){
-			array_push( $permissions, Permission::find($obj->permission_id) );
-		}
-	}
-	
-    return view('welcome', compact(['role','role_permissions', 'permissions']));
-});
+Route::get('/', 'MainController@index')->name('main');
 
 /*Route::get('/', function () {
     return view('welcome');
