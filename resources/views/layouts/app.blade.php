@@ -53,19 +53,19 @@
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                                   </form>
                                   <li class="nav-item active">
-                                    <a class="nav-link" href="#">Main <span class="sr-only">(current)</span></a>
+                                    <a class="nav-link" href="/">Main <span class="sr-only">(current)</span></a>
                                   </li>
                                   <li class="nav-item">
-                                    <a class="nav-link" href="#">Member's cases</a>
+                                    <a class="nav-link" href="/members_cases">Member's cases</a>
                                   </li>                                  
                                   <li class="nav-item">
-                                    <a class="nav-link" href="#">Factor diagram</a>
+                                    <a class="nav-link" href="/factor_diagram">Factor diagram</a>
                                   </li>
                                   <li class="nav-item">
-                                    <a class="nav-link" href="#">About</a>
+                                    <a class="nav-link" href="/about">About</a>
                                   </li>
                                   <li class="nav-item">
-                                    <a class="nav-link" href="#">News</a>
+                                    <a class="nav-link" href="/news">News</a>
                                   </li>
                                   @guest
                                   <li class="nav-item dropdown">

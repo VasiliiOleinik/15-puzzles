@@ -17,11 +17,11 @@ use App\Models\User\User;
 use App\Models\Permission;
 
 Route::get('/', 'MainController@index')->name('main');
-
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+Route::get('/members_cases', 'MemberCaseController@index')->name('member_case');
+Route::get('/factor_diagram', 'FactorDiagramController@index')->name('factor_diagram');
+Route::get('/about', 'AboutController@index')->name('about');
+Route::get('/news', 'NewsController@index')->name('news');
 
 Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
