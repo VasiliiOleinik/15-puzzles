@@ -24,24 +24,100 @@
             </div>
         @endif
     </div>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Dashboard</div>
+    <div class="container">        
+            
+            <div class="row">            
+                <div class="col-sm-6">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" data-toggle="tab" href="#understanding_the_15">Understanding the 15</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#protocols">Protocols</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#remedies">Remedies</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#markers">Markers</a>
+                    </li>
+                  </ul>
 
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                    <div id="understanding_the_15" class="container tab-pane active"><br>
+                      <h3>Understanding the 15</h3>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    <div id="protocols" class="container tab-pane fade"><br>
+                      <h3>Protocols</h3>
+                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                    <div id="remedies" class="container tab-pane fade"><br>
+                      <h3>Remedies</h3>
+                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                    </div>
+                    <div id="markers" class="container tab-pane fade"><br>
+                      <h3>Markers</h3>
+                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                    </div>
+                  </div>
+
+                    <!--<div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">Dashboard</div>
+
+                            <div class="card-body">
+                                @if (session('status'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+
+
+                            </div>
+                        </div>
+                    </div>-->
+                </div>
+                <div class="col-sm-6">
+                    @php
+                        $piece_count = 1;
+                    @endphp
+
+                    @foreach($pieces as $piece)
+
+                        @if($piece_count == 1)
+                            <div class="row">
+                        @endif                            
+                            <div class="col-sm-3 p-0 text-center" style="border:1px solid #ddd; cursor:pointer;">
+                                
+                                    <div class="p-0">
+                                        <img src="/images/{{$piece->img}}" class="w-100">
+                                    </div>                                
+                                
+                                    <span>
+                                        {{$piece->name}}
+                                    </span>
+                                                                                                                             
+                            </div>
+                                                   
+                            @if($piece_count == 4)
+                                @php
+                                    $piece_count = 1;
+                                @endphp
+                            @endif
+                        @if(@piece_count == 1)
                             </div>
                         @endif
 
-
-                    </div>
+                        @php
+                            $piece_count = $piece_count + 1;                            
+                        @endphp
+                    @endforeach
                 </div>
             </div>
-        </div>
+        
     </div>
 @endsection
 

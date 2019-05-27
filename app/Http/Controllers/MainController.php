@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use App\Models\User\User;
+use App\Models\Piece\Piece;
+
 use Illuminate\Http\Request;
 
 class MainController extends Controller
@@ -30,6 +32,8 @@ class MainController extends Controller
         $role_permissions = null;
         $permissions = array();
 
+        $pieces = Piece::all();
+
         if($user){
 
             $user = User::where('id','=',$user->id)->first();
@@ -41,6 +45,6 @@ class MainController extends Controller
             }
         }
 
-        return view('main', compact(['role','role_permissions', 'permissions']));
+        return view('main', compact(['role','role_permissions', 'permissions', 'pieces']));
     }
 }
