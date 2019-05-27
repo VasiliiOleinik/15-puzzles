@@ -27,7 +27,7 @@
     <div class="container">        
             
             <div class="row">            
-                <div class="col-sm-6">
+                <div id="main_tabs" class="col-sm-6">
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item">
@@ -47,8 +47,7 @@
                   <!-- Tab panes -->
                   <div class="tab-content">
                     <div id="understanding_the_15" class="container tab-pane active"><br>
-                      <h3>Understanding the 15</h3>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      
                     </div>
                     <div id="protocols" class="container tab-pane fade"><br>
                       <h3>Protocols</h3>
@@ -80,7 +79,7 @@
                         </div>
                     </div>-->
                 </div>
-                <div class="col-sm-6">
+                <div id="pieces" class="col-sm-6">
                     @php
                         $piece_count = 1;
                     @endphp
@@ -90,7 +89,7 @@
                         @if($piece_count == 1)
                             <div class="row">
                         @endif                            
-                            <div class="col-sm-3 p-0 text-center" style="border:1px solid #ddd; cursor:pointer;">
+                            <div class="col-sm-3 p-0 text-center piece" name="piece" piece-id="{{$piece->id}}" style="border:1px solid #ddd; cursor:pointer;">
                                 
                                     <div class="p-0">
                                         <img src="/images/{{$piece->img}}" class="w-100">
@@ -121,7 +120,9 @@
     </div>
 @endsection
 
+<script>
 
+</script>
 
 {{--<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">--}}
 {{--    <head>--}}

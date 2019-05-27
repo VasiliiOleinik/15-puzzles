@@ -47,4 +47,29 @@ class MainController extends Controller
 
         return view('main', compact(['role','role_permissions', 'permissions', 'pieces']));
     }
+
+    public function pieces_content(Request $request)
+    {
+        if($request['_active_pieces_id']){
+            $_active_pieces_id = $request['_active_pieces_id'];
+        }else{
+            $_active_pieces_id = "";
+        }
+        $result = "";
+        if( $_active_pieces_id != ""){
+            
+            $pieces = Piece::where('id','=',$_active_pieces_id[0]);
+
+            for( $i = 1; $i < count($_active_pieces_id); $i++ ){
+                $pieces->orWhere('id','=',$_active_pieces_id[$i]);
+            }
+            $result = $pieces->get();
+        }else{
+            $result = "";
+        }
+      
+        
+        return $result;
+    }
+
 }
