@@ -4,23 +4,15 @@
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
             <div style="float:right;">
-                @auth
+{{--                @if($role)--}}
+{{--                    <br><br>LOGGED IN WITH ROLE:<h5 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> {{$role->name}}</h5>--}}
+{{--                    <br><br>ROLE PERMISSIONS:--}}
+{{--                    @foreach($permissions as $permission)--}}
+{{--                        <h5 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> {{$permission->name}}</h5><br>--}}
+{{--                    @endforeach--}}
 {{--                @else--}}
-{{--                    <a href="{{ route('login') }}">Login</a>--}}
-
-{{--                    @if (Route::has('register'))--}}
-{{--                        <a href="{{ route('register') }}">Register</a>--}}
-{{--                    @endif--}}
-                @endauth
-                @if($role)
-                    <br><br>LOGGED IN WITH ROLE:<h5 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> {{$role->name}}</h5>
-                    <br><br>ROLE PERMISSIONS:
-                    @foreach($permissions as $permission)
-                        <h5 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> {{$permission->name}}</h5><br>
-                    @endforeach
-                @else
-                    <br><br>ROLE:<h5 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> quest</h5>
-                @endif
+{{--                    <br><br>ROLE:<h5 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> quest</h5>--}}
+{{--                @endif--}}
             </div>
         @endif
     </div>
@@ -63,21 +55,13 @@
                     </div>
                   </div>
 
-                    <!--<div class="col-md-8">
-                        <div class="card">
-                            <div class="card-header">Dashboard</div>
 
-                            <div class="card-body">
-                                @if (session('status'))
-                                    <div class="alert alert-success" role="alert">
-                                        {{ session('status') }}
-                                    </div>
-                                @endif
-
-
-                            </div>
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
                         </div>
-                    </div>-->
+                    @endif
+
                 </div>
                 <div id="pieces" class="col-sm-6">
                     @php
@@ -89,15 +73,15 @@
                         @if($piece_count == 1)
                             <div class="row">
                         @endif                            
-                            <div class="col-sm-3 p-0 text-center piece" name="piece" piece-id="{{$piece->id}}" style="border:1px solid #ddd; cursor:pointer;">
+                            <div class="col-sm-3 text-left piece" name="piece" piece-id="{{$piece->id}}" style="border:1px solid #ddd; padding: 5px;height:100px; cursor:pointer;">
                                 
-                                    <div class="p-0">
-                                        <img src="/images/{{$piece->img}}" class="w-100">
+                                    <div class="p-0" style="height:45px;">
+                                        <img src="/images/{{$piece->img}}" class="w-25">
                                     </div>                                
                                 
-                                    <span>
+                                    <label style="position:relative;line-height: 1;bottom:0;">
                                         {{$piece->name}}
-                                    </span>
+                                    </label>
                                                                                                                              
                             </div>
                                                    

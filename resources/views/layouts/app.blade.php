@@ -143,8 +143,6 @@
         /* 15 pazzles backend*/
 
         document.addEventListener("DOMContentLoaded", function (event) {
-            //console.log('ready')
-
 
             // Add _active class to the current piece (highlight it)
             var div =$("#pieces");
@@ -159,7 +157,6 @@
                 });
             }
 
-            understanding_the_15
             $(".piece").bind("click", function() {
 
                 //get active pieces
@@ -170,7 +167,6 @@
                         _active_pieces_id.push(piece_id);                        
                     }
                 });
-                //console.log(_active_pieces_id);
 
                 //get content of pieces
                 $.ajax({
@@ -198,13 +194,9 @@
                             $('#understanding_the_15').html(html);
                             
                         }
-                        
-                        
                     }
                 });
-
             });
-
         });
 
         /**/
