@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permission;
+use App\Models\Protocol;
 use App\Models\User\User;
 use App\Models\Piece\Piece;
 
@@ -33,7 +34,12 @@ class MainController extends Controller
         $permissions = array();
 
         $pieces = Piece::all();
-
+//        $piece = Piece::where('id','=',1)->first();
+//        $piece_protocols = $piece->pieceProtocols;
+//        foreach($piece_protocols as $obj) {
+//            var_dump($obj->protocol_id);
+//        }
+//        die();
         if($user){
 
             $user = User::where('id','=',$user->id)->first();
@@ -69,6 +75,31 @@ class MainController extends Controller
         }
       
         
+        return $result;
+    }
+
+    public function protocols_content(Request $request)
+    {
+        if($request['_active_pieces_id']){
+            $_active_pieces_id = $request['_active_pieces_id'];
+        }else{
+            $_active_pieces_id = "";
+        }
+
+        $result = $_active_pieces_id;
+//            foreach ($pieces_result as $piece){
+//
+//                $piece_protocols = $piece->pieceProtocols;
+//
+//                $protocols = Protocol::where('id','=',$piece_protocols[0]->protocol_id);
+//                for( $i = 1; $i < count($piece_protocols); $i++ ){
+//
+//                    $protocols->orWhere('id','=',$piece_protocols[i]->protocol_id);
+//                }
+//            }
+
+
+
         return $result;
     }
 

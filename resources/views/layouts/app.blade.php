@@ -180,6 +180,7 @@
                     
                         if(result.responseText.length == 0){
                             $('#understanding_the_15').html("");
+                            protocolsContentAjax(null);
                         }else{
                         
                             var json_result =  JSON.parse(result.responseText);
@@ -192,11 +193,55 @@
                                 html += "<br><br>";
                             }
                             $('#understanding_the_15').html(html);
-                            
+
+                            protocolsContentAjax(_active_pieces_id);
                         }
                     }
                 });
             });
+
+            function protocolsContentAjax(_active_pieces_id){
+
+                if(!_active_pieces_id){
+                    //console.log("active pieces: ", 0);
+                }else{
+                    //console.log("active pieces: ", _active_pieces_id);
+
+
+                    //get content of protocols
+                    $.ajax({
+                        type: "POST",
+                        url: "/protocols_content",
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            _active_pieces_id : _active_pieces_id
+                        },
+                        complete: function(result){
+                            console.log(result.responseText);
+
+
+                            // if(result.responseText.length == 0){
+                            //     $('#protocols').html("");
+                            // }else{
+                            //
+                            //     var json_result =  JSON.parse(result.responseText);
+                            //
+                            //     var html = "";
+                            //
+                            //     for(i = 0; i < json_result.length; i++){
+                            //         html += "<h4>" + json_result[i]['name'] + "</h4>";
+                            //         html += json_result[i]['content'];
+                            //         html += "<br><br>";
+                            //     }
+                            //     $('#protocols').html(html);
+                            // }
+                        },
+                        error:function(err){
+                            console.log(err.responseText);
+                        }
+                    });
+                }
+            }
         });
 
         /**/
