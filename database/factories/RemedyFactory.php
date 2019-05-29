@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Remedy::class, function (Faker $faker) {
 
-    $remedy_name = str_replace( ".", "", $faker->word )." test";
+    $remedy_name = $faker->word." ".$faker->word." ".$faker->word." method.";
 
     return [
          'name' => $remedy_name,

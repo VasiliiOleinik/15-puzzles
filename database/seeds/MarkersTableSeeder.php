@@ -1,9 +1,9 @@
 <?php
 
-use App\Models\Remedy;
+use App\Models\Marker;
 use Illuminate\Database\Seeder;
 
-class RemediesTableSeeder extends Seeder
+class MarkersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class RemediesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('remedies')->delete();
-        factory(Remedy::class, 25)->create();
+        DB::table('markers')->delete();
+        factory(Marker::class, 40)->create();
     }
 }
