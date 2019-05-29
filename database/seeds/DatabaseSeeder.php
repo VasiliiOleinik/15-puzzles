@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MemberCasesTableSeeder::class);
 
         $this->call(PiecesTableSeeder::class);
+        $this->call(ProtocolsTableSeeder::class);
     }
 }
