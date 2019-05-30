@@ -25,12 +25,17 @@
                   <!-- Tab panes -->
                   <div class="tab-content">
                     <div id="understanding_the_15" class="container tab-pane active"><br>
-      
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="understanding_the_15_ajax_container" class="container tab-pane active">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div  id="protocols" class="container tab-pane fade"><br>
                     <div class="card">
                         <div class="card-body">
-                            <ul id="protocols_ul" class='list-group'>
+                            <ul id="protocols_ajax_container" class='list-group'>
                                 @foreach($protocols as $protocol)
                                     <li class='list-group-item list-group-item-action p-0' style="cursor:pointer;">{{$protocol->name}}</li>
                                 @endforeach
@@ -39,12 +44,20 @@
                     </div>
                     </div>
                     <div id="remedies" class="container tab-pane fade"><br>
-                      <h3>Remedies</h3>
-                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="remedies_ajax_container" class="container tab-pane active">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="markers" class="container tab-pane fade"><br>
-                      <h3>Markers</h3>
-                      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="markers_ajax_container" class="container tab-pane active">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                   </div>
 

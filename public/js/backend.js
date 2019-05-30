@@ -37,8 +37,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
             complete: function(result){
                     
                 if(result.responseText.length == 0){
-                    $('#understanding_the_15').html("");
+                    $('#understanding_the_15_ajax_container').html("");
                     protocolsContentAjax(null);
+                    remediesContentAjax(null);
                 }else{
                         
                     var json_result =  JSON.parse(result.responseText);
@@ -50,9 +51,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         html += json_result[i]['content'];
                         html += "<br><br>";
                     }
-                    $('#understanding_the_15').html(html);
+                    $('#understanding_the_15_ajax_container').html(html);
 
                     protocolsContentAjax(_active_pieces_id);
+                    remediesContentAjax(_active_pieces_id);
                 }
             }
         });
@@ -64,9 +66,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $('#protocols_ul').html("");
         }else*/
         {
-            //console.log("active pieces: ", _active_pieces_id);
-
-
             //get content of protocols
             $.ajax({
                 type: "POST",
@@ -76,11 +75,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     _active_pieces_id : _active_pieces_id
                 },
                 complete: function(result){
-                    console.log(result.responseText);
+                    //console.log(result.responseText);
 
                             
                     if(result.responseText.length == 0){                            
-                            $('#protocols_ul').html("");
+                        $('#protocols_ajax_container').html("");
                     }else{
                             
                     var json_result =  JSON.parse(result.responseText);
@@ -89,19 +88,54 @@ document.addEventListener("DOMContentLoaded", function (event) {
                                
                         for(i = 0; i < json_result.length; i++){
                             html += "<li class='list-group-item list-group-item-action p-0'>" + json_result[i]['name'] + "</li>";
-                            /*html += json_result[i]['content'];
-                            html += "<br><br>";*/
                         }
 
-                        $('#protocols_ul').html(html);
+                        $('#protocols_ajax_container').html(html);
                     }
                 },
                 error:function(err){
-                    console.log("error");
+                    console.log("protocols ajax error");
                 }
             });
         }
     }
+
+    function remediesContentAjax(_active_pieces_id) {
+
+        //get content of protocols
+        $.ajax({
+            type: "POST",
+            url: "/remedies_content",
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                _active_pieces_id: _active_pieces_id
+            },
+            complete: function (result) {
+                console.log("remedies: "+result.responseText);
+
+
+                if (result.responseText.length == 0) {
+                    $('#remedies_ajax_container').html("");
+                } else {
+
+                    var json_result = JSON.parse(result.responseText);
+
+                    var html = "";
+
+                    for (i = 0; i < json_result.length; i++) {
+                        html += "<li class='list-group-item list-group-item-action p-0'>" + json_result[i]['name'] + "</li>";
+                    }
+
+                    $('#remedies_ajax_container').html(html);
+                }
+            },
+            error: function (err) {
+                console.log("remedies ajax error");
+            }
+        });
+        
+    }
+
 });
 
 /**/

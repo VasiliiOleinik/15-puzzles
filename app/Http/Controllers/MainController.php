@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
-use App\Models\Protocol;
 use App\Models\User\User;
+use App\Models\Permission;
+
 use App\Models\Piece\Piece;
-use App\Models\Piece\PieceProtocols;
+use App\Models\Protocol;
+use App\Models\Remedy;
+use App\Models\Marker;
+
 
 use Illuminate\Http\Request;
 
@@ -97,10 +100,36 @@ class MainController extends Controller
 
             $result = $protocols;
         }else{
-            $protocols = Protocol::all();
 
+            $protocols = Protocol::all();
             $result = $protocols;
         }
+
+        return $result;
+    }
+
+    public function remedies_content(Request $request)
+    {
+        $result = "";
+        if($request['_active_pieces_id']){
+            $_active_pieces_id = $request['_active_pieces_id'];            
+
+            $remedies = array();
+            foreach($_active_pieces_id as $piece_id){
+                $piece = Piece::where('id','=',$piece_id)->first();
+                $piece_remedies = $piece->pieceRemedies;            
+                foreach($piece_remedies as $obj) {
+                     array_push($remedies,  Remedy::find($obj->remedy_id) );
+                }
+            }
+
+            $result = $remedies;
+        }
+        /*else{
+
+            $remedies = Remedy::all();
+            $result = $remedies;
+        }*/
 
         return $result;
     }
