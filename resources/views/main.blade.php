@@ -8,16 +8,16 @@
                 <div id="main_tabs" class="col-sm-6">
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li class="nav-item">
+                    <li id="tab-understanding_the_15" class="nav-item">
                       <a class="nav-link active" data-toggle="tab" href="#understanding_the_15">Understanding the 15</a>
                     </li>
-                    <li class="nav-item">
+                    <li id="tab-protocols" class="nav-item">
                       <a class="nav-link" data-toggle="tab" href="#protocols">Protocols</a>
                     </li>
-                    <li class="nav-item">
+                    <li id="tab-remedies" class="nav-item">
                       <a class="nav-link" data-toggle="tab" href="#remedies">Remedies</a>
                     </li>
-                    <li class="nav-item">
+                    <li id="tab-markers" class="nav-item">
                       <a class="nav-link" data-toggle="tab" href="#markers">Markers</a>
                     </li>
                   </ul>
@@ -28,6 +28,12 @@
                         <div class="card">
                             <div class="card-body">
                                 <div id="understanding_the_15_ajax_container" class="container tab-pane active">
+                                    @foreach($pieces as $piece)
+                                    <div class="understanding_the_15_element d-none" obj-id="{{$piece->id}}">
+                                        <h4> {{$piece->name}} </h4>;
+                                        {{$piece->content}}
+                                    </div>                                    
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -37,7 +43,7 @@
                             <div class="card-body">
                                 <ul id="protocols_ajax_container" class='list-group'>
                                     @foreach($protocols as $protocol)
-                                        <li class='list-group-item list-group-item-action p-0' obj-id="{{$protocol->id}}" style="cursor:pointer;">{{$protocol->name}}</li>
+                                        <li class='protocol list-group-item list-group-item-action p-0' obj-id="{{$protocol->id}}" style="cursor:pointer;">{{$protocol->name}}</li>
                                     @endforeach
                                 </ul>
                             </div>
