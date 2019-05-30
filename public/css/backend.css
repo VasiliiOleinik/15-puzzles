@@ -1,3 +1,11 @@
+#app{
+    min-height: 900px;
+}
+
+.btn-outline-info:hover{
+    color:white;
+}
+
 .card-body {
     height: 336px;
     overflow-y: auto;
