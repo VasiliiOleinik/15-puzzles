@@ -1,21 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex-center position-ref full-height">
-        @if (Route::has('login'))
-            <div style="float:right;">
-{{--                @if($role)--}}
-{{--                    <br><br>LOGGED IN WITH ROLE:<h5 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> {{$role->name}}</h5>--}}
-{{--                    <br><br>ROLE PERMISSIONS:--}}
-{{--                    @foreach($permissions as $permission)--}}
-{{--                        <h5 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> {{$permission->name}}</h5><br>--}}
-{{--                    @endforeach--}}
-{{--                @else--}}
-{{--                    <br><br>ROLE:<h5 style="float: right; margin:0; padding-left:20px; padding-right: 25px;"> quest</h5>--}}
-{{--                @endif--}}
-            </div>
-        @endif
-    </div>
+
     <div class="container">        
             
             <div class="row">            
@@ -46,7 +32,7 @@
                         <div class="card-body">
                             <ul id="protocols_ul" class='list-group'>
                                 @foreach($protocols as $protocol)
-                                    <li class='list-group-item p-0' style="cursor:pointer;">{{$protocol->name}}</li>
+                                    <li class='list-group-item list-group-item-action p-0' style="cursor:pointer;">{{$protocol->name}}</li>
                                 @endforeach
                             </ul>
                         </div>
@@ -80,13 +66,14 @@
                         @if($piece_count == 1)
                             <div class="row">
                         @endif                            
-                            <div class="col-sm-3 text-left piece" name="piece" piece-id="{{$piece->id}}" style="border:1px solid #ddd; padding: 5px;height:100px; cursor:pointer;">
+                            <div class="col-sm-3 text-left piece" name="piece" piece-id="{{$piece->id}}">
                                 
-                                    <div class="p-0" style="height:45px;">
+                                    <div class="piece_img p-0">
                                         <!--<img src="/images/{{$piece->img}}" class="w-25">-->
+                                        <img src="/images/piece_1.png" class="w-25">
                                     </div>                                
                                 
-                                    <label style="position:relative;line-height: 1;bottom:0;">
+                                    <label>
                                         {{$piece->name}}
                                     </label>
                                                                                                                              

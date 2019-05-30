@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         var html = "";
                                
                         for(i = 0; i < json_result.length; i++){
-                            html += "<li class='list-group-item p-0'>" + json_result[i]['name'] + "</li>";
+                            html += "<li class='list-group-item list-group-item-action p-0'>" + json_result[i]['name'] + "</li>";
                             /*html += json_result[i]['content'];
                             html += "<br><br>";*/
                         }
