@@ -22,21 +22,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $(".piece").bind("click", function() {
 
         //get active pieces
-        var _active_pieces_id = [];
-        $(".piece").each(function(){
-            if($(this).hasClass('_active')){
-                piece_id = $(this).attr('piece-id');
-
-                $('.understanding_the_15_element').each(function () {
-                    if ($(this).attr('obj-id') == piece_id) {
-                        if ($(this).hasClass('d-none')) {
-                            $(this).removeClass('d-none');
-                        }
-                    } 
-                });
-                _active_pieces_id.push(piece_id);                        
-            }
-        });
+        var _active_pieces_id = getActivePiecesId();
 
         //get inactive pieces
         $(".piece").each(function () {
@@ -57,74 +43,54 @@ document.addEventListener("DOMContentLoaded", function (event) {
             _active_pieces_id = null;
         }
 
+        if ($('.tab-pane.show').attr('id') == "protocols") {
+            protocolsContentAjax(_active_pieces_id);
+        } 
+        if ($('.tab-pane.show').attr('id') == "remedies") {
+            remediesContentAjax(_active_pieces_id);
+        }
+        if ($('.tab-pane.show').attr('id') == "markers") {
+            markersContentAjax(_active_pieces_id);
+        }
+       
+    });
 
-        //protocolsContentAjax(_active_pieces_id)
-        //remediesContentAjax(_active_pieces_id)
+    //click on protocol item
+    $('#protocols').delegate("li", "click", function () {
+        $('#protocols li').removeClass('active');
+        $(this).addClass('active');
+        var id = $(this).attr('obj-id');
 
-        //get content of pieces
-        /*$.ajax({
-            type: "POST",
-            url: "/pieces_content",
-            data: {
-                        "_token": $('meta[name="csrf-token"]').attr('content'),
-                    _active_pieces_id : _active_pieces_id
-                    },
-            complete: function(result){
-                    
-                if(result.responseText.length == 0){
-                    $('#understanding_the_15_ajax_container').html("");
-                    protocolsContentAjax(null);
-                    remediesContentAjax(null);
-                    markersContentAjax(null);
-                }else{
-                        
-                    var json_result =  JSON.parse(result.responseText);
-                        
-                    var html = "";
+        //get protocol details
+        $(".protocol_element").each(function () {
+            if ($(this).attr('obj-id') == id) {
 
-                    
-                    
-                    
-
-                    for (i = 0; i < json_result.length; i++){
-                        html += "<div class='card'>";
-                        html += "<div class='card-body'>";
-
-                        html += "<h4>" + json_result[i]['name'] + "</h4>";
-                        html += json_result[i]['content'];
-                        html += "<br><br>";
-
-                        html += "</div>";
-                        html += "</div>"
-                    }
-
-                        
-
-                    $('#understanding_the_15_ajax_container').html(html);
-
-                    protocolsContentAjax(_active_pieces_id);
-                    remediesContentAjax(_active_pieces_id);
-                    markersContentAjax(_active_pieces_id);
+                if ($(this).hasClass('d-none')) {
+                    $(this).removeClass('d-none');
+                }
+            } else {
+                if (!$(this).hasClass('d-none')) {
+                    $(this).addClass('d-none');
                 }
             }
-        });*/
+        });
+
+        //DetailsAjax(id);
+        //console.log($(this).attr('obj-id'));
     });
 
 
-
-
     function protocolsContentAjax(_active_pieces_id) {
-
-        
+       
         try {
             protocols_ajax.abort();
         }
         catch{
         
         }
+   
+        $('#protocols_ajax_container').html('Loading..');
 
-        
-        {
             //get content of protocols
             protocols_ajax = $.ajax({
                 type: "POST",
@@ -153,10 +119,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     }
                 },
                 error: function (err) {
-                    console.log("protocols ajax error: " + err.responseText);
+                    //console.log("protocols ajax error: " + err.responseText);
                 }
             });
-        }
+        
     }
 
     function remediesContentAjax(_active_pieces_id) {
@@ -167,6 +133,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         catch{
 
         }
+
+        $('#remedies_ajax_container').html('Loading..');
 
         //get content of remedies
         remedies_ajax = $.ajax({
@@ -196,15 +164,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             },
             error: function (err) {
-                console.log("remedies ajax error");
+                //console.log("remedies ajax error");
             }
         });     
     }
 
     function markersContentAjax(_active_pieces_id) {
 
+        try {
+            markers_ajax.abort();
+        }
+        catch{
+
+        }
+
+
+        $('#markers_ajax_container').html('Loading..');
+
         //get content of protocols
-        $.ajax({
+        markers_ajax = $.ajax({
             type: "POST",
             url: "/markers_content",
             data: {
@@ -231,45 +209,50 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             },
             error: function (err) {
-                console.log("markers ajax error");
+                //console.log("markers ajax error");
             }
         });
     }
+  
 
-    function DetailsAjax(id) {
-   
-        //get details
-        $.ajax({
-            type: "POST",
-            url: "/details_content",
-            data: {
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-                id: id
-            },
-            complete: function (result) {
-                console.log("details: "+result.responseText);
+    //click on protocol tab    
+    $('#tab-protocols').delegate("a", "click", function () {
 
+        $('#protocols_ajax_container').html('Loading..');
 
-                if (result.responseText.length == 0) {
-                    $('#details_ajax_container').html("");
-                } else {
-
-                    var json_result = JSON.parse(result.responseText);
-
-                    var html = "";
-                    
-                    html += json_result['content'];
-                    html += "<br><br>";                   
-
-                    $('#details_ajax_container').html(html);
-                }
-            },
-            error: function (err) {
-                console.log("protocols ajax error");
-            }
+        //display none details content
+        $(".protocol_element").each(function () {
+            
+            if (!$(this).hasClass('d-none')) {
+                $(this).addClass('d-none');
+            }          
         });
-       
-    }
+        
+        var _active_pieces_id = getActivePiecesId();
+
+        protocolsContentAjax(_active_pieces_id);
+    });
+
+    //click on remedies tab
+    $('#tab-remedies').delegate("a", "click", function () {
+
+        $('#remedies_ajax_container').html('Loading..');
+        var _active_pieces_id = getActivePiecesId();
+
+        remediesContentAjax(_active_pieces_id);
+    });
+
+    //click on markers tab
+    $('#tab-markers').delegate("a", "click", function () {
+
+        $('#markers_ajax_container').html('Loading..');
+        var _active_pieces_id = getActivePiecesId();
+
+        markersContentAjax(_active_pieces_id);
+    });
+
+    
+
 
     function getActivePiecesId() {
         //get active pieces
@@ -291,37 +274,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         return _active_pieces_id;
     }
-
-    //click on protocol tab    
-    $('#tab-protocols').delegate("a", "click", function () {
-        
-        var _active_pieces_id = getActivePiecesId();
-        protocolsContentAjax(_active_pieces_id);
-    });
-
-    //click on remedies tab
-    $('#tab-remedies').delegate("a", "click", function () {
-
-        var _active_pieces_id = getActivePiecesId();
-        remediesContentAjax(_active_pieces_id);
-    });
-
-    //click on markers tab
-    $('#tab-markers').delegate("a", "click", function () {
-
-        var _active_pieces_id = getActivePiecesId();
-        markersContentAjax(_active_pieces_id);
-    });
-
-    //click on protocol item
-    $('#protocols').delegate("li", "click", function () {
-        $('#protocols li').removeClass('active');
-        $(this).addClass('active');
-        var id = $(this).attr('obj-id');
-        DetailsAjax(id);
-        //console.log($(this).attr('obj-id'));
-    });
-
 });
 
 /**/
