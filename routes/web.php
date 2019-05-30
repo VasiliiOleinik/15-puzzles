@@ -23,7 +23,7 @@ Route::get('/about', 'AboutController@index')->name('about');
 Route::get('/news', 'NewsController@index')->name('news');
 
 Route::post('/pieces_content', 'MainController@pieces_content')->name('pieces_content');
-Route::post('/protocols_content', 'MainController@pieces_content')->name('protocols_content');
+Route::post('/protocols_content', 'MainController@protocols_content')->name('protocols_content');
 
 Auth::routes(['verify' => true]);
 

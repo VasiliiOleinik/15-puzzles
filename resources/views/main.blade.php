@@ -41,9 +41,16 @@
                     <div id="understanding_the_15" class="container tab-pane active"><br>
       
                     </div>
-                    <div id="protocols" class="container tab-pane fade"><br>
-                      <h3>Protocols</h3>
-                      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <div  id="protocols" class="container tab-pane fade"><br>
+                    <div class="card">
+                        <div class="card-body">
+                            <ul id="protocols_ul" class='list-group'>
+                                @foreach($protocols as $protocol)
+                                    <li class='list-group-item p-0' style="cursor:pointer;">{{$protocol->name}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
                     </div>
                     <div id="remedies" class="container tab-pane fade"><br>
                       <h3>Remedies</h3>
@@ -76,7 +83,7 @@
                             <div class="col-sm-3 text-left piece" name="piece" piece-id="{{$piece->id}}" style="border:1px solid #ddd; padding: 5px;height:100px; cursor:pointer;">
                                 
                                     <div class="p-0" style="height:45px;">
-                                        <img src="/images/{{$piece->img}}" class="w-25">
+                                        <!--<img src="/images/{{$piece->img}}" class="w-25">-->
                                     </div>                                
                                 
                                     <label style="position:relative;line-height: 1;bottom:0;">

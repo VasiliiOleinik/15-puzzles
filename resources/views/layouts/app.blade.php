@@ -202,9 +202,10 @@
 
             function protocolsContentAjax(_active_pieces_id){
 
-                if(!_active_pieces_id){
-                    //console.log("active pieces: ", 0);
-                }else{
+                /*if(!_active_pieces_id){
+                    $('#protocols_ul').html("");
+                }else*/
+                {
                     //console.log("active pieces: ", _active_pieces_id);
 
 
@@ -219,25 +220,26 @@
                         complete: function(result){
                             console.log(result.responseText);
 
+                            
+                            if(result.responseText.length == 0){                            
+                                 $('#protocols_ul').html("");
+                            }else{
+                            
+                            var json_result =  JSON.parse(result.responseText);
+                            
+                                var html = "";
+                               
+                                for(i = 0; i < json_result.length; i++){
+                                    html += "<li class='list-group-item p-0'>" + json_result[i]['name'] + "</li>";
+                                    /*html += json_result[i]['content'];
+                                    html += "<br><br>";*/
+                                }
 
-                            // if(result.responseText.length == 0){
-                            //     $('#protocols').html("");
-                            // }else{
-                            //
-                            //     var json_result =  JSON.parse(result.responseText);
-                            //
-                            //     var html = "";
-                            //
-                            //     for(i = 0; i < json_result.length; i++){
-                            //         html += "<h4>" + json_result[i]['name'] + "</h4>";
-                            //         html += json_result[i]['content'];
-                            //         html += "<br><br>";
-                            //     }
-                            //     $('#protocols').html(html);
-                            // }
+                                $('#protocols_ul').html(html);
+                            }
                         },
                         error:function(err){
-                            console.log(err.responseText);
+                            console.log("error");
                         }
                     });
                 }

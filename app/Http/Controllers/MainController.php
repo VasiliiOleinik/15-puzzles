@@ -6,6 +6,7 @@ use App\Models\Permission;
 use App\Models\Protocol;
 use App\Models\User\User;
 use App\Models\Piece\Piece;
+use App\Models\Piece\PieceProtocols;
 
 use Illuminate\Http\Request;
 
@@ -32,6 +33,7 @@ class MainController extends Controller
         $role = null;
         $role_permissions = null;
         $permissions = array();
+        $protocols = Protocol::all();
 
         $pieces = Piece::all();
 //        $piece = Piece::where('id','=',1)->first();
@@ -51,7 +53,7 @@ class MainController extends Controller
             }
         }
 
-        return view('main', compact(['role','role_permissions', 'permissions', 'pieces']));
+        return view('main', compact(['role','role_permissions', 'permissions', 'pieces', 'protocols']));
     }
 
     public function pieces_content(Request $request)
@@ -80,25 +82,25 @@ class MainController extends Controller
 
     public function protocols_content(Request $request)
     {
+        $result = "";
         if($request['_active_pieces_id']){
-            $_active_pieces_id = $request['_active_pieces_id'];
+            $_active_pieces_id = $request['_active_pieces_id'];            
+
+            $protocols = array();
+            foreach($_active_pieces_id as $piece_id){
+                $piece = Piece::where('id','=',$piece_id)->first();
+                $piece_protocols = $piece->pieceProtocols;            
+                foreach($piece_protocols as $obj) {
+                     array_push($protocols,  Protocol::find($obj->protocol_id) );
+                }
+            }
+
+            $result = $protocols;
         }else{
-            $_active_pieces_id = "";
+            $protocols = Protocol::all();
+
+            $result = $protocols;
         }
-
-        $result = $_active_pieces_id;
-//            foreach ($pieces_result as $piece){
-//
-//                $piece_protocols = $piece->pieceProtocols;
-//
-//                $protocols = Protocol::where('id','=',$piece_protocols[0]->protocol_id);
-//                for( $i = 1; $i < count($piece_protocols); $i++ ){
-//
-//                    $protocols->orWhere('id','=',$piece_protocols[i]->protocol_id);
-//                }
-//            }
-
-
 
         return $result;
     }
