@@ -134,4 +134,44 @@ class MainController extends Controller
         return $result;
     }
 
+    public function markers_content(Request $request)
+    {
+        $result = "";
+        if($request['_active_pieces_id']){
+            $_active_pieces_id = $request['_active_pieces_id'];            
+
+            $markers = array();
+            foreach($_active_pieces_id as $piece_id){
+                $piece = Piece::where('id','=',$piece_id)->first();
+                $piece_markers = $piece->pieceMarkers;            
+                foreach($piece_markers as $obj) {
+                     array_push($markers,  Marker::find($obj->marker_id) );
+                }
+            }
+
+            $result = $markers;
+        }
+        /*else{
+
+            $markers = Marker::all();
+            $result = $markers;
+        }*/
+
+        return $result;
+    }
+
+    public function details_content(Request $request)
+    {
+        $result = "";
+        if($request['id']){
+
+            $id = $request['id'];            
+            $model = Protocol::find($id);
+
+            $result = $model;
+        }
+
+        return $result;
+    }
+
 }

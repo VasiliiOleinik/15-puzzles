@@ -33,15 +33,24 @@
                         </div>
                     </div>
                     <div  id="protocols" class="container tab-pane fade"><br>
-                    <div class="card">
-                        <div class="card-body">
-                            <ul id="protocols_ajax_container" class='list-group'>
-                                @foreach($protocols as $protocol)
-                                    <li class='list-group-item list-group-item-action p-0' style="cursor:pointer;">{{$protocol->name}}</li>
-                                @endforeach
-                            </ul>
+                        <div class="card">
+                            <div class="card-body">
+                                <ul id="protocols_ajax_container" class='list-group'>
+                                    @foreach($protocols as $protocol)
+                                        <li class='list-group-item list-group-item-action p-0' obj-id="{{$protocol->id}}" style="cursor:pointer;">{{$protocol->name}}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                        <!-- Tab details -->
+                        <div class="tab-details">
+                        <div class="card">
+                                <div class="card-body">
+                                    <div id="details_ajax_container" class="container tab-pane active">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div id="remedies" class="container tab-pane fade"><br>
                         <div class="card">
@@ -60,7 +69,7 @@
                         </div>
                     </div>
                   </div>
-
+                  
 
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">

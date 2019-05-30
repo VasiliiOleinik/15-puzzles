@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     $('#understanding_the_15_ajax_container').html("");
                     protocolsContentAjax(null);
                     remediesContentAjax(null);
+                    markersContentAjax(null);
                 }else{
                         
                     var json_result =  JSON.parse(result.responseText);
@@ -55,12 +56,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                     protocolsContentAjax(_active_pieces_id);
                     remediesContentAjax(_active_pieces_id);
+                    markersContentAjax(_active_pieces_id);
                 }
             }
         });
     });
 
-    function protocolsContentAjax(_active_pieces_id){
+    function protocolsContentAjax(_active_pieces_id, content){
 
         /*if(!_active_pieces_id){
             $('#protocols_ul').html("");
@@ -75,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     _active_pieces_id : _active_pieces_id
                 },
                 complete: function(result){
-                    //console.log(result.responseText);
+                    //console.log("protocols: "+result.responseText);
 
                             
                     if(result.responseText.length == 0){                            
@@ -87,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         var html = "";
                                
                         for(i = 0; i < json_result.length; i++){
-                            html += "<li class='list-group-item list-group-item-action p-0'>" + json_result[i]['name'] + "</li>";
+                            html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id']+"'>" + json_result[i]['name'] + "</li>";
                         }
 
                         $('#protocols_ajax_container').html(html);
@@ -111,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 _active_pieces_id: _active_pieces_id
             },
             complete: function (result) {
-                console.log("remedies: "+result.responseText);
+                //console.log("remedies: "+result.responseText);
 
 
                 if (result.responseText.length == 0) {
@@ -132,9 +134,87 @@ document.addEventListener("DOMContentLoaded", function (event) {
             error: function (err) {
                 console.log("remedies ajax error");
             }
-        });
-        
+        });     
     }
+
+    function markersContentAjax(_active_pieces_id) {
+
+        //get content of protocols
+        $.ajax({
+            type: "POST",
+            url: "/markers_content",
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                _active_pieces_id: _active_pieces_id
+            },
+            complete: function (result) {
+                //console.log("markers: " + result.responseText);
+
+
+                if (result.responseText.length == 0) {
+                    $('#markers_ajax_container').html("");
+                } else {
+
+                    var json_result = JSON.parse(result.responseText);
+
+                    var html = "";
+
+                    for (i = 0; i < json_result.length; i++) {
+                        html += "<li class='list-group-item list-group-item-action p-0'>" + json_result[i]['name'] + "</li>";
+                    }
+
+                    $('#markers_ajax_container').html(html);
+                }
+            },
+            error: function (err) {
+                console.log("markers ajax error");
+            }
+        });
+    }
+
+    function DetailsAjax(id) {
+   
+        //get details
+        $.ajax({
+            type: "POST",
+            url: "/details_content",
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                id: id
+            },
+            complete: function (result) {
+                console.log("details: "+result.responseText);
+
+
+                if (result.responseText.length == 0) {
+                    $('#details_ajax_container').html("");
+                } else {
+
+                    var json_result = JSON.parse(result.responseText);
+
+                    var html = "";
+                    
+                    html += json_result['content'];
+                    html += "<br><br>";                   
+
+                    $('#details_ajax_container').html(html);
+                }
+            },
+            error: function (err) {
+                console.log("protocols ajax error");
+            }
+        });
+       
+    }
+
+    //click on protocol item
+    $('#protocols').delegate("li", "click", function () {
+        $('#protocols li').removeClass('active');
+        $(this).addClass('active');
+        var id = $(this).attr('obj-id');
+        DetailsAjax(id);
+        //console.log($(this).attr('obj-id'));
+    });
 
 });
 

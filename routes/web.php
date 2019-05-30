@@ -27,6 +27,8 @@ Route::post('/protocols_content', 'MainController@protocols_content')->name('pro
 Route::post('/remedies_content', 'MainController@remedies_content')->name('remedies_content');
 Route::post('/markers_content', 'MainController@markers_content')->name('markers_content');
 
+Route::post('/details_content', 'MainController@details_content')->name('details_content');
+
 Auth::routes(['verify' => true]);
 
 //Route::get('/home', 'HomeController@index')->name('home');
