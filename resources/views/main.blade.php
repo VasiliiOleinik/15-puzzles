@@ -52,12 +52,8 @@
                         <div class="tab-details">
                         <div class="card">
                                 <div class="card-body">
-                                    <div id="details_container" class="container tab-pane active">
-                                        @foreach($protocols as $protocol)
-                                        <div class="protocol_element d-none" obj-id="{{$protocol->id}}">
-                                            {{$protocol->content}}
-                                        </div>                                    
-                                        @endforeach
+                                    <div id="details_ajax_container" class="container tab-pane active">
+
                                     </div>
                                 </div>
                             </div>

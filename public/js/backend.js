@@ -213,7 +213,51 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
     }
-  
+
+    function DetailsAjax(id) {
+        
+        //get details
+        $.ajax({
+                type: "POST",
+                url: "/details_content",
+                data: {
+                        "_token": $('meta[name="csrf-token"]').attr('content'),
+                                id: id
+                },
+                complete: function (result) {
+                        console.log("details: " + result.responseText);
+            
+                
+                            if (result.responseText.length == 0) {
+                                    $('#details_ajax_container').html("");
+                                } else {
+                
+                                    var json_result = JSON.parse(result.responseText);
+                
+                                    var html = "";
+                
+                                    html += json_result['content'];
+                                html += "<br><br>";
+                
+                                    $('#details_ajax_container').html(html);
+                            }
+                    },
+                error: function (err) {
+                    console.log("protocols ajax error");
+                }
+
+        });           
+    }
+
+    //click on protocol item
+    $('#protocols').delegate("li", "click", function () {
+            $('#protocols li').removeClass('active');
+            $(this).addClass('active');
+            var id = $(this).attr('obj-id');
+            DetailsAjax(id);
+            //console.log($(this).attr('obj-id'));
+            });
+
 
     //click on protocol tab    
     $('#tab-protocols').delegate("a", "click", function () {
