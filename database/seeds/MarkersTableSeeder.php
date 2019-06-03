@@ -16,13 +16,14 @@ class MarkersTableSeeder extends Seeder
         DB::table('markers')->delete();
         factory(Marker::class, 500)->create();
 
-        $markers = Marker::all();
+
+        $pieces = Piece::all();
 
         // Populate the pivot table
-        Piece::all()->each(function ($piece) use ($markers) { 
-            $piece->markers()->attach(
-                $markers->random(
-                    rand(1,  3 ))->pluck('id')->toArray()
+        Marker::all()->each(function ($marker) use ($pieces) { 
+            $marker->pieces()->attach(
+                $pieces->random(
+                    rand(1,  8 ))->pluck('id')->toArray()
                 
             ); 
         });

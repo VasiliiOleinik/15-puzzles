@@ -27,4 +27,12 @@ class Protocol extends Model
     {
         return $this->hasMany('App\Models\Piece\PieceProtocol');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function pieces()
+    {
+    return $this->belongsToMany('App\Models\Piece\Piece', 'piece_protocols');
+    }
 }

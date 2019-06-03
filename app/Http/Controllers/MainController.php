@@ -30,7 +30,7 @@ class MainController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(\Illuminate\Http\Request $request)
+    public function index(Request $request)
     {
         $user = $request->user();
         $role = null;
@@ -39,6 +39,21 @@ class MainController extends Controller
         $protocols = Protocol::all();
 
         $pieces = Piece::all();
+
+        /*
+        $protocol = Protocol::find(1277);
+            $protocol_pieces = $protocol->pieceProtocols;
+
+            $pieces_id = array();
+
+            foreach($protocol_pieces as $obj) {
+                var_dump($obj);
+                //array_push($pieces_id, $obj->piece_id);
+            }
+             //dd($protocol_pieces);
+            die();
+*/
+
 //        $piece = Piece::where('id','=',1)->first();
 //        $piece_protocols = $piece->pieceProtocols;
 //        foreach($piece_protocols as $obj) {
@@ -193,6 +208,28 @@ class MainController extends Controller
         }
 
         return $result;
+    }
+
+    public function protocol_pieces(Request $request)
+    {
+        $result = "";
+
+        if($request['id']){
+            $protocol_id = $request['id'];
+
+            $protocol = Protocol::find($protocol_id);
+            $protocol_pieces = $protocol->pieceProtocols;
+
+            $pieces_id = array();
+
+            foreach($protocol_pieces as $obj) {
+                array_push($pieces_id, $obj->piece_id);
+            }
+
+            $result = $pieces_id;
+        }
+
+        return  $result;
     }
 
 }

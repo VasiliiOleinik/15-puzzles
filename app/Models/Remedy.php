@@ -26,4 +26,12 @@ class Remedy extends Model
     {
         return $this->hasMany('App\Models\Piece\PieceRemedy');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function pieces()
+    {
+    return $this->belongsToMany('App\Models\Piece\Piece', 'piece_remedies');
+    }
 }

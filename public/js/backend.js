@@ -1,10 +1,13 @@
 /* 15 pazzles backend*/
 
+
 document.addEventListener("DOMContentLoaded", function (event) {
 
 
     var protocols_ajax;
     var remedies_ajax;
+
+    //$(".tm-input").tagsManager();
 
     // Add _active class to the current piece (highlight it)
     var div =$("#pieces");
@@ -55,29 +58,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
        
     });
 
-    //click on protocol item
-    $('#protocols').delegate("li", "click", function () {
-        $('#protocols li').removeClass('active');
-        $(this).addClass('active');
-        var id = $(this).attr('obj-id');
 
-        //get protocol details
-        $(".protocol_element").each(function () {
-            if ($(this).attr('obj-id') == id) {
-
-                if ($(this).hasClass('d-none')) {
-                    $(this).removeClass('d-none');
-                }
-            } else {
-                if (!$(this).hasClass('d-none')) {
-                    $(this).addClass('d-none');
-                }
-            }
-        });
-
-        //DetailsAjax(id);
-        //console.log($(this).attr('obj-id'));
-    });
 
 
     function protocolsContentAjax(_active_pieces_id) {
@@ -250,8 +231,56 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });           
     }
 
+    function protocolPiecesAjax(protocol_id) {
+        $.ajax({
+            type: "POST",
+            url: "/protocol_pieces",
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                id: protocol_id
+            },
+            complete: function (result) {
+
+                
+                /*
+                if (result.responseText.length != 0) {
+                    console.log("protocol_pieces: " + result.responseText);
+                    var _active_pieces_id = result.responseText;
+
+                    $(".piece").each(function () {
+                        if ($(this).hasClass('_active')) {
+                            piece_id = $(this).attr('piece-id');
+
+                            $('.understanding_the_15_element').each(function () {
+                                if ($(this).attr('obj-id') == piece_id) {
+                                    if ($(this).hasClass('d-none')) {
+                                        $(this).removeClass('d-none');
+                                    }
+                                }
+                            });
+                            _active_pieces_id.push(piece_id);
+                        }
+                    });
+                }
+                */
+             
+            },
+            error: function (err) {
+                console.log("protocol_pieces ajax error");
+            }
+
+        });     
+    }
+
     //click on protocol item
     $('#protocols').delegate("li", "click", function () {
+
+        var _active_pieces_id = getActivePiecesId();
+        if (_active_pieces_id.length == 0) {
+
+            var protocol_id = $(this).attr('obj-id');
+            protocolPiecesAjax(protocol_id);
+        }
 
         $('#protocols li').removeClass('active');
         $(this).addClass('active');

@@ -16,13 +16,13 @@ class ProtocolsTableSeeder extends Seeder
         DB::table('protocols')->delete();
         factory(Protocol::class, 500)->create();
 
-        $protocols = Protocol::all();
+        $pieces = Piece::all();
 
         // Populate the pivot table
-        Piece::all()->each(function ($piece) use ($protocols) { 
-            $piece->protocols()->attach(
-                $protocols->random(
-                    rand(1,  3 ))->pluck('id')->toArray()
+        Protocol::all()->each(function ($protocol) use ($pieces) { 
+            $protocol->pieces()->attach(
+                $pieces->random(
+                    rand(1,  4 ))->pluck('id')->toArray()
                 
             ); 
         });

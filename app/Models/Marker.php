@@ -26,4 +26,12 @@ class Marker extends Model
     {
         return $this->hasMany('App\Models\Piece\PieceMarker');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function pieces()
+    {
+    return $this->belongsToMany('App\Models\Piece\Piece', 'piece_markers');
+    }
 }

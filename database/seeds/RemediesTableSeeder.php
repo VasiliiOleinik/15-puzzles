@@ -16,13 +16,14 @@ class RemediesTableSeeder extends Seeder
         DB::table('remedies')->delete();
         factory(Remedy::class, 1500)->create();
 
-        $remedies = Remedy::all();
+
+        $pieces = Piece::all();
 
         // Populate the pivot table
-        Piece::all()->each(function ($piece) use ($remedies) { 
-            $piece->remedies()->attach(
-                $remedies->random(
-                    rand(1,  3 ))->pluck('id')->toArray()
+        Remedy::all()->each(function ($remedy) use ($pieces) { 
+            $remedy->pieces()->attach(
+                $pieces->random(
+                    rand(1,  15 ))->pluck('id')->toArray()
                 
             ); 
         });
