@@ -52,7 +52,7 @@
                         <div class="tab-details">
                         <div class="card">
                                 <div class="card-body">
-                                    <div id="details_ajax_container" class="container tab-pane active">
+                                    <div id="" class="container details_ajax_container tab-pane active">
 
                                     </div>
                                 </div>
@@ -63,6 +63,16 @@
                         <div class="card">
                             <div class="card-body">
                                 <div id="remedies_ajax_container" class="container tab-pane active">
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Tab details -->
+                        <div class="tab-details">
+                        <div class="card">
+                                <div class="card-body">
+                                    <div id="" class="container details_ajax_container tab-pane active">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -166,10 +166,30 @@ class MainController extends Controller
         $result = "";
         if($request['id']){
 
-            $id = $request['id'];            
-            $model = Protocol::find($id);
+            $id = $request['id'];
+            
+            if($request['table']){
 
-            $result = $model;
+                if($request['table'] == "protocols"){
+
+                    $model = Protocol::find($id);
+
+                    $result = $model;
+                }
+                if($request['table'] == "remedies"){
+
+                    $model = Remedy::find($id);
+
+                    $result = $model;
+                }
+                if($request['table'] == "markers"){
+
+                    $model = Marker::find($id);
+
+                    $result = $model;
+                }
+            }
+            
         }
 
         return $result;
