@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property PieceProtocol[] $pieceProtocols
  */
 class Protocol extends Model
-{
+{    
+
     public $timestamps = false;
     
     /**

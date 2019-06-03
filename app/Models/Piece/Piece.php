@@ -44,7 +44,7 @@ class Piece extends Model
     public function pieceProtocols()
     {
         return $this->hasMany('App\Models\Piece\PieceProtocol');
-    }
+    }    
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -52,5 +52,29 @@ class Piece extends Model
     public function pieceRemedies()
     {
         return $this->hasMany('App\Models\Piece\PieceRemedy');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function protocols()
+    {
+    return $this->belongsToMany('App\Models\Protocol', 'piece_protocols');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function remedies()
+    {
+    return $this->belongsToMany('App\Models\Remedy', 'piece_remedies');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function markers()
+    {
+    return $this->belongsToMany('App\Models\Marker', 'piece_markers');
     }
 }

@@ -95,8 +95,9 @@ class MainController extends Controller
                 $piece_protocols = $piece->pieceProtocols;            
                 foreach($piece_protocols as $obj) {
                      array_push($protocols,  Protocol::find($obj->protocol_id) );
-                }
+                }                
             }
+           
 
             $result = $protocols;
         }else{
@@ -104,7 +105,7 @@ class MainController extends Controller
             $protocols = Protocol::all();
             $result = $protocols;
         }
-
+         
         return $result;
     }
 

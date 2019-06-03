@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class PieceProtocol extends Model
 {
+
     /**
      * @var array
      */
