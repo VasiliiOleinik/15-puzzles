@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     var html = "";
 
                     for (i = 0; i < json_result.length; i++) {
-                        html += "<li class='list-group-item list-group-item-action p-0'>" + json_result[i]['name'] + "</li>";
+                        html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "</li>";
                     }
 
                     $('#markers_ajax_container').html(html);
@@ -271,6 +271,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
         DetailsAjax(id, table);
         console.log($(this).attr('obj-id'));
     });
+
+    $('#markers').delegate("li", "click", function () {
+
+        $('#markers_ajax_container li').removeClass('active');
+        $(this).addClass('active');
+        var id = $(this).attr('obj-id');
+        var table = "markers";
+        DetailsAjax(id, table);
+        console.log($(this).attr('obj-id'));
+    });
+
 
 
     //click on protocol tab    

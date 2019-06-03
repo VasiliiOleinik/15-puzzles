@@ -84,6 +84,16 @@
                                 </div>
                             </div>
                         </div>
+                         <!-- Tab details -->
+                        <div class="tab-details">
+                        <div class="card">
+                                <div class="card-body">
+                                    <div id="" class="container details_ajax_container tab-pane active">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                   </div>
                   
