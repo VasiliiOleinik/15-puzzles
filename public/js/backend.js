@@ -83,7 +83,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
 
-        $('#tags_container').html(tags_pieces + tags_diseases);
+        tags = tags_pieces + tags_diseases + tags_protocols + tags_remedies + tags_markers;
+        $('#tags_container').html(tags);
 
         if (_active_pieces_id.length == 0) {
             _active_pieces_id = null;
@@ -129,7 +130,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
 
-        $('#tags_container').html(tags_pieces + tags_diseases);
+        tags = tags_pieces + tags_diseases + tags_protocols + tags_remedies + tags_markers;
+        $('#tags_container').html(tags);
 
         if (_active_diseases_id.length == 0) {
             _active_diseases_id = null;
@@ -191,6 +193,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
 
+
+    /* ---------------------------------- */
+    /*   DOUBLE CLICKS ON ITEMS IN TABS   */
+    /* ---------------------------------- */
+
+    $('#protocols').delegate("li", "dblclick", function () {
+
+        $('#protocols li').removeClass('highlighted');
+        $(this).addClass('highlighted');
+
+        tags_protocols = '<span class="badge-protocol badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") +'">' + $(this).html() + '</span>';
+
+        tags = tags_pieces + tags_diseases + tags_protocols + tags_remedies + tags_markers;
+        $('#tags_container').html(tags);
+    });
+
+    /* ------------------ */
+    /* ------------------ */
 
 
     /* ------------------ */
@@ -272,6 +292,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
             complete: function (result) {
                 //console.log("protocols: "+result.responseText);
 
+                //active protocol
+                var active_protocol_id = "";
+                if ($('#tags_container').find('.badge-protocol').length > 0) {
+                    active_protocol_id = $('#tags_container').find('.badge-protocol').eq(0).attr('obj-id');
+                }
 
                 if (result.responseText.length == 0) {
                     $('#protocols_ajax_container').html("");
@@ -282,7 +307,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     var html = "";
 
                     for (i = 0; i < json_result.length; i++) {
-                        html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "</li>";
+                        if (json_result[i]['id'] == active_protocol_id) {
+                            html += "<li class='list-group-item list-group-item-action p-0 highlighted' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "</li>";
+                        } else {
+                            html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "</li>";
+                        }
                     }
 
                     $('#protocols_ajax_container').html(html);
