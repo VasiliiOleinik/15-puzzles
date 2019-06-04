@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var remedies_ajax;
     var markers_ajax;
 
+    var tags_pieces = "", tags_diseases = "", tags_protocols = "", tags_remedies = "", tags_markers = "";
+
     //$(".tm-input").tagsManager();
 
     // Add _active class to the current piece and disease (highlight it)
@@ -40,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //get active diseases
         var _active_diseases_id = getActiveDiseasesId();
 
+         tags_pieces = "";
         //get inactive pieces
         $(".piece").each(function () {
             if (!$(this).hasClass('_active')) {
@@ -51,13 +54,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             $(this).addClass('d-none');
                         }
                     }
-                });                
+                });
+
+               // html = html.replace('<span class="badge badge-secondary">' + $(this).find('label').html() + '</span>', '');
+            } else {
+                tags_pieces += '<span class="badge-piece badge badge-secondary mr-1 mb-1">' + $(this).find('label').html() + '</span>';
             }
         });
+
+        $('#tags_container').html(tags_pieces + tags_diseases);
 
         if (_active_pieces_id.length == 0) {
             _active_pieces_id = null;
         }
+        
 
         if ($('.tab-pane.show').attr('id') == "protocols") {
             protocolsContentAjax(_active_pieces_id, _active_diseases_id);
@@ -78,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //get active diseases
         var _active_diseases_id = getActiveDiseasesId();
 
+        tags_diseases = "";
         //get inactive diseases
         $(".disease").each(function () {
             if (!$(this).hasClass('_active')) {
@@ -90,8 +101,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         }
                     }
                 });
+
+                //html = html.replace('<span class="badge badge-secondary">' + $(this).find('label').html() + '</span>', '');
+            } else {
+                tags_diseases += '<span class="badge-disease badge badge-secondary mr-1 mb-1">' + $(this).find('label').html() + '</span>';
             }
         });
+
+        $('#tags_container').html(tags_pieces + tags_diseases);
 
         if (_active_diseases_id.length == 0) {
             _active_diseases_id = null;

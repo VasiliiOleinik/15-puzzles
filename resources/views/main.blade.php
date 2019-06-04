@@ -27,7 +27,7 @@
 
                   <!-- Tags div -->
                   <div id="tags_container">
-                    <span class="badge badge-secondary">Tag example</span>
+                    <span class="badge badge-secondary mr-1 mb-1"></span>
                   </div>
 
                   <!-- Tab panes -->
