@@ -10,11 +10,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //$(".tm-input").tagsManager();
 
-    // Add _active class to the current piece (highlight it)
-    var div =$("#pieces");
+    // Add _active class to the current piece and disease (highlight it)
+    var div =$("#pieces_and_diseases");
     var pieces = document.getElementsByName("piece");
+    var diseases = document.getElementsByName("disease");
     for (var i = 0; i < pieces.length; i++) {
         pieces[i].addEventListener("click", function () {
+            if (!$(this).hasClass('_active')) {
+                $(this).addClass('_active')
+            } else {
+                $(this).removeClass('_active')
+            }
+        });
+    }
+    for (var i = 0; i < diseases.length; i++) {
+        diseases[i].addEventListener("click", function () {
             if (!$(this).hasClass('_active')) {
                 $(this).addClass('_active')
             } else {
@@ -31,15 +41,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //get inactive pieces
         $(".piece").each(function () {
             if (!$(this).hasClass('_active')) {
-                piece_id = $(this).attr('piece-id');
+                piece_id = $(this).attr('obj-id');
 
-                $('.understanding_the_15_element').each(function () {
+                $('.factors_element').each(function () {
                     if ($(this).attr('obj-id') == piece_id) {
                         if (!$(this).hasClass('d-none')) {
                             $(this).addClass('d-none');
                         }
                     }
-                });
+                });                
             }
         });
 
@@ -59,8 +69,41 @@ document.addEventListener("DOMContentLoaded", function (event) {
        
     });
 
+    $(".disease").bind("click", function () {
+        
+        //get active diseases
+        var _active_diseases_id = getActiveDiseasesId();
+        console.log(_active_diseases_id)
+        //get inactive diseases
+        $(".disease").each(function () {
+            if (!$(this).hasClass('_active')) {
+                disease_id = $(this).attr('obj-id');
 
+                $('.diseases_element').each(function () {
+                    if ($(this).attr('obj-id') == disease_id) {
+                        if (!$(this).hasClass('d-none')) {
+                            $(this).addClass('d-none');
+                        }
+                    }
+                });
+            }
+        });
 
+        if (_active_diseases_id.length == 0) {
+            _active_diseases_id = null;
+        }
+
+        if ($('.tab-pane.show').attr('id') == "protocols") {
+            protocolsContentAjax(_active_diseases_id);
+        }
+        if ($('.tab-pane.show').attr('id') == "remedies") {
+            remediesContentAjax(_active_diseases_id);
+        }
+        if ($('.tab-pane.show').attr('id') == "markers") {
+            markersContentAjax(_active_diseases_id);
+        }
+
+    });    
 
     function protocolsContentAjax(_active_pieces_id) {
        
@@ -252,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         if ($(this).hasClass('_active')) {
                             piece_id = $(this).attr('piece-id');
 
-                            $('.understanding_the_15_element').each(function () {
+                            $('.factors_element').each(function () {
                                 if ($(this).attr('obj-id') == piece_id) {
                                     if ($(this).hasClass('d-none')) {
                                         $(this).removeClass('d-none');
@@ -348,24 +391,58 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
     function getActivePiecesId() {
+        
         //get active pieces
         var _active_pieces_id = [];
         $(".piece").each(function () {
             if ($(this).hasClass('_active')) {
-                piece_id = $(this).attr('piece-id');
+                piece_id = $(this).attr('obj-id');
 
-                $('.understanding_the_15_element').each(function () {
+                $('.factors_element').each(function () {
                     if ($(this).attr('obj-id') == piece_id) {
                         if ($(this).hasClass('d-none')) {
                             $(this).removeClass('d-none');
                         }
                     }
                 });
+
+                $('.diseases_element').each(function () {
+                    if ($(this).attr('obj-id') == piece_id) {
+                        if ($(this).hasClass('d-none')) {
+                            $(this).removeClass('d-none');
+                        }
+                    }
+                });
+
                 _active_pieces_id.push(piece_id);
             }
         });
 
         return _active_pieces_id;
+    }
+
+    function getActiveDiseasesId() {
+
+        //get active pieces
+        var _active_diseases_id = [];
+        $(".disease").each(function () {
+            if ($(this).hasClass('_active')) {
+                disease_id = $(this).attr('obj-id');
+
+
+                $('.diseases_element').each(function () {
+                    if ($(this).attr('obj-id') == disease_id) {
+                        if ($(this).hasClass('d-none')) {
+                            $(this).removeClass('d-none');
+                        }
+                    }
+                });
+
+                _active_diseases_id.push(disease_id);
+            }
+        });
+
+        return _active_diseases_id;
     }
 });
 

@@ -21,7 +21,7 @@
     margin-right: 15px;*/
 }
 
-.piece {
+.piece, .disease {
     background: white;
     border: 1px solid #ddd;
     padding: 5px;
@@ -29,7 +29,7 @@
     cursor: pointer;
 }
 
-.piece_img {
+.piece_img, .disease_img {
     height: 45px;
 }
 
@@ -45,7 +45,7 @@
     background: #3490dc;
     color:white;
 }
-.piece:hover {
+.piece:hover, .disease:hover {
     opacity: 0.4;
 }
 

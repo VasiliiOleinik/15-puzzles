@@ -6,6 +6,7 @@ use App\Models\User\User;
 use App\Models\Permission;
 
 use App\Models\Piece\Piece;
+use App\Models\Disease\Disease;
 use App\Models\Protocol;
 use App\Models\Remedy;
 use App\Models\Marker;
@@ -39,6 +40,10 @@ class MainController extends Controller
         $protocols = Protocol::all();
 
         $pieces = Piece::all();
+        $diseases = Disease::all();
+        $pieces_and_diseases = array();
+        array_push($pieces_and_diseases, $pieces);
+        array_push($pieces_and_diseases, $diseases);
         
         /*
         $protocol = Protocol::find(1277);
@@ -71,7 +76,7 @@ class MainController extends Controller
             }
         }
 
-        return view('main', compact(['role','role_permissions', 'permissions', 'pieces', 'protocols']));
+        return view('main', compact(['role','role_permissions', 'permissions', 'pieces', 'diseases', 'pieces_and_diseases', 'protocols']));
     }
 
     public function pieces_content(Request $request)
@@ -90,6 +95,30 @@ class MainController extends Controller
                 $pieces->orWhere('id','=',$_active_pieces_id[$i]);
             }
             $result = $pieces->get();
+        }else{
+            $result = "";
+        }
+      
+        
+        return $result;
+    }
+
+    public function diseases_content(Request $request)
+    {
+        if($request['_active_pieces_id']){
+            $_active_diseases_id = $request['_active_pieces_id'];
+        }else{
+            $_active_diseases_id = "";
+        }
+        $result = "";
+        if( $_active_diseases_id != ""){
+            
+            $diseases = Disease::where('id','=',$_active_diseases_id[0]);
+
+            for( $i = 1; $i < count($_active_diseases_id); $i++ ){
+                $diseases->orWhere('id','=',$_active_diseases_id[$i]);
+            }
+            $result = $diseases->get();
         }else{
             $result = "";
         }

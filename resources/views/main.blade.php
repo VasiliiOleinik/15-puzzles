@@ -8,8 +8,11 @@
                 <div id="main_tabs" class="col-sm-6">
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li id="tab-understanding_the_15" class="nav-item">
-                      <a class="nav-link active" data-toggle="tab" href="#understanding_the_15">Understanding the 15</a>
+                    <li id="tab-factors" class="nav-item">
+                      <a class="nav-link active" data-toggle="tab" href="#factors">Factors</a>
+                    </li>
+                    <li id="tab-diseases" class="nav-item">
+                      <a class="nav-link" data-toggle="tab" href="#diseases">Diseases</a>
                     </li>
                     <li id="tab-protocols" class="nav-item">
                       <a class="nav-link" data-toggle="tab" href="#protocols">Protocols</a>
@@ -24,14 +27,28 @@
 
                   <!-- Tab panes -->
                   <div class="tab-content">
-                    <div id="understanding_the_15" class="container tab-pane active"><br>
+                    <div id="factors" class="container tab-pane active"><br>
                         <div class="card">
                             <div class="card-body">
-                                <div id="understanding_the_15_ajax_container" class="container tab-pane active">
+                                <div id="factors_ajax_container" class="container tab-pane active">
                                     @foreach($pieces as $piece)
-                                    <div class="understanding_the_15_element d-none" obj-id="{{$piece->id}}">
+                                    <div class="factors_element d-none" obj-id="{{$piece->id}}">
                                         <h4> {{$piece->name}} </h4>;
                                         {{$piece->content}}
+                                    </div>                                    
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="diseases" class="container tab-pane fade"><br>
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="diseases_ajax_container" class="container tab-pane active">
+                                    @foreach($diseases as $disease)
+                                    <div class="diseases_element d-none" obj-id="{{$disease->id}}">
+                                        <h4> {{$disease->name}} </h4>;
+                                        {{$disease->content}}
                                     </div>                                    
                                     @endforeach
                                 </div>
@@ -105,7 +122,7 @@
                     @endif
 
                 </div>
-                <div id="pieces" class="col-sm-6">
+                <div id="pieces_and_diseases" class="col-sm-6">
                     @php
                         $piece_count = 1;
                     @endphp
@@ -115,7 +132,7 @@
                         @if($piece_count == 1)
                             <div class="row">
                         @endif                            
-                            <div class="col-sm-3 text-left piece" name="piece" piece-id="{{$piece->id}}">
+                            <div class="col-sm-3 text-left piece" name="piece" obj-id="{{$piece->id}}">
                                 
                                     <div class="piece_img p-0">
                                         <!--<img src="/images/{{$piece->img}}" class="w-25">-->
@@ -124,6 +141,38 @@
                                 
                                     <label>
                                         {{$piece->name}}
+                                    </label>
+                                                                                                                             
+                            </div>
+                                                   
+                            @if($piece_count == 4)
+                                @php
+                                    $piece_count = 1;
+                                @endphp
+                            @endif
+                        @if(@piece_count == 1)
+                            </div>
+                        @endif
+
+                        @php
+                            $piece_count = $piece_count + 1;                            
+                        @endphp
+                    @endforeach
+
+                    @foreach($diseases as $disease)
+                        
+                        @if($piece_count == 1)
+                            <div class="row">
+                        @endif                            
+                            <div class="col-sm-3 text-left disease" name="disease" obj-id="{{$disease->id}}">
+                                
+                                    <div class="disease_img p-0">
+                                        <!--<img src="/images/{{$disease->img}}" class="w-25">-->
+                                        <img src="/images/disease_1.png" class="w-25">
+                                    </div>                                
+                                
+                                    <label>
+                                        {{$disease->name}}
                                     </label>
                                                                                                                              
                             </div>
