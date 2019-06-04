@@ -102,12 +102,9 @@ class MainController extends Controller
     {
         $result = "";
         if($request['_active_pieces_id']){
+
             $_active_pieces_id = $request['_active_pieces_id'];            
 
-
-
-
-            $ids = [1,2,3];
             $protocols = Protocol::all();
             $target = null;
             $protocol_pieces = null;
