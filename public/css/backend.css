@@ -2,6 +2,17 @@
     min-height: 900px;
 }
 
+#tags_container {
+    padding: 15px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    min-height: 47px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+
 .btn-outline-info:hover{
     color:white;
 }

@@ -25,9 +25,14 @@
                     </li>
                   </ul>
 
+                  <!-- Tags div -->
+                  <div id="tags_container">
+                    <span class="badge badge-secondary">Tag example</span>
+                  </div>
+
                   <!-- Tab panes -->
                   <div class="tab-content">
-                    <div id="factors" class="container tab-pane active"><br>
+                    <div id="factors" class="container tab-pane active">
                         <div class="card">
                             <div class="card-body">
                                 <div id="factors_ajax_container" class="container tab-pane active">
@@ -41,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="diseases" class="container tab-pane fade"><br>
+                    <div id="diseases" class="container tab-pane fade">
                         <div class="card">
                             <div class="card-body">
                                 <div id="diseases_ajax_container" class="container tab-pane active">
@@ -55,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    <div  id="protocols" class="container tab-pane fade"><br>
+                    <div  id="protocols" class="container tab-pane fade">
                         <div class="card">
                             <div class="card-body">
                                 <ul id="protocols_ajax_container" class='list-group'>
@@ -76,7 +81,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="remedies" class="container tab-pane fade"><br>
+                    <div id="remedies" class="container tab-pane fade">
                         <div class="card">
                             <div class="card-body">
                                 <div id="remedies_ajax_container" class="container tab-pane active">
@@ -94,7 +99,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="markers" class="container tab-pane fade"><br>
+                    <div id="markers" class="container tab-pane fade">
                         <div class="card">
                             <div class="card-body">
                                 <div id="markers_ajax_container" class="container tab-pane active">
