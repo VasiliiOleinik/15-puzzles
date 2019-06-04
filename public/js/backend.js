@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
    
         $('#protocols_ajax_container').html('Loading..');
-        console.log(_active_diseases_id);
+        
             //get content of protocols
             protocols_ajax = $.ajax({
                 type: "POST",

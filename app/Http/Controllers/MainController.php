@@ -199,7 +199,7 @@ class MainController extends Controller
         $result = "";
         $protocols = Protocol::all();
         if($request['_active_pieces_id']){
-
+            
             $_active_pieces_id = $request['_active_pieces_id'];            
            
             $target = null;
@@ -231,13 +231,14 @@ class MainController extends Controller
             //dd($protocols_eloquient );
 
             $protocols = $protocols_eloquient;
-            $result = $protocols_eloquient;
+            $result = $protocols;
         }
 
 
         if($request['_active_diseases_id']){
 
             $_active_diseases_id = $request['_active_diseases_id'];            
+
 
             $target = null;
             $protocol_diseases = null;
@@ -267,16 +268,18 @@ class MainController extends Controller
 
 
             $protocols = $protocols_eloquient;
-            $result = $protocols_eloquient;
+            $result = $protocols;
+         
         }
 
-        else{
+        if(!$request['_active_pieces_id'] &&!$request['_active_diseases_id']){
 
             $protocols = Protocol::all();
             $result = $protocols;
         }
-         
-        return $result;
+         //$_active_diseases_id = $request['_active_diseases_id'];
+         return $result;
+        return $request->has('_active_diseases_id');
     }
 
     public function remedies_content(Request $request)

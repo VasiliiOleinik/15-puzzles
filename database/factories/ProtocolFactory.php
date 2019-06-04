@@ -2,7 +2,7 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Models\Protocol;
+use App\Models\Protocol\Protocol;
 use Faker\Generator as Faker;
 
 $factory->define(Protocol::class, function (Faker $faker) {
