@@ -39,7 +39,7 @@ class MainController extends Controller
         $protocols = Protocol::all();
 
         $pieces = Piece::all();
-
+        
         /*
         $protocol = Protocol::find(1277);
             $protocol_pieces = $protocol->pieceProtocols;
@@ -104,17 +104,53 @@ class MainController extends Controller
         if($request['_active_pieces_id']){
             $_active_pieces_id = $request['_active_pieces_id'];            
 
+
+
+
+            $ids = [1,2,3];
+            $protocols = Protocol::all();
+            $target = null;
+            $protocol_pieces = null;
+            $count = 0;
+            $protocols_eloquient = array();
+
+            foreach($protocols as $protocol){
+
+                $protocol_pieces = $protocol->pieceProtocols;
+                $count = 0;
+                foreach($protocol_pieces as $obj) {
+
+                    $target = $obj->piece_id;                
+                    foreach($_active_pieces_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_pieces_id)){
+                    array_push($protocols_eloquient, $protocol);
+                }
+
+            }
+
+            //dd($protocols_eloquient );
+
+
+            /*
             $protocols = array();
             foreach($_active_pieces_id as $piece_id){
                 $piece = Piece::where('id','=',$piece_id)->first();
                 $piece_protocols = $piece->pieceProtocols;            
                 foreach($piece_protocols as $obj) {
-                     array_push($protocols,  Protocol::find($obj->protocol_id) );
+
+                    array_push($protocols,  Protocol::find($obj->protocol_id) );
                 }                
             }
-           
+            */
 
-            $result = $protocols;
+            $result = $protocols_eloquient;
         }else{
 
             $protocols = Protocol::all();

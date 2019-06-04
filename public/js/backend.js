@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     var protocols_ajax;
     var remedies_ajax;
+    var markers_ajax;
 
     //$(".tm-input").tagsManager();
 
@@ -49,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if ($('.tab-pane.show').attr('id') == "protocols") {
             protocolsContentAjax(_active_pieces_id);
         } 
-        if ($('.tab-pane.show').attr('id') == "remedies") {
+        if ($('.tab-pane.show').attr('id') == "remedies") {            
             remediesContentAjax(_active_pieces_id);
         }
         if ($('.tab-pane.show').attr('id') == "markers") {
@@ -145,7 +146,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             },
             error: function (err) {
-                //console.log("remedies ajax error");
+                console.log("remedies ajax error:" + err.responseText);
             }
         });     
     }
