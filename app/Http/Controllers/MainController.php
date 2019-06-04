@@ -7,7 +7,7 @@ use App\Models\Permission;
 
 use App\Models\Piece\Piece;
 use App\Models\Disease\Disease;
-use App\Models\Protocol;
+use App\Models\Protocol\Protocol;
 use App\Models\Remedy;
 use App\Models\Marker;
 
@@ -44,7 +44,74 @@ class MainController extends Controller
         $pieces_and_diseases = array();
         array_push($pieces_and_diseases, $pieces);
         array_push($pieces_and_diseases, $diseases);
-        
+
+        /*
+        $_active_pieces_id = [7];            
+           
+            $target = null;
+            $protocol_pieces = null;
+            $count = 0;
+            $protocols_eloquient = array();
+
+            foreach($protocols as $protocol){
+
+                $protocol_pieces = $protocol->pieceProtocols;
+                $count = 0;
+                foreach($protocol_pieces as $obj) {
+
+                    $target = $obj->piece_id;                
+                    foreach($_active_pieces_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_pieces_id)){
+                    array_push($protocols_eloquient, $protocol);
+                }
+
+            }
+            $protocols = $protocols_eloquient;
+            //dd($protocols );
+        ////////
+
+
+        $_active_diseases_id = [16];            
+
+            $target = null;
+            $protocol_diseases = null;
+            $count = 0;
+            $protocols_eloquient = array();
+
+            foreach($protocols as $protocol){
+
+                $protocol_diseases = $protocol->diseaseProtocols;
+                $count = 0;
+                foreach($protocol_diseases as $obj) {
+
+                    $target = $obj->disease_id;                
+                    foreach($_active_diseases_id as $id){
+                    
+                        if($id == $target){
+                            var_dump($target);
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_diseases_id)){
+                    array_push($protocols_eloquient, $protocol);
+                }
+
+            }
+            $protocols = $protocols_eloquient;
+            dd($protocols );           
+        /////////
+        */
+
+
         /*
         $protocol = Protocol::find(1277);
             $protocol_pieces = $protocol->pieceProtocols;
@@ -130,11 +197,11 @@ class MainController extends Controller
     public function protocols_content(Request $request)
     {
         $result = "";
+        $protocols = Protocol::all();
         if($request['_active_pieces_id']){
 
             $_active_pieces_id = $request['_active_pieces_id'];            
-
-            $protocols = Protocol::all();
+           
             $target = null;
             $protocol_pieces = null;
             $count = 0;
@@ -163,21 +230,47 @@ class MainController extends Controller
 
             //dd($protocols_eloquient );
 
-
-            /*
-            $protocols = array();
-            foreach($_active_pieces_id as $piece_id){
-                $piece = Piece::where('id','=',$piece_id)->first();
-                $piece_protocols = $piece->pieceProtocols;            
-                foreach($piece_protocols as $obj) {
-
-                    array_push($protocols,  Protocol::find($obj->protocol_id) );
-                }                
-            }
-            */
-
+            $protocols = $protocols_eloquient;
             $result = $protocols_eloquient;
-        }else{
+        }
+
+
+        if($request['_active_diseases_id']){
+
+            $_active_diseases_id = $request['_active_diseases_id'];            
+
+            $target = null;
+            $protocol_diseases = null;
+            $count = 0;
+            $protocols_eloquient = array();
+
+            foreach($protocols as $protocol){
+
+                $protocol_diseases = $protocol->diseaseProtocols;
+                $count = 0;
+                foreach($protocol_diseases as $obj) {
+
+                    $target = $obj->disease_id;                
+                    foreach($_active_diseases_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_diseases_id)){
+                    array_push($protocols_eloquient, $protocol);
+                }
+
+            }
+
+
+            $protocols = $protocols_eloquient;
+            $result = $protocols_eloquient;
+        }
+
+        else{
 
             $protocols = Protocol::all();
             $result = $protocols;

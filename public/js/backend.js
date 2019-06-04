@@ -37,6 +37,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         //get active pieces
         var _active_pieces_id = getActivePiecesId();
+        //get active diseases
+        var _active_diseases_id = getActiveDiseasesId();
 
         //get inactive pieces
         $(".piece").each(function () {
@@ -58,22 +60,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         if ($('.tab-pane.show').attr('id') == "protocols") {
-            protocolsContentAjax(_active_pieces_id);
+            protocolsContentAjax(_active_pieces_id, _active_diseases_id);
         } 
         if ($('.tab-pane.show').attr('id') == "remedies") {            
-            remediesContentAjax(_active_pieces_id);
+            remediesContentAjax(_active_pieces_id, _active_diseases_id);
         }
         if ($('.tab-pane.show').attr('id') == "markers") {
-            markersContentAjax(_active_pieces_id);
+            markersContentAjax(_active_pieces_id, _active_diseases_id);
         }
        
     });
 
     $(".disease").bind("click", function () {
         
+        //get active pieces
+        var _active_pieces_id = getActivePiecesId();
         //get active diseases
         var _active_diseases_id = getActiveDiseasesId();
-        console.log(_active_diseases_id)
+
         //get inactive diseases
         $(".disease").each(function () {
             if (!$(this).hasClass('_active')) {
@@ -94,18 +98,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         if ($('.tab-pane.show').attr('id') == "protocols") {
-            protocolsContentAjax(_active_diseases_id);
+            protocolsContentAjax(_active_pieces_id, _active_diseases_id);
         }
         if ($('.tab-pane.show').attr('id') == "remedies") {
-            remediesContentAjax(_active_diseases_id);
+            remediesContentAjax(_active_pieces_id, _active_diseases_id);
         }
         if ($('.tab-pane.show').attr('id') == "markers") {
-            markersContentAjax(_active_diseases_id);
+            markersContentAjax(_active_pieces_id, _active_diseases_id);
         }
 
     });    
 
-    function protocolsContentAjax(_active_pieces_id) {
+    function protocolsContentAjax(_active_pieces_id, _active_diseases_id) {
        
         try {
             protocols_ajax.abort();
@@ -115,14 +119,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
    
         $('#protocols_ajax_container').html('Loading..');
-
+        console.log(_active_diseases_id);
             //get content of protocols
             protocols_ajax = $.ajax({
                 type: "POST",
                 url: "/protocols_content",
                 data: {
                     "_token": $('meta[name="csrf-token"]').attr('content'),
-                    _active_pieces_id: _active_pieces_id
+                    _active_pieces_id: _active_pieces_id,
+                    _active_diseases_id: _active_diseases_id,
                 },
                 complete: function (result) {
                     //console.log("protocols: "+result.responseText);
@@ -150,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         
     }
 
-    function remediesContentAjax(_active_pieces_id) {
+    function remediesContentAjax(_active_pieces_id, _active_diseases_id) {
 
         try {
             remedies_ajax.abort();
@@ -194,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });     
     }
 
-    function markersContentAjax(_active_pieces_id) {
+    function markersContentAjax(_active_pieces_id, _active_diseases_id) {
 
         try {
             markers_ajax.abort();
@@ -361,10 +366,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $('#tab-protocols').delegate("a", "click", function () {
 
         $('.details_ajax_container').html('');     
-        $('#protocols_ajax_container').html('Loading..');     
+        $('#protocols_ajax_container').html('Loading..');
+        
+        //get active pieces
         var _active_pieces_id = getActivePiecesId();
+        //get active diseases
+        var _active_diseases_id = getActiveDiseasesId();
 
-        protocolsContentAjax(_active_pieces_id);
+        protocolsContentAjax(_active_pieces_id, _active_diseases_id);
     });
 
     //click on remedies tab
@@ -372,9 +381,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         $('.details_ajax_container').html('');     
         $('#remedies_ajax_container').html('Loading..');
+        
+        //get active pieces
         var _active_pieces_id = getActivePiecesId();
+        //get active diseases
+        var _active_diseases_id = getActiveDiseasesId();
 
-        remediesContentAjax(_active_pieces_id);
+        remediesContentAjax(_active_pieces_id, _active_diseases_id);
     });
 
     //click on markers tab
@@ -382,9 +395,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         $('.details_ajax_container').html('');     
         $('#markers_ajax_container').html('Loading..');
-        var _active_pieces_id = getActivePiecesId();
 
-        markersContentAjax(_active_pieces_id);
+        //get active pieces
+        var _active_pieces_id = getActivePiecesId();
+        //get active diseases
+        var _active_diseases_id = getActiveDiseasesId();
+
+        markersContentAjax(_active_pieces_id, _active_diseases_id);
     });
 
     
