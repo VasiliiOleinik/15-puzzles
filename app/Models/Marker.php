@@ -8,16 +8,26 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $content
+ * @property DiseaseMarker[] $diseaseMarkers
  * @property PieceMarker[] $pieceMarkers
+ * @property ProtocolMarker[] $protocolMarkers
  */
 class Marker extends Model
 {
-    public $timestamps = false;
-
+	public $timestamps = false;
+	
     /**
      * @var array
      */
     protected $fillable = ['name', 'content'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function diseaseMarkers()
+    {
+        return $this->hasMany('App\Models\Disease\DiseaseMarker');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -28,6 +38,14 @@ class Marker extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function protocolMarkers()
+    {
+        return $this->hasMany('App\Models\Protocol\ProtocolMarker');
+    }
+	
+	/**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function pieces()

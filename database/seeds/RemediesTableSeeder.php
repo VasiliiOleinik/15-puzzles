@@ -16,7 +16,7 @@ class RemediesTableSeeder extends Seeder
     public function run()
     {
         DB::table('remedies')->delete();
-        factory(Remedy::class, 1500)->create();
+        factory(Remedy::class, 500)->create();
 
 
         $pieces = Piece::all();

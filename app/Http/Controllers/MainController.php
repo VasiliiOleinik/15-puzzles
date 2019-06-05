@@ -501,26 +501,112 @@ class MainController extends Controller
 
     public function markers_content(Request $request)
     {
-        $result = "";
-        if($request['_active_pieces_id']){
-            $_active_pieces_id = $request['_active_pieces_id'];            
+        $result = '';
+        $model = Marker::all();
 
-            $markers = array();
-            foreach($_active_pieces_id as $piece_id){
-                $piece = Piece::where('id','=',$piece_id)->first();
-                $piece_markers = $piece->pieceMarkers;            
-                foreach($piece_markers as $obj) {
-                     array_push($markers,  Marker::find($obj->marker_id) );
+        //pieces
+        if($request['_active_pieces_id'])             
+        {
+            $_active_pieces_id = $request['_active_pieces_id'];
+
+            $target = null;
+            $model_pieces = null;
+            $count = 0;
+            $model_eloquient = array();
+
+            foreach($model as $model_element)
+            {
+                $model_pieces = $model_element->pieceMarkers;
+                $count = 0;
+                foreach($model_pieces as $obj) {
+
+                    $target = $obj->piece_id;                
+                    foreach($_active_pieces_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
                 }
+                if($count == count($_active_pieces_id)){
+                    array_push($model_eloquient, $model_element);
+                }
+
             }
-
-            $result = $markers;
+            $model = $model_eloquient;
         }
-        /*else{
+        
+        //diseases
+        if($request['_active_diseases_id'])              
+        {
+            $_active_diseases_id = $request['_active_diseases_id'];  
 
-            $markers = Marker::all();
-            $result = $markers;
-        }*/
+            $target = null;
+            $model_diseases = null;
+            $count = 0;
+            $model_eloquient = array();
+
+            foreach($model as $model_element)
+            {
+           
+                $model_diseases = $model_element->diseaseMarkers;
+              
+                $count = 0;
+                foreach($model_diseases as $obj) {
+
+                    $target = $obj->disease_id;                
+                    foreach($_active_diseases_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_diseases_id)){
+                    array_push($model_eloquient, $model_element);
+                }
+
+            }
+            $model = $model_eloquient;
+        }
+
+        //protocols
+        if($request['_active_protocols_id'])             
+        {
+            $_active_protocols_id = $request['_active_protocols_id'];
+
+            $target = null;
+            $model_protocols = null;
+            $count = 0;
+            $model_eloquient = array();
+
+            foreach($model as $model_element)
+            {
+           
+                $model_protocols = $model_element->protocolMarkers;
+
+                $count = 0;
+                foreach($model_protocols as $obj) {
+
+                    $target = $obj->protocol_id;                
+                    foreach($_active_protocols_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_protocols_id)){
+                    array_push($model_eloquient, $model_element);
+                }
+
+            }
+            $model = $model_eloquient;
+        }
+        $result = $model;
 
         return $result;
     }

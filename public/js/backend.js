@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*   CLICKS ON ITEMS IN TABS   */
     /* --------------------------- */
 
+    //click on piece item
     $(".piece").bind("click", function () {
 
         //get active pieces
@@ -103,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     });
 
+    //click on disease item
     $(".disease").bind("click", function () {
 
         //get active pieces
@@ -149,7 +151,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     });
 
-
     //click on protocol item
     $('#protocols').delegate("li", "click", function () {
 
@@ -162,9 +163,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         $('#protocols li').removeClass('active');
         $(this).addClass('active');
+
         var id = $(this).attr('obj-id');
         var table = "protocols";
         DetailsAjax(id, table);
+
         //console.log($(this).attr('obj-id'));
     });
 
@@ -173,10 +176,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         $('#remedies_ajax_container li').removeClass('active');
         $(this).addClass('active');
+
         var id = $(this).attr('obj-id');
         var table = "remedies";
         DetailsAjax(id, table);
-        console.log($(this).attr('obj-id'));
+
+        //console.log($(this).attr('obj-id'));
     });
 
     $('#markers').delegate("li", "click", function () {
@@ -186,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         var id = $(this).attr('obj-id');
         var table = "markers";
         DetailsAjax(id, table);
-        console.log($(this).attr('obj-id'));
+        //console.log($(this).attr('obj-id'));
     });
 
     /* ------------------ */
@@ -368,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             },
             error: function (err) {
-                console.log("remedies ajax error:" + err.responseText);
+                //console.log("remedies ajax error:" + err.responseText);
             }
         });
     }
@@ -385,13 +390,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         $('#markers_ajax_container').html('Loading..');
 
+        var _active_protocols_id = [];
+        _active_protocols_id.push($('#tags_container .badge-protocol').eq(0).attr('obj-id'));
+
         //get content of protocols
         markers_ajax = $.ajax({
             type: "POST",
             url: "/markers_content",
             data: {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
-                _active_pieces_id: _active_pieces_id
+                _active_pieces_id: _active_pieces_id,
+                _active_diseases_id: _active_diseases_id,
+                _active_protocols_id: _active_protocols_id
             },
             complete: function (result) {
                 //console.log("markers: " + result.responseText);
@@ -449,47 +459,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             },
             error: function (err) {
                 console.log("protocols ajax error");
-            }
-
-        });
-    }
-
-    function protocolPiecesAjax(protocol_id) {
-        $.ajax({
-            type: "POST",
-            url: "/protocol_pieces",
-            data: {
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-                id: protocol_id
-            },
-            complete: function (result) {
-
-
-                /*
-                if (result.responseText.length != 0) {
-                    console.log("protocol_pieces: " + result.responseText);
-                    var _active_pieces_id = result.responseText;
-
-                    $(".piece").each(function () {
-                        if ($(this).hasClass('_active')) {
-                            piece_id = $(this).attr('piece-id');
-
-                            $('.factors_element').each(function () {
-                                if ($(this).attr('obj-id') == piece_id) {
-                                    if ($(this).hasClass('d-none')) {
-                                        $(this).removeClass('d-none');
-                                    }
-                                }
-                            });
-                            _active_pieces_id.push(piece_id);
-                        }
-                    });
-                }
-                */
-
-            },
-            error: function (err) {
-                console.log("protocol_pieces ajax error");
             }
 
         });
