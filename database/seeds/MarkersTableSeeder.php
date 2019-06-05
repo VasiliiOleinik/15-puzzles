@@ -2,6 +2,8 @@
 
 use App\Models\Marker;
 use App\Models\Piece\Piece;
+use App\Models\Disease\Disease;
+use App\Models\Protocol\Protocol;
 use Illuminate\Database\Seeder;
 
 class MarkersTableSeeder extends Seeder
@@ -23,7 +25,29 @@ class MarkersTableSeeder extends Seeder
         Marker::all()->each(function ($marker) use ($pieces) { 
             $marker->pieces()->attach(
                 $pieces->random(
-                    rand(1,  8 ))->pluck('id')->toArray()
+                    rand(1,  5 ))->pluck('id')->toArray()
+                
+            ); 
+        });
+
+        $diseases = Disease::all();
+
+        // Populate the pivot table
+        Marker::all()->each(function ($marker) use ($diseases) { 
+            $marker->diseases()->attach(
+                $diseases->random(
+                    rand(1,  2 ))->pluck('id')->toArray()
+                
+            ); 
+        });
+
+        $protocols = Protocol::all();
+
+        // Populate the pivot table
+        Marker::all()->each(function ($marker) use ($protocols) { 
+            $marker->protocols()->attach(
+                $protocols->random(
+                    rand(1,  10 ))->pluck('id')->toArray()
                 
             ); 
         });

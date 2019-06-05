@@ -3,6 +3,8 @@
 use App\Models\Protocol\Protocol;
 use App\Models\Piece\Piece;
 use App\Models\Disease\Disease;
+use App\Models\Remedy;
+use App\Models\Marker;
 use Illuminate\Database\Seeder;
 
 class ProtocolsTableSeeder extends Seeder
@@ -38,5 +40,6 @@ class ProtocolsTableSeeder extends Seeder
                 
             ); 
         });
+
     }
 }
