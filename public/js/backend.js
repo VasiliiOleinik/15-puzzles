@@ -24,27 +24,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
     // Add _active class to the current piece and disease (highlight it)
-    var div = $("#pieces_and_diseases");
-    var pieces = document.getElementsByName("piece");
-    var diseases = document.getElementsByName("disease");
-    for (var i = 0; i < pieces.length; i++) {
-        pieces[i].addEventListener("click", function () {
-            if (!$(this).hasClass('_active')) {
-                $(this).addClass('_active')
-            } else {
-                $(this).removeClass('_active')
-            }
-        });
-    }
-    for (var i = 0; i < diseases.length; i++) {
-        diseases[i].addEventListener("click", function () {
-            if (!$(this).hasClass('_active')) {
-                $(this).addClass('_active')
-            } else {
-                $(this).removeClass('_active')
-            }
-        });
-    }
+    $("[name='piece']").click(function () {
+        if (!$(this).hasClass('_active')) {
+            $(this).addClass('_active')
+        } else {
+            $(this).removeClass('_active')
+        }
+    })
+
+    $("[name='disease']").click(function () {
+        if (!$(this).hasClass('_active')) {
+            $(this).addClass('_active')
+        } else {
+            $(this).removeClass('_active')
+        }
+    })
 
     /* ------------------ */
     /* ------------------ */
@@ -206,21 +200,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
         var tag_id = tag.attr('obj-id');//number
        
         if (tag_type == "piece") {
-            //tag.html('');
+
             $('.piece').each(function () {
+
                 //click on this tag on pieces and diseases panel
                 if ($(this).attr('obj-id') == tag_id) {
-                    console.log($(this))
                     $(this).click();
-                    //$(this).removeClass('_active');
                 }
             });
-            //get active pieces
-            var _active_pieces_id = getActivePiecesId();
-            tag.html('');
-            console.log(tag.html())
-            refreshTagsPanelHtml();
-            refreshContent();
+        }
+        if (tag_type == "disease") {
+
+            $('.disease').each(function () {
+
+                //click on this tag on pieces and diseases panel
+                if ($(this).attr('obj-id') == tag_id) {
+                    $(this).click();
+                }
+            });
         }
         if (tag_type == "protocol") {
             tags_protocols = "";
@@ -228,8 +225,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             refreshContent();
         }
 
-
-        console.log(tag_type);
+        //console.log(tag_type);
     });
 
     /* ------------------ */
