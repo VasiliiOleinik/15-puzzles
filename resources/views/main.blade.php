@@ -137,7 +137,7 @@
                         @if($piece_count == 1)
                             <div class="row">
                         @endif                            
-                            <div class="col-sm-3 text-left piece" name="piece" obj-id="{{$piece->id}}">
+                                <div class="col-sm-3 text-left piece" name="piece" obj-id="{{$piece->id}}">
                                 
                                     <div class="piece_img p-0">
                                         <!--<img src="/images/{{$piece->img}}" class="w-25">-->
@@ -148,7 +148,7 @@
                                         {{$piece->name}}
                                     </label>
                                                                                                                              
-                            </div>
+                                </div>
                                                    
                             @if($piece_count == 4)
                                 @php
@@ -195,12 +195,9 @@
                             $piece_count = $piece_count + 1;                            
                         @endphp
                     @endforeach
+                    </div>
                 </div>
             </div>
         
     </div>
 @endsection
-
-<script>
-
-</script>

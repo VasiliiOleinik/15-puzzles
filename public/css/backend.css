@@ -1,6 +1,23 @@
-#app{
+#app {
     min-height: 900px;
 }
+
+button.close {
+    color: white !important;
+    margin-left: 10px;
+    font-size: 10px;
+    font-weight: 100;
+    transition: ease all .3s;
+}
+
+    button.close:hover {
+        color: white !important;
+    }
+
+    button.close:focus {
+        border: none !important;
+        outline: none;
+    }
 
 #tags_container {
     padding: 15px;
@@ -25,8 +42,8 @@
     color: #ffffff;
 }
 
-.btn-outline-info:hover{
-    color:white;
+.btn-outline-info:hover {
+    color: white;
 }
 
 .card-body {
@@ -35,7 +52,7 @@
 }
 
 .list-group-item {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .tab-details {
@@ -66,10 +83,9 @@
 /* Style the active class, and buttons on mouse-over */
 ._active {
     background: #3490dc;
-    color:white;
+    color: white;
 }
+
 .piece:hover, .disease:hover {
     opacity: 0.4;
 }
-
-

@@ -2,7 +2,7 @@
 
 
 document.addEventListener("DOMContentLoaded", function (event) {
-
+    console.log('ready')
     /* ------------------ */
     /*     VARIABLES      */
     /* ------------------ */
@@ -80,7 +80,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                 // html = html.replace('<span class="badge badge-secondary">' + $(this).find('label').html() + '</span>', '');
             } else {
-                tags_pieces += '<span class="badge-piece badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + $(this).find('label').html() + '</span>';
+                tags_pieces += '<span class="badge-piece badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + $(this).find('label').html();
+                tags_pieces += '<button type="button" class="close" aria-label="Close"><span class="close-span" aria-hidden="true" >x</span ></button >';
+                tags_pieces += '</span>';
             }
         });
 
@@ -128,7 +130,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                 //html = html.replace('<span class="badge badge-secondary">' + $(this).find('label').html() + '</span>', '');
             } else {
-                tags_diseases += '<span class="badge-disease badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + $(this).find('label').html() + '</span>';
+                tags_diseases += '<span class="badge-disease badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + $(this).find('label').html();
+                tags_diseases += '<button type="button" class="close" aria-label="Close"><span class="close-span" aria-hidden="true" >x</span ></button >';
+                tags_diseases += '</span>';
             }
         });
 
@@ -194,6 +198,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //console.log($(this).attr('obj-id'));
     });
 
+    $('#tags_container').delegate(".close", "click", function () {
+        //console.log('x clicked');
+        console.log($(this).parent().attr('obj-id'));
+    });
+
     /* ------------------ */
     /* ------------------ */
 
@@ -208,7 +217,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $('#protocols li').removeClass('highlighted');
         $(this).addClass('highlighted');
 
-        tags_protocols = '<span class="badge-protocol badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + $(this).html() + '</span>';
+        tags_protocols = '<span class="badge-protocol badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + $(this).html();
+        tags_protocols += '<button type="button" class="close" aria-label="Close"><span class="close-span" aria-hidden="true" >x</span ></button >';
+        tags_protocols += '</span>';
 
         tags = tags_pieces + tags_diseases + tags_protocols + tags_remedies + tags_markers;
         $('#tags_container').html(tags);
@@ -279,7 +290,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         try {
             protocols_ajax.abort();
         }
-        catch{
+        catch(err){
 
         }
 
@@ -334,7 +345,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         try {
             remedies_ajax.abort();
         }
-        catch{
+        catch(err){
 
         }
 
@@ -383,7 +394,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         try {
             markers_ajax.abort();
         }
-        catch{
+        catch(err){
 
         }
 
@@ -459,6 +470,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
             },
             error: function (err) {
                 console.log("protocols ajax error");
+            }
+
+        });
+    }
+
+    function protocolPiecesAjax(protocol_id) {
+        $.ajax({
+            type: "POST",
+            url: "/protocol_pieces",
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                id: protocol_id
+            },
+            complete: function (result) {               
+
+            },
+            error: function (err) {
+                console.log("protocol_pieces ajax error");
             }
 
         });
