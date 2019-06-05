@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Protocol $protocol
  * @property Remedy $remedy
  */
-class ProtocolRemedies extends Model
+class ProtocolRemedy extends Model
 {
     /**
      * @var array
@@ -31,6 +31,6 @@ class ProtocolRemedies extends Model
      */
     public function remedy()
     {
-        return $this->belongsTo('App\Models\Remedy');
+        return $this->belongsTo('App\Models\Protocol\Remedy');
     }
 }

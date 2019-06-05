@@ -31,6 +31,6 @@ class DiseaseProtocol extends Model
      */
     public function protocol()
     {
-        return $this->belongsTo('App\Models\Protocol');
+        return $this->belongsTo('App\Models\Protocol\Protocol');
     }
 }

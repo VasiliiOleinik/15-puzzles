@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
     // Add _active class to the current piece and disease (highlight it)
-    var div =$("#pieces_and_diseases");
+    var div = $("#pieces_and_diseases");
     var pieces = document.getElementsByName("piece");
     var diseases = document.getElementsByName("disease");
     for (var i = 0; i < pieces.length; i++) {
@@ -56,14 +56,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*   CLICKS ON ITEMS IN TABS   */
     /* --------------------------- */
 
-    $(".piece").bind("click", function() {
+    $(".piece").bind("click", function () {
 
         //get active pieces
         var _active_pieces_id = getActivePiecesId();
         //get active diseases
         var _active_diseases_id = getActiveDiseasesId();
 
-         tags_pieces = "";
+        tags_pieces = "";
         //get inactive pieces
         $(".piece").each(function () {
             if (!$(this).hasClass('_active')) {
@@ -77,9 +77,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     }
                 });
 
-               // html = html.replace('<span class="badge badge-secondary">' + $(this).find('label').html() + '</span>', '');
+                // html = html.replace('<span class="badge badge-secondary">' + $(this).find('label').html() + '</span>', '');
             } else {
-                tags_pieces += '<span class="badge-piece badge badge-secondary mr-1 mb-1">' + $(this).find('label').html() + '</span>';
+                tags_pieces += '<span class="badge-piece badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + $(this).find('label').html() + '</span>';
             }
         });
 
@@ -89,22 +89,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (_active_pieces_id.length == 0) {
             _active_pieces_id = null;
         }
-        
+
 
         if ($('.tab-pane.show').attr('id') == "protocols") {
             protocolsContentAjax(_active_pieces_id, _active_diseases_id);
-        } 
-        if ($('.tab-pane.show').attr('id') == "remedies") {            
+        }
+        if ($('.tab-pane.show').attr('id') == "remedies") {
             remediesContentAjax(_active_pieces_id, _active_diseases_id);
         }
         if ($('.tab-pane.show').attr('id') == "markers") {
             markersContentAjax(_active_pieces_id, _active_diseases_id);
         }
-       
+
     });
 
     $(".disease").bind("click", function () {
-        
+
         //get active pieces
         var _active_pieces_id = getActivePiecesId();
         //get active diseases
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                 //html = html.replace('<span class="badge badge-secondary">' + $(this).find('label').html() + '</span>', '');
             } else {
-                tags_diseases += '<span class="badge-disease badge badge-secondary mr-1 mb-1">' + $(this).find('label').html() + '</span>';
+                tags_diseases += '<span class="badge-disease badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + $(this).find('label').html() + '</span>';
             }
         });
 
@@ -147,8 +147,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
             markersContentAjax(_active_pieces_id, _active_diseases_id);
         }
 
-    });    
-    
+    });
+
 
     //click on protocol item
     $('#protocols').delegate("li", "click", function () {
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $('#protocols li').removeClass('highlighted');
         $(this).addClass('highlighted');
 
-        tags_protocols = '<span class="badge-protocol badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") +'">' + $(this).html() + '</span>';
+        tags_protocols = '<span class="badge-protocol badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + $(this).html() + '</span>';
 
         tags = tags_pieces + tags_diseases + tags_protocols + tags_remedies + tags_markers;
         $('#tags_container').html(tags);
@@ -220,9 +220,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //click on protocol tab    
     $('#tab-protocols').delegate("a", "click", function () {
 
-        $('.details_ajax_container').html('');     
+        $('.details_ajax_container').html('');
         $('#protocols_ajax_container').html('Loading..');
-        
+
         //get active pieces
         var _active_pieces_id = getActivePiecesId();
         //get active diseases
@@ -234,9 +234,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //click on remedies tab
     $('#tab-remedies').delegate("a", "click", function () {
 
-        $('.details_ajax_container').html('');     
+        $('.details_ajax_container').html('');
         $('#remedies_ajax_container').html('Loading..');
-        
+
         //get active pieces
         var _active_pieces_id = getActivePiecesId();
         //get active diseases
@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //click on markers tab
     $('#tab-markers').delegate("a", "click", function () {
 
-        $('.details_ajax_container').html('');     
+        $('.details_ajax_container').html('');
         $('#markers_ajax_container').html('Loading..');
 
         //get active pieces
@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-    
+
     /* ------------------ */
     /*   AJAX FUNCTIONS   */
     /* ------------------ */
@@ -335,13 +335,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         $('#remedies_ajax_container').html('Loading..');
 
+        var _active_protocols_id = [];
+        _active_protocols_id.push($('#tags_container .badge-protocol').eq(0).attr('obj-id'));
+
         //get content of remedies
         remedies_ajax = $.ajax({
             type: "POST",
             url: "/remedies_content",
             data: {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
-                _active_pieces_id: _active_pieces_id
+                _active_pieces_id: _active_pieces_id,
+                _active_diseases_id: _active_diseases_id,
+                _active_protocols_id: _active_protocols_id
             },
             complete: function (result) {
                 //console.log("remedies: "+result.responseText);
@@ -501,7 +506,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
     function getActivePiecesId() {
-        
+
         //get active pieces
         var _active_pieces_id = [];
         $(".piece").each(function () {
@@ -555,7 +560,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return _active_diseases_id;
     }
 
-     /* ------------------ */
+    /* ------------------ */
     /* ------------------ */
 });
 

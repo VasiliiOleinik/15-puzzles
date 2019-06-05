@@ -34,4 +34,20 @@ class Marker extends Model
     {
     return $this->belongsToMany('App\Models\Piece\Piece', 'piece_markers');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function diseases()
+    {
+    return $this->belongsToMany('App\Models\Disease\Disease', 'disease_markers');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function protocols()
+    {
+    return $this->belongsToMany('App\Models\Protocol\Protocol', 'protocol_markers');
+    }
 }

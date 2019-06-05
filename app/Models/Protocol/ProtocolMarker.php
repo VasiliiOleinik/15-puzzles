@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Marker $marker
  * @property Protocol $protocol
  */
-class ProtocolMarkers extends Model
+class ProtocolMarker extends Model
 {
     /**
      * @var array
@@ -23,7 +23,7 @@ class ProtocolMarkers extends Model
      */
     public function marker()
     {
-        return $this->belongsTo('App\Models\Marker');
+        return $this->belongsTo('App\Models\Protocol\Marker');
     }
 
     /**

@@ -35,7 +35,7 @@
                     <div id="factors" class="container tab-pane active">
                         <div class="card">
                             <div class="card-body">
-                                <div id="factors_ajax_container" class="container tab-pane active">
+                                <div id="factors_ajax_container" class="tab-pane active">
                                     @foreach($pieces as $piece)
                                     <div class="factors_element d-none" obj-id="{{$piece->id}}">
                                         <h4> {{$piece->name}} </h4>;
@@ -49,7 +49,7 @@
                     <div id="diseases" class="container tab-pane fade">
                         <div class="card">
                             <div class="card-body">
-                                <div id="diseases_ajax_container" class="container tab-pane active">
+                                <div id="diseases_ajax_container" class="tab-pane active">
                                     @foreach($diseases as $disease)
                                     <div class="diseases_element d-none" obj-id="{{$disease->id}}">
                                         <h4> {{$disease->name}} </h4>;
@@ -74,7 +74,7 @@
                         <div class="tab-details">
                         <div class="card">
                                 <div class="card-body">
-                                    <div id="" class="container details_ajax_container tab-pane active">
+                                    <div id="" class="details_ajax_container tab-pane active">
 
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                     <div id="remedies" class="container tab-pane fade">
                         <div class="card">
                             <div class="card-body">
-                                <div id="remedies_ajax_container" class="container tab-pane active">
+                                <div id="remedies_ajax_container" class="tab-pane active">
                                 </div>
                             </div>
                         </div>
@@ -92,7 +92,7 @@
                         <div class="tab-details">
                         <div class="card">
                                 <div class="card-body">
-                                    <div id="" class="container details_ajax_container tab-pane active">
+                                    <div id="" class="details_ajax_container tab-pane active">
 
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@
                     <div id="markers" class="container tab-pane fade">
                         <div class="card">
                             <div class="card-body">
-                                <div id="markers_ajax_container" class="container tab-pane active">
+                                <div id="markers_ajax_container" class="tab-pane active">
                                 </div>
                             </div>
                         </div>
@@ -110,7 +110,7 @@
                         <div class="tab-details">
                         <div class="card">
                                 <div class="card-body">
-                                    <div id="" class="container details_ajax_container tab-pane active">
+                                    <div id="" class="details_ajax_container tab-pane active">
 
                                     </div>
                                 </div>

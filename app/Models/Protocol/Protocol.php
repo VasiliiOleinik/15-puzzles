@@ -69,4 +69,5 @@ class Protocol extends Model
     {
     return $this->belongsToMany('App\Models\Disease\Disease', 'disease_protocols');
     }
+
 }

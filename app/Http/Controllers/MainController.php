@@ -45,6 +45,111 @@ class MainController extends Controller
         array_push($pieces_and_diseases, $pieces);
         array_push($pieces_and_diseases, $diseases);
 
+
+        /*
+        $model = Remedy::all();
+        $_active_pieces_id = [11];
+        $_active_diseases_id = [16];
+        $_active_protocols_id = [13001];
+
+           
+
+        {
+            $target = null;
+            $model_pieces = null;
+            $count = 0;
+            $model_eloquient = array();
+
+            foreach($model as $model_element)
+            {
+                $model_pieces = $model_element->pieceRemedies;
+                $count = 0;
+                foreach($model_pieces as $obj) {
+
+                    $target = $obj->piece_id;                
+                    foreach($_active_pieces_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_pieces_id)){
+                    array_push($model_eloquient, $model_element);
+                }
+
+            }
+            $model = $model_eloquient;
+        }
+        
+
+        {
+            $target = null;
+            $model_diseases = null;
+            $count = 0;
+            $model_eloquient = array();
+
+            foreach($model as $model_element)
+            {
+           
+                $model_diseases = $model_element->diseaseRemedies;
+              
+                $count = 0;
+                foreach($model_diseases as $obj) {
+
+                    $target = $obj->disease_id;                
+                    foreach($_active_diseases_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_diseases_id)){
+                    array_push($model_eloquient, $model_element);
+                }
+
+            }
+            $model = $model_eloquient;
+        }
+        
+        {
+            $target = null;
+            $model_protocols = null;
+            $count = 0;
+            $model_eloquient = array();
+
+            foreach($model as $model_element)
+            {
+           
+                $model_protocols = $model_element->protocolRemedies;
+
+                $count = 0;
+                foreach($model_protocols as $obj) {
+
+                    $target = $obj->protocol_id;                
+                    foreach($_active_protocols_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_protocols_id)){
+                    array_push($model_eloquient, $model_element);
+                }
+
+            }
+            $model = $model_eloquient;
+        }
+        
+        dd($model );
+        */
+
+
         /*
         $_active_pieces_id = [7];            
            
@@ -284,26 +389,112 @@ class MainController extends Controller
 
     public function remedies_content(Request $request)
     {
-        $result = "";
-        if($request['_active_pieces_id']){
-            $_active_pieces_id = $request['_active_pieces_id'];            
+        $result = '';
+        $model = Remedy::all();
 
-            $remedies = array();
-            foreach($_active_pieces_id as $piece_id){
-                $piece = Piece::where('id','=',$piece_id)->first();
-                $piece_remedies = $piece->pieceRemedies;            
-                foreach($piece_remedies as $obj) {
-                     array_push($remedies,  Remedy::find($obj->remedy_id) );
+        //pieces
+        if($request['_active_pieces_id'])             
+        {
+            $_active_pieces_id = $request['_active_pieces_id'];
+
+            $target = null;
+            $model_pieces = null;
+            $count = 0;
+            $model_eloquient = array();
+
+            foreach($model as $model_element)
+            {
+                $model_pieces = $model_element->pieceRemedies;
+                $count = 0;
+                foreach($model_pieces as $obj) {
+
+                    $target = $obj->piece_id;                
+                    foreach($_active_pieces_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
                 }
+                if($count == count($_active_pieces_id)){
+                    array_push($model_eloquient, $model_element);
+                }
+
             }
-
-            $result = $remedies;
+            $model = $model_eloquient;
         }
-        /*else{
+        
+        //diseases
+        if($request['_active_diseases_id'])              
+        {
+            $_active_diseases_id = $request['_active_diseases_id'];  
 
-            $remedies = Remedy::all();
-            $result = $remedies;
-        }*/
+            $target = null;
+            $model_diseases = null;
+            $count = 0;
+            $model_eloquient = array();
+
+            foreach($model as $model_element)
+            {
+           
+                $model_diseases = $model_element->diseaseRemedies;
+              
+                $count = 0;
+                foreach($model_diseases as $obj) {
+
+                    $target = $obj->disease_id;                
+                    foreach($_active_diseases_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_diseases_id)){
+                    array_push($model_eloquient, $model_element);
+                }
+
+            }
+            $model = $model_eloquient;
+        }
+
+        //protocols
+        if($request['_active_protocols_id'])             
+        {
+            $_active_protocols_id = $request['_active_protocols_id'];
+
+            $target = null;
+            $model_protocols = null;
+            $count = 0;
+            $model_eloquient = array();
+
+            foreach($model as $model_element)
+            {
+           
+                $model_protocols = $model_element->protocolRemedies;
+
+                $count = 0;
+                foreach($model_protocols as $obj) {
+
+                    $target = $obj->protocol_id;                
+                    foreach($_active_protocols_id as $id){
+                    
+                        if($id == $target){
+                            $count ++;
+                        }
+                    
+                    }                
+                }
+                if($count == count($_active_protocols_id)){
+                    array_push($model_eloquient, $model_element);
+                }
+
+            }
+            $model = $model_eloquient;
+        }
+        $result = $model;
 
         return $result;
     }
