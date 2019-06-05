@@ -221,6 +221,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         if (tag_type == "protocol") {
             tags_protocols = "";
+            $('#protocols li').removeClass('highlighted');
             refreshTagsPanelHtml();
             refreshContent();
         }
