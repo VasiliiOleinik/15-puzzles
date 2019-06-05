@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //click on piece item
     $(".piece").bind("click", function () {
+    //$(".piece").click( function () {
 
         //get active pieces
         var _active_pieces_id = getActivePiecesId();
@@ -108,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //click on disease item
     $(".disease").bind("click", function () {
-
+        
         //get active pieces
         var _active_pieces_id = getActivePiecesId();
         //get active diseases
@@ -199,8 +200,36 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     $('#tags_container').delegate(".close", "click", function () {
-        //console.log('x clicked');
-        console.log($(this).parent().attr('obj-id'));
+
+        var tag = $(this).parent();
+        var tag_type = detectTagType(tag);//piece, disease, protocol
+        var tag_id = tag.attr('obj-id');//number
+       
+        if (tag_type == "piece") {
+            //tag.html('');
+            $('.piece').each(function () {
+                //click on this tag on pieces and diseases panel
+                if ($(this).attr('obj-id') == tag_id) {
+                    console.log($(this))
+                    $(this).click();
+                    //$(this).removeClass('_active');
+                }
+            });
+            //get active pieces
+            var _active_pieces_id = getActivePiecesId();
+            tag.html('');
+            console.log(tag.html())
+            refreshTagsPanelHtml();
+            refreshContent();
+        }
+        if (tag_type == "protocol") {
+            tags_protocols = "";
+            refreshTagsPanelHtml();
+            refreshContent();
+        }
+
+
+        console.log(tag_type);
     });
 
     /* ------------------ */
@@ -519,14 +548,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     }
                 });
 
-                $('.diseases_element').each(function () {
-                    if ($(this).attr('obj-id') == piece_id) {
-                        if ($(this).hasClass('d-none')) {
-                            $(this).removeClass('d-none');
-                        }
-                    }
-                });
-
                 _active_pieces_id.push(piece_id);
             }
         });
@@ -556,6 +577,53 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
 
         return _active_diseases_id;
+    }
+
+    function detectTagType(element) {
+
+        var result
+
+        result = element.hasClass('badge-piece');
+
+        if (result) {
+
+            result = "piece";
+        }
+        else {
+
+            result = element.hasClass('badge-disease');
+
+            if (result) {
+                result = "disease";
+            } else {
+
+                result = element.hasClass('badge-protocol');
+                if (result) {
+                    result = "protocol";
+                }
+            }
+        }
+
+        return result;
+    }
+
+    function refreshTagsPanelHtml() {
+        tags = tags_pieces + tags_diseases + tags_protocols + tags_remedies + tags_markers;
+        $('#tags_container').html(tags);       
+    }
+
+    function refreshContent() {
+        //get active pieces
+        var _active_pieces_id = getActivePiecesId();
+        //get active diseases
+        var _active_diseases_id = getActiveDiseasesId();
+
+        if ($('.tab-pane.show').attr('id') == "remedies") {
+            remediesContentAjax(_active_pieces_id, _active_diseases_id);
+        }
+        if ($('.tab-pane.show').attr('id') == "markers") {
+            markersContentAjax(_active_pieces_id, _active_diseases_id);
+        }
     }
 
     /* ------------------ */
