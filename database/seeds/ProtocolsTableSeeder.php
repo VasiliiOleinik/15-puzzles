@@ -17,6 +17,8 @@ class ProtocolsTableSeeder extends Seeder
     public function run()
     {
         DB::table('protocols')->delete();
+        DB::update("ALTER TABLE protocols AUTO_INCREMENT = 0;");
+
         factory(Protocol::class, 500)->create();
 
         $pieces = Piece::all();

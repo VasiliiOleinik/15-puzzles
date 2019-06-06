@@ -15,7 +15,9 @@ class MarkersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('markers')->delete();
+        DB::table('markers')->delete();        
+        DB::update("ALTER TABLE markers AUTO_INCREMENT = 0;");
+
         factory(Marker::class, 500)->create();
 
 
@@ -47,7 +49,7 @@ class MarkersTableSeeder extends Seeder
         Marker::all()->each(function ($marker) use ($protocols) { 
             $marker->protocols()->attach(
                 $protocols->random(
-                    rand(1,  10 ))->pluck('id')->toArray()
+                    rand(1,  60 ))->pluck('id')->toArray()
                 
             ); 
         });

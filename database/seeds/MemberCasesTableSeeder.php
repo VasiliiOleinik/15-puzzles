@@ -12,6 +12,9 @@ class MemberCasesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('member_cases')->delete();
+        DB::update("ALTER TABLE member_cases AUTO_INCREMENT = 0;");
+
         factory(MemberCase::class, 20)->create();   
     }
 }

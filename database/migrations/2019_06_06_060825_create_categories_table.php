@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateProtocolsTable extends Migration {
+class CreateCategoriesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,12 @@ class CreateProtocolsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('protocols', function(Blueprint $table)
+		Schema::create('categories', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 50)->default('--');
-			$table->integer('evidence_id')->unsigned()->index('FK_protocols_evidences');
-			$table->text('content', 65535);
+			$table->string('name', 50);
+			$table->text('abnormal_condition', 65535);
+			$table->text('normal_condition', 65535);
 		});
 	}
 
@@ -29,7 +29,7 @@ class CreateProtocolsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('protocols');
+		Schema::drop('categories');
 	}
 
 }

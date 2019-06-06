@@ -16,6 +16,8 @@ class RemediesTableSeeder extends Seeder
     public function run()
     {
         DB::table('remedies')->delete();
+        DB::update("ALTER TABLE remedies AUTO_INCREMENT = 0;");
+
         factory(Remedy::class, 500)->create();
 
 
@@ -47,7 +49,7 @@ class RemediesTableSeeder extends Seeder
         Remedy::all()->each(function ($remedy) use ($protocols) { 
             $remedy->protocols()->attach(
                 $protocols->random(
-                    rand(1,  20 ))->pluck('id')->toArray()
+                    rand(1,  60))->pluck('id')->toArray()
                 
             ); 
         });

@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property string $name
+ * @property string $color
  * @property Protocol[] $protocols
  */
 class Evidence extends Model
 {
+    public $timestamps = false;
+
     /**
      * The table associated with the model.
      * 
@@ -21,13 +24,13 @@ class Evidence extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'color'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function protocols()
     {
-        return $this->hasMany('App\Models\Protocol');
+        return $this->hasMany('App\Models\Protocol\Protocol');
     }
 }

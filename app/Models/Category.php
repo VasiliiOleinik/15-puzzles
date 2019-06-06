@@ -12,10 +12,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Category extends Model
 {
+    public $timestamps = false;
+
     /**
      * @var array
      */
-    protected $fillable = ['abnormal_condition', 'normal_condition'];
+    protected $fillable = ['name', 'abnormal_condition', 'normal_condition'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
