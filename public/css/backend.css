@@ -71,6 +71,16 @@ button.close {
     right: -15px;
 }
 
+section.article_content {
+    color: lightslategrey;
+}
+
+.article_data {
+    position: relative;
+    top: 10px;
+    color: cadetblue;
+}
+
 .piece, .disease {
     background: white;
     border: 1px solid #ddd;

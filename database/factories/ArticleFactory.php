@@ -12,5 +12,6 @@ $factory->define(Article::class, function (Faker $faker) {
         'title' => $faker->realText( rand(15,35)  ),
         'description' => implode( " ", $faker->words( rand(6,15) ) ),
         'content' => implode( " ", $faker->paragraphs( rand(4,9) ) ),
+        'img' => rand( 1,5 ).".png",
     ];
 });

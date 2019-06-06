@@ -18,7 +18,7 @@ class Article extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'description', 'content', 'created_at', 'updated_at'];
+    protected $fillable = ['title', 'description', 'content', 'img', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
