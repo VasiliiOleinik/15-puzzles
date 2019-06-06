@@ -1,8 +1,15 @@
 /* 15 pazzles backend*/
 
+/* ----------------------- */
+/*     DOCUMENT READY      */
+/* ----------------------- */
 
 document.addEventListener("DOMContentLoaded", function (event) {
+
     console.log('ready')
+
+    evidencesContentAjax();
+
     /* ------------------ */
     /*     VARIABLES      */
     /* ------------------ */
@@ -10,6 +17,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var protocols_ajax;
     var remedies_ajax;
     var markers_ajax;
+    var evidences_ajax;
+
+    var evidences;
 
     var tags_pieces = "", tags_diseases = "", tags_protocols = "", tags_remedies = "", tags_markers = "";
 
@@ -183,6 +193,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //console.log($(this).attr('obj-id'));
     });
 
+    //click on marker item
     $('#markers').delegate("li", "click", function () {
 
         $('#markers_ajax_container li').removeClass('active');
@@ -193,6 +204,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //console.log($(this).attr('obj-id'));
     });
 
+    //click on close tag icon
     $('#tags_container').delegate(".close", "click", function () {
 
         var tag = $(this).parent();
@@ -349,10 +361,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     var html = "";
 
                     for (i = 0; i < json_result.length; i++) {
-                        if (json_result[i]['id'] == active_protocol_id) {
-                            html += "<li class='list-group-item list-group-item-action p-0 highlighted' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "</li>";
+                        
+                        evidence_id = json_result[i]['evidence_id'];
+                        evidence_color = "";
+
+                        $(evidences).each(function () {                            
+                            if ($(this)[0]['id'] == evidence_id) {
+                                evidence_color = $(this)[0]['color'];
+                            }
+                        });
+
+                        if (json_result[i]['id'] == active_protocol_id) {                            
+                            html += "<li class='list-group-item list-group-item-action p-0 highlighted' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "<span class='evidence' style='background:" + evidence_color + "'></span></li>";
                         } else {
-                            html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "</li>";
+                            html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "<span class='evidence' style='background:" + evidence_color + "'></span></li>";
                         }
                     }
 
@@ -463,6 +485,39 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 //console.log("markers ajax error");
             }
         });
+    }
+
+    function evidencesContentAjax() {
+
+        try {
+            evidences_ajax.abort();
+        }
+        catch (err) {
+
+        }
+
+        //get content of evidences
+        evidences_ajax = $.ajax({
+            type: "POST",
+            url: "/evidences_content",
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr('content')
+            },
+            complete: function (result) {
+                
+                if (result.responseText.length != 0) {
+
+                    var json_result = JSON.parse(result.responseText);
+
+                    evidences = json_result;
+                }
+                //console.log(evidences);
+            },
+            error: function (err) {
+                //console.log("evidences ajax error: " + err.responseText);
+            }
+        });
+
     }
 
     function DetailsAjax(id, table) {
@@ -626,5 +681,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
     /* ------------------ */
 });
+
+/* ------------------ */
+/* ------------------ */
 
 /**/

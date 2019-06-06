@@ -27,8 +27,10 @@ Route::post('/diseases_content', 'MainController@diseases_content')->name('disea
 Route::post('/protocols_content', 'MainController@protocols_content')->name('protocols_content');
 Route::post('/remedies_content', 'MainController@remedies_content')->name('remedies_content');
 Route::post('/markers_content', 'MainController@markers_content')->name('markers_content');
+Route::post('/evidences_content', 'MainController@evidences_content')->name('evidences_content');
 
 Route::post('/details_content', 'MainController@details_content')->name('details_content');
+
 
 Route::post('/protocol_pieces', 'MainController@protocol_pieces')->name('protocol_pieces');
 
