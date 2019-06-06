@@ -8,7 +8,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     console.log('ready')
 
-    evidencesContentAjax();
+    if(location.pathname == "/main" ||
+       location.pathname == "/" )
+    {
+        evidencesContentAjax();
+    }
 
     /* ------------------ */
     /*     VARIABLES      */
