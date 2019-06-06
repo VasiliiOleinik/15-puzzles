@@ -6,23 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $piece_id
  * @property string $abnormal_condition
  * @property string $normal_condition
- * @property Piece $piece
+ * @property Piece[] $pieces
  */
 class Category extends Model
 {
     /**
      * @var array
      */
-    protected $fillable = ['piece_id', 'abnormal_condition', 'normal_condition'];
+    protected $fillable = ['abnormal_condition', 'normal_condition'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function piece()
+    public function pieces()
     {
-        return $this->belongsTo('App\Models\Piece\Piece');
+        return $this->hasMany('App\Models\Piece\Piece');
     }
 }

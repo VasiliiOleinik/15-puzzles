@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property int $category_id
  * @property string $name
  * @property string $content
  * @property string $img
- * @property Category[] $categories
+ * @property Category $category
  * @property PieceDisease[] $pieceDiseases
  * @property PieceMarker[] $pieceMarkers
  * @property PieceProtocol[] $pieceProtocols
@@ -22,14 +23,14 @@ class Piece extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'content', 'img'];
+    protected $fillable = ['category_id', 'name', 'content', 'img'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categories()
+    public function category()
     {
-        return $this->hasMany('App\Models\Category');
+        return $this->belongsTo('App\Models\Category');
     }
 
     /**

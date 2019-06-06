@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePiecesTable extends Migration {
+class CreateEvidencesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,10 @@ class CreatePiecesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('pieces', function(Blueprint $table)
+		Schema::create('evidences', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 50)->default('--');
-			$table->text('content', 65535);
-			$table->string('img', 200)->nullable();
+			$table->string('name', 50);
 		});
 	}
 
@@ -29,7 +27,7 @@ class CreatePiecesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('pieces');
+		Schema::drop('evidences');
 	}
 
 }

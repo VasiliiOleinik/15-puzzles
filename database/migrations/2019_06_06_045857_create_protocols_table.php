@@ -16,6 +16,7 @@ class CreateProtocolsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name', 50)->default('--');
+			$table->integer('evidence_id')->unsigned()->index('FK_protocols_evidences');
 			$table->text('content', 65535);
 		});
 	}

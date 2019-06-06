@@ -15,7 +15,6 @@ class CreateCategoriesTable extends Migration {
 		Schema::create('categories', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('piece_id')->unsigned()->default(1)->index('FK_categories_pieces');
 			$table->text('abnormal_condition', 65535);
 			$table->text('normal_condition', 65535);
 		});

@@ -6,21 +6,31 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
+ * @property int $evidence_id
  * @property string $name
  * @property string $content
+ * @property Evidence $evidence
  * @property DiseaseProtocol[] $diseaseProtocols
  * @property PieceProtocol[] $pieceProtocols
  * @property ProtocolMarker[] $protocolMarkers
  * @property ProtocolRemedy[] $protocolRemedies
  */
 class Protocol extends Model
-{	
+{
 	public $timestamps = false;
 	
     /**
      * @var array
      */
-    protected $fillable = ['name', 'content'];
+    protected $fillable = ['evidence_id', 'name', 'content'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function evidence()
+    {
+        return $this->belongsTo('App\Models\Evidence');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -53,8 +63,8 @@ class Protocol extends Model
     {
         return $this->hasMany('App\Models\Protocol\ProtocolRemedy');
     }
-
-    /**
+	
+	/**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function pieces()
@@ -69,5 +79,4 @@ class Protocol extends Model
     {
     return $this->belongsToMany('App\Models\Disease\Disease', 'disease_protocols');
     }
-
 }
