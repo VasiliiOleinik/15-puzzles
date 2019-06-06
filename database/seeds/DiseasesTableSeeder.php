@@ -13,7 +13,7 @@ class DiseasesTableSeeder extends Seeder
     public function run()
     {
         DB::table('diseases')->delete();
-        DB::update("ALTER TABLE diseases AUTO_INCREMENT = 16;");
+        DB::update("ALTER TABLE diseases AUTO_INCREMENT = 0;");
 
         factory(Disease::class, 7)->create();        
 
@@ -31,7 +31,7 @@ class DiseasesTableSeeder extends Seeder
         for($i = 0; $i < count($disease_names); $i++){
 
             DB::table('diseases')
-                ->where('id', $i + 1 + 15)
+                ->where('id', $i + 1)
                 ->update($disease_names[$i]);
         }
     }
