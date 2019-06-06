@@ -22,6 +22,8 @@ Route::get('/factor_diagram', 'FactorDiagramController@index')->name('factor_dia
 Route::get('/about', 'AboutController@index')->name('about');
 Route::get('/news', 'NewsController@index')->name('news');
 
+/* MAIN */
+
 Route::post('/pieces_content', 'MainController@pieces_content')->name('pieces_content');
 Route::post('/diseases_content', 'MainController@diseases_content')->name('diseases_content');
 Route::post('/protocols_content', 'MainController@protocols_content')->name('protocols_content');
@@ -31,8 +33,15 @@ Route::post('/evidences_content', 'MainController@evidences_content')->name('evi
 
 Route::post('/details_content', 'MainController@details_content')->name('details_content');
 
-
 Route::post('/protocol_pieces', 'MainController@protocol_pieces')->name('protocol_pieces');
+
+/* ---- */
+
+
+
+/* NEWS */
+
+/* ---- */
 
 Auth::routes(['verify' => true]);
 
