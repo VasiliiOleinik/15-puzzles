@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('news-css')
+    <link href="{{ asset('css/backend/tags search/bootstrap-tagsinput.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/backend/tags search/typeaheadjs.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 
      <div class="container">                   
@@ -24,4 +29,9 @@
                 </div>
             </div>
     </div>
+@endsection
+
+@section('news-js')
+     <script src="{{ asset('js/backend/tags search/typeahead.js') }}" defer></script>
+     <script src="{{ asset('js/backend/tags search/bootstrap-tagsinput.js') }}" defer></script>
 @endsection

@@ -15,12 +15,11 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
-{{--    <link href="{{ asset('css/tagmanager.min.css') }}" rel="stylesheet">--}}
+    @yield('news-css')
+    <link href="{{ asset('css/backend/backend.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-{{--   <script src="{{ asset('js/tagmanager.min.js') }}" defer></script>--}}
 
 </head>
 <body>
@@ -128,7 +127,11 @@
 
     <!-- Scripts -->
 
-    <script src="{{ asset('js/backend.js') }}" defer></script>
+    <script src="{{ asset('js/backend/backend.js') }}" defer></script>
+    @yield('news-js')
+    @if(Route::currentRouteName() == "news")
+       
+    @endif
     
 </body>
 </html>
