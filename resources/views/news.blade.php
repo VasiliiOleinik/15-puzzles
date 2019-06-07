@@ -39,6 +39,8 @@
 
     <script defer>
     document.addEventListener("DOMContentLoaded", function (event) {
+
+         var tags_count = 0;
         
          tags_ajax = $.ajax({
             type: "GET",
@@ -75,7 +77,8 @@
             data += ']';
 
             return data;
-        }        
+        }
+        
 
         function tagsInputInit(data){
 
@@ -102,6 +105,17 @@
 
             tags_input.tagsinput({
                 
+            });
+
+            //In search field changed count of tags
+            $('.bootstrap-tagsinput').bind("DOMSubtreeModified",function(){
+                _tags_count = $('.bootstrap-tagsinput').find('.tag').length;
+                if(_tags_count != tags_count){
+                    tags_count = _tags_count;
+                    //console.log(tags_count);
+
+
+                }
             });
         }
     });
