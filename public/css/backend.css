@@ -87,7 +87,8 @@ section.article_content {
 
 .piece, .disease {
     background: white;
-    border: 1px solid #ddd;
+    border: 2px solid #f8fafc;
+    border-radius: 4px;
     padding: 5px;
     height: 100px;
     cursor: pointer;
@@ -106,8 +107,12 @@ section.article_content {
 
 /* Style the active class, and buttons on mouse-over */
 ._active {
-    background: #3490dc;
-    color: white;
+    background: lightblue;
+    color: #599ba7;
+}
+
+._active:hover {
+    opacity: 1!important;
 }
 
 .piece:hover, .disease:hover {

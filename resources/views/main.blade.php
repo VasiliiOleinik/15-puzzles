@@ -140,8 +140,8 @@
                                 <div class="col-sm-3 text-left piece" name="piece" obj-id="{{$piece->id}}">
                                 
                                     <div class="piece_img p-0">
-                                        <!--<img src="/images/{{$piece->img}}" class="w-25">-->
-                                        <img src="/images/piece_1.png" class="w-25">
+                                        <img src="/images/{{$piece->img}}" class="w-25">
+                                        <!--<img src="/images/piece_1.png" class="w-25">-->
                                     </div>                                
                                 
                                     <label>
