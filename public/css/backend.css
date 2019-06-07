@@ -95,7 +95,13 @@ section.article_content {
 }
 
 .piece_img, .disease_img {
-    height: 45px;
+    height: 40px;
+    width: 40px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    background-image: url('/images/pieces_and_diseases.png');
+    background-repeat: no-repeat;
+    zoom: 80%;
 }
 
 .piece label {
@@ -105,15 +111,107 @@ section.article_content {
     bottom: 0;
 }
 
+.bp-0 {
+    background-position: 0px;
+}
+
+.bp-40 {
+    background-position: -40px;
+}
+
+.bp-80 {
+    background-position: -80px;
+}
+
+.bp-120 {
+    background-position: -120px;
+}
+
+.bp-160 {
+    background-position: -160px;
+}
+
+.bp-200 {
+    background-position: -200px;
+}
+
+.bp-240 {
+    background-position: -240px;
+}
+
+.bp-280 {
+    background-position: -280px;
+}
+
+.bp-320 {
+    background-position: -320px;
+}
+
+.bp-360 {
+    background-position: -360px;
+}
+
+.bp-400 {
+    background-position: -400px;
+}
+
+.bp-440 {
+    background-position: -440px;
+}
+
+.bp-480 {
+    background-position: -480px;
+}
+
+.bp-520 {
+    background-position: -520px;
+}
+
+.bp-560 {
+    background-position: -560px;
+}
+
+.bp-600 {
+    background-position: -600px;
+}
+
+.bp-640 {
+    background-position: -640px;
+}
+
+.bp-680 {
+    background-position: -680px;
+}
+
+.bp-720 {
+    background-position: -720px;
+}
+
+.bp-760 {
+    background-position: -760px;
+}
+
+.bp-800 {
+    background-position: -800px;
+}
+
+.bp-840 {
+    background-position: -840px;
+}
+
+.bp-880 {
+    background-position: -880px;
+}
+
 /* Style the active class, and buttons on mouse-over */
 ._active {
     background: lightblue;
     color: #599ba7;
 }
 
-._active:hover {
-    opacity: 1!important;
-}
+    ._active:hover {
+        opacity: 1 !important;
+    }
 
 .piece:hover, .disease:hover {
     opacity: 0.4;

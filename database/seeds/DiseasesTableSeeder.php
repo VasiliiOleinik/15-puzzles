@@ -18,6 +18,15 @@ class DiseasesTableSeeder extends Seeder
         factory(Disease::class, 7)->create();        
 
         $disease_names = [
+
+            ['img' => '600', 'name' => 'disease_1'],
+            ['img' => '640', 'name' => 'disease_2'],
+            ['img' => '680', 'name' => 'disease_3'],
+            ['img' => '720', 'name' => 'disease_4'],
+            ['img' => '760', 'name' => 'disease_5'],
+            ['img' => '800', 'name' => 'disease_6'],
+            ['img' => '840', 'name' => 'disease_7'],
+        /*
             ['img' => 'disease_1.png', 'name' => 'disease_1'],
             ['img' => 'disease_1.png', 'name' => 'disease_2'],
             ['img' => 'disease_1.png', 'name' => 'disease_3'],
@@ -25,7 +34,7 @@ class DiseasesTableSeeder extends Seeder
             ['img' => 'disease_1.png', 'name' => 'disease_5'],
             ['img' => 'disease_1.png', 'name' => 'disease_6'],
             ['img' => 'disease_1.png', 'name' => 'disease_7'],
-            
+            */
         ];
 
         for($i = 0; $i < count($disease_names); $i++){

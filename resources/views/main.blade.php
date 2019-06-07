@@ -138,9 +138,10 @@
                             <div class="row">
                         @endif                            
                                 <div class="col-sm-3 text-left piece" name="piece" obj-id="{{$piece->id}}">
-                                
-                                    <div class="piece_img p-0">
-                                        <img src="/images/{{$piece->img}}" class="w-25">
+
+                                    <div class="piece_img p-0 bp-{{$piece->img}}">
+                                        <!--<img src="/images/{{$piece->img}}" class="w-25">-->
+                                        
                                         <!--<img src="/images/piece_1.png" class="w-25">-->
                                     </div>                                
                                 
@@ -171,9 +172,9 @@
                         @endif                            
                             <div class="col-sm-3 text-left disease" name="disease" obj-id="{{$disease->id}}">
                                 
-                                    <div class="disease_img p-0">
+                                    <div class="disease_img p-0 bp-{{$disease->img}}">
                                         <!--<img src="/images/{{$disease->img}}" class="w-25">-->
-                                        <img src="/images/disease_1.png" class="w-25">
+                                        <!--<img src="/images/disease_1.png" class="w-25">-->
                                     </div>                                
                                 
                                     <label>

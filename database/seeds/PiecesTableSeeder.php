@@ -19,6 +19,22 @@ class PiecesTableSeeder extends Seeder
         factory(Piece::class, 15)->create();        
 
         $piece_names = [
+            ['img' => '0', 'name' => 'Oxygen metabolism change'],
+            ['img' => '40', 'name' => 'DNA damage'],
+			['img' => '80', 'name' => 'Etiology'],
+            ['img' => '120', 'name' => 'Looking up'],
+            ['img' => '160', 'name' => 'Detox'],
+            ['img' => '200', 'name' => 'Cell voltage'],
+            ['img' => '240', 'name' => 'pH'],
+            ['img' => '280', 'name' => 'Cellular metabolism'],
+            ['img' => '320', 'name' => 'Cancer cell recognition by immune system'],
+            ['img' => '360', 'name' => 'Reactivation of immune system'],
+            ['img' => '400', 'name' => 'Connective tissue recovery'],
+            ['img' => '440', 'name' => 'Canver cell ellimination'],
+            ['img' => '480', 'name' => 'Free Radical stress'],
+            ['img' => '520', 'name' => 'Cancer cell division'],
+            ['img' => '560', 'name' => 'Angiogenesis'],
+        /*
             ['img' => 'piece_1.png', 'name' => 'Oxygen metabolism change'],
             ['img' => 'piece_2.png', 'name' => 'DNA damage'],
 			['img' => 'piece_3.png', 'name' => 'Etiology'],
@@ -34,6 +50,7 @@ class PiecesTableSeeder extends Seeder
             ['img' => 'piece_13.png', 'name' => 'Free Radical stress'],
             ['img' => 'piece_14.png', 'name' => 'Cancer cell division'],
             ['img' => 'piece_15.png', 'name' => 'Angiogenesis'],
+        */
         ];
 
         for($i = 0; $i < count($piece_names); $i++){
