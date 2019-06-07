@@ -40,7 +40,7 @@ Route::post('/protocol_pieces', 'MainController@protocol_pieces')->name('protoco
 
 
 /* NEWS */
-
+Route::get('/tag_names', 'NewsController@tag_names')->name('tag_names');
 /* ---- */
 
 Auth::routes(['verify' => true]);

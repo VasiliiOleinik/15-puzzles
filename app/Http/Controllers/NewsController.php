@@ -14,4 +14,11 @@ class NewsController extends Controller
 
         return view('news', compact(['articles']));
     }
+
+    public function tag_names(){
+
+        $tag = Tag::all()->pluck('name','id')->toJson();
+
+        return response($tag);
+    }
 }
