@@ -11,7 +11,7 @@
             <div class="row">            
                 <div id="articles" class="col-sm-6">
                     @foreach($articles as $article)
-                        <div class="article">
+                        <div class="article" obj-id="{{$article->id}}">
                             <h2>{{$article->title}}</h2>
                             <section class="article_content">
                                 @php
@@ -20,7 +20,7 @@
                                 {{$article_short_content}}
                             </section>
                             <img src="/images/articles/{{$article->img}}" width="100%">
-                            <small class="article_data">12.06.2019</small>
+                            <small class="article_data">{{$article->updated_at->format('d.m.Y')}}</small>                            
                         </div>
                     @endforeach
                 </div>
@@ -93,11 +93,15 @@
             tags_input.tagsinput({
                 itemValue: "tag_id",
                 itemText: "text",
-                typeaheadjs: {
+                typeaheadjs: {                
                 name: "tags",
                 displayKey: "text",
                 source: tags.ttAdapter()
                 }
+            });
+
+            tags_input.tagsinput({
+                
             });
         }
     });
