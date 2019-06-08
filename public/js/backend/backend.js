@@ -259,7 +259,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $('#protocols li').removeClass('highlighted');
         $(this).addClass('highlighted');
 
-        tags_protocols = '<span class="badge-protocol badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + $(this).html();
+        protocol_name = $(this).html().split('<span')[0];
+        tags_protocols = '<span class="badge-protocol badge badge-secondary mr-1 mb-1" obj-id="' + $(this).attr("obj-id") + '">' + protocol_name;
         tags_protocols += '<button type="button" class="close" aria-label="Close"><span class="close-span" aria-hidden="true" >x</span ></button >';
         tags_protocols += '</span>';
 

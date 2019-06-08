@@ -2,6 +2,20 @@
     min-height: 900px;
 }
 
+.shadow-header {
+    box-shadow: 0 .425rem .525rem #FAFCFD !important;
+    border-bottom: 1px solid #F6FAFB;
+}
+
+.header{
+    z-index:999;
+}
+
+#articles, #main_tabs {
+    background: white;
+    z-index: 1;
+}
+
 button.close {
     color: white !important;
     margin-left: 10px;

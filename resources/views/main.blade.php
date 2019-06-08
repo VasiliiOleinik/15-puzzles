@@ -4,8 +4,8 @@
 
     <div class="container">        
             
-            <div class="row">            
-                <div id="main_tabs" class="col-sm-6">
+            <div class="row">
+                <div id="main_tabs" class="col-sm-6 py-5">
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
                     <li id="tab-factors" class="nav-item">
@@ -127,7 +127,7 @@
                     @endif
 
                 </div>
-                <div id="pieces_and_diseases" class="col-sm-6">
+                <div id="pieces_and_diseases" class="col-sm-6 py-5">
                     @php
                         $piece_count = 1;
                     @endphp
@@ -135,7 +135,7 @@
                     @foreach($pieces as $piece)
 
                         @if($piece_count == 1)
-                            <div class="row">
+                            <div class="row" style="margin-left: 10px;">
                         @endif                            
                                 <div class="col-sm-3 text-left piece" name="piece" obj-id="{{$piece->id}}">
 
