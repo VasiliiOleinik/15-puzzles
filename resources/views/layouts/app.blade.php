@@ -46,7 +46,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Main menu -->
-                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                            <nav class="navbar navbar-expand-lg navbar-light">
  
                               
                               
