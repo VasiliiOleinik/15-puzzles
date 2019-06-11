@@ -31,9 +31,21 @@
     z-index:999;
 }
 
+.items {
+    height: 336px;
+    overflow-y: auto;
+}
+
 #articles, #main_tabs {
     background: white;
     z-index: 1;
+}
+
+.required_after {
+    color: red;
+    left: 7px;
+    top: 12px;
+    position: relative;
 }
 
 button.close {
@@ -82,11 +94,6 @@ button.close:focus {
 
 .btn-outline-info:hover {
     color: white;
-}
-
-.card-body {
-    height: 336px;
-    overflow-y: auto;
 }
 
 .list-group-item {

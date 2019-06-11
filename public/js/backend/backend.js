@@ -14,6 +14,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         evidencesContentAjax();
     }
 
+    var required_label = $('[required="required"]').parent().parent().find('label');
+    required_label.after('<label class="required_after">*</label>');
+
     /* ------------------ */
     /*     VARIABLES      */
     /* ------------------ */

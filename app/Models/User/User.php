@@ -36,7 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * @var array
      */
-    protected $fillable = ['role_id', 'name', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'];
+    protected $fillable = ['role_id', 'nickname', 'first_name', 'middle_name', 'last_name', 'email', 'email_verified_at', 'password', 'remember_token', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

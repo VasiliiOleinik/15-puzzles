@@ -34,7 +34,7 @@
                   <div class="tab-content">
                     <div id="factors" class="container tab-pane active">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body items">
                                 <div id="factors_ajax_container" class="tab-pane active">
                                     @foreach($pieces as $piece)
                                     <div class="factors_element d-none" obj-id="{{$piece->id}}">
@@ -48,7 +48,7 @@
                     </div>
                     <div id="diseases" class="container tab-pane fade">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body items">
                                 <div id="diseases_ajax_container" class="tab-pane active">
                                     @foreach($diseases as $disease)
                                     <div class="diseases_element d-none" obj-id="{{$disease->id}}">
