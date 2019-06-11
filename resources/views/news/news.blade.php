@@ -109,16 +109,49 @@
                 
             });
 
+            $("#tags").change(function(){
+                //console.log($("#tags").val().split(','))
+                var tags_id = $("#tags").val().split(',');
+
+                news_ajax = $.ajax({
+                type: "POST",
+                url: "/news_content",
+                data: {
+                    "_token": $('meta[name="csrf-token"]').attr('content'),
+                    tags_id: tags_id,
+                },
+                complete: function (result) {               
+
+                    if (result.responseText.length != 0) {
+
+                        result = result.responseText;
+                        html = result;
+                        $('#articles').html(html);                        
+
+                        //console.log(result);
+                    }
+                },
+                error: function (err) {
+
+                }
+            });
+            })
+
+            /*
             //In search field changed count of tags
             $('.bootstrap-tagsinput').bind("DOMSubtreeModified",function(){
                 _tags_count = $('.bootstrap-tagsinput').find('.tag').length;
+
                 if(_tags_count != tags_count){
                     tags_count = _tags_count;
-                    //console.log(tags_count);
+
+                    console.log($("#tags").val().split(','));
+
 
 
                 }
             });
+            */
         }
     });
         

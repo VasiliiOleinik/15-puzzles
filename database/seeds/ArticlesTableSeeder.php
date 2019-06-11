@@ -24,7 +24,7 @@ class ArticlesTableSeeder extends Seeder
         Article::all()->each(function ($article) use ($tags) { 
             $article->tags()->attach(
                 $tags->random(
-                    rand(1,  6))->pluck('id')->toArray()
+                    rand(6,  25))->pluck('id')->toArray()
                 
             ); 
         });
