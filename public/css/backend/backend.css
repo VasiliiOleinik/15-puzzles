@@ -52,7 +52,7 @@ body {
     position: relative;
 }
 
-button.close {
+button[aria-label] {
     color: white !important;
     margin-left: 10px;
     font-size: 10px;
