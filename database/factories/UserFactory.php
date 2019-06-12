@@ -17,11 +17,18 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+
+    $path = 'https://picsum.photos/145';
+    $type = pathinfo($path, PATHINFO_EXTENSION);
+    $data = file_get_contents($path);
+    $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
+
     return [
         'nickname' => $faker->userName,
         'first_name' => $faker->firstName,
         'middle_name' => $faker->firstName,
         'last_name' => $faker->lastName,
+        'img' => $base64,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => bcrypt('00000000'),
