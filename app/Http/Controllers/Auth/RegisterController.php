@@ -28,7 +28,12 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = 'personal_cabinet';
+
+    /*protected function redirectTo()
+    {
+        return url()->previous();
+    }*/
 
     /**
      * Create a new controller instance.
