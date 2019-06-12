@@ -44,6 +44,11 @@ Route::get('/tag_names', 'NewsController@tag_names')->name('tag_names');
 Route::post('/news_content', 'NewsController@news_content')->name('news_content');
 /* ---- */
 
+/* PERSONAL CABINET */
+Route::get('/personal_cabinet', 'PersonalCabinetController@personal_cabinet')->name('personal_cabinet');
+Route::post('/user_edit', 'UserController@user_edit')->name('user_edit');
+/* ---- */
+
 Auth::routes(['verify' => true]);
 
 //Route::get('/home', 'HomeController@index')->name('home');

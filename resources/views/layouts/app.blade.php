@@ -129,9 +129,12 @@
 
     <script src="{{ asset('js/backend/backend.js') }}" defer></script>
     @yield('news-js')
+    @yield('personal_cabinet-js')
+    <!--
     @if(Route::currentRouteName() == "news")
        
     @endif
+    -->
     
 </body>
 </html>

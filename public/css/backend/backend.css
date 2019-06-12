@@ -1,3 +1,7 @@
+body {
+    overflow-y: scroll;
+}
+
 #app {
     min-height: 900px;
 }
@@ -11,15 +15,15 @@
     margin-left: 20px;
 }
 
-[type=search]::placeholder {
-    color: #88898A;
-}
+    [type=search]::placeholder {
+        color: #88898A;
+    }
 
-[type=search]:focus {
-    color: #88898A!important;
-    background: #F5F7FA!important;
-    box-shadow: initial!important;
-}
+    [type=search]:focus {
+        color: #88898A !important;
+        background: #F5F7FA !important;
+        box-shadow: initial !important;
+    }
 
 .shadow-header {
     box-shadow: 0 .325rem .425rem rgba(250,252,253,0.70) !important;
@@ -27,8 +31,8 @@
     border-bottom: 1px solid #F6FAFB;
 }
 
-.header{
-    z-index:999;
+.header {
+    z-index: 999;
 }
 
 .items {
@@ -56,14 +60,14 @@ button.close {
     transition: ease all .3s;
 }
 
-button.close:hover {
-    color: white !important;
-}
+    button.close:hover {
+        color: white !important;
+    }
 
-button.close:focus {
-    border: none !important;
-    outline: none;
-}
+    button.close:focus {
+        border: none !important;
+        outline: none;
+    }
 
 #tags_container {
     padding: 15px;
@@ -76,7 +80,7 @@ button.close:focus {
     border-radius: 2px;
 }
 
-#news_right_side{
+#news_right_side {
     padding-left: 25px;
 }
 
@@ -254,10 +258,75 @@ section.article_content {
     color: #599ba7;
 }
 
-._active:hover {
-    opacity: 1 !important;
-}
+    ._active:hover {
+        opacity: 1 !important;
+    }
 
 .piece:hover, .disease:hover {
     opacity: 0.4;
 }
+
+/* UPLOAD IMAGES */
+.imagePreview {
+    width: 108px;
+    height: 108px;
+    background-position: center center;
+    background: url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg);
+    background-color: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    box-shadow: 0px -3px 6px 2px rgba(0,0,0,0.2);
+}
+
+/*.btn-primary {
+    display: block;
+    border-radius: 0px;
+    box-shadow: 0px 4px 6px 2px rgba(0,0,0,0.2);
+    margin-top: -5px;
+}*/
+
+.imgUp {
+    margin-bottom: 15px;
+}
+
+.del {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: rgba(255,255,255,0.6);
+    cursor: pointer;
+}
+
+.imgAdd {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #4bd7ef;
+    color: #fff;
+    box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.2);
+    text-align: center;
+    line-height: 30px;
+    margin-top: 0px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.imagePreview {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+input.uploadFile.img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    opacity: 0;
+    cursor: pointer;
+}
+/**/
