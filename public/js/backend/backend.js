@@ -706,6 +706,17 @@ function setUserAvatar(base64_img) {
     $('#img').attr('value', base64_img);
 }
 
+function filePriview(base64_img) {
+
+    if ($('#upload_file_style').length > 0) {
+        $('#upload_file_style').remove();
+    }
+
+    $("head").append('<style id="upload_file_style" type="text/css"></style>');
+    var newStyleElement = $("head").children(':last');
+    newStyleElement.html('.filePreview{background-image:url(' + base64_img + ')!important;}');
+}
+
 
 /* ------------------ */
 /* ------------------ */
