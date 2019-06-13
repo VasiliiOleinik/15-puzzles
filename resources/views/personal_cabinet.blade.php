@@ -126,13 +126,28 @@
                        <!-- -- -->
                     </form>
                     <!-- UPLOAD FILE (MEDICINE) -->
+                          <!--
                           <div class="row">
                              <div class="col-sm-4 fileUp">
                                 <div class="filePreview">
 								    <input type="file" class="uploadFile file">                                    
                                 </div>                        
                              </div>
-                      
+                          </div>
+                          -->
+                          <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data">
+                            @csrf
+                              <div class="form-group">
+                                     <label for="upload_file" class="control-label col-sm-3">Upload File</label>
+                                     <div class="col-sm-9">
+                                          <input class="form-control" type="file" name="upload_file" id="upload_file">
+                                     </div>
+
+                                     <button type="submit" class="btn btn-primary float-right">
+                                        upload
+                                    </button>
+                              </div>
+                          </form>
                        <!-- -- -->
                 </div>
                 <div id="news_right_side" class="col-sm-6 py-4">
@@ -166,25 +181,7 @@
 
             setUserAvatar(base64_img);           
 
-            /*
-            $('#save_changes').click(function(){
-                 $.ajax({
-                    type: "POST",
-                    url: "/user_edit",
-                    data: {
-                        "_token": $('meta[name="csrf-token"]').attr('content'),
-                        img: base64_img
-                    },
-                    complete: function (result) {               
-
-                    },
-                    error: function (err) {
-                        //console.log("protocol_pieces ajax error");
-                    }
-
-                });
-            })
-            */
+           
         });
     </script>
 @endsection
