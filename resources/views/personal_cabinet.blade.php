@@ -11,7 +11,7 @@
                         <strong>Info!</strong> You have successfully updated your personal data.
                    </div>
                    @endif
-                   <h4>Personal cabinet<h5>
+                   <h4 class="mb-3"><strong>Personal cabinet</strong></h4>
 
                    <form method="POST" action="{{ route('user_edit') }}">
                    @csrf
@@ -117,41 +117,65 @@
                                 </div>
                             </div>
 
-                            <hr>                            
-                            <button id="save_changes" type="submit" class="btn btn-primary float-right">
+                            <hr>
+                            <!-- save changes button -->
+                            <button id="save_changes" type="submit" class="btn btn-primary r-50">
                                 Save changes
                             </button>
+                            <!- - ->
 
+                            <!-- avatar image hidden data -->
                             <input id="img" type="text" class="form-control @error('img') is-invalid @enderror" name="img" hidden>
+                            <!- - ->
                        <!-- -- -->
                     </form>
-                    <!-- UPLOAD FILE (MEDICINE) -->
-                          <!--
-                          <div class="row">
-                             <div class="col-sm-4 fileUp">
-                                <div class="filePreview">
-								    <input type="file" class="uploadFile file">                                    
-                                </div>                        
-                             </div>
-                          </div>
-                          -->
-                          <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data">
-                            @csrf
-                              <div class="form-group">
-                                     <label for="upload_file" class="control-label col-sm-3">Upload File</label>
-                                     <div class="col-sm-9">
-                                          <input class="form-control" type="file" name="upload_file" id="upload_file">
-                                     </div>
+                            
+                    <form method="POST" action="{{ route('upload') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="container">
+                                            
+                                <!--<input class="form-control" type="file" name="upload_file" id="upload_file">-->
+                                <div class="row">
+                                    <div class="col-10 fileUp row">
 
-                                     <button type="submit" class="btn btn-primary float-right">
-                                        upload
-                                    </button>
-                              </div>
-                          </form>
+                                        <h5 class="mb-4"><strong>History of analyzes</strong></h5>
+                                        <p>You can add file formats: PDF and Office files.<p>
+
+                                        <div class="col-6">
+                                                 
+                                            <!-- preview -->
+                                            <div class="filePreview">
+                                            <input type="file" class="uploadFile file"  name="upload_file" id="upload_file" required>
+                                            </div>
+                                            <!- - ->
+                                        </div>
+                                        <div class="col-6">
+                                            <!-- file name -->
+           
+
+                                            <input id="file_name" type="text" placeholder="File Name" class="form-control @error('file_name') is-invalid @enderror" name="file_name" value="" autocomplete="file_name" autofocus required="sdffsd">
+
+                                            @error('file_name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                            <!- - ->
+                                            <br>
+                                            <!-- upload button -->
+                                            <button type="submit" class="btn btn-primary r-15">
+                                            upload
+                                            </button>
+                                            <!- - ->
+                                    </div>
+                                    </div>   
+                                </div>                            
+                        </div>
+                    </form>
                        <!-- -- -->
                 </div>
                 <div id="news_right_side" class="col-sm-6 py-4">
-                   <h4>Personal cabinet<h5>
+                   <h4>Personal cabinet<h4>
                    <?php
                         $filePath="./images/test.pdf";
                         $filename="test.pdf";

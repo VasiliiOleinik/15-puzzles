@@ -16,10 +16,10 @@ class UserController extends Controller
         //dd($user);
         
         $validatedData = $request->validate([
-        'nickname' => ['required', 'string', 'max:255'],
-        'first_name' => ['max:255'],
-        'middle_name' => ['max:255'],
-        'last_name' => ['max:255'],
+        'nickname' => ['required','alpha_dash', 'string', 'max:255'],
+        'first_name' => ['alpha', 'max:255'],
+        'middle_name' => ['alpha','max:255'],
+        'last_name' => ['alpha','max:255'],
         'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user)],
         ]);
         

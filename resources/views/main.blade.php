@@ -62,7 +62,7 @@
                     </div>
                     <div  id="protocols" class="container tab-pane fade">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body items">
                                 <ul id="protocols_ajax_container" class='list-group'>
                                     @foreach($protocols as $protocol)
                                         <li class='protocol list-group-item list-group-item-action p-0' obj-id="{{$protocol->id}}" style="cursor:pointer;">{{$protocol->name}}</li>
@@ -73,7 +73,7 @@
                         <!-- Tab details -->
                         <div class="tab-details">
                         <div class="card">
-                                <div class="card-body">
+                                <div class="card-body items">
                                     <div id="" class="details_ajax_container tab-pane active">
 
                                     </div>
@@ -83,7 +83,7 @@
                     </div>
                     <div id="remedies" class="container tab-pane fade">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body items">
                                 <div id="remedies_ajax_container" class="tab-pane active">
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                          <!-- Tab details -->
                         <div class="tab-details">
                         <div class="card">
-                                <div class="card-body">
+                                <div class="card-body items">
                                     <div id="" class="details_ajax_container tab-pane active">
 
                                     </div>
@@ -101,7 +101,7 @@
                     </div>
                     <div id="markers" class="container tab-pane fade">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body items">
                                 <div id="markers_ajax_container" class="tab-pane active">
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                          <!-- Tab details -->
                         <div class="tab-details">
                         <div class="card">
-                                <div class="card-body">
+                                <div class="card-body items">
                                     <div id="" class="details_ajax_container tab-pane active">
 
                                     </div>

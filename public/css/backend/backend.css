@@ -60,14 +60,14 @@ button[aria-label] {
     transition: ease all .3s;
 }
 
-    button.close:hover {
-        color: white !important;
-    }
+button.close:hover {
+    color: white !important;
+}
 
-    button.close:focus {
-        border: none !important;
-        outline: none;
-    }
+button.close:focus {
+    border: none !important;
+    outline: none;
+}
 
 #tags_container {
     padding: 15px;
@@ -267,7 +267,7 @@ section.article_content {
 }
 
 /* UPLOAD IMAGES */
-.imagePreview, .filePreview{
+.imagePreview {
     width: 145px;
     height: 145px;
     background-position: center center;
@@ -279,6 +279,27 @@ section.article_content {
     box-shadow: 0px -3px 6px 2px rgba(0,0,0,0.2);
 }
 
+.filePreview {
+    width: 95px;
+    height: 95px;
+    background-position: center center;
+    /*background: url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg);*/
+    background-color: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: inline-block;
+    box-shadow: 0px -3px 6px 2px rgba(0,0,0,0.2);
+}
+
+.r-15 {
+    position: absolute;
+    right: 15px;
+}
+
+.r-50 {
+    position: absolute;
+    right: 50px;
+}
 
 /*.btn-primary {
     display: block;
@@ -286,10 +307,15 @@ section.article_content {
     box-shadow: 0px 4px 6px 2px rgba(0,0,0,0.2);
     margin-top: -5px;
 }*/
-
 .imgUp, .fileUp {
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
 }
+
+.fileUp {
+    /* margin-bottom: 15px; */
+    margin-top: 50px;
+}
+
 
 .del {
     position: absolute;
