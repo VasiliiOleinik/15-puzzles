@@ -46,7 +46,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             var files = !!this.files ? this.files : [];
             if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support           
             
-            //if (/^image/.test(files[0].type)) { // only image file
                 var reader = new FileReader(); // instance of the FileReader
                 reader.readAsDataURL(files[0]); // read the local file
 
@@ -54,8 +53,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                     checkValidFileTyle(files[0], this.result);
                     setDefaultFileName(files[0]);
-                    
-                    //uploadFile.closest(".imgUp").find('.imagePreview');
+                    setFileType(files[0]);
+                    setFileSize(files[0].size);                   
                 }
             //}
 
@@ -64,8 +63,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 });
 
-function checkValidFileTyle(file) {
-    console.log(file.name.split('.')[0])
+function setFileSize(file_size) {
+    $('#file_size').attr('value', file_size);
+}
+
+function setFileType(file) {
+    var file_type = file.name.split('.')[file.name.split('.').length-1];
+    $('#file_type').attr('value', file_type);
+}
+
+function setDefaultFileName(file) {
+    var file_name = file.name.split('.')[0];    
+    $('#file_name').attr('value', file_name);
 }
 
 function checkValidFileTyle(file, base_64_image) {

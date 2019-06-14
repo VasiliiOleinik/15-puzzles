@@ -5,10 +5,10 @@
      <div class="container">
             <div class="row">
                 <div id="articles" class="col-sm-6 py-4 pl-5 pr-5">
-                    @if(Session::get('status'))
+                    @if(Session::get('status-user_update'))
                    <div class="alert alert-info alert-dismissible fade show">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Info!</strong> You have successfully updated your personal data.
+                        <strong>Info!</strong> {{Session::get('status-user_update')}}
                    </div>
                    @endif
                    <h4 class="mb-3"><strong>Personal cabinet</strong></h4>
@@ -19,7 +19,7 @@
                           <div class="row">
                              <div class="col-sm-4 imgUp">
                                 <div class="imagePreview">
-								    <input type="file" class="uploadFile img">                                    
+								    <input type="file" accept="image/*" class="uploadFile img">                                    
                                 </div>                        
                              </div>
                       
@@ -136,8 +136,14 @@
                                             
                                 <!--<input class="form-control" type="file" name="upload_file" id="upload_file">-->
                                 <div class="row">
+                                    @if(Session::get('status-file_upload'))
+                                               <div class="alert alert-info alert-dismissible fade show">
+                                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                                    <strong>Info!</strong> {{Session::get('status-file_upload')}}
+                                               </div>
+                                         @endif
                                     <div class="col-10 fileUp row">
-
+                                         
                                         <h5 class="mb-4"><strong>History of analyzes</strong></h5>
                                         <p>You can add file formats: PDF and Office files.<p>
 
@@ -145,7 +151,7 @@
                                                  
                                             <!-- preview -->
                                             <div class="filePreview">
-                                            <input type="file" class="uploadFile file"  name="upload_file" id="upload_file" required>
+                                            <input type="file" accept=".xlsx, .xls, .doc, .docx, .txt, .pdf" class="uploadFile file"  name="upload_file" id="upload_file" required>
                                             </div>
                                             <!- - ->
                                         </div>
@@ -153,7 +159,9 @@
                                             <!-- file name -->
            
 
-                                            <input id="file_name" type="text" placeholder="File Name" class="form-control @error('file_name') is-invalid @enderror" name="file_name" value="" autocomplete="file_name" autofocus required="sdffsd">
+                                            <input id="file_name" type="text" placeholder="File Name" class="form-control @error('file_name') is-invalid @enderror" name="file_name" value="" autocomplete="file_name" autofocus required>
+                                            <input id="file_type" type="hidden" name="file_type" required>
+                                            <input id="file_size" type="hidden" name="file_size" required>
 
                                             @error('file_name')
                                                 <span class="invalid-feedback" role="alert">
