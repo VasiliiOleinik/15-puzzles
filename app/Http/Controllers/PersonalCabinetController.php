@@ -56,7 +56,7 @@ class PersonalCabinetController extends Controller
 
         $file = new File;
         $file->name = $file_name;
-        $file->path = $file_path
+        $file->path = $file_path;
         $file->type = $file_type;
         $file->size = $file_size;
         $file->user_id =  $user_id;
