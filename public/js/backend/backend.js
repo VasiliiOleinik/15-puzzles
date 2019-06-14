@@ -1,5 +1,7 @@
 /* 15 pazzles backend*/
 
+var tags_pieces = "", tags_diseases = "", tags_protocols = "", tags_remedies = "", tags_markers = "";
+
 /* ----------------------- */
 /*     DOCUMENT READY      */
 /* ----------------------- */
@@ -28,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     var evidences;
 
-    var tags_pieces = "", tags_diseases = "", tags_protocols = "", tags_remedies = "", tags_markers = "";
+    
 
     /* ------------------ */
     /* ------------------ */
@@ -585,7 +587,131 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
     /* ------------------ */
 
+    /* ------------------ */
+    /*      FUNCTIONS     */
+    /* ------------------ */
 
+    function getActivePiecesId() {
+
+        //get active pieces
+        var _active_pieces_id = [];
+        $(".piece").each(function () {
+            if ($(this).hasClass('_active')) {
+                piece_id = $(this).attr('obj-id');
+
+                $('.factors_element').each(function () {
+                    if ($(this).attr('obj-id') == piece_id) {
+                        if ($(this).hasClass('d-none')) {
+                            $(this).removeClass('d-none');
+                        }
+                    }
+                });
+
+                _active_pieces_id.push(piece_id);
+            }
+        });
+
+        return _active_pieces_id;
+    }
+
+    function getActiveDiseasesId() {
+
+        //get active pieces
+        var _active_diseases_id = [];
+        $(".disease").each(function () {
+            if ($(this).hasClass('_active')) {
+                disease_id = $(this).attr('obj-id');
+
+
+                $('.diseases_element').each(function () {
+                    if ($(this).attr('obj-id') == disease_id) {
+                        if ($(this).hasClass('d-none')) {
+                            $(this).removeClass('d-none');
+                        }
+                    }
+                });
+
+                _active_diseases_id.push(disease_id);
+            }
+        });
+
+        return _active_diseases_id;
+    }
+
+    function detectTagType(element) {
+
+        var result
+
+        result = element.hasClass('badge-piece');
+
+        if (result) {
+
+            result = "piece";
+        }
+        else {
+
+            result = element.hasClass('badge-disease');
+
+            if (result) {
+                result = "disease";
+            } else {
+
+                result = element.hasClass('badge-protocol');
+                if (result) {
+                    result = "protocol";
+                }
+            }
+        }
+
+        return result;
+    }
+
+    function refreshTagsPanelHtml() {
+        tags = tags_pieces + tags_diseases + tags_protocols + tags_remedies + tags_markers;
+        $('#tags_container').html(tags);
+    }
+
+    function refreshContent() {
+        //get active pieces
+        var _active_pieces_id = getActivePiecesId();
+        //get active diseases
+        var _active_diseases_id = getActiveDiseasesId();
+
+        if ($('.tab-pane.show').attr('id') == "remedies") {
+            remediesContentAjax(_active_pieces_id, _active_diseases_id);
+        }
+        if ($('.tab-pane.show').attr('id') == "markers") {
+            markersContentAjax(_active_pieces_id, _active_diseases_id);
+        }
+    }
+
+    function setUserAvatar(base64_img) {
+
+        if ($('#upload_style').length > 0) {
+            $('#upload_style').remove();
+        }
+
+        $("head").append('<style id="upload_style" type="text/css"></style>');
+        var newStyleElement = $("head").children(':last');
+        newStyleElement.html('.imagePreview{background-image:url(' + base64_img + ')!important;}');
+
+        $('#img').attr('value', base64_img);
+    }
+
+    function filePriview(base64_img) {
+
+        if ($('#upload_file_style').length > 0) {
+            $('#upload_file_style').remove();
+        }
+
+        $("head").append('<style id="upload_file_style" type="text/css"></style>');
+        var newStyleElement = $("head").children(':last');
+        newStyleElement.html('.filePreview{background-image:url(' + base64_img + ')!important;}');
+    }
+
+
+/* ------------------ */
+/* ------------------ */
 });
 
 /* ------------------ */
@@ -595,103 +721,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-/* ------------------ */
-/*      FUNCTIONS     */
-/* ------------------ */
-
-function getActivePiecesId() {
-
-    //get active pieces
-    var _active_pieces_id = [];
-    $(".piece").each(function () {
-        if ($(this).hasClass('_active')) {
-            piece_id = $(this).attr('obj-id');
-
-            $('.factors_element').each(function () {
-                if ($(this).attr('obj-id') == piece_id) {
-                    if ($(this).hasClass('d-none')) {
-                        $(this).removeClass('d-none');
-                    }
-                }
-            });
-
-            _active_pieces_id.push(piece_id);
-        }
-    });
-
-    return _active_pieces_id;
-}
-
-function getActiveDiseasesId() {
-
-    //get active pieces
-    var _active_diseases_id = [];
-    $(".disease").each(function () {
-        if ($(this).hasClass('_active')) {
-            disease_id = $(this).attr('obj-id');
-
-
-            $('.diseases_element').each(function () {
-                if ($(this).attr('obj-id') == disease_id) {
-                    if ($(this).hasClass('d-none')) {
-                        $(this).removeClass('d-none');
-                    }
-                }
-            });
-
-            _active_diseases_id.push(disease_id);
-        }
-    });
-
-    return _active_diseases_id;
-}
-
-function detectTagType(element) {
-
-    var result
-
-    result = element.hasClass('badge-piece');
-
-    if (result) {
-
-        result = "piece";
-    }
-    else {
-
-        result = element.hasClass('badge-disease');
-
-        if (result) {
-            result = "disease";
-        } else {
-
-            result = element.hasClass('badge-protocol');
-            if (result) {
-                result = "protocol";
-            }
-        }
-    }
-
-    return result;
-}
-
-function refreshTagsPanelHtml() {
-    tags = tags_pieces + tags_diseases + tags_protocols + tags_remedies + tags_markers;
-    $('#tags_container').html(tags);
-}
-
-function refreshContent() {
-    //get active pieces
-    var _active_pieces_id = getActivePiecesId();
-    //get active diseases
-    var _active_diseases_id = getActiveDiseasesId();
-
-    if ($('.tab-pane.show').attr('id') == "remedies") {
-        remediesContentAjax(_active_pieces_id, _active_diseases_id);
-    }
-    if ($('.tab-pane.show').attr('id') == "markers") {
-        markersContentAjax(_active_pieces_id, _active_diseases_id);
-    }
-}
+/* ------------------------ */
+/*     GLOBAL FUNCTIONS     */
+/* ------------------------ */
 
 function setUserAvatar(base64_img) {
 
