@@ -623,10 +623,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
         var _active_diseases_id = getActiveDiseasesId();
 
         if ($('.tab-pane.show').attr('id') == "remedies") {
-            remediesContentAjax(_active_pieces_id, _active_diseases_id);
+            modelDataAjax(_active_pieces_id, _active_diseases_id, model_remedy, 'remedies');
         }
         if ($('.tab-pane.show').attr('id') == "markers") {
-            markersContentAjax(_active_pieces_id, _active_diseases_id);
+            modelDataAjax(_active_pieces_id, _active_diseases_id, model_marker, 'markers');
         }
     }
 
