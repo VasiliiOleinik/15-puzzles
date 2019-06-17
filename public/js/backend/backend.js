@@ -30,7 +30,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     var evidences;
 
-    
+    var model_protocol = "App\\Models\\Protocol\\Protocol";
+    var model_remedy = "App\\Models\\Remedy";
+    var model_marker = "App\\Models\\Marker";
 
     /* ------------------ */
     /* ------------------ */
@@ -109,13 +111,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
         if ($('.tab-pane.show').attr('id') == "protocols") {
-            protocolsContentAjax(_active_pieces_id, _active_diseases_id);
+            modelDataAjax(_active_pieces_id, _active_diseases_id, model_protocol, 'protocols');
         }
         if ($('.tab-pane.show').attr('id') == "remedies") {
-            remediesContentAjax(_active_pieces_id, _active_diseases_id);
+            modelDataAjax(_active_pieces_id, _active_diseases_id, model_remedy, 'remedies');
         }
         if ($('.tab-pane.show').attr('id') == "markers") {
-            markersContentAjax(_active_pieces_id, _active_diseases_id);
+            modelDataAjax(_active_pieces_id, _active_diseases_id, model_marker, 'markers');
         }
 
     });
@@ -158,13 +160,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         if ($('.tab-pane.show').attr('id') == "protocols") {
-            protocolsContentAjax(_active_pieces_id, _active_diseases_id);
+            modelDataAjax(_active_pieces_id, _active_diseases_id, model_protocol, 'protocols');
         }
         if ($('.tab-pane.show').attr('id') == "remedies") {
-            remediesContentAjax(_active_pieces_id, _active_diseases_id);
+            modelDataAjax(_active_pieces_id, _active_diseases_id, model_remedy, 'remedies');
         }
         if ($('.tab-pane.show').attr('id') == "markers") {
-            markersContentAjax(_active_pieces_id, _active_diseases_id);
+            modelDataAjax(_active_pieces_id, _active_diseases_id, model_marker, 'markers');
         }
 
     });
@@ -292,7 +294,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //get active diseases
         var _active_diseases_id = getActiveDiseasesId();
 
-        protocolsContentAjax(_active_pieces_id, _active_diseases_id);
+        //protocolsContentAjax(_active_pieces_id, _active_diseases_id);
+        modelDataAjax(_active_pieces_id, _active_diseases_id, model_protocol, "protocols");
     });
 
     //click on remedies tab
@@ -306,7 +309,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //get active diseases
         var _active_diseases_id = getActiveDiseasesId();
 
-        remediesContentAjax(_active_pieces_id, _active_diseases_id);
+        //remediesContentAjax(_active_pieces_id, _active_diseases_id);
+        modelDataAjax(_active_pieces_id, _active_diseases_id, model_remedy, "remedies");
     });
 
     //click on markers tab
@@ -320,7 +324,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //get active diseases
         var _active_diseases_id = getActiveDiseasesId();
 
-        markersContentAjax(_active_pieces_id, _active_diseases_id);
+        modelDataAjax(_active_pieces_id, _active_diseases_id, model_marker, "markers");
     });
 
     /* ------------------ */
@@ -333,162 +337,102 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*   AJAX FUNCTIONS   */
     /* ------------------ */
 
-    function protocolsContentAjax(_active_pieces_id, _active_diseases_id) {
+    function modelDataAjax(_active_pieces_id, _active_diseases_id, model, table_name){
 
         try {
-            protocols_ajax.abort();
+            window[table_name + '_ajax'].abort();
         }
         catch(err){
 
         }
 
-        $('#protocols_ajax_container').html('Loading..');
+
+        $('#'+table_name+'_ajax_container').html('Loading..');
+
+        var data;
+        if(table_name != "protocols") {
+
+            var _active_protocols_id = [];
+            _active_protocols_id.push($('#tags_container .badge-protocol').eq(0).attr('obj-id'));
+
+            data = {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                _active_pieces_id: _active_pieces_id,
+                _active_diseases_id: _active_diseases_id,
+                _active_protocols_id: _active_protocols_id,
+                model: model,
+            }
+        }
+        else{
+            data = {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                _active_pieces_id: _active_pieces_id,
+                _active_diseases_id: _active_diseases_id,
+                model: model,
+            }
+        }
 
         //get content of protocols
-        protocols_ajax = $.ajax({
+        window[table_name + '_ajax'] = $.ajax({
             type: "POST",
-            url: "/protocols_content",
-            data: {
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-                _active_pieces_id: _active_pieces_id,
-                _active_diseases_id: _active_diseases_id,
-            },
-            complete: function (result) {
-                //console.log("protocols: "+result.responseText);
-
-                //active protocol
-                var active_protocol_id = "";
-                if ($('#tags_container').find('.badge-protocol').length > 0) {
-                    active_protocol_id = $('#tags_container').find('.badge-protocol').eq(0).attr('obj-id');
-                }
-
-                if (result.responseText.length == 0) {
-                    $('#protocols_ajax_container').html("");
-                } else {
-
-                    var json_result = JSON.parse(result.responseText);
-
-                    var html = "";
-
-                    for (i = 0; i < json_result.length; i++) {
-                        
-                        evidence_id = json_result[i]['evidence_id'];
-                        evidence_color = "";
-
-                        $(evidences).each(function () {                            
-                            if ($(this)[0]['id'] == evidence_id) {
-                                evidence_color = $(this)[0]['color'];
-                            }
-                        });
-
-                        if (json_result[i]['id'] == active_protocol_id) {                            
-                            html += "<li class='list-group-item list-group-item-action p-0 highlighted' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "<span class='evidence' style='background:" + evidence_color + "'></span></li>";
-                        } else {
-                            html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "<span class='evidence' style='background:" + evidence_color + "'></span></li>";
-                        }
-                    }
-
-                    $('#protocols_ajax_container').html(html);
-                }
-            },
-            error: function (err) {
-                //console.log("protocols ajax error: " + err.responseText);
-            }
-        });
-
-    }
-
-    function remediesContentAjax(_active_pieces_id, _active_diseases_id) {
-
-        try {
-            remedies_ajax.abort();
-        }
-        catch(err){
-
-        }
-
-        $('#remedies_ajax_container').html('Loading..');
-
-        var _active_protocols_id = [];
-        _active_protocols_id.push($('#tags_container .badge-protocol').eq(0).attr('obj-id'));
-
-        //get content of remedies
-        remedies_ajax = $.ajax({
-            type: "POST",
-            url: "/remedies_content",
-            data: {
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-                _active_pieces_id: _active_pieces_id,
-                _active_diseases_id: _active_diseases_id,
-                _active_protocols_id: _active_protocols_id
-            },
-            complete: function (result) {
-                //console.log("remedies: "+result.responseText);
-
-
-                if (result.responseText.length == 0) {
-                    $('#remedies_ajax_container').html("");
-                } else {
-
-                    var json_result = JSON.parse(result.responseText);
-
-                    var html = "";
-
-                    for (i = 0; i < json_result.length; i++) {
-                        html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "</li>";
-                    }
-
-                    $('#remedies_ajax_container').html(html);
-                }
-            },
-            error: function (err) {
-                //console.log("remedies ajax error:" + err.responseText);
-            }
-        });
-    }
-
-    function markersContentAjax(_active_pieces_id, _active_diseases_id) {
-
-        try {
-            markers_ajax.abort();
-        }
-        catch(err){
-
-        }
-
-
-        $('#markers_ajax_container').html('Loading..');
-
-        var _active_protocols_id = [];
-        _active_protocols_id.push($('#tags_container .badge-protocol').eq(0).attr('obj-id'));
-
-        //get content of protocols
-        markers_ajax = $.ajax({
-            type: "POST",
-            url: "/markers_content",
-            data: {
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-                _active_pieces_id: _active_pieces_id,
-                _active_diseases_id: _active_diseases_id,
-                _active_protocols_id: _active_protocols_id
-            },
+            url: "/model_data_with_filters",
+            data: data,
             complete: function (result) {
                 //console.log("markers: " + result.responseText);
 
 
                 if (result.responseText.length == 0) {
-                    $('#markers_ajax_container').html("");
+                    $('#'+table_name+'_ajax_container').html("");
                 } else {
 
                     var json_result = JSON.parse(result.responseText);
 
                     var html = "";
 
-                    for (i = 0; i < json_result.length; i++) {
-                        html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "</li>";
-                    }
+                    if(table_name != "protocols") {
+                        for (i = 0; i < json_result.length; i++) {
+                            html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "</li>";
+                        }
 
-                    $('#markers_ajax_container').html(html);
+                        $('#' + table_name + '_ajax_container').html(html);
+                    }
+                    else
+                    {
+                        //active protocol
+                        var active_protocol_id = "";
+                        if ($('#tags_container').find('.badge-protocol').length > 0) {
+                            active_protocol_id = $('#tags_container').find('.badge-protocol').eq(0).attr('obj-id');
+                        }
+
+                        if (result.responseText.length == 0) {
+                            $('#protocols_ajax_container').html("");
+                        } else {
+
+                            var json_result = JSON.parse(result.responseText);
+
+                            var html = "";
+
+                            for (i = 0; i < json_result.length; i++) {
+
+                                evidence_id = json_result[i]['evidence_id'];
+                                evidence_color = "";
+
+                                $(evidences).each(function () {
+                                    if ($(this)[0]['id'] == evidence_id) {
+                                        evidence_color = $(this)[0]['color'];
+                                    }
+                                });
+
+                                if (json_result[i]['id'] == active_protocol_id) {
+                                    html += "<li class='list-group-item list-group-item-action p-0 highlighted' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "<span class='evidence' style='background:" + evidence_color + "'></span></li>";
+                                } else {
+                                    html += "<li class='list-group-item list-group-item-action p-0' obj-id='" + json_result[i]['id'] + "'>" + json_result[i]['name'] + "<span class='evidence' style='background:" + evidence_color + "'></span></li>";
+                                }
+                            }
+
+                            $('#protocols_ajax_container').html(html);
+                        }
+                    }
                 }
             },
             error: function (err) {
@@ -496,6 +440,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
     }
+
 
     function evidencesContentAjax() {
 

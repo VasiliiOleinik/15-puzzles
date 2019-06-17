@@ -109,312 +109,55 @@ class MainController extends Controller
         return $result;
     }
 
-    public function protocols_content(Request $request)
-    {
-        $result = "";
-        $protocols = Protocol::all();
-        if($request['_active_pieces_id']){
-            
-            $_active_pieces_id = $request['_active_pieces_id'];            
-           
-            $target = null;
-            $protocol_pieces = null;
-            $count = 0;
-            $protocols_eloquient = array();
-
-            foreach($protocols as $protocol){
-
-                $protocol_pieces = $protocol->pieceProtocols;
-                $count = 0;
-                foreach($protocol_pieces as $obj) {
-
-                    $target = $obj->piece_id;                
-                    foreach($_active_pieces_id as $id){
-                    
-                        if($id == $target){
-                            $count ++;
-                        }
-                    
-                    }                
-                }
-                if($count == count($_active_pieces_id)){
-                    array_push($protocols_eloquient, $protocol);
-                }
-
-            }
-
-            //dd($protocols_eloquient );
-
-            $protocols = $protocols_eloquient;
-            $result = $protocols;
-        }
-
-
-        if($request['_active_diseases_id']){
-
-            $_active_diseases_id = $request['_active_diseases_id'];            
-
-
-            $target = null;
-            $protocol_diseases = null;
-            $count = 0;
-            $protocols_eloquient = array();
-
-            foreach($protocols as $protocol){
-
-                $protocol_diseases = $protocol->diseaseProtocols;
-                $count = 0;
-                foreach($protocol_diseases as $obj) {
-
-                    $target = $obj->disease_id;                
-                    foreach($_active_diseases_id as $id){
-                    
-                        if($id == $target){
-                            $count ++;
-                        }
-                    
-                    }                
-                }
-                if($count == count($_active_diseases_id)){
-                    array_push($protocols_eloquient, $protocol);
-                }
-
-            }
-
-
-            $protocols = $protocols_eloquient;
-            $result = $protocols;
-         
-        }
-
-        if(!$request['_active_pieces_id'] &&!$request['_active_diseases_id']){
-
-            $protocols = Protocol::all();
-            $result = $protocols;
-        }
-
-         return $result;
-    }
-
-    public function remedies_content(Request $request)
+    public function model_data_with_filters(Request $request)
     {
         $result = '';
-        $model = Remedy::all();
+        $model_name = $request['model'];
 
-        //pieces
-        if($request['_active_pieces_id'])             
-        {
-            $_active_pieces_id = $request['_active_pieces_id'];
-
-            $target = null;
-            $model_pieces = null;
-            $count = 0;
-            $model_eloquient = array();
-
-            foreach($model as $model_element)
-            {
-                $model_pieces = $model_element->pieceRemedies;
-                $count = 0;
-                foreach($model_pieces as $obj) {
-
-                    $target = $obj->piece_id;                
-                    foreach($_active_pieces_id as $id){
-                    
-                        if($id == $target){
-                            $count ++;
-                        }
-                    
-                    }                
-                }
-                if($count == count($_active_pieces_id)){
-                    array_push($model_eloquient, $model_element);
-                }
-
-            }
-            $model = $model_eloquient;
-        }
-        
-        //diseases
-        if($request['_active_diseases_id'])              
-        {
-            $_active_diseases_id = $request['_active_diseases_id'];  
-
-            $target = null;
-            $model_diseases = null;
-            $count = 0;
-            $model_eloquient = array();
-
-            foreach($model as $model_element)
-            {
-           
-                $model_diseases = $model_element->diseaseRemedies;
-              
-                $count = 0;
-                foreach($model_diseases as $obj) {
-
-                    $target = $obj->disease_id;                
-                    foreach($_active_diseases_id as $id){
-                    
-                        if($id == $target){
-                            $count ++;
-                        }
-                    
-                    }                
-                }
-                if($count == count($_active_diseases_id)){
-                    array_push($model_eloquient, $model_element);
-                }
-
-            }
-            $model = $model_eloquient;
+        $model_name_without_namespace = explode('\\',$model_name)[count(explode('\\',$model_name))-1];
+        $model_name_without_namespace_last_char = substr($model_name_without_namespace, -1);
+        if($model_name_without_namespace_last_char == "y"){
+            $model_name_without_namespace = substr_replace($model_name_without_namespace, "ie",-1);
         }
 
-        //protocols
-        if($request['_active_protocols_id'])             
-        {
-            $_active_protocols_id = $request['_active_protocols_id'];
+        $model = $model_name::all();
 
-            $target = null;
-            $model_protocols = null;
-            $count = 0;
-            $model_eloquient = array();
+        $filters = ['piece','disease','protocol'];
 
-            foreach($model as $model_element)
-            {
-           
-                $model_protocols = $model_element->protocolRemedies;
+        foreach ($filters as $filter) {
 
+            if ($request['_active_'.$filter.'s_id']) {
+                $_active_tag_type_ids = $request['_active_'.$filter.'s_id'];
+
+                $target = null;
+                $model_pieces = null;
                 $count = 0;
-                foreach($model_protocols as $obj) {
+                $model_eloquient = array();
 
-                    $target = $obj->protocol_id;                
-                    foreach($_active_protocols_id as $id){
-                    
-                        if($id == $target){
-                            $count ++;
+                foreach ($model as $model_element) {
+                    $method_relationship = $filter.$model_name_without_namespace.'s';
+                    $model_relationship = $model_element[$method_relationship];
+                    $count = 0;
+                    foreach ($model_relationship as $obj) {
+
+                        $target = $obj[$filter.'_id'];
+                        foreach ($_active_tag_type_ids as $id) {
+
+                            if ($id == $target) {
+                                $count++;
+                            }
+
                         }
-                    
-                    }                
-                }
-                if($count == count($_active_protocols_id)){
-                    array_push($model_eloquient, $model_element);
-                }
+                    }
+                    if ($count == count($_active_tag_type_ids)) {
+                        array_push($model_eloquient, $model_element);
+                    }
 
+                }
+                $model = $model_eloquient;
             }
-            $model = $model_eloquient;
-        }
-        $result = $model;
-
-        return $result;
-    }
-
-    public function markers_content(Request $request)
-    {
-        $result = '';
-        $model = Marker::all();
-
-        //pieces
-        if($request['_active_pieces_id'])             
-        {
-            $_active_pieces_id = $request['_active_pieces_id'];
-
-            $target = null;
-            $model_pieces = null;
-            $count = 0;
-            $model_eloquient = array();
-
-            foreach($model as $model_element)
-            {
-                $model_pieces = $model_element->pieceMarkers;
-                $count = 0;
-                foreach($model_pieces as $obj) {
-
-                    $target = $obj->piece_id;                
-                    foreach($_active_pieces_id as $id){
-                    
-                        if($id == $target){
-                            $count ++;
-                        }
-                    
-                    }                
-                }
-                if($count == count($_active_pieces_id)){
-                    array_push($model_eloquient, $model_element);
-                }
-
-            }
-            $model = $model_eloquient;
-        }
-        
-        //diseases
-        if($request['_active_diseases_id'])              
-        {
-            $_active_diseases_id = $request['_active_diseases_id'];  
-
-            $target = null;
-            $model_diseases = null;
-            $count = 0;
-            $model_eloquient = array();
-
-            foreach($model as $model_element)
-            {
-           
-                $model_diseases = $model_element->diseaseMarkers;
-              
-                $count = 0;
-                foreach($model_diseases as $obj) {
-
-                    $target = $obj->disease_id;                
-                    foreach($_active_diseases_id as $id){
-                    
-                        if($id == $target){
-                            $count ++;
-                        }
-                    
-                    }                
-                }
-                if($count == count($_active_diseases_id)){
-                    array_push($model_eloquient, $model_element);
-                }
-
-            }
-            $model = $model_eloquient;
         }
 
-        //protocols
-        if($request['_active_protocols_id'])             
-        {
-            $_active_protocols_id = $request['_active_protocols_id'];
-
-            $target = null;
-            $model_protocols = null;
-            $count = 0;
-            $model_eloquient = array();
-
-            foreach($model as $model_element)
-            {
-           
-                $model_protocols = $model_element->protocolMarkers;
-
-                $count = 0;
-                foreach($model_protocols as $obj) {
-
-                    $target = $obj->protocol_id;                
-                    foreach($_active_protocols_id as $id){
-                    
-                        if($id == $target){
-                            $count ++;
-                        }
-                    
-                    }                
-                }
-                if($count == count($_active_protocols_id)){
-                    array_push($model_eloquient, $model_element);
-                }
-
-            }
-            $model = $model_eloquient;
-        }
         $result = $model;
 
         return $result;

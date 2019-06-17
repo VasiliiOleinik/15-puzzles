@@ -24,11 +24,7 @@ Route::get('/news', 'NewsController@index')->name('news');
 
 /* MAIN */
 
-Route::post('/pieces_content', 'MainController@pieces_content')->name('pieces_content');
-Route::post('/diseases_content', 'MainController@diseases_content')->name('diseases_content');
-Route::post('/protocols_content', 'MainController@protocols_content')->name('protocols_content');
-Route::post('/remedies_content', 'MainController@remedies_content')->name('remedies_content');
-Route::post('/markers_content', 'MainController@markers_content')->name('markers_content');
+Route::post('/model_data_with_filters', 'MainController@model_data_with_filters')->name('model_data_with_filters');
 Route::post('/evidences_content', 'MainController@evidences_content')->name('evidences_content');
 
 Route::post('/details_content', 'MainController@details_content')->name('details_content');
