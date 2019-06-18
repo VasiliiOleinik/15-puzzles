@@ -45,9 +45,16 @@ class PersonalCabinetController extends Controller
         $file_full_name = $file_name.".".$file_type;
         $user_files = File::where('user_id','=',Auth::id())->get();
 
+        //dd(public_path($file_path."/".$file_full_name) );
+        //dd(file_exists( $file_path."/".$file_full_name ));
+        
+
         //checkUniqueFileName($file_full_name, $user_files, 1);
         
 
+        $file_full_name =  self::checkUniqueFileName($file_path, $file_name, $file_full_name);
+        $file_name = explode('.',$file_full_name)[0];
+        //dd($file_name);
         //$uniqueFileName = uniqid() . $request['upload_file']->getClientOriginalName();
         $request->file('upload_file')->move(public_path( $file_path ), $file_full_name);
 
@@ -75,19 +82,32 @@ class PersonalCabinetController extends Controller
         return redirect()->back()->with('success', 'File uploaded successfully.');
     }
 
-    public function checkUniqueFileName($file_full_name, $user_files, $count){
+    public function checkUniqueFileName($file_path, $file_name, $file_full_name){
 
-        /*foreach($user_files as $user_file){
+        $files = File::with('user')->get();
 
-            $user_file_full_name = $user_file->name.".".$user_file->type;
+        $count = 0;
 
-            if($user_file_full_name == $file_full_name){
+        while(file_exists( $file_path."/".$file_full_name ))
 
-                $file_full_name += "(".$count.")";
+        foreach($files as $file){
+            if($file->name.".".$file->type == $file_full_name){
+
                 $count ++;
+                //remove (n)
+                if($count > 1){
+                    $file_name = substr($file_name, 0, -3);
+                }
 
-                checkUniqueFileName($file_full_name, $user_files, $count);
+                //add (n)
+                $file_name .= "(".$count.")";
+
+                $file_full_name = $file_name.".".$file->type;
+      
+                break;
             }
-        }*/
+        }
+
+        return $file_full_name;
     }
 }

@@ -6,12 +6,14 @@ use App\Models\User\User;
 use App\Models\Permission;
 
 use App\Models\Piece\Piece;
+use App\Models\Piece\PieceRemedy;
 use App\Models\Disease\Disease;
 use App\Models\Protocol\Protocol;
 use App\Models\Remedy;
 use App\Models\Marker;
 use App\Models\Evidence;
 
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
 
@@ -34,6 +36,7 @@ class MainController extends Controller
      */
     public function index(Request $request)
     {
+    
         $user = $request->user();
         $role = null;
         $role_permissions = null;
@@ -45,7 +48,6 @@ class MainController extends Controller
         $pieces_and_diseases = array();
         array_push($pieces_and_diseases, $pieces);
         array_push($pieces_and_diseases, $diseases);
-
 
         if($user){
 
@@ -157,7 +159,7 @@ class MainController extends Controller
                 $model = $model_eloquient;
             }
         }
-
+    
         $result = $model;
 
         return $result;

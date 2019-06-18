@@ -49,3 +49,7 @@ Route::post('/upload', 'PersonalCabinetController@upload')->name('upload');
 Auth::routes(['verify' => true]);
 
 //Route::get('/home', 'HomeController@index')->name('home');
+
+/*DB::listen(function($query) {
+    var_dump($query->sql, $query->time);
+});*/
