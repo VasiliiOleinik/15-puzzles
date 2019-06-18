@@ -20,10 +20,9 @@ class PersonalCabinetController extends Controller
 
      public function personal_cabinet(Request $request)
     {
-    //$request->session()->reflash();
-        $test = "test";
-        
-        return view('personal_cabinet', compact(['test']));
+        $user_files = File::with('user')->where('user_id','=',Auth::id())->get();
+
+        return view('personal_cabinet', compact(['user_files']));
     }
 
      public function upload(Request $request)
@@ -43,22 +42,13 @@ class PersonalCabinetController extends Controller
         $file_size = $request['file_size'];
         $file_path = 'files/users_id/'.Auth::id();
         $file_full_name = $file_name.".".$file_type;
-        $user_files = File::where('user_id','=',Auth::id())->get();
-
-        //dd(public_path($file_path."/".$file_full_name) );
-        //dd(file_exists( $file_path."/".$file_full_name ));
         
-
-        //checkUniqueFileName($file_full_name, $user_files, 1);
         
 
         $file_full_name =  self::checkUniqueFileName($file_path, $file_name, $file_full_name);
         $file_name = explode('.',$file_full_name)[0];
-        //dd($file_name);
-        //$uniqueFileName = uniqid() . $request['upload_file']->getClientOriginalName();
+
         $request->file('upload_file')->move(public_path( $file_path ), $file_full_name);
-
-
 
 
         $file = new File;
@@ -70,15 +60,12 @@ class PersonalCabinetController extends Controller
 
         $file->save();
 
-        
-       
-
-        //dd($files);
-
-
+        $user_files = File::with('user')->where('user_id','=',Auth::id())->get();
+        //dd($user_files);
 
         $request->session()->flash('status-file_upload', 'You have successfully upload your file.');
 
+        return view('personal_cabinet', compact(['user_files']));
         return redirect()->back()->with('success', 'File uploaded successfully.');
     }
 

@@ -180,6 +180,26 @@
                                 </div>                            
                         </div>
                     </form>
+                    <hr>
+                    <div class="container">
+                        <h5 class="mb-4"><strong>Search by analisis history</strong></h5>
+                        <div class="row">
+                            <div class="col-4">
+                                <input id="search_by_name" type="text" placeholder="Search by name" class="form-control" name="search_by_name" autofocus>
+                            </div>
+                            <div class="col-4">
+                                search by date FROM
+                            </div>
+                            <div class="col-4">
+                                search by date TO
+                            </div>
+                        </div>
+                       <div id="file_explorer" class="container">
+                        @foreach($user_files as $user_file)
+                            <label>{{$user_file->name}}.{{$user_file->type}}</label><br>
+                        @endforeach
+                       </div>
+                    </div>
                        <!-- -- -->
                 </div>
                 <div id="news_right_side" class="col-sm-6 py-4">
