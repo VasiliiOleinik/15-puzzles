@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\File;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+
 
 class PersonalCabinetController extends Controller
 {
@@ -20,7 +23,7 @@ class PersonalCabinetController extends Controller
 
      public function personal_cabinet(Request $request)
     {
-        $user_files = File::with('user')->where('user_id','=',Auth::id())->get();
+        $user_files = File::with('user')->where('user_id','=',Auth::id())->get();        
 
         return view('personal_cabinet', compact(['user_files']));
     }
@@ -61,12 +64,50 @@ class PersonalCabinetController extends Controller
         $file->save();
 
         $user_files = File::with('user')->where('user_id','=',Auth::id())->get();
-        //dd($user_files);
+               
 
         $request->session()->flash('status-file_upload', 'You have successfully upload your file.');
 
-        return view('personal_cabinet', compact(['user_files']));
-        return redirect()->back()->with('success', 'File uploaded successfully.');
+        $request->file = null;
+        return redirect()->route('personal_cabinet', compact(['user_files']));
+        //return view('personal_cabinet', compact(['user_files']));
+        //return redirect()->back()->with('success', 'File uploaded successfully.');
+    }
+
+
+    public function delete(Request $request){        
+
+        $file = File::find($request['id']);
+        
+        $file_name = $file->name;
+        $file_type = $file->type;
+        $file_path = $file->path;
+        
+        $this->remove_file($file_name, $file_type, $file_path);
+
+        $file->delete();
+
+        $user_files = File::with('user')->where('user_id','=',Auth::id())->get();        
+
+        return $user_files;
+    }
+
+
+
+
+
+
+
+    public function remove_file($file_name, $file_type, $file_path){
+        $data= $file_name.".".$file_type;    
+        $dir = $file_path."/";    
+        $dirHandle = opendir($dir);    
+        while ($file = readdir($dirHandle)) {    
+            if($file==$data) {
+                unlink($dir."/".$file);//give correct path,
+            }
+        }    
+        closedir($dirHandle);
     }
 
     public function checkUniqueFileName($file_path, $file_name, $file_full_name){

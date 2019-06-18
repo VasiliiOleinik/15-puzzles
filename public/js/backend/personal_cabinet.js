@@ -5,7 +5,34 @@ var base_64_image_ms_word = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAA
 var base_64_image_txt = "data:image/png;base64,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";
 
 document.addEventListener("DOMContentLoaded", function (event) {    
-    
+
+    $(".delete_file").click(function () {
+        var id = $(this).attr('obj-id');
+
+        $.ajax({
+            type: "POST",
+            url: "/delete",
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                id: id,
+            },
+            complete: function (result) {
+                /*
+                if (result.responseText.length == 0) {
+                    $('#file_explorer').html("");
+                } else {
+
+                    var json_result = JSON.parse(result.responseText);
+
+                    var html = "";
+                }*/
+            },
+            error: function (result) {
+                ;
+            }
+        });
+    });
+
     $(".imgAdd").click(function () {
       $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i></div>');
     });

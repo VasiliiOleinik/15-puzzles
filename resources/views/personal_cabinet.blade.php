@@ -4,7 +4,7 @@
 
      <div class="container">
             <div class="row">
-                <div id="articles" class="col-sm-6 py-4 pl-5 pr-5">
+                <div id="personal_cabinet-left_side" class="col-sm-6 py-4 pl-5 pr-5">
                     @if(Session::get('status-user_update'))
                    <div class="alert alert-info alert-dismissible fade show">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -181,7 +181,7 @@
                         </div>
                     </form>
                     <hr>
-                    <div class="container">
+                    <div >
                         <h5 class="mb-4"><strong>Search by analisis history</strong></h5>
                         <div class="row">
                             <div class="col-4">
@@ -194,9 +194,9 @@
                                 search by date TO
                             </div>
                         </div>
-                       <div id="file_explorer" class="container">
+                       <div id="file_explorer">
                         @foreach($user_files as $user_file)
-                            <label>{{$user_file->name}}.{{$user_file->type}}</label><br>
+                            <label>{{$user_file->name}}.{{$user_file->type}}<span class="close delete_file" obj-id="{{$user_file->id}}"> x</span></label><br>
                         @endforeach
                        </div>
                     </div>

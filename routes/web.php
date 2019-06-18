@@ -44,6 +44,7 @@ Route::post('/news_content', 'NewsController@news_content')->name('news_content'
 Route::get('/personal_cabinet', 'PersonalCabinetController@personal_cabinet')->name('personal_cabinet');
 Route::post('/user_edit', 'UserController@user_edit')->name('user_edit');
 Route::post('/upload', 'PersonalCabinetController@upload')->name('upload');
+Route::post('/delete', 'PersonalCabinetController@delete')->name('delete');
 /* ---- */
 
 Auth::routes(['verify' => true]);
