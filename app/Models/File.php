@@ -14,8 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property User $user
  */
 class File extends Model
-{
-    public $timestamps = false;
+{    
 
     /**
      * @var array

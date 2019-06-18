@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMemberCasesTable extends Migration {
+class CreateArticlesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,13 @@ class CreateMemberCasesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('member_cases', function(Blueprint $table)
+		Schema::create('articles', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->bigInteger('user_id')->unsigned()->default(1)->index('FK_cases_users');
-			$table->text('content', 65535);
+			$table->string('title', 50)->default('--');
+			$table->string('description', 200)->default('--');
+			$table->text('content', 65535)->nullable();
+			$table->string('img', 200)->nullable();
 			$table->timestamps();
 		});
 	}
@@ -29,7 +31,7 @@ class CreateMemberCasesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('member_cases');
+		Schema::drop('articles');
 	}
 
 }
