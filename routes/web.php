@@ -41,10 +41,12 @@ Route::post('/news_content', 'NewsController@news_content')->name('news_content'
 /* ---- */
 
 /* PERSONAL CABINET */
-Route::get('/personal_cabinet', 'PersonalCabinetController@personal_cabinet')->name('personal_cabinet');
+//Route::get('/personal_cabinet', 'PersonalCabinetController@personal_cabinet')->name('personal_cabinet');
 Route::post('/user_edit', 'UserController@user_edit')->name('user_edit');
 Route::post('/upload', 'PersonalCabinetController@upload')->name('upload');
 Route::post('/delete', 'PersonalCabinetController@delete')->name('delete');
+
+Route::resource('personal_cabinet', 'FileController');
 /* ---- */
 
 Auth::routes(['verify' => true]);

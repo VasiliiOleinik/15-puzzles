@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     $(".delete_file").click(function () {
         var id = $(this).attr('obj-id');
+        $(this).parent().html('');
 
         $.ajax({
             type: "POST",
@@ -17,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 id: id,
             },
             complete: function (result) {
+                               
                 /*
                 if (result.responseText.length == 0) {
                     $('#file_explorer').html("");
