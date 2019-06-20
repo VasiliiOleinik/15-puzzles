@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('personal_cabinet-css')
+    <link href="{{ asset('css/backend/bootstrap datepicker/bootstrap-datepicker.standalone.min.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 
      <div class="container">
@@ -203,6 +207,11 @@
                                 search
                                 </button>
                                 <!- - ->
+                                <div class="container">
+                                  <div class="input-group date">
+                                      <input type="text" class="form-control" id="datepicker" placeholder="MM/DD/YYYY">
+                                  </div>
+                                </div>
                             </div>
                         </form>
                         
@@ -237,6 +246,7 @@
 @section('personal_cabinet-js')
 
     <script src="{{ asset('js/backend/personal_cabinet.js') }}" defer></script>
+    <script src="{{ asset('js/backend/bootstrap datepicker/bootstrap-datepicker.min.js') }}" defer></script>
 
     <script defer>
         document.addEventListener("DOMContentLoaded", function (event) {

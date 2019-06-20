@@ -16,6 +16,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     @yield('news-css')
+    @yield('personal_cabinet-css')
     <link href="{{ asset('css/backend/backend.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
@@ -129,6 +130,7 @@
 
     <script src="{{ asset('js/backend/backend.js') }}" defer></script>
     @yield('news-js')
+    @yield('personal_cabinet-js')
     @yield('personal_cabinet-js')
     <!--
     @if(Route::currentRouteName() == "news")

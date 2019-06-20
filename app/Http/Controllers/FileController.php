@@ -67,8 +67,6 @@ class FileController extends Controller
             'file_size' => ['required', 'max:255'],
         ]);    
         
-
-        $user_id = Auth::id();
         $file_name = $request['file_name'];
         $file_type = $request['file_type'];
         $file_size = $request['file_size'];
@@ -88,7 +86,7 @@ class FileController extends Controller
         $file->path = $file_path;
         $file->type = $file_type;
         $file->size = $file_size;
-        $file->user_id =  $user_id;
+        $file->user_id =  Auth::id();
 
         $file->save();
 
