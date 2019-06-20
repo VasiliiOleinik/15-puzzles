@@ -13,8 +13,9 @@
                    @endif
                    <h4 class="mb-3"><strong>Personal cabinet</strong></h4>
 
-                   <form method="POST" action="{{ route('user_edit') }}">
+                   <form method="POST" action="{{ route('user.update',$user)}}">
                    @csrf
+                   <input name="_method" type="hidden" value="PUT">
                        <!-- UPLOAD AVATAR -->
                           <div class="row">
                              <div class="col-sm-4 imgUp">
@@ -130,7 +131,7 @@
                        <!-- -- -->
                     </form>
                             
-                    <form method="POST" action="{{ route('personal_cabinet.store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('file.personal_cabinet.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="container">
                                             
@@ -196,7 +197,7 @@
                         </div>
                        <div id="file_explorer">
                         @foreach($user_files as $user_file)
-                            <label>{{$user_file->name}}.{{$user_file->type}}<span class="close delete_file" obj-id="{{$user_file->id}}"> x</span></label><br>
+                            <label class="d-flex">{{$user_file->name}}.{{$user_file->type}}<span class="close delete_file" obj-id="{{$user_file->id}}"> x</span></label>
                         @endforeach
                        </div>
                     </div>
@@ -228,6 +229,28 @@
 
     <script defer>
         document.addEventListener("DOMContentLoaded", function (event) {
+
+            $(".delete_file").click(function () {
+                var id = $(this).attr('obj-id');
+                $(this).parent().remove();
+
+                $.ajax({
+                    type: "POST",
+                    url: '{{ route('file.personal_cabinet.destroy','id')}}',
+                    data: {
+                        "_token": $('meta[name="csrf-token"]').attr('content'),
+                        _method:"delete",
+                        id: id,
+                    },
+                    complete: function (result) {
+                        //console.log(result.responseText)              
+                        
+                    },
+                    error: function (result) {
+                        ;
+                    }
+                });
+            });
 
             var base64_img = {!! json_encode(Auth::user()->img) !!};
 

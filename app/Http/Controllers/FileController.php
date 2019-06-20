@@ -4,10 +4,21 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\Models\File;
+use App\Models\User\User;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(['auth','verified']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +27,9 @@ class FileController extends Controller
     public function index(Request $request)
     {
         $user_files = File::with('user')->where('user_id','=',Auth::id())->get();        
+        $user = Auth::user();
 
-        return view('personal_cabinet', compact(['user_files']));
+        return view('personal_cabinet', compact(['user_files','user']));
     }
 
     /**
@@ -116,16 +128,38 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\File  $file
+     * @param  \App\Models\File  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(File $file)
+    public function destroy(Request $request)
     {
-        //
+
+         $file = File::findOrFail($request['id']);
+
+         $file_name = $file->name;
+         $file_type = $file->type;
+         $file_path = $file->path;
+
+         $file->delete();
+
+         $this->removeFileFromFolder($file_name, $file_type, $file_path);
+
+         //return redirect('personal_cabinet');
     }
 
 
 
+    public function removeFileFromFolder($file_name, $file_type, $file_path){
+        $data= $file_name.".".$file_type;    
+        $dir = $file_path."/";    
+        $dirHandle = opendir($dir);    
+        while ($file = readdir($dirHandle)) {    
+            if($file==$data) {
+                unlink($dir."/".$file);//give correct path,
+            }
+        }    
+        closedir($dirHandle);
+    }
 
     public function checkUniqueFileName($file_path, $file_name, $file_full_name){
 
