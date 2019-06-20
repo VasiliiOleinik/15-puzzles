@@ -43,6 +43,7 @@ Route::post('/news_content', 'NewsController@news_content')->name('news_content'
 /* PERSONAL CABINET */
 Route::resource('user', 'UserController');
 Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet
+
 /* ---- */
 
 Auth::routes(['verify' => true]);

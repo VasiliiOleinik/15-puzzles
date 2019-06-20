@@ -182,19 +182,30 @@
                         </div>
                     </form>
                     <hr>
-                    <div >
+                    <div>
                         <h5 class="mb-4"><strong>Search by analisis history</strong></h5>
-                        <div class="row">
-                            <div class="col-4">
-                                <input id="search_by_name" type="text" placeholder="Search by name" class="form-control" name="search_by_name" autofocus>
+                        
+                        <form method="get" action="{{ route('file.personal_cabinet.index') }}" enctype="multipart/form-data">                          
+                            <div class="row">
+                                <div class="col-4">
+                                    <input id="search_file_by_name" type="text" placeholder="Search by name" class="form-control" name="search_file_by_name" value="{{$search_file_by_name}}" autofocus>
+                                </div>
+                                <div class="col-4">
+                                    search by date FROM
+                                </div>
+                                <div class="col-4">
+                                    search by date TO
+                                </div>
+
+                                <br>
+                                <!-- upload button -->
+                                <button type="submit" class="btn btn-primary r-15">
+                                search
+                                </button>
+                                <!- - ->
                             </div>
-                            <div class="col-4">
-                                search by date FROM
-                            </div>
-                            <div class="col-4">
-                                search by date TO
-                            </div>
-                        </div>
+                        </form>
+                        
                        <div id="file_explorer">
                         @foreach($user_files as $user_file)
                             <label class="d-flex">{{$user_file->name}}.{{$user_file->type}}<span class="close delete_file" obj-id="{{$user_file->id}}"> x</span></label>

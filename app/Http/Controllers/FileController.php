@@ -6,6 +6,7 @@ use Auth;
 use App\Models\File;
 use App\Models\User\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class FileController extends Controller
 {
@@ -26,10 +27,19 @@ class FileController extends Controller
      */
     public function index(Request $request)
     {
-        $user_files = File::with('user')->where('user_id','=',Auth::id())->get();        
+        $search_file_by_name = $request['search_file_by_name'];
+        if($search_file_by_name){
+            $user_files = File::with('user')->where('user_id','=',Auth::id())
+                                            ->where('name', 'like', '%'.$search_file_by_name.'%')
+                                            ->get();            
+        }
+        else{
+             $user_files = File::with('user')->where('user_id','=',Auth::id())
+                                            ->get();
+        }
         $user = Auth::user();
 
-        return view('personal_cabinet', compact(['user_files','user']));
+        return view('personal_cabinet', compact(['user_files','user','search_file_by_name']));
     }
 
     /**
@@ -146,6 +156,8 @@ class FileController extends Controller
 
          //return redirect('personal_cabinet');
     }
+
+
 
 
 
