@@ -49,7 +49,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function role()
     {
-        return $this->belongsTo('App\Models\User\Role');
+        return $this->belongsTo('App\Models\Role\Role');
     }
 
     /**
@@ -57,7 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function files()
     {
-        return $this->hasMany('App\Models\User\File');
+        return $this->hasMany('App\Models\File');
     }
 
     /**
@@ -65,7 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function memberCases()
     {
-        return $this->hasMany('App\Models\User\MemberCase');
+        return $this->hasMany('App\Models\MemberCase');
     }
 	
 	/**

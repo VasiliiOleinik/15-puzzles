@@ -54,7 +54,7 @@ class FileController extends Controller
         $user = Auth::user();
         $img_width = 40;//width of file icon
 
-        return view('personal_cabinet', compact(['user_files','user','search_file', 'img_width']));
+        return view('personal_cabinet.personal_cabinet', compact(['user_files','user','search_file', 'img_width']));
     }
 
     /**
