@@ -6,7 +6,9 @@ var base_64_image_txt = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACAC
 
 document.addEventListener("DOMContentLoaded", function (event) {
 
-    $('#datepicker').datepicker();
+    $('.search_file_date').datepicker({
+        format: 'dd.mm.yyyy',
+    });
 
     $(".imgAdd").click(function () {
       $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i></div>');
@@ -14,6 +16,30 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $(document).on("click", "i.del" , function() {
 	    $(this).parent().remove();
     });
+
+
+    $(".delete_file").unbind("click").click(function () {
+
+        var id = $(this).attr('obj-id');
+        $(this).parent().remove();
+
+        $.ajax({
+            type: "DELETE",
+            url: 'personal_cabinet/' + id,// '{{ route('file.personal_cabinet.destroy','id')}}',
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+            },
+            complete: function (result) {
+                console.log(result.responseText)
+
+            },
+            error: function (result) {
+                ;
+            }
+        });
+    });
+
+
     $(function() {
         $(document).on("change",".uploadFile.img", function()
         {

@@ -192,13 +192,21 @@
                         <form method="get" action="{{ route('file.personal_cabinet.index') }}" enctype="multipart/form-data">                          
                             <div class="row">
                                 <div class="col-4">
-                                    <input id="search_file_by_name" type="text" placeholder="Search by name" class="form-control" name="search_file_by_name" value="{{$search_file_by_name}}" autofocus>
+                                    <input id="search_file_name" type="text" placeholder="Search by name" class="form-control" name="search_file_name" value="{{$search_file['name']}}" autofocus>
                                 </div>
                                 <div class="col-4">
-                                    search by date FROM
+
+                                      <div class="input-group date">
+                                          <input type="text" class="form-control search_file_date" id="search_file_date_from" name="search_file_date_from" value="{{$search_file['date_from']}}" placeholder="dd.mm.yyyy">
+                                      </div>
+
                                 </div>
                                 <div class="col-4">
-                                    search by date TO
+
+                                      <div class="input-group date">
+                                          <input type="text" class="form-control search_file_date" id="search_file_date_to" name="search_file_date_to" value="{{$search_file['date_to']}}" placeholder="dd.mm.yyyy">
+                                      </div>
+
                                 </div>
 
                                 <br>
@@ -206,12 +214,7 @@
                                 <button type="submit" class="btn btn-primary r-15">
                                 search
                                 </button>
-                                <!- - ->
-                                <div class="container">
-                                  <div class="input-group date">
-                                      <input type="text" class="form-control" id="datepicker" placeholder="MM/DD/YYYY">
-                                  </div>
-                                </div>
+                                <!- - ->                                
                             </div>
                         </form>
                         
@@ -250,34 +253,11 @@
 
     <script defer>
         document.addEventListener("DOMContentLoaded", function (event) {
-
-            $(".delete_file").click(function () {
-                var id = $(this).attr('obj-id');
-                $(this).parent().remove();
-
-                $.ajax({
-                    type: "POST",
-                    url: '{{ route('file.personal_cabinet.destroy','id')}}',
-                    data: {
-                        "_token": $('meta[name="csrf-token"]').attr('content'),
-                        _method:"delete",
-                        id: id,
-                    },
-                    complete: function (result) {
-                        //console.log(result.responseText)              
-                        
-                    },
-                    error: function (result) {
-                        ;
-                    }
-                });
-            });
-
+        
             var base64_img = {!! json_encode(Auth::user()->img) !!};
 
             setUserAvatar(base64_img);           
-
-           
+          
         });
     </script>
 @endsection

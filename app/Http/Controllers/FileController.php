@@ -7,6 +7,7 @@ use App\Models\File;
 use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use Carbon\Carbon;
 
 class FileController extends Controller
 {
@@ -27,19 +28,32 @@ class FileController extends Controller
      */
     public function index(Request $request)
     {
-        $search_file_by_name = $request['search_file_by_name'];
-        if($search_file_by_name){
-            $user_files = File::with('user')->where('user_id','=',Auth::id())
-                                            ->where('name', 'like', '%'.$search_file_by_name.'%')
-                                            ->get();            
+        $search_file = [
+            "name" => $request->search_file_name,
+            "date_from" => $request->search_file_date_from,
+            "date_to" => $request->search_file_date_to,
+        ];
+
+        $date_from = new Carbon($search_file['date_from']);
+        $date_to = new Carbon($search_file['date_to']);
+
+        $user_files = File::with('user')->where('user_id','=',Auth::id());
+
+        if($search_file['name']){
+            $user_files = $user_files->where('name', 'like', '%'.$search_file['name'].'%');                  
         }
-        else{
-             $user_files = File::with('user')->where('user_id','=',Auth::id())
-                                            ->get();
+        if($search_file['date_from']){
+            $user_files = $user_files->where('updated_at', '>', $date_from->startOfDay());
         }
+        if($search_file['date_to']){
+            $user_files = $user_files->where('updated_at', '<', $date_to->endOfDay());
+        }
+
+        $user_files = $user_files->get();
+
         $user = Auth::user();
 
-        return view('personal_cabinet', compact(['user_files','user','search_file_by_name']));
+        return view('personal_cabinet', compact(['user_files','user','search_file']));
     }
 
     /**
@@ -139,18 +153,16 @@ class FileController extends Controller
      * @param  \App\Models\File  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-
-         $file = File::findOrFail($request['id']);
+         $file = File::findOrFail($id);
 
          $file_name = $file->name;
          $file_type = $file->type;
          $file_path = $file->path;
 
-         $file->delete();
-
          $this->removeFileFromFolder($file_name, $file_type, $file_path);
+         $file->delete();
 
          //return redirect('personal_cabinet');
     }
