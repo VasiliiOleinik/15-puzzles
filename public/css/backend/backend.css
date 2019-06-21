@@ -1,9 +1,19 @@
 body {
-    overflow-y: scroll;
+    overflow-y: scroll;    
 }
 
 #app {
     min-height: 900px;
+}
+
+.btn-medicine {
+    background-color: #599BA7;
+    color: white;
+}
+
+.btn-medicine:hover {
+    background-color: #4a7d86;
+    color: white;
 }
 
 [type=search] {

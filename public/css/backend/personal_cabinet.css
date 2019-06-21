@@ -1,3 +1,11 @@
+body {
+    background-color: #EBF3F6;;
+}
+
+#personal_cabinet-left_side {
+    background-color: white;
+}
+
 .file_img {
     height: 40px;
     width: 40px;
@@ -19,7 +27,7 @@ span.close.delete_file {
         color: #ff1616 !important;
     }
 
-.alert-info {
+.alert {
     position: absolute;
     z-index: 1;
 }

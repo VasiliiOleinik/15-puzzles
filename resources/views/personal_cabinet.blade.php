@@ -11,7 +11,7 @@
             <div class="row">
                 <div id="personal_cabinet-left_side" class="col-sm-6 py-4">
                     @if(Session::get('status-user_update'))
-                   <div class="alert alert-info alert-dismissible fade show">
+                   <div class="alert alert-warning alert-dismissible fade show">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <strong>Info!</strong> {{Session::get('status-user_update')}}
                    </div>
@@ -125,7 +125,7 @@
 
                             <hr>
                             <!-- save changes button -->
-                            <button id="save_changes" type="submit" class="btn btn-primary r-50">
+                            <button id="save_changes" type="submit" class="btn btn-medicine r-50">
                                 Save changes
                             </button>
                             <!- - ->
@@ -143,7 +143,7 @@
                                 <!--<input class="form-control" type="file" name="upload_file" id="upload_file">-->
                                 <div class="row">
                                     @if(Session::get('status-file_upload'))
-                                               <div class="alert alert-info alert-dismissible fade show">
+                                               <div class="alert alert-warning alert-dismissible fade show">
                                                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                                                     <strong>Info!</strong> {{Session::get('status-file_upload')}}
                                                </div>
@@ -177,7 +177,7 @@
                                                 <!- - ->
                                                 <br>
                                                 <!-- upload button -->
-                                                <button type="submit" class="btn btn-primary r-15">
+                                                <button type="submit" class="btn btn-medicine r-15">
                                                 upload
                                                 </button>
                                                 <!- - ->
@@ -213,7 +213,7 @@
                             </div>
        
                             <!-- search file button -->
-                            <button type="submit" class="btn btn-primary mt-2 mb-4">
+                            <button type="submit" class="btn btn-medicine mt-2 mb-4">
                                 search
                             </button>
                             <!- - ->    
