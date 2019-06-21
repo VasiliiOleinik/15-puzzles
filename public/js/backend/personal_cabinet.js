@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $(".delete_file").unbind("click").click(function () {
 
         var id = $(this).attr('obj-id');
-        $(this).parent().remove();
+        $(this).parent().parent().parent().remove();
 
         $.ajax({
             type: "DELETE",
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
             },
             complete: function (result) {
-                console.log(result.responseText)
+                //console.log(result.responseText)
 
             },
             error: function (result) {
