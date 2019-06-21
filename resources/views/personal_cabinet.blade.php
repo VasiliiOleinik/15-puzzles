@@ -10,12 +10,22 @@
      <div class="container">
             <div class="row">
                 <div id="personal_cabinet-left_side" class="col-sm-6 py-4">
+
+                    <!-- FLASH MESSAGES -->
                     @if(Session::get('status-user_update'))
                    <div class="alert alert-warning alert-dismissible fade show">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         <strong>Info!</strong> {{Session::get('status-user_update')}}
                    </div>
                    @endif
+                   @if(Session::get('status-file_upload'))
+                        <div class="alert alert-warning alert-dismissible fade show">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong>Info!</strong> {{Session::get('status-file_upload')}}
+                        </div>
+                    @endif
+                    <!-- -- -->
+
                    <h4 class="mb-3"><strong>Personal cabinet</strong></h4>
 
                    <form method="POST" action="{{ route('user.update',$user)}}">
@@ -110,15 +120,18 @@
                                     <!- - ->
 
                                     <!-- birthday -->
-                                    <!--<div class="form-group row mr-1">
-                                        <input id="password" type="text" placeholder="Date of Birth" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" autocomplete="password" autofocus>
+                                    <div class="form-group row mr-1">
+                                    
+                                        <div class="input-group date">
+                                          <input type="text" class="form-control birthday" id="birthday" name="birthday" value="{{Auth::user()->birthday}}" placeholder="dd.mm.yyyy">
+                                        </div>
 
-                                        @error('password')
+                                        @error('birthday')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>-->
+                                    </div>
                                     <!- - ->           
                                 </div>
                             </div>
@@ -141,13 +154,7 @@
                         <div class="container">
                                             
                                 <!--<input class="form-control" type="file" name="upload_file" id="upload_file">-->
-                                <div class="row">
-                                    @if(Session::get('status-file_upload'))
-                                               <div class="alert alert-warning alert-dismissible fade show">
-                                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                                    <strong>Info!</strong> {{Session::get('status-file_upload')}}
-                                               </div>
-                                         @endif
+                                <div class="row">                                    
                                     <div class="col-12 col-sm-12 fileUp">
                                          <div class="row">
                                             <h5 class="mb-4"><strong>History of analyzes</strong></h5>
@@ -188,6 +195,8 @@
                         </div>
                     </form>
                     <hr>
+
+                    <!-- FILE SEARCH -->
                     <div>
                         <h5 class="mb-4"><strong>Search by analisis history</strong></h5>
                         
