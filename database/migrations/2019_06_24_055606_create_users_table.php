@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration {
 			$table->dateTime('email_verified_at')->nullable();
 			$table->string('password', 200);
 			$table->string('remember_token', 100)->nullable();
-			$table->text('img', 65535)->nullable();
+			$table->text('img', 16777215)->nullable();
 			$table->integer('role_id')->unsigned()->default(1)->index('FK_users_roles');
 			$table->timestamps();
 		});
