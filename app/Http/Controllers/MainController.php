@@ -60,6 +60,55 @@ class MainController extends Controller
             }
         }
 
+        
+        /*
+        $result = array();
+
+        $request['piece'] = [1];
+        $request['protocol'] = [106];
+
+        $models = ['App\Models\Remedy'];
+        $filters = ['piece','protocol'];
+
+        foreach ($models as $model)
+        {
+            foreach ($filters as $filter)
+            {
+                if(count($request[$filter])>0){
+
+                    $model_elements = $model::with([$filter.'s' => function ($query) use ($request,$filter) {
+                                                $query->whereIn($filter.'_id', $request[$filter]); }]);
+                    if(count($result) > 0){
+                        $model_elements = $model_elements->whereIn('id',$result)->get();
+                        $result = []; 
+                    }
+                    else{
+                        $model_elements = $model_elements->get();
+                    }
+                      
+                    foreach ($model_elements as $element)
+                    {
+                        if(count($element[$filter.'s']) == count($request[$filter]) ){
+                        
+                            array_push( $result, $element->id);
+
+                            //display
+                            echo "--------<br>";
+                            echo "remedy id: ".$element->id;
+                            foreach ($element[$filter.'s'] as $obj)
+                            {
+                                echo " / protocol id: ".$obj->id;                    
+                            }
+                            echo "--------<br>";
+                        }
+                    }
+                }
+            }
+        }
+        
+        dd($result);
+        */
+
         return view('main', compact(['role','role_permissions', 'permissions', 'pieces', 'diseases', 'pieces_and_diseases', 'protocols']));
     }
 
@@ -113,6 +162,49 @@ class MainController extends Controller
 
     public function model_data_with_filters(Request $request)
     {
+        $result_models = array();
+        $result_ids = array();
+
+        //$request['piece'] = [2,7];
+        //$request['protocol'] = [190, 222];
+        //return($request->all());
+        //$models = [ $request['model'] ];
+        $model = $request['model'];
+        $filters = ['protocol','piece','disease'];
+
+        //foreach ($models as $model)
+        {
+            foreach ($filters as $filter)
+            {
+                if($request[$filter]){
+                    if(count($request[$filter])>0){
+
+                        $model_elements = $model::with([$filter.'s' => function ($query) use ($request,$filter) {
+                                                $query->whereIn($filter.'_id', $request[$filter]); }]);
+                        if(count($result_ids) > 0){
+                            $model_elements = $model_elements->whereIn('id',$result_ids)->get();
+                            $result_ids = []; 
+                        }
+                        else{
+                            $model_elements = $model_elements->get();
+                        }
+
+                        foreach ($model_elements as $element)
+                        {
+                            if(count($element[$filter.'s']) == count($request[$filter]) ){
+
+                                array_push( $result_ids, $element->id);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+       
+        $result_models = $model::whereIn('id',$result_ids)->get();
+        
+
+        /*
         $result = '';
         $model_name = $request['model'];
 
@@ -161,8 +253,9 @@ class MainController extends Controller
         }
     
         $result = $model;
+        */
 
-        return $result;
+        return $result_models;
     }
 
     public function evidences_content()

@@ -357,17 +357,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
             data = {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
-                _active_pieces_id: _active_pieces_id,
-                _active_diseases_id: _active_diseases_id,
-                _active_protocols_id: _active_protocols_id,
+                piece: _active_pieces_id,
+                disease: _active_diseases_id,
+                protocol: _active_protocols_id,
                 model: model,
             }
         }
         else{
             data = {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
-                _active_pieces_id: _active_pieces_id,
-                _active_diseases_id: _active_diseases_id,
+                piece: _active_pieces_id,
+                disease: _active_diseases_id,
                 model: model,
             }
         }
@@ -378,7 +378,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             url: "/model_data_with_filters",
             data: data,
             complete: function (result) {
-                //console.log("markers: " + result.responseText);
+                //console.log("result: " + result.responseText);
 
 
                 if (result.responseText.length == 0) {
