@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     tags_ajax = $.ajax({
         type: "GET",
-        url: "/tag_names",
+        url: "/used_tags",
         data: {
             "_token": $('meta[name="csrf-token"]').attr('content'),
         },
@@ -73,8 +73,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
             var tags_id = $("#tags").val().split(',');
 
             news_ajax = $.ajax({
-                type: "POST",
-                url: "/news_content",
+                type: "GET",
+                url: "/news",
                 data: {
                     "_token": $('meta[name="csrf-token"]').attr('content'),
                     tags_id: tags_id,

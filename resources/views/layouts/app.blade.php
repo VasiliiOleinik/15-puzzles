@@ -60,7 +60,7 @@
                                    <a class="nav-link" href="/">Main</a>
                                   </li>
                                   <li class="nav-item">
-                                    <a class="nav-link" href="/members_cases">Member's cases</a>
+                                    <a class="nav-link" href="/member_cases">Member's cases</a>
                                   </li>                                  
                                   <li class="nav-item">
                                     <a class="nav-link" href="/factor_diagram">Factor diagram</a>

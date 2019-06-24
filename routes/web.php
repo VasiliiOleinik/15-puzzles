@@ -17,10 +17,10 @@ use App\Models\User\User;
 use App\Models\Permission;
 
 Route::get('/', 'MainController@index')->name('main');
-Route::get('/members_cases', 'MemberCaseController@index')->name('member_case');
+Route::resource('member_cases', 'MemberCaseController');
 Route::get('/factor_diagram', 'FactorDiagramController@index')->name('factor_diagram');
 Route::get('/about', 'AboutController@index')->name('about');
-Route::get('/news', 'NewsController@index')->name('news');
+
 
 /* MAIN */
 
@@ -36,8 +36,8 @@ Route::post('/protocol_pieces', 'MainController@protocol_pieces')->name('protoco
 
 
 /* NEWS */
-Route::get('/tag_names', 'NewsController@tag_names')->name('tag_names');
-Route::post('/news_content', 'NewsController@news_content')->name('news_content');
+Route::resource('news', 'NewsController');
+Route::get('/used_tags', 'NewsController@used_tags')->name('used_tags');
 /* ---- */
 
 /* PERSONAL CABINET */

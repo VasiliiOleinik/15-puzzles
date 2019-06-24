@@ -8,14 +8,39 @@ use Illuminate\Http\Request;
 
 class NewsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $articles = Article::all();
+        if($request->tags_id){
 
-        return view('news\news', compact(['articles']));
+            if($request->tags_id != [null] ){
+
+                $articles_id = array();
+                //$tags = Tag::where('id','=', 32)->get();
+                $tags = Tag::whereIn('id',$request->tags_id)->get();
+                foreach($tags as $tag){
+                    $tag_articles = $tag->articleTags;
+
+                    foreach($tag_articles as $obj) {
+                        array_push($articles_id, $obj->article_id);
+                    }
+                
+                }
+                $articles = Article::whereIn('id',$articles_id)->get();
+            }
+            else{
+                $articles = Article::all();
+            }
+
+            return view('news\_news_partial', compact(['articles']));
+        }
+        else{
+            $articles = Article::all();
+
+            return view('news\news', compact(['articles']));
+        }
     }
 
-    public function tag_names(){
+    public function used_tags(){
 
         $tag_with_articles = array();
         $tags = Tag::all();
@@ -32,37 +57,5 @@ class NewsController extends Controller
         $tags_names = Tag::whereIn('id', $tag_with_articles)->pluck('name','id')->toJson();
 
         return response($tags_names);
-    }
-
-    public function news_content(Request $request){
-
-        $result = "test";
-
-        if($request['tags_id']){
-            $tags_id = $request['tags_id'];
-
-            if($tags_id != [null] ){
-
-                $articles_id = array();
-                //$tags = Tag::where('id','=', 32)->get();
-                $tags = Tag::whereIn('id',$tags_id)->get();
-                foreach($tags as $tag){
-                    $tag_articles = $tag->articleTags;
-
-                    foreach($tag_articles as $obj) {
-                        array_push($articles_id, $obj->article_id);
-                    }
-                
-                }
-                $articles = Article::whereIn('id',$articles_id)->get();
-            }else{
-                $articles = Article::all();
-            }
-
-            $result = $articles;
-
-        }
-
-        return view('news\_news_partial', compact(['articles']));
     }
 }
