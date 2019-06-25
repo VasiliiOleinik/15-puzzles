@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
     var tags_count = 0;
-
+    
     tags_ajax = $.ajax({
         type: "GET",
         url: "/used_tags",

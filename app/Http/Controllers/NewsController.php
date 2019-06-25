@@ -15,20 +15,21 @@ class NewsController extends Controller
             if($request->tags_id != [null] ){
 
                 $articles_id = array();
-                //$tags = Tag::where('id','=', 32)->get();
-                $tags = Tag::whereIn('id',$request->tags_id)->get();
+                
+                $tags = Tag::with('articles')->whereIn('id',$request->tags_id)->get();
+                
                 foreach($tags as $tag){
-                    $tag_articles = $tag->articleTags;
 
-                    foreach($tag_articles as $obj) {
-                        array_push($articles_id, $obj->article_id);
+                    foreach($tag->articles as $obj) {
+                        array_push($articles_id, $obj->id);
                     }
                 
                 }
-                $articles = Article::whereIn('id',$articles_id)->get();
+                $articles = Article::with('tags')->whereIn('id',$articles_id)->get();
+                
             }
             else{
-                $articles = Article::all();
+                $articles = Article::with('tags')->get();
             }
 
             return view('news\_news_partial', compact(['articles']));
