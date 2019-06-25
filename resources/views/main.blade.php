@@ -14,11 +14,11 @@
               </div>
               <div class="main__tabs r-tabs" id="mainTabs">
                 <ul class="main__tabs-nav r-tabs-nav">
-                  <li class="r-tabs-tab r-tabs-state-active"><a href="http://15-puzzle.dev-team.su/home.html#tab-1" class="r-tabs-anchor"> Factors<span class="count">[200]</span></a></li>
-                  <li class="r-tabs-tab r-tabs-state-default"><a href="http://15-puzzle.dev-team.su/home.html#tab-2" class="r-tabs-anchor"> Diseases<span class="count">[200]</span></a></li>
-                  <li class="r-tabs-tab r-tabs-state-default"><a href="http://15-puzzle.dev-team.su/home.html#tab-3" class="r-tabs-anchor"> Protocols <span class="count">[200]</span></a></li>
-                  <li class="r-tabs-tab r-tabs-state-default"><a href="http://15-puzzle.dev-team.su/home.html#tab-4" class="r-tabs-anchor"> Remedies<span class="count">[200]</span></a></li>
-                  <li class="markers r-tabs-tab r-tabs-state-default"><a href="http://15-puzzle.dev-team.su/home.html#tab-5" class="r-tabs-anchor"> Markers<span class="count">[200]</span></a></li>
+                  <li class="r-tabs-tab r-tabs-state-active"><a href="#tab-1" class="r-tabs-anchor"> Factors<span class="count">[200]</span></a></li>
+                  <li class="r-tabs-tab r-tabs-state-default"><a href="#tab-2" class="r-tabs-anchor"> Diseases<span class="count">[200]</span></a></li>
+                  <li class="r-tabs-tab r-tabs-state-default"><a href="#tab-3" class="r-tabs-anchor"> Protocols <span class="count">[200]</span></a></li>
+                  <li class="r-tabs-tab r-tabs-state-default"><a href="#tab-4" class="r-tabs-anchor"> Remedies<span class="count">[200]</span></a></li>
+                  <li class="markers r-tabs-tab r-tabs-state-default"><a href="#tab-5" class="r-tabs-anchor"> Markers<span class="count">[200]</span></a></li>
                 </ul>
                 <div class="tags">
                   <div class="tags__list">
@@ -27,7 +27,7 @@
                     <li class="tag-item"><a class="tag-name" href="javascript:void(0)">DNA Damage</a><img class="tag-remove" src="images/main/delete_item_ico.png" alt="Delete Item"></li>
                   </div>
                 </div>
-                <div class="r-tabs-accordion-title r-tabs-state-active"><a href="http://15-puzzle.dev-team.su/home.html#tab-1" class="r-tabs-anchor"> Factors<span class="count">[200]</span></a></div><div id="tab-1" class="r-tabs-panel r-tabs-state-active" style="display: block;">
+                <div class="r-tabs-accordion-title r-tabs-state-active"><a href="#tab-1" class="r-tabs-anchor"> Factors<span class="count">[200]</span></a></div><div id="tab-1" class="r-tabs-panel r-tabs-state-active" style="display: block;">
                   <div class="tab-list main-scroll">
                     <div class="tab-item">
                       <div class="tab-item__head">
@@ -101,8 +101,8 @@
                     </div>
                   </div>
                 </div>
-                <div class="r-tabs-accordion-title r-tabs-state-default"><a href="http://15-puzzle.dev-team.su/home.html#tab-2" class="r-tabs-anchor"> Diseases<span class="count">[200]</span></a></div><div id="tab-2" class="r-tabs-panel r-tabs-state-default" style="display: none;"></div>
-                <div class="r-tabs-accordion-title r-tabs-state-default"><a href="http://15-puzzle.dev-team.su/home.html#tab-3" class="r-tabs-anchor"> Protocols <span class="count">[200]</span></a></div><div id="tab-3" class="r-tabs-panel r-tabs-state-default" style="display: none;">
+                <div class="r-tabs-accordion-title r-tabs-state-default"><a href="#tab-2" class="r-tabs-anchor"> Diseases<span class="count">[200]</span></a></div><div id="tab-2" class="r-tabs-panel r-tabs-state-default" style="display: none;"></div>
+                <div class="r-tabs-accordion-title r-tabs-state-default"><a href="#tab-3" class="r-tabs-anchor"> Protocols <span class="count">[200]</span></a></div><div id="tab-3" class="r-tabs-panel r-tabs-state-default" style="display: none;">
                   <div class="tab-list main-scroll">
                     <div class="tab-item">
                       <div class="tab-item__head">
@@ -347,7 +347,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="r-tabs-accordion-title r-tabs-state-default"><a href="http://15-puzzle.dev-team.su/home.html#tab-4" class="r-tabs-anchor"> Remedies<span class="count">[200]</span></a></div><div id="tab-4" class="r-tabs-panel r-tabs-state-default" style="display: none;">
+                <div class="r-tabs-accordion-title r-tabs-state-default"><a href="#tab-4" class="r-tabs-anchor"> Remedies<span class="count">[200]</span></a></div><div id="tab-4" class="r-tabs-panel r-tabs-state-default" style="display: none;">
                   <div class="tab-list main-scroll">
                     <div class="tab-item">
                       <div class="tab-item__head">
@@ -449,7 +449,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="r-tabs-accordion-title r-tabs-state-default"><a href="http://15-puzzle.dev-team.su/home.html#tab-5" class="r-tabs-anchor"> Markers<span class="count">[200]</span></a></div><div id="tab-5" class="r-tabs-panel r-tabs-state-default" style="display: none;">
+                <div class="r-tabs-accordion-title r-tabs-state-default"><a href="#tab-5" class="r-tabs-anchor"> Markers<span class="count">[200]</span></a></div><div id="tab-5" class="r-tabs-panel r-tabs-state-default" style="display: none;">
                   <div class="tab-list main-scroll markers">
                     <div class="tab-item markers">
                       <div class="tab-head-markers">
@@ -764,7 +764,7 @@
                 </li>
                 <li><img src="/images/main/book.svg">Antioxidant curing of cancer (by dr. Garbuzov)
                 </li>
-              </ul><a class="arrow-link" href="http://15-puzzle.dev-team.su/home.html#" target="_blank">Literature</a>
+              </ul><a class="arrow-link" href="/#" target="_blank">Literature</a>
             </div>
             <div class="tabs-modal">
               <div class="tabs-modal__container"><a class="close-tabs-modal-ico" href="javascript:void(0)">

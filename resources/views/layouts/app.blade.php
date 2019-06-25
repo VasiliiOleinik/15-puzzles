@@ -8,8 +8,9 @@
     @yield('news-css')
     @yield('personal_cabinet-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/main.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/css(1).css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/fonts/2.css') }}"> 
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/fonts/1.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/libs.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/jquery-ui.min.css') }}">
     <!--
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/libs.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/jquery-ui.min.css') }}">
