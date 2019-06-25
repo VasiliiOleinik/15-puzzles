@@ -112,63 +112,11 @@ class MainController extends Controller
         return view('main', compact(['role','role_permissions', 'permissions', 'pieces', 'diseases', 'pieces_and_diseases', 'protocols']));
     }
 
-    public function pieces_content(Request $request)
-    {
-        if($request['_active_pieces_id']){
-            $_active_pieces_id = $request['_active_pieces_id'];
-        }else{
-            $_active_pieces_id = "";
-        }
-        $result = "";
-        if( $_active_pieces_id != ""){
-            
-            $pieces = Piece::where('id','=',$_active_pieces_id[0]);
-
-            for( $i = 1; $i < count($_active_pieces_id); $i++ ){
-                $pieces->orWhere('id','=',$_active_pieces_id[$i]);
-            }
-            $result = $pieces->get();
-        }else{
-            $result = "";
-        }
-      
-        
-        return $result;
-    }
-
-    public function diseases_content(Request $request)
-    {
-        if($request['_active_pieces_id']){
-            $_active_diseases_id = $request['_active_pieces_id'];
-        }else{
-            $_active_diseases_id = "";
-        }
-        $result = "";
-        if( $_active_diseases_id != ""){
-            
-            $diseases = Disease::where('id','=',$_active_diseases_id[0]);
-
-            for( $i = 1; $i < count($_active_diseases_id); $i++ ){
-                $diseases->orWhere('id','=',$_active_diseases_id[$i]);
-            }
-            $result = $diseases->get();
-        }else{
-            $result = "";
-        }
-      
-        
-        return $result;
-    }
-
-    public function model_data_with_filters(Request $request)
+    public function filter(Request $request)
     {
         $result_models = array();
-        $result_ids = array();
+        $result_id_array = array();
 
-        //$request['piece'] = [2,7];
-        //$request['protocol'] = [190, 222];
-        //return($request->all());
-        //$models = [ $request['model'] ];
         $model = $request['model'];
         $filters = ['protocol','piece','disease'];
 
@@ -181,9 +129,9 @@ class MainController extends Controller
 
                         $model_elements = $model::with([$filter.'s' => function ($query) use ($request,$filter) {
                                                 $query->whereIn($filter.'_id', $request[$filter]); }]);
-                        if(count($result_ids) > 0){
-                            $model_elements = $model_elements->whereIn('id',$result_ids)->get();
-                            $result_ids = []; 
+                        if(count($result_id_array) > 0){
+                            $model_elements = $model_elements->whereIn('id',$result_id_array)->get();
+                            $result_id_array = []; 
                         }
                         else{
                             $model_elements = $model_elements->get();
@@ -193,7 +141,7 @@ class MainController extends Controller
                         {
                             if(count($element[$filter.'s']) == count($request[$filter]) ){
 
-                                array_push( $result_ids, $element->id);
+                                array_push( $result_id_array, $element->id);
                             }
                         }
                     }
@@ -201,103 +149,22 @@ class MainController extends Controller
             }
         }
        
-        $result_models = $model::whereIn('id',$result_ids)->get();
-        
-
-        /*
-        $result = '';
-        $model_name = $request['model'];
-
-        $model_name_without_namespace = explode('\\',$model_name)[count(explode('\\',$model_name))-1];
-        $model_name_without_namespace_last_char = substr($model_name_without_namespace, -1);
-        if($model_name_without_namespace_last_char == "y"){
-            $model_name_without_namespace = substr_replace($model_name_without_namespace, "ie",-1);
-        }
-
-        $model = $model_name::all();
-
-        $filters = ['piece','disease','protocol'];
-
-        foreach ($filters as $filter) {
-
-            if ($request['_active_'.$filter.'s_id']) {
-                $_active_tag_type_ids = $request['_active_'.$filter.'s_id'];
-
-                $target = null;
-                $model_pieces = null;
-                $count = 0;
-                $model_eloquient = array();
-
-                foreach ($model as $model_element) {
-                    $method_relationship = $filter.$model_name_without_namespace.'s';
-                    $model_relationship = $model_element[$method_relationship];
-                    $count = 0;
-                    foreach ($model_relationship as $obj) {
-
-                        $target = $obj[$filter.'_id'];
-                        foreach ($_active_tag_type_ids as $id) {
-
-                            if ($id == $target) {
-                                $count++;
-                            }
-
-                        }
-                    }
-                    if ($count == count($_active_tag_type_ids)) {
-                        array_push($model_eloquient, $model_element);
-                    }
-
-                }
-                $model = $model_eloquient;
-            }
-        }
-    
-        $result = $model;
-        */
+        $result_models = $model::whereIn('id',$result_id_array)->get();
 
         return $result_models;
     }
 
-    public function evidences_content()
-    {
-        $evidences = Evidence::all();
-        $result = $evidences;
-        
-        return $result;
+    public function evidences()
+    {      
+        return Evidence::all();
     }
 
-    public function details_content(Request $request)
+    public function details(Request $request)
     {
-        $result = "";
-        if($request['id']){
-
-            $id = $request['id'];
-            
-            if($request['table']){
-
-                if($request['table'] == "protocols"){
-
-                    $model = Protocol::find($id);
-
-                    $result = $model;
-                }
-                if($request['table'] == "remedies"){
-
-                    $model = Remedy::find($id);
-
-                    $result = $model;
-                }
-                if($request['table'] == "markers"){
-
-                    $model = Marker::find($id);
-
-                    $result = $model;
-                }
-            }
-            
+        if($request['id'] && $request['model']){
+            return $request['model']::find($request['id']);                    
         }
-
-        return $result;
+        return "";
     }
 
     public function protocol_pieces(Request $request)

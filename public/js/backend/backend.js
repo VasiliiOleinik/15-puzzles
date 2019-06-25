@@ -185,8 +185,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $(this).addClass('active');
 
         var id = $(this).attr('obj-id');
-        var table = "protocols";
-        DetailsAjax(id, table);
+        var model = "App\\Models\\Protocol\\Protocol";
+        var table = 'protocols';
+        DetailsAjax(id, model, table);
 
         //console.log($(this).attr('obj-id'));
     });
@@ -198,8 +199,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $(this).addClass('active');
 
         var id = $(this).attr('obj-id');
-        var table = "remedies";
-        DetailsAjax(id, table);
+        var model = "App\\Models\\Remedy";
+        var table = 'remedies';
+        DetailsAjax(id, model, table);
 
         //console.log($(this).attr('obj-id'));
     });
@@ -210,8 +212,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $('#markers_ajax_container li').removeClass('active');
         $(this).addClass('active');
         var id = $(this).attr('obj-id');
-        var table = "markers";
-        DetailsAjax(id, table);
+        var model = "App\\Models\\Marker";
+        var table = 'markers';
+        DetailsAjax(id, model, table);
         //console.log($(this).attr('obj-id'));
     });
 
@@ -375,7 +378,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //get content of protocols
         window[table_name + '_ajax'] = $.ajax({
             type: "POST",
-            url: "/model_data_with_filters",
+            url: "/filter",
             data: data,
             complete: function (result) {
                 //console.log("result: " + result.responseText);
@@ -454,7 +457,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         //get content of evidences
         evidences_ajax = $.ajax({
             type: "POST",
-            url: "/evidences_content",
+            url: "/evidences",
             data: {
                 "_token": $('meta[name="csrf-token"]').attr('content')
             },
@@ -475,16 +478,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     }
 
-    function DetailsAjax(id, table) {
+    function DetailsAjax(id, model, table) {
 
         //get details
         $.ajax({
             type: "POST",
-            url: "/details_content",
+            url: "/details",
             data: {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
                 id: id,
-                table: table
+                model: model
             },
             complete: function (result) {
                 //console.log("details: " + result.responseText);
@@ -505,7 +508,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             },
             error: function (err) {
-                console.log("protocols ajax error");
+                console.log(err.responseText);
             }
 
         });

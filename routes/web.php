@@ -24,10 +24,10 @@ Route::get('/about', 'AboutController@index')->name('about');
 
 /* MAIN */
 
-Route::post('/model_data_with_filters', 'MainController@model_data_with_filters')->name('model_data_with_filters');
-Route::post('/evidences_content', 'MainController@evidences_content')->name('evidences_content');
+Route::post('/filter', 'MainController@filter')->name('filter');
+Route::post('/evidences', 'MainController@evidences')->name('evidences');
 
-Route::post('/details_content', 'MainController@details_content')->name('details_content');
+Route::post('/details', 'MainController@details')->name('details');
 
 Route::post('/protocol_pieces', 'MainController@protocol_pieces')->name('protocol_pieces');
 
