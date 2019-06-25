@@ -1,5 +1,5 @@
 body {
-    overflow-y: scroll;    
+    overflow-y: scroll;
 }
 
 #app {
@@ -11,10 +11,10 @@ body {
     color: white;
 }
 
-.btn-medicine:hover {
-    background-color: #4a7d86;
-    color: white;
-}
+    .btn-medicine:hover {
+        background-color: #4a7d86;
+        color: white;
+    }
 
 [type=search] {
     border-radius: 40px;

@@ -1,144 +1,102 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="ru">
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', '15 Pazzles') }}</title>
-
-    <!-- Fonts -->
-{{--    <link rel="dns-prefetch" href="//fonts.gstatic.com">--}}
-{{--    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">--}}
-
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @yield('main-css')
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--<link href="http://15-puzzle.dev-team.su/assets/img/favicon.ico" rel="shortcut icon">-->
     @yield('news-css')
     @yield('personal_cabinet-css')
-    <link href="{{ asset('css/backend/backend.css') }}" rel="stylesheet">
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
-</head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-header header">
-            <div class="container p-0">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <!--{ config('app.name', 'Laravel') }} -->
-                    <img src="/images/logo.png" width="200px">
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-{{--                            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Search</button>--}}
-                        </form>
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Main menu -->
-                            <nav class="navbar navbar-expand-lg navbar-light">
- 
-
-                              
-                              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav mr-auto">
-
-                                  <!--<li class="nav-item active">-->
-                                    <!--<a class="nav-link" href="/">Main <span class="sr-only">(current)</span></a> -->
-                                  <li class="nav-item">
-                                   <a class="nav-link" href="/">Main</a>
-                                  </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="/member_cases">Member's cases</a>
-                                  </li>                                  
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="/factor_diagram">Factor diagram</a>
-                                  </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="/about">About</a>
-                                  </li>
-                                  <li class="nav-item">
-                                    <a class="nav-link" href="/news">News</a>
-                                  </li>
-                                  @guest
-                                  <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <!-- Authentication Links -->
-                                        
-                                            
-                                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                            
-                                            @if (Route::has('register'))
-                                               
-                                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                                
-                                            @endif
-                                        
-                                        
-    
-                                    </div>
-                                  </li>
-                                  @endguest
-                                  @auth
-                                            <li class="nav-item dropdown">
-                                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                                </a>
-
-                                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                                       onclick="event.preventDefault();
-                                                                     document.getElementById('logout-form').submit();">
-                                                        {{ __('Logout') }}
-                                                    </a>
-
-                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                        @csrf
-                                                    </form>
-                                                </div>
-                                            </li>
-                                   @endauth
-                                </ul>                                
-                              </div>
-                            </nav>
-                        
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <main>
-            @yield('content')
-        </main>
-    </div>
-
-    <!-- Scripts -->
-
-    <script src="{{ asset('js/backend/backend.js') }}" defer></script>
-    @yield('main-js')
-    @yield('news-js')
-    @yield('personal_cabinet-js')
-    @yield('personal_cabinet-js')
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/css(1).css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/fonts/2.css') }}"> 
     <!--
-    @if(Route::currentRouteName() == "news")
-       
-    @endif
-    -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/libs.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/jquery-ui.min.css') }}">
     
-</body>
-</html>
+    
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/css.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/css(1).css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/fonts/1.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/fonts/2.css') }}">    
+    -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>15-puzzle</title>
+</head>
+  <body>
+    <!--include _preloader-->
+    <div class="content-wrapper" id="contentWrapper">
+      <div class="page-wrapper" id="pageWrapper">
+        <header class="header">
+          <div class="box">
+            <div class="header__body">
+              <div class="header__logo logo"><img src="/images/logo.svg"></div>
+              <form class="header__search">
+                <input class="header__search-input" placeholder="Search" type="text">
+                <button class="header__search-btn"><i class="fas fa-search"></i></button>
+              </form>
+              <nav class="header__nav">
+                <ul class="header__nav-list">
+                  <li class="header__nav-li"><a class="header__nav-link" href="/" target="_self">Main</a></li>
+                  <li class="header__nav-li"><a class="header__nav-link" href="/member_cases" target="_self">Member's cases</a></li>
+                  <li class="header__nav-li"><a class="header__nav-link" href="/factor_diagram" target="_self">Factor diagram</a></li>
+                  <li class="header__nav-li"><a class="header__nav-link" href="/about" target="_self">About</a></li>
+                  <li class="header__nav-li"><a class="header__nav-link" href="/news" target="_self">News</a></li>
+                </ul>
+              </nav>
+              <div class="header__langs"><a class="header__lang" href="http://15-puzzle.dev-team.su/home.html#">ENG</a><span class="header__lang-devider"></span><a class="header__lang" href="http://15-puzzle.dev-team.su/home.html#">RU</a></div>
+              <form class="header__mobile_search">
+                <button class="header__search-btn"><i class="fas fa-search"></i></button>
+              </form>
+            </div>
+          </div>
+        </header>
+        <main class="main">
+          @yield('content')
+        </main>
+      </div>
+      <div class="footer-wrapper" id="footerWrapper">
+        <footer class="footer">
+          <div class="box">
+            <div class="footer__items">
+              <div class="footer__left footer__item">
+                <div class="footer__logo logo"><img src="/images/main/logo.svg"></div>
+                <ul class="footer__list">
+                  <li class="footer__li"><a class="footer__link" href="http://15-puzzle.dev-team.su/home.html#" target="_blank">letter to the editor</a></li>
+                  <li class="footer__li"><a class="footer__link" href="http://15-puzzle.dev-team.su/home.html#" target="_blank">Privacy Policy</a></li>
+                  <li class="footer__li"><a class="footer__link" href="http://15-puzzle.dev-team.su/home.html#" target="_blank">terms of service</a></li>
+                </ul>
+              </div>
+              <div class="footer__middle footer__item">
+                <h6 class="footer__h6">Disclaimer:</h6>
+                <p class="footer__disclaimer">None of the above-stated protocols o r supplements have been evaluated or approved by FDA to diagnose or treat cancer. The website collects and presents information "as-is" about protocols used and developed by third-party individual doctors or scientific organizations worldwide, who did not undergo formal 1-2-3 stage clinical trials required to formally prove the efficacy of methods, drugs and supplements used. All efficacy information is given based on proprietary evidence data presented by the relevant authors of the protocols and individual patients website members.</p>
+              </div>
+              <div class="footer__right footer__item">
+                <h6 class="footer__h6">Take latest news from 15-Puzzle:</h6>
+                <form class="footer__subscribe">
+                  <input type="email" placeholder="Your Email Address">
+                  <button type="button">Subscribe</button>
+                </form>
+                <h6 class="footer__h6 evidence-title">Levels of evidence:</h6>
+                <ul class="footer__evidence">
+                  <li class="proven">Proven</li>
+                  <li class="average">Average</li>
+                  <li class="low">Low</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="box">
+            <div class="footer__copirate">Copyright © 2019 15Puzzle Company. All rights reserved.
+              <div class="footer__socs"><a class="footer__soc" href="http://15-puzzle.dev-team.su/home.html#" target="_blank"><img src="/images/main/youtube.svg"></a><a class="footer__soc" href="http://15-puzzle.dev-team.su/home.html#" target="_blank"><img src="/images/main/facebook.svg"></a><a class="footer__soc" href="http://15-puzzle.dev-team.su/home.html#" target="_blank"><img src="/images/main/insta.svg"></a></div>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <script src="{{ asset('js/frontend/libs.min.js') }}"></script>
+    <script src="{{ asset('js/frontend/common.js') }}"></script>
+    <script src="{{ asset('js/frontend/jquery.mask.min.js') }}"></script>
+    <script src="{{ asset('js/frontend/jquery-ui.min.js') }}"></script>
+  
+</body></html>
