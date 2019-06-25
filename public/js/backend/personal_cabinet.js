@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 reader.readAsDataURL(files[0]); // read the local file
  
                 reader.onloadend = function(){ // set image data as background of div
-
+                
                 setUserAvatar(this.result)
                              
                 //uploadFile.closest(".imgUp").find('.imagePreview');

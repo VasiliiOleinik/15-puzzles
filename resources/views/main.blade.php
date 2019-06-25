@@ -202,3 +202,7 @@
         
     </div>
 @endsection
+
+@section('main-js')
+    <script src="{{ asset('js/backend/main.js') }}" defer></script>
+@endsection

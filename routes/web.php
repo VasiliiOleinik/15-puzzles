@@ -29,7 +29,7 @@ Route::post('/evidences', 'MainController@evidences')->name('evidences');
 
 Route::post('/details', 'MainController@details')->name('details');
 
-Route::post('/protocol_pieces', 'MainController@protocol_pieces')->name('protocol_pieces');
+//Route::post('/protocol_pieces', 'MainController@protocol_pieces')->name('protocol_pieces');
 
 /* ---- */
 
