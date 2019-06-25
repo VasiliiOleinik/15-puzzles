@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             "_token": $('meta[name="csrf-token"]').attr('content'),
         },
         complete: function (result) {
-
+            //console.log(result.responseText);
             if (result.responseText.length != 0) {
 
                 json = jQuery.parseJSON(result.responseText);

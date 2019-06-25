@@ -25,4 +25,12 @@ class Tag extends Model
     {
         return $this->hasMany('App\Models\Article\ArticleTag');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function articles()
+    {
+    return $this->belongsToMany('App\Models\Article\Article', 'article_tags');
+    }
 }

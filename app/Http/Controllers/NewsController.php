@@ -43,18 +43,17 @@ class NewsController extends Controller
     public function used_tags(){
 
         $tag_with_articles = array();
-        $tags = Tag::all();
-        //$tag = Tag::all()->pluck('name','id')->toJson();
+        $tags = Tag::with('articles')->get();
 
         //find tags which have some relations with articles
         foreach($tags as $tag) {
-            $tag_articles = $tag->articleTags;
-            if(count($tag_articles) > 0){
+
+            if(count($tag->articles) > 0){
                 array_push($tag_with_articles, $tag->id);
             }
         }
 
-        $tags_names = Tag::whereIn('id', $tag_with_articles)->pluck('name','id')->toJson();
+        $tags_names = Tag::with('articles')->whereIn('id',$tag_with_articles)->pluck('name','id')->toJson();
 
         return response($tags_names);
     }
