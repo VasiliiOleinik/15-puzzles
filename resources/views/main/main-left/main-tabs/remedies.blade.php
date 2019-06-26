@@ -1,5 +1,5 @@
                 <div id="tab-4">
-                  <div class="tab-list main-scroll">
+                  <div class="tab-list main-scroll" id="tabListRemedies">
                     <div class="tab-item">
                       <div class="tab-item__head">
                         <label class="tab_head_check">

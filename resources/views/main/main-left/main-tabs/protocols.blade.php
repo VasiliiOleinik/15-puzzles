@@ -1,5 +1,5 @@
                 <div id="tab-3">
-                  <div class="tab-list main-scroll">
+                  <div class="tab-list main-scroll" id="tabListProtocols">
                     <div class="tab-item">
                       <div class="tab-item__head">
                         <label class="tab_head_check">

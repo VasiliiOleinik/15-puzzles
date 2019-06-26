@@ -1,5 +1,5 @@
                 <div id="tab-2">
-                  <div class="tab-list main-scroll">
+                  <div class="tab-list main-scroll" id="tabListDiseases">
                     @foreach($diseases as $disease) 
                     <div class="tab-item">
                       <div class="tab-item__head">

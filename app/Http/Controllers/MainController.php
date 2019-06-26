@@ -42,6 +42,8 @@ class MainController extends Controller
         $role_permissions = null;
         $permissions = array();
         $protocols = Protocol::all();
+        $countRemedies = Remedy::count();
+        $countMarkers = Marker::count();
 
         $pieces = Piece::with('category')->get();
         $diseases = Disease::all();
@@ -109,7 +111,9 @@ class MainController extends Controller
         dd($result);
         */
 
-        return view('main.main', compact(['role','role_permissions', 'permissions', 'pieces', 'diseases', 'pieces_and_diseases', 'protocols']));
+        return view('main.main', compact(['role','role_permissions', 'permissions', 'pieces',
+                                            'diseases', 'pieces_and_diseases', 'protocols',
+                                            'countRemedies', 'countMarkers']));
     }
 
     public function filter(Request $request)

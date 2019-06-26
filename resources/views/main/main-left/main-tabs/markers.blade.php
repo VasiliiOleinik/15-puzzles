@@ -1,5 +1,5 @@
                 <div id="tab-5">
-                  <div class="tab-list main-scroll markers">
+                  <div class="tab-list main-scroll markers" id="tabListMarkers">
                     <div class="tab-item markers">
                       <div class="tab-head-markers">
                         <p class="title">Theoretical DNA mutagenic factor rate</p>
