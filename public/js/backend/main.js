@@ -534,7 +534,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //////
     function syncCheckedElements(clicked, objId, objType) {           
-        if (clicked == "checkbox") {
+        if (clicked == "checkbox" && objType) {
             var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
             var objName = elem.parent().find('.title').html().split(':')[1].substr(1);
             addTagToTagsList(objId, objName, objType);
@@ -549,7 +549,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     function addTagToTagsList(objId, objName, objType) {
-        console.log(tagExists(objId, objType))
         if (tagExists(objId, objType)) {            
             removeTag(objId, objType);
         } else {
