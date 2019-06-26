@@ -11,6 +11,7 @@ use App\Models\Disease\Disease;
 use App\Models\Protocol\Protocol;
 use App\Models\Remedy;
 use App\Models\Marker;
+use App\Models\Article\Article;
 use App\Models\Evidence;
 
 use Illuminate\Support\Facades\DB;
@@ -44,6 +45,7 @@ class MainController extends Controller
         $protocols = Protocol::all();
         $countRemedies = Remedy::count();
         $countMarkers = Marker::count();
+        $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
 
         $pieces = Piece::with('category')->get();
         $diseases = Disease::all();
@@ -113,7 +115,7 @@ class MainController extends Controller
 
         return view('main.main', compact(['role','role_permissions', 'permissions', 'pieces',
                                             'diseases', 'pieces_and_diseases', 'protocols',
-                                            'countRemedies', 'countMarkers']));
+                                            'countRemedies', 'countMarkers','newsLatest']));
     }
 
     public function filter(Request $request)
