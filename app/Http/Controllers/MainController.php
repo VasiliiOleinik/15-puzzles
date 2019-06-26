@@ -43,7 +43,7 @@ class MainController extends Controller
         $permissions = array();
         $protocols = Protocol::all();
 
-        $pieces = Piece::all();
+        $pieces = Piece::with('category')->get();
         $diseases = Disease::all();
         $pieces_and_diseases = array();
         array_push($pieces_and_diseases, $pieces);

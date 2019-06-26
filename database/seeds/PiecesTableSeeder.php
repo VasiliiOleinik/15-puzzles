@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use App\Models\Piece\Piece;
+use App\Models\Category;
 
 class PiecesTableSeeder extends Seeder
 {
@@ -16,24 +17,31 @@ class PiecesTableSeeder extends Seeder
         DB::table('pieces')->delete();
         DB::update("ALTER TABLE pieces AUTO_INCREMENT = 0;");
 
-        factory(Piece::class, 15)->create();        
-
+        factory(Piece::class, 22)->create();        
+        
         $piece_names = [
-            ['img' => '0', 'name' => 'Oxygen metabolism change'],
-            ['img' => '40', 'name' => 'DNA damage'],
-			['img' => '80', 'name' => 'Etiology'],
-            ['img' => '120', 'name' => 'Looking up'],
-            ['img' => '160', 'name' => 'Detox'],
-            ['img' => '200', 'name' => 'Cell voltage'],
-            ['img' => '240', 'name' => 'pH'],
-            ['img' => '280', 'name' => 'Cellular metabolism'],
-            ['img' => '320', 'name' => 'Cancer cell recognition by immune system'],
-            ['img' => '360', 'name' => 'Reactivation of immune system'],
-            ['img' => '400', 'name' => 'Connective tissue recovery'],
-            ['img' => '440', 'name' => 'Canver cell ellimination'],
-            ['img' => '480', 'name' => 'Free Radical stress'],
-            ['img' => '520', 'name' => 'Cancer cell division'],
-            ['img' => '560', 'name' => 'Angiogenesis'],
+            ['img' => 'img/svg/oxygen_metabolism.svg', 'name' => 'Oxygen metabolism change', 'category_id' => 1],
+            ['img' => 'img/svg/dna.svg', 'name' => 'DNA damage', 'category_id' => 1],
+			['img' => 'img/svg/etiology.svg', 'name' => 'Etiology', 'category_id' => 1],
+            ['img' => 'img/svg/hand.svg', 'name' => 'Looking up', 'category_id' => 3],
+            ['img' => 'img/svg/detox.svg', 'name' => 'Detox', 'category_id' => 2],
+            ['img' => 'img/svg/voltage.svg', 'name' => 'Cell voltage', 'category_id' => 2],
+            ['img' => 'img/svg/ph.svg', 'name' => 'pH', 'category_id' => 2],
+            ['img' => 'img/svg/cellular.svg', 'name' => 'Cellular metabolism', 'category_id' => 2],
+            ['img' => 'img/svg/cancer_cell_recognation.svg', 'name' => 'Cancer cell recognition by immune system', 'category_id' => 3],
+            ['img' => 'img/svg/reactivation.svg', 'name' => 'Reactivation of immune system', 'category_id' => 3],
+            ['img' => 'img/svg/connective.svg', 'name' => 'Connective tissue recovery', 'category_id' => 3],
+            ['img' => 'img/svg/cancer_cell_elimination.svg', 'name' => 'Canver cell ellimination', 'category_id' => 3],
+            ['img' => 'img/svg/free_radical.svg', 'name' => 'Free Radical stress', 'category_id' => 4],
+            ['img' => 'img/svg/cancer_cell_division.svg', 'name' => 'Cancer cell division', 'category_id' => 4],
+            ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'category_id' => 4],
+            ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'category_id' => 4],
+            ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'category_id' => 4],
+            ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'category_id' => 4],
+            ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'category_id' => 4],
+            ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'category_id' => 4],
+            ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'category_id' => 4],
+            ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'category_id' => 4],
         /*
             ['img' => 'piece_1.png', 'name' => 'Oxygen metabolism change'],
             ['img' => 'piece_2.png', 'name' => 'DNA damage'],
