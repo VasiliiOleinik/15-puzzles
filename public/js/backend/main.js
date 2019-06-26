@@ -6,6 +6,19 @@ var tags_pieces = "", tags_diseases = "", tags_protocols = "", tags_remedies = "
 
 document.addEventListener("DOMContentLoaded", function (event) {
 
+/**/
+    //Поменялось значение чекбокса
+    $(".checkbox").change(function () {
+        syncCheckedElements('checkbox', $(this).attr('obj-id'), $(this).attr('obj-type'));
+    });
+
+    //Кликнули на пазл
+    $('.puzzle-15__item').bind('click', function () {
+        syncCheckedElements('pazzle', $(this).parent().attr('obj-id'), "factor");
+    })
+
+/**/
+
     evidencesAjax();    
 
     /* ------------------ */
@@ -519,6 +532,72 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
 
+    //////
+    function syncCheckedElements(clicked, objId, objType) {           
+        if (clicked == "checkbox") {
+            var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
+            var objName = elem.parent().find('.title').html().split(':')[1].substr(1);
+            addTagToTagsList(objId, objName, objType);
+            checkPazzle(objId);
+        }
+        if (clicked == "pazzle") {
+            var elem = $(".puzzle-15__item-outer[obj-id=" + objId + "]");
+            var objName = elem.find('.puzzle-15__item-title').html();
+            addTagToTagsList(objId, objName, objType);
+            checkCheckbox(objId, objType);
+        }
+    }
+
+    function addTagToTagsList(objId, objName, objType) {
+        console.log(tagExists(objId, objType))
+        if (tagExists(objId, objType)) {            
+            removeTag(objId, objType);
+        } else {
+            html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + objName + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
+            $('.tags__list').append(html);
+        }
+    }
+
+    function checkPazzle(objId) {
+        var elem = $('.puzzle-15__item-outer[obj-id=' + objId + ']').children();
+        if (!elem.hasClass('active')) {
+            elem.addClass('active');
+        } else {
+            elem.removeClass('active');
+        }
+    }    
+
+    function tagExists(objId, objType) {
+        var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
+        if (elem.length > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    function removeTag(objId, objType) {
+        var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
+        elem.remove();
+    }
+
+    function checkCheckbox(objId, objType) {
+        var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
+        if (tagExists(objId, objType)) {
+            elem.prop('checked', true);
+        } else {
+            elem.prop('checked', false);
+        }
+    }
+
+    function clearTagsList() {
+        $('.tags__list').html('');
+    }
+
+    function uncheckAllPazzles() {
+        $('.puzzle-15__item-outer').children().removeClass('active');
+    }
+
+    //////
     /* ------------------ */
     /* ------------------ */
 });

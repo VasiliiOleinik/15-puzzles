@@ -4,7 +4,7 @@
                     <div class="tab-item">
                       <div class="tab-item__head">
                         <label class="tab_head_check">
-                          <input class="checkbox" type="checkbox"><span class="checkbox-custom"></span>
+                          <input class="checkbox" type="checkbox" obj-id="{{$piece->id}}" obj-type="factor"><span class="checkbox-custom"></span>
                           <p class="title">Factor #{{$piece->id}}: {{$piece->name}}</p>
                         </label>
                         <div class="arrow"><img src="img/svg/dropdown-ico.svg" alt=""></div>

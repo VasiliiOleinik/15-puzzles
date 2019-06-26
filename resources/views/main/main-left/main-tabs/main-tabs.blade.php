@@ -7,10 +7,7 @@
                   <li class="markers"><a href="#tab-5" id="tabMarkers"> Markers<span id="countMarkers" class="count">[{{$countMarkers}}]</span></a></li>
                 </ul>
                 <div class="tags">
-                  <div class="tags__list">
-                    <li class="tag-item"><a class="tag-name" href="javascript:void(0)">DNA Damage</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>
-                    <li class="tag-item"><a class="tag-name" href="javascript:void(0)">DNA Damage</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>
-                    <li class="tag-item"><a class="tag-name" href="javascript:void(0)">DNA Damage</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>
+                  <div class="tags__list">                    
                   </div>
                 </div>
                 @include('main.main-left.main-tabs.factors')
