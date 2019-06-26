@@ -141,4 +141,5 @@
     <script src="{{ asset('js/frontend/jquery.mask.min.js') }}"></script>
     <script src="{{ asset('js/frontend/jquery-ui.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    @yield('main-js')
 </body></html>
