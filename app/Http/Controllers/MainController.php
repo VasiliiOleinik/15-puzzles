@@ -109,7 +109,7 @@ class MainController extends Controller
         dd($result);
         */
 
-        return view('main', compact(['role','role_permissions', 'permissions', 'pieces', 'diseases', 'pieces_and_diseases', 'protocols']));
+        return view('main.main', compact(['role','role_permissions', 'permissions', 'pieces', 'diseases', 'pieces_and_diseases', 'protocols']));
     }
 
     public function filter(Request $request)
