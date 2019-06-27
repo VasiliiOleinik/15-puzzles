@@ -14,6 +14,7 @@ use App\Models\Method;
 use App\Models\Marker\Marker;
 use App\Models\Article\Article;
 use App\Models\Evidence;
+use Auth;
 
 use Illuminate\Support\Facades\DB;
 
@@ -38,7 +39,7 @@ class MainController extends Controller
      */
     public function index(Request $request)
     {
-    
+        //dd(Auth::user());
         $user = $request->user();
         /*
         $role = null;

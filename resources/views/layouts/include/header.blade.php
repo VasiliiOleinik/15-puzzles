@@ -15,7 +15,17 @@
               </nav>
               <div class="header__langs"><a class="header__lang" href="#">ENG</a><span class="header__lang-devider"></span><a class="header__lang" href="#">RU</a></div>
               <div class="header__login">
-                <button id="login-btn" data-fancybox data-src="#header-login-modal-js"><img src="img/svg/user.svg" alt="User"><span>Login</span></button>
+                <button id="login-btn" data-fancybox data-src="#header-login-modal-js"><img src="img/svg/user.svg" alt="User">
+                @guest
+                  <span>Login</span>
+                @endguest
+                </button>
+                @auth
+                  <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                  </form>
+                @endauth
               </div>
               <div class="header__search-block">
                 <button class="search-btn" id="search-btn-js"><img src="img/svg/search.svg" alt="Search"></button>

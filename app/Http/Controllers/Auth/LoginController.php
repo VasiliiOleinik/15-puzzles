@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -36,4 +38,23 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    public function login(Request $request)
+    {
+        //dd($request->all());
+        $this->validate($request, [
+            'login'           => 'required|max:255',
+            'password'           => 'required',
+        ]);
+        //dd(Auth::attempt(['nickname' => $request->login, 'password' => $request->password]));
+        if (Auth::attempt(['nickname' => $request->login, 'password' => $request->password])) {
+            // Success
+            return redirect()->intended();
+        } else {
+            // Go back on error (or do what you want)
+            return redirect()->back();
+        }
+
+    }
+
 }
