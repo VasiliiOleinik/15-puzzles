@@ -47,9 +47,9 @@ class MainController extends Controller
         */
         $factors = Piece::with('category')->get();
         $diseases = Disease::all();
-        $protocols = Protocol::with('evidence')->paginate(200);
-        $remedies = Remedy::paginate(200);
-        $markers = Marker::with('methods')->paginate(200);
+        $protocols = Protocol::with('evidence')->paginate(40);
+        $remedies = Remedy::paginate(40);
+        $markers = Marker::with('methods')->paginate(40);
         $methods = Method::all();
         $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
 
