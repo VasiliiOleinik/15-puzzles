@@ -2,7 +2,7 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Models\Marker;
+use App\Models\Marker\Marker;
 use Faker\Generator as Faker;
 
 $factory->define(Marker::class, function (Faker $faker) {
@@ -11,5 +11,6 @@ $factory->define(Marker::class, function (Faker $faker) {
     return [
         'name' => $marker_name,
         'content' => $faker->realText(200),
+        'subtitle' => $faker->realText(100),
     ];
 });

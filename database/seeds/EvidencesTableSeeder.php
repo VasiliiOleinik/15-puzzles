@@ -19,8 +19,8 @@ class EvidencesTableSeeder extends Seeder
 
         $names = [
             ['name' => 'low', 'color' => 'red'],
-            ['name' => 'medium' , 'color' => 'orange'],
-            ['name' => 'hight' , 'color' => 'green'],            
+            ['name' => 'average' , 'color' => 'orange'],
+            ['name' => 'proven' , 'color' => 'green'],            
         ];
 
          for($i = 0; $i < count($names); $i++){

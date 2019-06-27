@@ -3,8 +3,9 @@
                 <div class="methods-laboratories__inputs">
                   <div class="methods-select" id="select-method" name="method"><span class="current-value" data-value="">Select method</span>
                     <ul class="methods-select-list">
-                      <li data-value="method-1">Method 1</li>
-                      <li data-value="method-2">Method 2</li>
+                      @foreach($methods as $method)  
+                      <li data-value="{{$method->name}}">{{$method->name}}</li>
+                      @endforeach
                     </ul>
                   </div>
                   <div class="methods-select" id="select-country" name="country"><span class="current-value country">You country</span>

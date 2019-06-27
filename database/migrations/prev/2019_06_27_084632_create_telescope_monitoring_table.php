@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMarkersTable extends Migration {
+class CreateTelescopeMonitoringTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,9 @@ class CreateMarkersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('markers', function(Blueprint $table)
+		Schema::create('telescope_monitoring', function(Blueprint $table)
 		{
-			$table->increments('id');
-			$table->string('name', 50)->default('--');
-			$table->text('content', 65535);
+			$table->string('tag', 200);
 		});
 	}
 
@@ -28,7 +26,7 @@ class CreateMarkersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('markers');
+		Schema::drop('telescope_monitoring');
 	}
 
 }

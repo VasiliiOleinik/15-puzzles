@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Marker;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,25 +8,35 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $name
  * @property string $content
+ * @property string $subtitle
  * @property DiseaseMarker[] $diseaseMarkers
+ * @property MarkerMethod[] $markerMethods
  * @property PieceMarker[] $pieceMarkers
  * @property ProtocolMarker[] $protocolMarkers
  */
 class Marker extends Model
 {
-	public $timestamps = false;
-	
+    public $timestamps = false;
+
     /**
      * @var array
      */
-    protected $fillable = ['name', 'content'];
+    protected $fillable = ['name', 'content', 'subtitle'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function diseaseMarkers()
     {
-        return $this->hasMany('App\Models\Disease\DiseaseMarker');
+        return $this->hasMany('App\Models\DIsease\DiseaseMarker');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function markerMethods()
+    {
+        return $this->hasMany('App\Models\Marker\MarkerMethod');
     }
 
     /**
@@ -44,8 +54,8 @@ class Marker extends Model
     {
         return $this->hasMany('App\Models\Protocol\ProtocolMarker');
     }
-	
-	/**
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function pieces()
@@ -67,5 +77,13 @@ class Marker extends Model
     public function protocols()
     {
     return $this->belongsToMany('App\Models\Protocol\Protocol', 'protocol_markers');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function methods()
+    {
+    return $this->belongsToMany('App\Models\Method', 'marker_methods');
     }
 }

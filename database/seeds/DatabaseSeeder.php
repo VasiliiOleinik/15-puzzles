@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(MemberCasesTableSeeder::class);
 
+        $this->call(MethodsTableSeeder::class);
+
         $this->call(PiecesTableSeeder::class);
         $this->call(DiseasesTableSeeder::class);
         $this->call(ProtocolsTableSeeder::class);

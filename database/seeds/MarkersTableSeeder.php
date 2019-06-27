@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Marker;
+use App\Models\Marker\Marker;
+use App\Models\Method;
 use App\Models\Piece\Piece;
 use App\Models\Disease\Disease;
 use App\Models\Protocol\Protocol;
@@ -20,6 +21,17 @@ class MarkersTableSeeder extends Seeder
 
         factory(Marker::class, 500)->create();
 
+
+        $methods = Method::all();
+
+        // Populate the pivot table
+        Marker::all()->each(function ($marker) use ($methods) { 
+            $marker->methods()->attach(
+                $methods->random(
+                    rand(1,  4 ))->pluck('id')->toArray()
+                
+            ); 
+        });
 
         $pieces = Piece::all();
 

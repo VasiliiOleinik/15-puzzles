@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Piece::class, function (Faker $faker) {
     return [
-        'content' => $faker->realText(400),    
+        'content' => $faker->realText(800),    
     ];
 });

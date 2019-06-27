@@ -533,12 +533,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     //////
-    function syncCheckedElements(clicked, objId, objType) {           
-        if (clicked == "checkbox" && objType) {
+    function syncCheckedElements(clicked, objId, objType) {
+        if (clicked == "checkbox" && objType != undefined) {
             var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
             var objName = elem.parent().find('.title').html().split(':')[1].substr(1);
             addTagToTagsList(objId, objName, objType);
-            checkPazzle(objId);
+            checkPazzle(objId, objType);
         }
         if (clicked == "pazzle") {
             var elem = $(".puzzle-15__item-outer[obj-id=" + objId + "]");
@@ -546,24 +546,48 @@ document.addEventListener("DOMContentLoaded", function (event) {
             addTagToTagsList(objId, objName, objType);
             checkCheckbox(objId, objType);
         }
+    }    
+
+    function checkCheckbox(objId, objType) {        
+        var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
+        if (tagExists(objId, objType)) {
+            elem.prop('checked', true);
+            elem.parent().parent().addClass('checked-tab');
+        } else {
+            elem.prop('checked', false);
+            elem.parent().parent().removeClass('checked-tab');
+        }
     }
 
+    function checkPazzle(objId, objType) {
+        if (objType == 'factor') {
+            var elem = $('.puzzle-15__item-outer[obj-id=' + objId + ']').children();
+            if (!elem.hasClass('active')) {
+                elem.addClass('active');
+            } else {
+                elem.removeClass('active');
+            }
+        }
+    }        
+
     function addTagToTagsList(objId, objName, objType) {
-        if (tagExists(objId, objType)) {            
+        if (tagExists(objId, objType)) {
             removeTag(objId, objType);
         } else {
+            if (objType == 'disease') {
+                clearTagsList();
+                uncheckAllCheckboxes();
+                uncheckAllPazzles();
+                checkOnlyThisCheckbox(objId, objType);
+            }
             html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + objName + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
             $('.tags__list').append(html);
         }
     }
 
-    function checkPazzle(objId) {
-        var elem = $('.puzzle-15__item-outer[obj-id=' + objId + ']').children();
-        if (!elem.hasClass('active')) {
-            elem.addClass('active');
-        } else {
-            elem.removeClass('active');
-        }
+    function removeTag(objId, objType) {
+        var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
+        elem.remove();
     }    
 
     function tagExists(objId, objType) {
@@ -574,22 +598,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return false;
     }
 
-    function removeTag(objId, objType) {
-        var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
-        elem.remove();
-    }
-
-    function checkCheckbox(objId, objType) {
+    function checkOnlyThisCheckbox(objId, objType) {        
         var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
-        if (tagExists(objId, objType)) {
-            elem.prop('checked', true);
-        } else {
-            elem.prop('checked', false);
-        }
+        elem.prop('checked', true);
+        elem.parent().parent().addClass('checked-tab');
     }
 
     function clearTagsList() {
         $('.tags__list').html('');
+    }
+
+    function uncheckAllCheckboxes() {
+        $("input[type='checkbox']").prop('checked', false);
+        $('.tab-item__head').removeClass('checked-tab');
     }
 
     function uncheckAllPazzles() {

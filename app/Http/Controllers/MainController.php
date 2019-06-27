@@ -10,7 +10,8 @@ use App\Models\Piece\PieceRemedy;
 use App\Models\Disease\Disease;
 use App\Models\Protocol\Protocol;
 use App\Models\Remedy;
-use App\Models\Marker;
+use App\Models\Method;
+use App\Models\Marker\Marker;
 use App\Models\Article\Article;
 use App\Models\Evidence;
 
@@ -39,20 +40,25 @@ class MainController extends Controller
     {
     
         $user = $request->user();
+        /*
         $role = null;
         $role_permissions = null;
         $permissions = array();
-        $protocols = Protocol::all();
-        $countRemedies = Remedy::count();
-        $countMarkers = Marker::count();
+        */
+        $factors = Piece::with('category')->get();
+        $diseases = Disease::all();
+        $protocols = Protocol::with('evidence')->paginate(200);
+        $remedies = Remedy::paginate(200);
+        $markers = Marker::with('methods')->paginate(200);
+        $methods = Method::all();
         $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
 
-        $pieces = Piece::with('category')->get();
-        $diseases = Disease::all();
+        /*       
         $pieces_and_diseases = array();
         array_push($pieces_and_diseases, $pieces);
         array_push($pieces_and_diseases, $diseases);
-
+        */
+        /*
         if($user){
 
             $user = User::where('id','=',$user->id)->first();
@@ -63,7 +69,7 @@ class MainController extends Controller
                 array_push( $permissions, Permission::find($obj->permission_id) );
             }
         }
-
+        */
         
         /*
         $result = array();
@@ -113,9 +119,10 @@ class MainController extends Controller
         dd($result);
         */
 
-        return view('main.main', compact(['role','role_permissions', 'permissions', 'pieces',
-                                            'diseases', 'pieces_and_diseases', 'protocols',
-                                            'countRemedies', 'countMarkers','newsLatest']));
+        return view('main.main', compact([//'role','role_permissions', 'permissions',
+                                            'factors', 'diseases', 'protocols',
+                                            'remedies', 'markers', 'methods',
+                                            'newsLatest']));
     }
 
     public function filter(Request $request)

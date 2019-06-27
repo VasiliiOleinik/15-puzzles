@@ -15,6 +15,7 @@ $factory->define(Remedy::class, function (Faker $faker) {
 
     return [
          'name' => $medicine["drugs"][ rand( 0, 999) ], //$remedy_name,
-         'content' => $faker->realText(200),
+         'content' => $faker->realText(200),         
+         'url' => "http://www.drrathresearch.org/drrath-discoveries/cancer",
     ];
 });

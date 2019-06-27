@@ -5,7 +5,7 @@ use App\Models\Piece\Piece;
 use App\Models\Disease\Disease;
 use App\Models\Protocol\Protocol;
 use App\Models\Remedy;
-use App\Models\Marker;
+use App\Models\Marker\Marker;
 use Illuminate\Database\Seeder;
 
 class TagsTableSeeder extends Seeder
