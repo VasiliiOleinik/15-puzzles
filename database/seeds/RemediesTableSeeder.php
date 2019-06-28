@@ -27,7 +27,7 @@ class RemediesTableSeeder extends Seeder
         Remedy::all()->each(function ($remedy) use ($pieces) { 
             $remedy->pieces()->attach(
                 $pieces->random(
-                    rand(1,  4 ))->pluck('id')->toArray()
+                    rand(1,  8 ))->pluck('id')->toArray()
                 
             ); 
         });
@@ -38,7 +38,7 @@ class RemediesTableSeeder extends Seeder
         Remedy::all()->each(function ($remedy) use ($diseases) { 
             $remedy->diseases()->attach(
                 $diseases->random(
-                    rand(1,  2 ))->pluck('id')->toArray()
+                    rand(1,  5 ))->pluck('id')->toArray()
                 
             ); 
         });

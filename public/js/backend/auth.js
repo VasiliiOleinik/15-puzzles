@@ -14,9 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
             "_token": $('meta[name="csrf-token"]').attr('content'),
         };
 
-        /**
-         * @param {{responseJSON:JSON}} data
-         */
         $.ajax({
             type: "post",
             url: "/login",

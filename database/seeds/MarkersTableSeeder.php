@@ -39,7 +39,7 @@ class MarkersTableSeeder extends Seeder
         Marker::all()->each(function ($marker) use ($pieces) { 
             $marker->pieces()->attach(
                 $pieces->random(
-                    rand(1,  5 ))->pluck('id')->toArray()
+                    rand(1,  8 ))->pluck('id')->toArray()
                 
             ); 
         });
@@ -50,7 +50,7 @@ class MarkersTableSeeder extends Seeder
         Marker::all()->each(function ($marker) use ($diseases) { 
             $marker->diseases()->attach(
                 $diseases->random(
-                    rand(1,  2 ))->pluck('id')->toArray()
+                    rand(1,  5 ))->pluck('id')->toArray()
                 
             ); 
         });

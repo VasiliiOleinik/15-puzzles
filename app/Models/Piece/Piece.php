@@ -64,4 +64,20 @@ class Piece extends Model
     {
         return $this->hasMany('App\Models\Piece\PieceRemedy');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function diseases()
+    {
+        return $this->belongsToMany('App\Models\Disease\Disease', 'piece_diseases');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function protocols()
+    {
+        return $this->belongsToMany('App\Models\Protocol\Protocol', 'piece_protocols');
+    }
 }

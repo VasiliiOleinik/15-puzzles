@@ -39,13 +39,6 @@ class MainController extends Controller
      */
     public function index(Request $request)
     {
-        //dd(Auth::user());
-        $user = $request->user();
-        /*
-        $role = null;
-        $role_permissions = null;
-        $permissions = array();
-        */
         $factors = Piece::with('category')->get();
         $diseases = Disease::all();
         $protocols = Protocol::with('evidence')->paginate(40);
@@ -54,118 +47,65 @@ class MainController extends Controller
         $methods = Method::all();
         $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
 
-        /*       
-        $pieces_and_diseases = array();
-        array_push($pieces_and_diseases, $pieces);
-        array_push($pieces_and_diseases, $diseases);
-        */
-        /*
-        if($user){
-
-            $user = User::where('id','=',$user->id)->first();
-            $role = $user->role;
-            $role_permissions = $role->rolePermissions;
-
-            foreach($role_permissions as $obj){
-                array_push( $permissions, Permission::find($obj->permission_id) );
-            }
-        }
-        */
-        
-        /*
-        $result = array();
-
-        $request['piece'] = [1];
-        $request['protocol'] = [106];
-
-        $models = ['App\Models\Remedy'];
-        $filters = ['piece','protocol'];
-
-        foreach ($models as $model)
-        {
-            foreach ($filters as $filter)
-            {
-                if(count($request[$filter])>0){
-
-                    $model_elements = $model::with([$filter.'s' => function ($query) use ($request,$filter) {
-                                                $query->whereIn($filter.'_id', $request[$filter]); }]);
-                    if(count($result) > 0){
-                        $model_elements = $model_elements->whereIn('id',$result)->get();
-                        $result = []; 
-                    }
-                    else{
-                        $model_elements = $model_elements->get();
-                    }
-                      
-                    foreach ($model_elements as $element)
-                    {
-                        if(count($element[$filter.'s']) == count($request[$filter]) ){
-                        
-                            array_push( $result, $element->id);
-
-                            //display
-                            echo "--------<br>";
-                            echo "remedy id: ".$element->id;
-                            foreach ($element[$filter.'s'] as $obj)
-                            {
-                                echo " / protocol id: ".$obj->id;                    
-                            }
-                            echo "--------<br>";
-                        }
-                    }
-                }
-            }
-        }
-        
-        dd($result);
-        */
-
-        return view('main.main', compact([//'role','role_permissions', 'permissions',
-                                            'factors', 'diseases', 'protocols',
-                                            'remedies', 'markers', 'methods',
-                                            'newsLatest']));
+        $data = [
+            'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods',
+            'newsLatest'
+        ];
+        return view('main.main', compact($data));
     }
 
     public function filter(Request $request)
     {
-        $result_models = array();
-        $result_id_array = array();
-
-        $model = $request['model'];
+        $models = $request['models'];
         $filters = ['protocol','piece','disease'];
 
-        //foreach ($models as $model)
+        foreach ($models as $model)
         {
+            $modelResults = [];
+            $modelIdArray = [];
+            $modelName = $this->getModelNameLowercase($model);
+
             foreach ($filters as $filter)
             {
                 if($request[$filter]){
-                    if(count($request[$filter])>0){
+                    if($modelName != $filter ){
+                        if (count($request[$filter]) > 0) {
 
-                        $model_elements = $model::with([$filter.'s' => function ($query) use ($request,$filter) {
-                                                $query->whereIn($filter.'_id', $request['$filter']); }]);
-                        if(count($result_id_array) > 0){
-                            $model_elements = $model_elements->whereIn('id',$result_id_array)->get();
-                            $result_id_array = []; 
-                        }
-                        else{
-                            $model_elements = $model_elements->get();
-                        }
+                            $model_elements = $model::with([
+                                $filter.'s' => function ($query) use ($request, $filter) {
+                                    $query->whereIn($filter.'_id', $request[$filter]);
+                                }
+                            ]);
+                            if (count($modelIdArray) > 0) {
+                                $model_elements = $model_elements->whereIn('id', $modelIdArray)->get();
+                                $modelIdArray = [];
+                            } else {
+                                $model_elements = $model_elements->get();
+                            }
 
-                        foreach ($model_elements as $element)
-                        {
-                            if(count($element[$filter.'s']) == count($request[$filter]) ){
+                            foreach ($model_elements as $element) {
+                                if (count($element[$filter.'s']) == count($request[$filter])) {
 
-                                array_push( $result_id_array, $element->id);
+                                    array_push($modelIdArray, $element->id);
+                                }
                             }
                         }
                     }
                 }
             }
-        }
-       
-        $result_models = $model::whereIn('id',$result_id_array)->get();
 
-        return $result_models;
+            $modelResults = $model::whereIn('id',$modelIdArray)->get();
+            array_push($result, [$modelName => $modelResults] );
+        }
+
+        $result = [];
+        $result = json_encode(["models" => $result]);
+
+        return $result;
+    }
+
+    public function getModelNameLowercase($model){
+        return strtolower(substr($model, strrpos($model, '\\') + 1));
     }
 
     public function evidences()

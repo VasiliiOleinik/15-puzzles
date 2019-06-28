@@ -24,10 +24,10 @@ class ProtocolsTableSeeder extends Seeder
         $pieces = Piece::all();
 
         // Populate the pivot table
-        Protocol::all()->each(function ($protocol) use ($pieces) { 
+        Protocol::all()->each(function ($protocol) use ($pieces) {
             $protocol->pieces()->attach(
                 $pieces->random(
-                    rand(1,  4 ))->pluck('id')->toArray()
+                    rand(1,  8 ))->pluck('id')->toArray()
                 
             ); 
         });
@@ -38,7 +38,7 @@ class ProtocolsTableSeeder extends Seeder
         Protocol::all()->each(function ($protocol) use ($diseases) { 
             $protocol->diseases()->attach(
                 $diseases->random(
-                    rand(1,  2 ))->pluck('id')->toArray()
+                    rand(1,  5 ))->pluck('id')->toArray()
                 
             ); 
         });

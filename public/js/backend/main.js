@@ -33,9 +33,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     var evidences;
 
-    var model_protocol = "App\\Models\\Protocol\\Protocol";
-    var model_remedy = "App\\Models\\Remedy";
-    var model_marker = "App\\Models\\Marker";
+    var modelPiece = "App\\Models\\Piece\\Piece";
+    var modelDisease = "App\\Models\\Disease\\Disease";
+    var modelProtocol = "App\\Models\\Protocol\\Protocol";
+    var modelRemedy = "App\\Models\\Remedy";
+    var modelMarker = "App\\Models\\Marker\\Marker";
 
     /* ------------------ */
     /* ------------------ */
@@ -52,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         } else {
             $(this).removeClass('_active')
         }
-    })
+    });
 
     $("[name='disease']").click(function () {
         if (!$(this).hasClass('_active')) {
@@ -60,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         } else {
             $(this).removeClass('_active')
         }
-    })
+    });
 
     /* ------------------ */
     /* ------------------ */
@@ -196,17 +198,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //click on protocol tab    
     $('#tab-protocols').delegate("a", "click", function () {
-        filterAjax(model_protocol, "protocols");
+        filterAjax(modelProtocol, "protocols");
     });
 
     //click on remedies tab
     $('#tab-remedies').delegate("a", "click", function () {
-        filterAjax(model_remedy, "remedies");
+        filterAjax(modelRemedy, "remedies");
     });
 
     //click on markers tab
     $('#tab-markers').delegate("a", "click", function () {
-        filterAjax(model_marker, "markers");
+        filterAjax(modelMarker, "markers");
     });
 
     /* ------------------ */
@@ -462,13 +464,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
         if ($('.tab-pane.show').attr('id') == "protocols") {
-            filterAjax(model_protocol, 'protocols');
+            filterAjax(modelProtocol, 'protocols');
         }
         if ($('.tab-pane.show').attr('id') == "remedies") {
-            filterAjax(model_remedy, 'remedies');
+            filterAjax(modelRemedy, 'remedies');
         }
         if ($('.tab-pane.show').attr('id') == "markers") {
-            filterAjax(model_marker, 'markers');
+            filterAjax(modelMarker, 'markers');
         }
     }
 
@@ -526,14 +528,44 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function refreshContent() {
 
         if ($('.tab-pane.show').attr('id') == "remedies") {
-            filterAjax(model_remedy, 'remedies');
+            filterAjax(modelRemedy, 'remedies');
         }
         if ($('.tab-pane.show').attr('id') == "markers") {
-            filterAjax(model_marker, 'markers');
+            filterAjax(modelMarker, 'markers');
         }
     }
 
     //////
+
+    $('#tabFactors').on("click",function(){
+        dataFilter();
+    });
+
+    function dataFilter(){
+        let data = {
+            "piece": [3],
+            "disease": [3],
+            "protocol": [44],
+            "models": [ modelPiece, modelDisease, modelProtocol, modelRemedy, modelMarker],
+            //"model": "App\\Models\\Disease\\Disease",
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+        };
+
+        $.ajax({
+            type: "post",
+            url: "/filter",
+            data: data,
+            dataType: 'json',
+            complete: function (data) {
+                console.log(data.responseJSON.models);
+            },
+            error: function (err) {
+                console.log(err.responseText);
+            }
+        });
+    }
+
+
     function syncCheckedElements(clicked, objId, objType) {
         if (clicked === "checkbox" && objType != undefined) {
             var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
@@ -575,7 +607,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         if (tagExists(objId, objType)) {
             removeTag(objId, objType);
         } else {
-            if (objType == 'disease') {
+            if (objType === 'disease') {
                 clearTagsList();
                 uncheckAllCheckboxes();
                 uncheckAllPuzzles();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Piece\Piece;
 use Illuminate\Database\Seeder;
 use App\Models\Disease\Disease;
 
@@ -42,6 +43,13 @@ class DiseasesTableSeeder extends Seeder
             DB::table('diseases')
                 ->where('id', $i + 1)
                 ->update($disease_names[$i]);
+        }
+
+        $pieces = Piece::all();
+        $countPieces = Piece::count();
+        $diseases = Disease::with('pieces')->get();
+        foreach ($diseases as $disease) {
+            $disease->pieces()->attach($pieces->random( rand(1,  $countPieces ) ) );
         }
     }
 }
