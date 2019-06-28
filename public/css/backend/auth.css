@@ -2,4 +2,19 @@
     color: red;
     margin-top: -15px;
     margin-bottom: 10px;
+    text-align: center;
+}
+
+.errors-auth {
+    color: red;
+    margin-top: 15px;
+    text-align: center;
+}
+
+.logout{
+    color: #589ba7;
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: .7px;
 }

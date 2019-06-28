@@ -6,7 +6,7 @@ var tags_pieces = "", tags_diseases = "", tags_protocols = "", tags_remedies = "
 
 document.addEventListener("DOMContentLoaded", function (event) {
 
-/**/
+    /**/
     //Поменялось значение чекбокса
     $(".checkbox").change(function () {
         syncCheckedElements('checkbox', $(this).attr('obj-id'), $(this).attr('obj-type'));
@@ -14,12 +14,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //Кликнули на пазл
     $('.puzzle-15__item').bind('click', function () {
-        syncCheckedElements('pazzle', $(this).parent().attr('obj-id'), "factor");
-    })
+        syncCheckedElements('puzzle', $(this).parent().attr('obj-id'), "factor");
+    });
 
-/**/
+    /**/
 
-    evidencesAjax();    
+    evidencesAjax();
 
     /* ------------------ */
     /*     VARIABLES      */
@@ -39,8 +39,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     /* ------------------ */
     /* ------------------ */
-
-
 
 
     /* ------------------ */
@@ -66,8 +64,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     /* ------------------ */
     /* ------------------ */
-
-
 
 
     /* --------------------------- */
@@ -172,7 +168,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
 
-
     /* ---------------------------------- */
     /*   DOUBLE CLICKS ON ITEMS IN TABS   */
     /* ---------------------------------- */
@@ -218,15 +213,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
 
-
-
     /* ------------------ */
     /*   AJAX FUNCTIONS   */
+
     /* ------------------ */
 
     function filterAjax(model, table_name) {
 
-        try { window[table_name + '_ajax'].abort(); } catch (err) { }
+        try {
+            window[table_name + '_ajax'].abort();
+        } catch (err) {
+        }
 
         $('.details_ajax_container').html('');
         $('#' + table_name + '_ajax_container').html('Loading..');
@@ -249,8 +246,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 protocol: protocols,
                 model: model,
             }
-        }
-        else {
+        } else {
             data = {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
                 piece: pieces,
@@ -281,8 +277,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         }
 
                         $('#' + table_name + '_ajax_container').html(html);
-                    }
-                    else {
+                    } else {
                         //active protocol
                         var active_protocol_id = "";
                         if ($('#tags_container').find('.badge-protocol').length > 0) {
@@ -329,7 +324,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     function evidencesAjax() {
 
-        try { evidences_ajax.abort(); } catch (err) { }
+        try {
+            evidences_ajax.abort();
+        } catch (err) {
+        }
 
         //get content of evidences
         evidences_ajax = $.ajax({
@@ -357,7 +355,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     function DetailsAjax(id, model, table) {
 
-        try { details_ajax.abort(); } catch (err) { }
+        try {
+            details_ajax.abort();
+        } catch (err) {
+        }
 
         //get details
         details_ajax = $.ajax({
@@ -415,6 +416,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     /* ------------------ */
     /*      FUNCTIONS     */
+
     /* ------------------ */
 
     function displayPiecesOrDiseases(obj) {
@@ -499,8 +501,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         if (result) {
             result = "piece";
-        }
-        else {
+        } else {
             result = element.hasClass('badge-disease');
 
             if (result) {
@@ -534,21 +535,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //////
     function syncCheckedElements(clicked, objId, objType) {
-        if (clicked == "checkbox" && objType != undefined) {
+        if (clicked === "checkbox" && objType != undefined) {
             var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
             var objName = elem.parent().find('.title').html().split(':')[1].substr(1);
             addTagToTagsList(objId, objName, objType);
-            checkPazzle(objId, objType);
+            checkPuzzle(objId, objType);
         }
-        if (clicked == "pazzle") {
+        if (clicked == "puzzle") {
             var elem = $(".puzzle-15__item-outer[obj-id=" + objId + "]");
             var objName = elem.find('.puzzle-15__item-title').html();
             addTagToTagsList(objId, objName, objType);
             checkCheckbox(objId, objType);
         }
-    }    
+    }
 
-    function checkCheckbox(objId, objType) {        
+    function checkCheckbox(objId, objType) {
         var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
         if (tagExists(objId, objType)) {
             elem.prop('checked', true);
@@ -559,7 +560,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     }
 
-    function checkPazzle(objId, objType) {
+    function checkPuzzle(objId, objType) {
         if (objType == 'factor') {
             var elem = $('.puzzle-15__item-outer[obj-id=' + objId + ']').children();
             if (!elem.hasClass('active')) {
@@ -568,7 +569,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 elem.removeClass('active');
             }
         }
-    }        
+    }
 
     function addTagToTagsList(objId, objName, objType) {
         if (tagExists(objId, objType)) {
@@ -577,7 +578,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             if (objType == 'disease') {
                 clearTagsList();
                 uncheckAllCheckboxes();
-                uncheckAllPazzles();
+                uncheckAllPuzzles();
                 checkOnlyThisCheckbox(objId, objType);
             }
             html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + objName + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
@@ -588,7 +589,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function removeTag(objId, objType) {
         var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
         elem.remove();
-    }    
+    }
 
     function tagExists(objId, objType) {
         var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
@@ -598,7 +599,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return false;
     }
 
-    function checkOnlyThisCheckbox(objId, objType) {        
+    function checkOnlyThisCheckbox(objId, objType) {
         var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
         elem.prop('checked', true);
         elem.parent().parent().addClass('checked-tab');
@@ -613,7 +614,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $('.tab-item__head').removeClass('checked-tab');
     }
 
-    function uncheckAllPazzles() {
+    function uncheckAllPuzzles() {
         $('.puzzle-15__item-outer').children().removeClass('active');
     }
 

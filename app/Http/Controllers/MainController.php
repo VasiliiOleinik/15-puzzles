@@ -142,7 +142,7 @@ class MainController extends Controller
                     if(count($request[$filter])>0){
 
                         $model_elements = $model::with([$filter.'s' => function ($query) use ($request,$filter) {
-                                                $query->whereIn($filter.'_id', $request[$filter]); }]);
+                                                $query->whereIn($filter.'_id', $request['$filter']); }]);
                         if(count($result_id_array) > 0){
                             $model_elements = $model_elements->whereIn('id',$result_id_array)->get();
                             $result_id_array = []; 
