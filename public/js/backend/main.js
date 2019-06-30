@@ -541,119 +541,233 @@ document.addEventListener("DOMContentLoaded", function (event) {
         dataFilter();
     });
 
-    function dataFilter(){
+    function dataFilter() {
+
+        try {
+            filter_ajax.abort();
+        } catch (err) {
+        }
+
         let data = {
-            "piece": [3],
-            "disease": [3],
-            "protocol": [44],
-            "models": [ modelPiece, modelDisease, modelProtocol, modelRemedy, modelMarker],
+            "piece": [],
+            "disease": [2],
+            "protocol": [],
+            "models": [modelPiece, modelDisease, modelProtocol, modelRemedy, modelMarker],
             //"model": "App\\Models\\Disease\\Disease",
             "_token": $('meta[name="csrf-token"]').attr('content'),
         };
 
-        $.ajax({
+
+        filter_ajax = $.ajax({
             type: "post",
             url: "/filter",
             data: data,
             dataType: 'json',
             complete: function (data) {
-                console.log(data.responseJSON.models);
+                refreshTabsContent(data.responseJSON.models);
             },
             error: function (err) {
-                console.log(err.responseText);
+                //console.log(err.responseText);
             }
         });
     }
 
+    function refreshTabsContent(models) {
 
-    function syncCheckedElements(clicked, objId, objType) {
-        if (clicked === "checkbox" && objType != undefined) {
-            var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
-            var objName = elem.parent().find('.title').html().split(':')[1].substr(1);
-            addTagToTagsList(objId, objName, objType);
-            checkPuzzle(objId, objType);
-        }
-        if (clicked == "puzzle") {
-            var elem = $(".puzzle-15__item-outer[obj-id=" + objId + "]");
-            var objName = elem.find('.puzzle-15__item-title').html();
-            addTagToTagsList(objId, objName, objType);
-            checkCheckbox(objId, objType);
-        }
-    }
+        let modelNames = {
+            0: "piece",
+            1: "disease",
+            2: "protocol",
+            3: "remedy",
+            4: "marker"
+        };
+        let modelSelectors = {
+            0: "Factors",
+            1: "Diseases",
+            2: "Protocols",
+            3: "Remedies",
+            4: "Markers"
+        };
+        let length = Object.keys(modelNames).length;
 
-    function checkCheckbox(objId, objType) {
-        var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
-        if (tagExists(objId, objType)) {
-            elem.prop('checked', true);
-            elem.parent().parent().addClass('checked-tab');
-        } else {
-            elem.prop('checked', false);
-            elem.parent().parent().removeClass('checked-tab');
-        }
-    }
+        for (let i = 0; i < length; i++) {
 
-    function checkPuzzle(objId, objType) {
-        if (objType == 'factor') {
-            var elem = $('.puzzle-15__item-outer[obj-id=' + objId + ']').children();
-            if (!elem.hasClass('active')) {
-                elem.addClass('active');
+            let html = "";
+            if (models[modelNames[i]].length > 0) {
+                for (let count = 0; count < models[modelNames[i]].length; count++) {
+
+                    if (modelNames[i] != "marker") {
+                        html += '<div class="tab-item">';
+                        html += '   <div class="tab-item__head">';
+                        html += '       <label class="tab_head_check">';
+                        if (modelNames[i] == "piece") {
+                            html += '           <input class="checkbox" type="checkbox" obj-id="' + models[modelNames[i]][count].id + '" obj-type="factor"><span class="checkbox-custom"></span>';
+                        }else
+                        if (modelNames[i] == "disease" || modelNames[i] == "protocol") {
+                            html += '           <input class="checkbox" type="checkbox" obj-id="' + models[modelNames[i]][count].id + '" obj-type="' + modelNames[i] + '"><span class="checkbox-custom"></span>';
+                        }else{
+                            html += '           <input class="checkbox" type="checkbox"><span class="checkbox-custom"></span>';
+                        }
+                        if (modelNames[i] == "piece" || modelNames[i] == "disease") {
+                            html += '           <p class="title">' + modelSelectors[i].substring(0, modelSelectors[i].length - 1) + ' #' + (count + 1) + ': ' + models[modelNames[i]][count].name + '</p>';
+                        }else {
+                            html += '           <p class="title">' + models[modelNames[i]][count].name;
+                        }
+                        if (modelNames[i] == "protocol") {
+                            html += '           <span class="evidence low"><span class="evidence__detail">Level of evidence:<span class="evidence__level proven">proven</span></span></span>';
+                        }
+                        html += '           </p>';
+                        html += '       </label>';
+                        html += '       <div class="arrow"><img src="img/svg/dropdown-ico.svg" alt=""></div>';
+                        html += '   </div>';
+                        html += '   <div class="tab-item__content">';
+                        html += '       <div class="text">';
+                        if (modelNames[i] == "protocol") {
+                            html += '       <p class="subtitle">' + models[modelNames[i]][count].content + '</p>';
+                        }else{
+                            html += '       <p>' + models[modelNames[i]][count].content + '</p>';
+                        }
+                        html += '       </div>';
+                        html += '       <a class="show-more" href="javascript:void(0)">Show more</a>';
+                        if (modelNames[i] == "protocol" || modelNames[i] == "remedy") {
+                            html += '   <a class="link" href="javascript:void(0)"> ' + models[modelNames[i]][count].url + ' </a>';
+                        }
+                        html += '   </div>';
+                        html += '</div>';
+                    }
+
+                    if (modelNames[i] == "marker") {
+                        /*html += '<div class="tab-item markers">';
+                                <div class="tab-head-markers">
+                                <p class="title">{{$marker->name}}</p>
+                            <div class="arrow markers"><img src="img/svg/dropdown-ico.svg" alt=""></div>
+                                </div>
+                                <div class="tab-item__content markers">
+                                <h3 class="content-markers-title">How to check to what extent the cells are under dna mutagenic influence</h3>
+                            <span class="methods">Methods</span>
+                                <div class="method-list">
+                                @foreach($marker->methods as $method)
+                                <div class="method-item">
+                                <label class="method-item__head">
+                                <input class="checkbox" type="radio" name="method"><span class="checkbox-custom"></span>
+                                <p class="title">{{$method->name}}</p>
+                            </label>
+                            <div class="method-item__content">
+                                <div class="text markers">
+                                <p>{{$method->content}}</p>
+                            </div>
+                            </div>
+                            </div>
+                        @endforeach
+                        </div>
+                            </div>
+                            </div>*/
+                    }
+
+                    $('#tabList' + modelSelectors[i]).html(html);
+                    $('#count' + modelSelectors[i]).html(models[modelNames[i]].length);
+                }
             } else {
-                elem.removeClass('active');
+                console.log(modelSelectors[i]);
+                html = $('#tabList' + modelSelectors[i]).html();
+                $('#tabList' + modelSelectors[i]).html('');
+                $('#tabList' + modelSelectors[i]).html(html);
             }
         }
+        $.getScript("/js/frontend/common-include.js");
     }
 
-    function addTagToTagsList(objId, objName, objType) {
-        if (tagExists(objId, objType)) {
-            removeTag(objId, objType);
-        } else {
-            if (objType === 'disease') {
-                clearTagsList();
-                uncheckAllCheckboxes();
-                uncheckAllPuzzles();
-                checkOnlyThisCheckbox(objId, objType);
-            }
-            html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + objName + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
-            $('.tags__list').append(html);
-        }
-    }
 
-    function removeTag(objId, objType) {
-        var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
-        elem.remove();
-    }
 
-    function tagExists(objId, objType) {
-        var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
-        if (elem.length > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    function checkOnlyThisCheckbox(objId, objType) {
-        var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
-        elem.prop('checked', true);
-        elem.parent().parent().addClass('checked-tab');
-    }
-
-    function clearTagsList() {
-        $('.tags__list').html('');
-    }
-
-    function uncheckAllCheckboxes() {
-        $("input[type='checkbox']").prop('checked', false);
-        $('.tab-item__head').removeClass('checked-tab');
-    }
-
-    function uncheckAllPuzzles() {
-        $('.puzzle-15__item-outer').children().removeClass('active');
-    }
 
     //////
     /* ------------------ */
     /* ------------------ */
 });
 
+
+function syncCheckedElements(clicked, objId, objType) {
+    if (clicked === "checkbox" && objType != undefined) {
+        var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
+        var objName = elem.parent().find('.title').html().split(':')[1].substr(1);
+        addTagToTagsList(objId, objName, objType);
+        checkPuzzle(objId, objType);
+    }
+    if (clicked == "puzzle") {
+        var elem = $(".puzzle-15__item-outer[obj-id=" + objId + "]");
+        var objName = elem.find('.puzzle-15__item-title').html();
+        addTagToTagsList(objId, objName, objType);
+        checkCheckbox(objId, objType);
+    }
+}
+
+function checkCheckbox(objId, objType) {
+    var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
+    if (tagExists(objId, objType)) {
+        elem.prop('checked', true);
+        elem.parent().parent().addClass('checked-tab');
+    } else {
+        elem.prop('checked', false);
+        elem.parent().parent().removeClass('checked-tab');
+    }
+}
+
+function checkPuzzle(objId, objType) {
+    if (objType == 'factor') {
+        var elem = $('.puzzle-15__item-outer[obj-id=' + objId + ']').children();
+        if (!elem.hasClass('active')) {
+            elem.addClass('active');
+        } else {
+            elem.removeClass('active');
+        }
+    }
+}
+
+function addTagToTagsList(objId, objName, objType) {
+    if (tagExists(objId, objType)) {
+        removeTag(objId, objType);
+    } else {
+        if (objType === 'disease') {
+            clearTagsList();
+            uncheckAllCheckboxes();
+            uncheckAllPuzzles();
+            checkOnlyThisCheckbox(objId, objType);
+        }
+        html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + objName + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
+        $('.tags__list').append(html);
+    }
+}
+
+function removeTag(objId, objType) {
+    var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
+    elem.remove();
+}
+
+function tagExists(objId, objType) {
+    var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
+    if (elem.length > 0) {
+        return true;
+    }
+    return false;
+}
+
+function checkOnlyThisCheckbox(objId, objType) {
+    var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
+    elem.prop('checked', true);
+    elem.parent().parent().addClass('checked-tab');
+}
+
+function clearTagsList() {
+    $('.tags__list').html('');
+}
+
+function uncheckAllCheckboxes() {
+    $("input[type='checkbox']").prop('checked', false);
+    $('.tab-item__head').removeClass('checked-tab');
+}
+
+function uncheckAllPuzzles() {
+    $('.puzzle-15__item-outer').children().removeClass('active');
+}
 /* ------------------ */
 /* ------------------ */

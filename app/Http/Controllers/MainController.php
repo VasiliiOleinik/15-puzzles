@@ -41,9 +41,9 @@ class MainController extends Controller
     {
         $factors = Piece::with('category')->get();
         $diseases = Disease::all();
-        $protocols = Protocol::with('evidence')->paginate(40);
-        $remedies = Remedy::paginate(40);
-        $markers = Marker::with('methods')->paginate(40);
+        $protocols = Protocol::with('evidence')->get();
+        $remedies = Remedy::all();
+        $markers = Marker::with('methods')->get();
         $methods = Method::all();
         $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
 
@@ -59,6 +59,7 @@ class MainController extends Controller
         $models = $request['models'];
         $filters = ['protocol','piece','disease'];
 
+        $result = [];
         foreach ($models as $model)
         {
             $modelResults = [];
@@ -95,10 +96,9 @@ class MainController extends Controller
             }
 
             $modelResults = $model::whereIn('id',$modelIdArray)->get();
-            array_push($result, [$modelName => $modelResults] );
+            $result[$modelName] = $modelResults;
         }
 
-        $result = [];
         $result = json_encode(["models" => $result]);
 
         return $result;
