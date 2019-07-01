@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     /**/
     //Поменялось значение чекбокса
-    $(".checkbox").change(function () {
+    $(".tab-list.main-scroll").delegate('.checkbox', 'change', function () {
         syncCheckedElements('checkbox', $(this).attr('obj-id'), $(this).attr('obj-type'));
     });
 
@@ -674,7 +674,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 $('#tabList' + modelSelectors[i]).html(html);
             }
         }
-        $.getScript("/js/frontend/common-include.js");
     }
 
 
