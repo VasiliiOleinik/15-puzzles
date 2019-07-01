@@ -19,7 +19,7 @@ class MarkersTableSeeder extends Seeder
         DB::table('markers')->delete();        
         DB::update("ALTER TABLE markers AUTO_INCREMENT = 0;");
 
-        factory(Marker::class, 500)->create();
+        factory(Marker::class, 40)->create();
 
 
         $methods = Method::all();
@@ -33,37 +33,25 @@ class MarkersTableSeeder extends Seeder
             ); 
         });
 
-        $pieces = Piece::all();
+        $markers = Marker::all();
+        $diseases = Disease::with('pieces')->get();
+        $skip = [];
 
-        // Populate the pivot table
-        Marker::all()->each(function ($marker) use ($pieces) { 
-            $marker->pieces()->attach(
-                $pieces->random(
-                    rand(1,  8 ))->pluck('id')->toArray()
-                
-            ); 
-        });
-
-        $diseases = Disease::all();
-
-        // Populate the pivot table
-        Marker::all()->each(function ($marker) use ($diseases) { 
-            $marker->diseases()->attach(
-                $diseases->random(
-                    rand(1,  5 ))->pluck('id')->toArray()
-                
-            ); 
-        });
-
-        $protocols = Protocol::all();
-
-        // Populate the pivot table
-        Marker::all()->each(function ($marker) use ($protocols) { 
-            $marker->protocols()->attach(
-                $protocols->random(
-                    rand(1,  60 ))->pluck('id')->toArray()
-                
-            ); 
-        });
+        foreach($diseases as $disease){
+            $attach = $markers->random(rand(1,4));
+            if($disease->pieces()->count() > 0){
+                foreach($disease->pieces()->get() as $piece){
+                    foreach($piece->protocols()->get() as $protocol){
+                        if( !in_array($protocol->id,$skip) ){
+                            $protocol->markers()->attach($attach);
+                            array_push($skip, $protocol->id);
+                        }
+                    }
+                    $piece->markers()->attach($attach);
+                }
+            }
+            $disease->markers()->attach($attach);
+            $markers = $markers->whereNotIn('id', $attach->pluck('id'));
+        }
     }
 }

@@ -18,40 +18,27 @@ class RemediesTableSeeder extends Seeder
         DB::table('remedies')->delete();
         DB::update("ALTER TABLE remedies AUTO_INCREMENT = 0;");
 
-        factory(Remedy::class, 500)->create();
+        factory(Remedy::class, 150)->create();
 
+        $remedies = Remedy::all();
+        $diseases = Disease::with('pieces')->get();
+        $skip = [];
 
-        $pieces = Piece::all();
-
-        // Populate the pivot table
-        Remedy::all()->each(function ($remedy) use ($pieces) { 
-            $remedy->pieces()->attach(
-                $pieces->random(
-                    rand(1,  8 ))->pluck('id')->toArray()
-                
-            ); 
-        });
-
-         $diseases = Disease::all();
-
-        // Populate the pivot table
-        Remedy::all()->each(function ($remedy) use ($diseases) { 
-            $remedy->diseases()->attach(
-                $diseases->random(
-                    rand(1,  5 ))->pluck('id')->toArray()
-                
-            ); 
-        });
-
-        $protocols = Protocol::all();
-
-        // Populate the pivot table
-        Remedy::all()->each(function ($remedy) use ($protocols) { 
-            $remedy->protocols()->attach(
-                $protocols->random(
-                    rand(1,  60))->pluck('id')->toArray()
-                
-            ); 
-        });
+        foreach($diseases as $disease){
+            $attach = $remedies->random(rand(4,6));
+            if($disease->pieces()->count() > 0){
+                foreach($disease->pieces()->get() as $piece){
+                    foreach($piece->protocols()->get() as $protocol){
+                        if( !in_array($protocol->id,$skip) ){
+                            $protocol->remedies()->attach($attach);
+                            array_push($skip, $protocol->id);
+                        }
+                    }
+                    $piece->remedies()->attach($attach);
+                }
+            }
+            $disease->remedies()->attach($attach);
+            $remedies = $remedies->whereNotIn('id', $attach->pluck('id'));
+        }        
     }
 }

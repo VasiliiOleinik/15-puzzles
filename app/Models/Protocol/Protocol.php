@@ -79,4 +79,20 @@ class Protocol extends Model
     {
     return $this->belongsToMany('App\Models\Disease\Disease', 'disease_protocols');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function remedies()
+    {
+    return $this->belongsToMany('App\Models\Remedy', 'protocol_remedies');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function markers()
+    {
+    return $this->belongsToMany('App\Models\Marker\Marker', 'protocol_markers');
+    }
 }

@@ -19,29 +19,22 @@ class ProtocolsTableSeeder extends Seeder
         DB::table('protocols')->delete();
         DB::update("ALTER TABLE protocols AUTO_INCREMENT = 0;");
 
-        factory(Protocol::class, 500)->create();
+        factory(Protocol::class, 100)->create();
 
-        $pieces = Piece::all();
+        $protocols = Protocol::all();
+        $diseases = Disease::with('pieces')->get();
+        $skip = [];
 
-        // Populate the pivot table
-        Protocol::all()->each(function ($protocol) use ($pieces) {
-            $protocol->pieces()->attach(
-                $pieces->random(
-                    rand(1,  8 ))->pluck('id')->toArray()
-                
-            ); 
-        });
-
-        $diseases = Disease::all();
-
-        // Populate the pivot table
-        Protocol::all()->each(function ($protocol) use ($diseases) { 
-            $protocol->diseases()->attach(
-                $diseases->random(
-                    rand(1,  5 ))->pluck('id')->toArray()
-                
-            ); 
-        });
+        foreach($diseases as $disease){
+            $attach = $protocols->random(rand(1,5));
+            if($disease->pieces()->count() > 0){
+                foreach($disease->pieces()->get() as $piece){
+                    $piece->protocols()->attach($attach);                    
+                }
+            }
+            $disease->protocols()->attach($attach);
+            $protocols = $protocols->whereNotIn('id', $attach->pluck('id'));
+        }        
 
     }
 }

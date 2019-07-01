@@ -70,4 +70,20 @@ class Disease extends Model
     {
         return $this->belongsToMany('App\Models\Protocol\Protocol', 'disease_protocols');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function remedies()
+    {
+    return $this->belongsToMany('App\Models\Remedy', 'disease_remedies');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function markers()
+    {
+    return $this->belongsToMany('App\Models\Marker\Marker', 'disease_markers');
+    }
 }

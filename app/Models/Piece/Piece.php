@@ -80,4 +80,20 @@ class Piece extends Model
     {
         return $this->belongsToMany('App\Models\Protocol\Protocol', 'piece_protocols');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function remedies()
+    {
+    return $this->belongsToMany('App\Models\Remedy', 'piece_remedies');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function markers()
+    {
+    return $this->belongsToMany('App\Models\Marker\Marker', 'piece_markers');
+    }
 }
