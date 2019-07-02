@@ -21,7 +21,14 @@ class ProtocolsTableSeeder extends Seeder
 
         factory(Protocol::class, 100)->create();
 
-        $protocols = Protocol::all();
+        $pieces = Piece::all();
+        $protocols = Protocol::with('pieces')->get();
+
+        foreach($protocols as $protocol){
+            $attach = $pieces->random(rand(1,2));
+            $protocol->pieces()->attach($attach);
+        }
+
         $diseases = Disease::with('pieces')->get();
         $skip = [];
 

@@ -12,7 +12,6 @@
 */
 
 use Illuminate\Http\Response;
-
 use App\Models\User\User;
 use App\Models\Permission;
 
@@ -21,35 +20,20 @@ Route::resource('member_cases', 'MemberCaseController');
 Route::get('/factor_diagram', 'FactorDiagramController@index')->name('factor_diagram');
 Route::get('/about', 'AboutController@index')->name('about');
 
-
 /* MAIN */
-
 Route::post('/filter', 'MainController@filter')->name('filter');
 Route::post('/evidences', 'MainController@evidences')->name('evidences');
-
-Route::post('/details', 'MainController@details')->name('details');
-
-//Route::post('/protocol_pieces', 'MainController@protocol_pieces')->name('protocol_pieces');
-
+Route::post('/markers_partial', 'MainController@markersPartial')->name('markers_partial');
 /* ---- */
-
-
 
 /* NEWS */
 Route::resource('news', 'NewsController');
-Route::get('/used_tags', 'NewsController@used_tags')->name('used_tags');
+Route::get('/used_tags', 'NewsController@usedTags')->name('used_tags');
 /* ---- */
 
 /* PERSONAL CABINET */
 Route::resource('user', 'UserController');
 Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet
-
 /* ---- */
 
 Auth::routes(['verify' => true]);
-
-//Route::get('/home', 'HomeController@index')->name('home');
-
-/*DB::listen(function($query) {
-    var_dump($query->sql, $query->time);
-});*/

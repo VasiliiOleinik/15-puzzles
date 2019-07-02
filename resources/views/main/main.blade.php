@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('main-css')
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/backend/main.css') }}">
+@endsection
+
 @section('content')
   <main class="main">
     <div class="box">

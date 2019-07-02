@@ -249,7 +249,7 @@ $(".tab-list.main-scroll").delegate(".method-item__head","change", function() {
   $("#select-method .current-value").text(thisTitle);
 });
 // Селекты в методах
-$(".tab-list.main-scroll").delegate(".methods-select","click", function() {
+$(".methods-select").on("click", function() {
   $(this)
     .find(".methods-select-list")
     .slideToggle();

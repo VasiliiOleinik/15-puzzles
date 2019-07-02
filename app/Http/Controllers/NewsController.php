@@ -41,7 +41,7 @@ class NewsController extends Controller
         }
     }
 
-    public function used_tags(){
+    public function usedTags(){
 
         $tag_with_articles = array();
         $tags = Tag::with('articles')->get();
