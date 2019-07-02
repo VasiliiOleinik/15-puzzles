@@ -6,6 +6,12 @@ var tags_pieces = "", tags_diseases = "", tags_protocols = "", tags_remedies = "
 
 document.addEventListener("DOMContentLoaded", function (event) {
 
+    let tab1 = $('#tabListFactors').html();
+    let tab2 = $('#tabListDiseases').html();
+    let tab3 = $('#tabListProtocols').html();
+    let tab4 = $('#tabListRemedies').html();
+    let tab5 = $('#tabListMarkers').html();
+
     /**/
     //Поменялось значение чекбокса
     $(".tab-list.main-scroll").delegate('.checkbox', 'change', function () {
@@ -38,6 +44,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var modelProtocol = "App\\Models\\Protocol\\Protocol";
     var modelRemedy = "App\\Models\\Remedy";
     var modelMarker = "App\\Models\\Marker\\Marker";
+
+    let modelNames = {
+        0: "piece",
+        1: "disease",
+        2: "protocol",
+        3: "remedy",
+        4: "marker"
+    };
+    let modelSelectors = {
+        0: "Factors",
+        1: "Diseases",
+        2: "Protocols",
+        3: "Remedies",
+        4: "Markers"
+    };
 
     /* ------------------ */
     /* ------------------ */
@@ -537,35 +558,46 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //////
 
-    $('#tabFactors').on("click",function(){
-        dataFilter();
+    //тэги обновились
+    $('.tags__list').bind("DOMSubtreeModified", function () {
+        dataFilter(getTagsData());
     });
 
-    function dataFilter() {
+    /*$('#tabFactors').on("click",function(){
+        dataFilter();
+    });*/
+
+    function dataFilter(data) {
 
         try {
             filter_ajax.abort();
         } catch (err) {
         }
 
-        let data = {
-            "piece": [],
+        /*data = {
+            "piece": [1,7],
             "disease": [],
-            "protocol": [],
+            "protocol": [22],
             "models": [modelPiece, modelDisease, modelProtocol, modelRemedy, modelMarker],
-            //"model": "App\\Models\\Disease\\Disease",
             "_token": $('meta[name="csrf-token"]').attr('content'),
-        };
-
+        };*/
 
         filter_ajax = $.ajax({
             type: "post",
             url: "/filter",
             data: data,
             dataType: 'json',
-            complete: function (data) {
-                console.log(data.responseJSON);
-                refreshTabsContent(data.responseJSON.models);
+            complete: function (response) {
+                if(data.piece.length === 0 && data.disease.length === 0 && data.protocol.length === 0){
+                    refreshTabsCounts(response.responseJSON.models);
+                    $('#tabListFactors').html(tab1);
+                    $('#tabListDiseases').html(tab2);
+                    $('#tabListProtocols').html(tab3);
+                    $('#tabListRemedies').html(tab4);
+                    $('#tabListMarkers').html(tab5);
+                }else {
+                    refreshTabsContent(response.responseJSON.models);
+                }
             },
             error: function (err) {
                 //console.log(err.responseText);
@@ -573,22 +605,40 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
+    function getTagsData(){
+        let piece = [], disease = [], protocol = [];
+        $(".tag-item").each(function () {
+            let objId = $(this).attr('obj-id');
+            let objType = $(this).attr('obj-type');
+            if (objType === "factor") {
+                piece.push(objId);
+            }
+            if (objType === "disease") {
+                disease.push(objId);
+            }
+            if (objType === "protocol") {
+                protocol.push(objId);
+            }
+        });
+        let data = {
+            "piece": piece,
+            "disease": disease,
+            "protocol": protocol,
+            "models": [modelPiece, modelDisease, modelProtocol, modelRemedy, modelMarker],
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+        };
+        return data;
+    }
+
+    function refreshTabsCounts(models){
+        let length = Object.keys(modelNames).length;
+        for (let i = 0; i < length; i++) {
+            $('#count' + modelSelectors[i]).html(models[modelNames[i]].length);
+        }
+    }
+
     function refreshTabsContent(models) {
 
-        let modelNames = {
-            0: "piece",
-            1: "disease",
-            2: "protocol",
-            3: "remedy",
-            4: "marker"
-        };
-        let modelSelectors = {
-            0: "Factors",
-            1: "Diseases",
-            2: "Protocols",
-            3: "Remedies",
-            4: "Markers"
-        };
         let length = Object.keys(modelNames).length;
 
         for (let i = 0; i < length; i++) {
@@ -597,7 +647,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             if (models[modelNames[i]].length > 0) {
                 for (let count = 0; count < models[modelNames[i]].length; count++) {
 
-                    if (modelNames[i] != "marker") {
+                    if (modelNames[i] != "marker" && modelNames[i] != "piece") {
                         html += '<div class="tab-item">';
                         html += '   <div class="tab-item__head">';
                         html += '       <label class="tab_head_check">';
@@ -665,14 +715,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             </div>*/
                     }
 
-                    $('#tabList' + modelSelectors[i]).html(html);
+                    //во вкладке факторов показывать всегда все элементы
+                    if (modelNames[i] != "piece") {
+                        $('#tabList' + modelSelectors[i]).html(html);
+                    }
                     $('#count' + modelSelectors[i]).html(models[modelNames[i]].length);
                 }
             } else {
                 $('#count' + modelSelectors[i]).html(models[modelNames[i]].length);
                 html = $('#tabList' + modelSelectors[i]).html();
                 $('#tabList' + modelSelectors[i]).html('');
-                $('#tabList' + modelSelectors[i]).html(html);
+                //$('#tabList' + modelSelectors[i]).html(html);
             }
         }
     }

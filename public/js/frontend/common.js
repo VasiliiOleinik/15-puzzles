@@ -240,7 +240,7 @@ $(function() {
     );
 });
 
-$(".method-item__head").on("change", function() {
+$(".tab-list.main-scroll").delegate(".method-item__head","change", function() {
   var thisTitle = $(this)
     .find(".title")
     .text();
@@ -249,7 +249,7 @@ $(".method-item__head").on("change", function() {
   $("#select-method .current-value").text(thisTitle);
 });
 // Селекты в методах
-$(".methods-select").on("click", function() {
+$(".tab-list.main-scroll").delegate(".methods-select","click", function() {
   $(this)
     .find(".methods-select-list")
     .slideToggle();
