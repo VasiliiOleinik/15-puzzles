@@ -49,7 +49,7 @@ class DiseasesTableSeeder extends Seeder
         $countPieces = Piece::count();
         $diseases = Disease::with('pieces')->get();
         foreach ($diseases as $disease) {
-            $disease->pieces()->attach($pieces->random( rand(1,  $countPieces ) ) );
+            $disease->pieces()->attach($pieces->random( rand(1,  8 ) ) );
         }
     }
 }

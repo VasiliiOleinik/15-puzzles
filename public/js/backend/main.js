@@ -550,7 +550,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         let data = {
             "piece": [],
-            "disease": [2],
+            "disease": [],
             "protocol": [],
             "models": [modelPiece, modelDisease, modelProtocol, modelRemedy, modelMarker],
             //"model": "App\\Models\\Disease\\Disease",
@@ -564,6 +564,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             data: data,
             dataType: 'json',
             complete: function (data) {
+                console.log(data.responseJSON);
                 refreshTabsContent(data.responseJSON.models);
             },
             error: function (err) {
@@ -668,7 +669,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     $('#count' + modelSelectors[i]).html(models[modelNames[i]].length);
                 }
             } else {
-                console.log(modelSelectors[i]);
+                $('#count' + modelSelectors[i]).html(models[modelNames[i]].length);
                 html = $('#tabList' + modelSelectors[i]).html();
                 $('#tabList' + modelSelectors[i]).html('');
                 $('#tabList' + modelSelectors[i]).html(html);
