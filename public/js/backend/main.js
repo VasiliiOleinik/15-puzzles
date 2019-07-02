@@ -633,7 +633,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     function refreshTabsCounts(models){
         let length = Object.keys(modelNames).length;
         for (let i = 0; i < length; i++) {
-            $('#count' + modelSelectors[i]).html(models[modelNames[i]].length);
+            $('#count' + modelSelectors[i]).html('['+models[modelNames[i]].length+']');
         }
     }
 
@@ -719,10 +719,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     if (modelNames[i] != "piece") {
                         $('#tabList' + modelSelectors[i]).html(html);
                     }
-                    $('#count' + modelSelectors[i]).html(models[modelNames[i]].length);
+                    $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]].length + ']');
                 }
             } else {
-                $('#count' + modelSelectors[i]).html(models[modelNames[i]].length);
+                $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]].length + ']');
                 html = $('#tabList' + modelSelectors[i]).html();
                 $('#tabList' + modelSelectors[i]).html('');
                 //$('#tabList' + modelSelectors[i]).html(html);
@@ -751,6 +751,7 @@ function syncCheckedElements(clicked, objId, objType) {
         var objName = elem.find('.puzzle-15__item-title').html();
         addTagToTagsList(objId, objName, objType);
         checkCheckbox(objId, objType);
+        checkPuzzle(objId, objType);
     }
 }
 
