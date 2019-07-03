@@ -43,7 +43,7 @@ class MainController extends Controller
             'piece',
             now()->addDay(1),
             function(){
-                return Piece::with('category')->get();
+                return Piece::with('type')->get();
             }
         );
 
