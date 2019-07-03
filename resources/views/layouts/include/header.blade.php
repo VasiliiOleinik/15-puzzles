@@ -4,13 +4,13 @@
       <div class="header__logo logo"><img src="img/svg/logo.svg"></div>
       <nav class="header__nav">
         <ul class="header__nav-list">
-          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_blank">Main</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_blank">Member&apos;s cases</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_blank">Factor diagram</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_blank">About</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_blank">News</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_blank">Literature</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_blank">FAQ</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="/" target="_self">Main</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="/member_cases" target="_self">Member&apos;s cases</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="/factor_diagram" target="_self">Factor diagram</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="/about" target="_self">About</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="/news" target="_self">News</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_self">Literature</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_self">FAQ</a></li>
         </ul>
       </nav>
       <div class="header__langs"><a class="header__lang" href="#">ENG</a><span class="header__lang-devider"></span><a

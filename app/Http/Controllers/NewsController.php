@@ -32,12 +32,12 @@ class NewsController extends Controller
                 $articles = Article::with('tags')->get();
             }
 
-            return view('news\_news_partial', compact(['articles']));
+            return view('news._news_partial', compact(['articles']));
         }
         else{
             $articles = Article::all();
 
-            return view('news\news', compact(['articles']));
+            return view('news.news', compact(['articles']));
         }
     }
 

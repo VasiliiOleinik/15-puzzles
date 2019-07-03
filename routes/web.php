@@ -24,6 +24,7 @@ Route::get('/about', 'AboutController@index')->name('about');
 Route::post('/filter', 'MainController@filter')->name('filter');
 Route::post('/evidences', 'MainController@evidences')->name('evidences');
 Route::post('/markers_partial', 'MainController@markersPartial')->name('markers_partial');
+Route::post('/model_partial', 'MainController@modelPartial')->name('model_partial');
 /* ---- */
 
 /* NEWS */

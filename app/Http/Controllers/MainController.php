@@ -165,6 +165,12 @@ class MainController extends Controller
         return view('main._partial.markers', compact(['markers']));
     }
 
+    public function modelPartial(Request $request)
+    {        
+        $model = $request->model::with($request->with)->whereIn('id',$request->array)->get();      
+        return view('main._partial.'.$request->view, compact(['model']));
+    }
+
     public function getModelNameLowercase($model){
         return strtolower(substr($model, strrpos($model, '\\') + 1));
     }

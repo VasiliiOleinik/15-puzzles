@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*     VARIABLES      */
     /* ------------------ */
 
-    let evidences_ajax, markers_ajax;
+    let evidences_ajax, model_ajax, markers_ajax;
   
     let modelPiece = "App\\Models\\Piece\\Piece";
     let modelDisease = "App\\Models\\Disease\\Disease";
@@ -106,6 +106,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     $('#tabListMarkers').html(tab5);
                 } else {
                     refreshTabsContent(response.responseJSON.models);
+                }
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    function modelPartialAjax(data) {
+
+        try {
+            model_ajax.abort();
+        } catch (err) {
+        }
+
+        model_ajax = $.ajax({
+            type: "post",
+            url: "/model_partial",
+            data: data,
+            dataType: 'json',
+            complete: function (response) {
+                if (response.responseText) {
+                    $('#' + data.container).html(response.responseText);
                 }
             },
             error: function (err) {
