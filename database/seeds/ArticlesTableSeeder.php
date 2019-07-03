@@ -16,7 +16,7 @@ class ArticlesTableSeeder extends Seeder
         DB::table('articles')->delete();
         DB::update("ALTER TABLE articles AUTO_INCREMENT = 0;");
 
-        factory(Article::class, 50)->create();
+        factory(Article::class, 10)->create();
 
         $tags = Tag::all();
 

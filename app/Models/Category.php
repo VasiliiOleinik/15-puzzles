@@ -23,6 +23,6 @@ class Category extends Model
      */
     public function articles()
     {
-        return $this->hasMany('App\Models\Artile\Artile');
+        return $this->hasMany('App\Models\Article\Article');
     }
 }

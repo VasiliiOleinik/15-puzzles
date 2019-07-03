@@ -1,5 +1,33 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
+    let category_ajax;
+
+    //клик на категориях статей
+    $('.categories__list li a').on('click', function () {
+        categoryId = $(this).attr('obj-id');
+
+        try {            
+            category_ajax.abort();
+        } catch (err) { }
+
+        category_ajax = $.ajax({
+            type: "GET",
+            url: "/news",
+            data: {
+                categoryId: categoryId,
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+            },
+            complete: function (result) {
+                if (result.responseText)
+                    $('.main-content').html(result.responseText);               
+            },
+            error: function (err) {
+                if (result.responseText)
+                    console.log(err.responseText); 
+            }
+        });
+    });
+
     var tags_count = 0;
     
     tags_ajax = $.ajax({
@@ -11,37 +39,30 @@ document.addEventListener("DOMContentLoaded", function (event) {
         complete: function (result) {
             //console.log(result.responseText);
             if (result.responseText.length != 0) {
-
+                
                 json = jQuery.parseJSON(result.responseText);
                 json_length = Object.keys(json).length;
-
-                data = formTheCorrectDataFormat(json, json_length);
-
+                
+                data = formTheCorrectDataFormat(json, json_length);                                
                 tagsInputInit(data);
             }
         },
         error: function (err) {
-
         }
     });
 
-
     function formTheCorrectDataFormat(json, json_length) {
-
-        var data = '[';
-
-        for (tag_id = 1; tag_id < json_length; tag_id++) {
-            data += '{"tag_id":' + tag_id + ', "text":"' + json[tag_id] + '" }, ';
-        }
+        var data = '[';     
+        $.each(json, function (index, value) {
+            data += '{"tag_id":' + index + ', "text":"' + value + '" }, ';
+        });
         data = data.slice(0, -2);
         data += ']';
-
         return data;
     }
-
+   
 
     function tagsInputInit(data) {
-
         //var data ='[{ "tag_id": 1, "text": "Task 1" }, { "tag_id": 2, "text": "Task 2" }]';
 
         var tags = new Bloodhound({
@@ -65,13 +86,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
 
         tags_input.tagsinput({
-
         });
 
         $("#tags").change(function () {
-            //console.log($("#tags").val().split(','))
             var tags_id = $("#tags").val().split(',');
-
+            
             news_ajax = $.ajax({
                 type: "GET",
                 url: "/news",
@@ -85,9 +104,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                         result = result.responseText;
                         html = result;
-                        $('#articles').html(html);
-
-                        //console.log(result);
+                        $('.main-content').html(html);
                     }
                 },
                 error: function (err) {
@@ -95,21 +112,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             });
         })
-
-        /*
-        //In search field changed count of tags
-        $('.bootstrap-tagsinput').bind("DOMSubtreeModified",function(){
-            _tags_count = $('.bootstrap-tagsinput').find('.tag').length;
-
-            if(_tags_count != tags_count){
-                tags_count = _tags_count;
-
-                console.log($("#tags").val().split(','));
-
-
-
-            }
-        });
-        */
     }
 });
