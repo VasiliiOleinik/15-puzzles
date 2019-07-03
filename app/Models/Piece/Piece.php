@@ -6,15 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $category_id
+ * @property int $type_id
  * @property string $name
  * @property string $content
  * @property string $img
- * @property Category $category
+ * @property Type $type
  * @property PieceDisease[] $pieceDiseases
  * @property PieceMarker[] $pieceMarkers
  * @property PieceProtocol[] $pieceProtocols
  * @property PieceRemedy[] $pieceRemedies
+ * @property PieceDisease[] $diseases
+ * @property PieceProtocol[] $protocols
+ * @property PieceRemedy[] $remedies
+ * @property PieceMarker[] $markers
  */
 class Piece extends Model
 {
@@ -23,14 +27,14 @@ class Piece extends Model
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'name', 'content', 'img'];
+    protected $fillable = ['type_id', 'name', 'content', 'img'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category()
+    public function type()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsTo('App\Models\Type');
     }
 
     /**

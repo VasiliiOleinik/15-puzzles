@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $abnormal_condition
- * @property string $normal_condition
- * @property Piece[] $pieces
+ * @property string $name
+ * @property Artile[] $articles
  */
 class Category extends Model
 {
@@ -17,13 +16,13 @@ class Category extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'abnormal_condition', 'normal_condition'];
+    protected $fillable = ['name'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pieces()
+    public function articles()
     {
-        return $this->hasMany('App\Models\Piece\Piece');
+        return $this->hasMany('App\Models\Artile\Artile');
     }
 }

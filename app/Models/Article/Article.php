@@ -9,16 +9,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property string $description
  * @property string $content
+ * @property int $category_id
  * @property string $created_at
  * @property string $updated_at
  * @property ArticleTag[] $articleTags
+ * @property ArticleTag[] $tags
+ * @property Category $category
  */
 class Article extends Model
 {
     /**
      * @var array
      */
-    protected $fillable = ['title', 'description', 'content', 'img', 'created_at', 'updated_at'];
+    protected $fillable = ['title', 'description', 'content', 'category_id', 'img', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -26,7 +29,7 @@ class Article extends Model
     public function articleTags()
     {
         return $this->hasMany('App\Models\Article\ArticleTag');
-    }
+    }    
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -34,5 +37,13 @@ class Article extends Model
     public function tags()
     {
     return $this->belongsToMany('App\Models\Tag', 'article_tags');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
     }
 }
