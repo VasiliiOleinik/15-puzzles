@@ -16,8 +16,6 @@ class CreateCategoriesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name', 50);
-			$table->text('abnormal_condition', 65535);
-			$table->text('normal_condition', 65535);
 		});
 	}
 

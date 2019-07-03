@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMarkersTable extends Migration {
+class CreateTypesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,12 @@ class CreateMarkersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('markers', function(Blueprint $table)
+		Schema::create('types', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 50)->default('--');
-			$table->text('content', 65535);
-			$table->string('subtitle')->nullable();
+			$table->string('name', 50);
+			$table->text('abnormal_condition', 65535);
+			$table->text('normal_condition', 65535);
 		});
 	}
 
@@ -29,7 +29,7 @@ class CreateMarkersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('markers');
+		Schema::drop('types');
 	}
 
 }

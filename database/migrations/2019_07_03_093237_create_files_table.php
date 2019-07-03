@@ -15,8 +15,8 @@ class CreateFilesTable extends Migration {
 		Schema::create('files', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 200)->nullable();
-			$table->string('path', 200)->nullable();
+			$table->string('name', 191)->nullable();
+			$table->string('path', 191)->nullable();
 			$table->string('type', 20)->nullable();
 			$table->integer('size')->nullable();
 			$table->bigInteger('user_id')->unsigned()->default(1)->index('FK_files_users');

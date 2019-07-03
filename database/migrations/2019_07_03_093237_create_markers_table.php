@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateProtocolsTable extends Migration {
+class CreateMarkersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,12 @@ class CreateProtocolsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('protocols', function(Blueprint $table)
+		Schema::create('markers', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name', 50)->default('--');
-			$table->integer('evidence_id')->unsigned()->default(1)->index('FK_protocols_evidences');
 			$table->text('content', 65535);
-			$table->string('subtitle')->nullable();
-			$table->string('url')->nullable();
+			$table->string('subtitle', 191)->nullable();
 		});
 	}
 
@@ -31,7 +29,7 @@ class CreateProtocolsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('protocols');
+		Schema::drop('markers');
 	}
 
 }

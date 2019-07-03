@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
 
 		$this->call(UsersTableSeeder::class);
 
-        $this->call(CategoriesTableSeeder::class);
+        $this->call(TypesTableSeeder::class);
         $this->call(EvidencesTableSeeder::class);
 
         $this->call(MemberCasesTableSeeder::class);
@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         
 
         $this->call(TagsTableSeeder::class);
+        $this->call(CategoriesTableSeeder::class);
         $this->call(ArticlesTableSeeder::class);
     }
 }

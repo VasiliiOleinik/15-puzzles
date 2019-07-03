@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateRemediesTable extends Migration {
+class CreatePiecesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,13 @@ class CreateRemediesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('remedies', function(Blueprint $table)
+		Schema::create('pieces', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name', 50)->default('--');
 			$table->text('content', 65535);
-			$table->string('url')->nullable();
+			$table->integer('type_id')->unsigned()->default(1)->index('FK_pieces_categories');
+			$table->string('img', 191)->nullable();
 		});
 	}
 
@@ -29,7 +30,7 @@ class CreateRemediesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('remedies');
+		Schema::drop('pieces');
 	}
 
 }

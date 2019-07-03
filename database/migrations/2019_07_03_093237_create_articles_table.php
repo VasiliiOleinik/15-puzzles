@@ -16,9 +16,10 @@ class CreateArticlesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('title', 50)->default('--');
-			$table->string('description', 200)->default('--');
+			$table->string('description', 191)->default('--');
 			$table->text('content', 65535)->nullable();
-			$table->string('img', 200)->nullable();
+			$table->integer('category_id')->unsigned()->default(1)->index('FK_articles_categories');
+			$table->string('img', 191)->nullable();
 			$table->timestamps();
 		});
 	}

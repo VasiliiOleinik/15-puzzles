@@ -15,20 +15,6 @@ class CategoriesTableSeeder extends Seeder
         DB::table('categories')->delete();
         DB::update("ALTER TABLE categories AUTO_INCREMENT = 0;");
 
-        factory(Category::class, 4)->create();        
-
-        $names = [
-            ['name' => 'reasons'],
-            ['name' => 'conditions'],
-			['name' => 'defence'],
-            ['name' => 'dangers'],
-        ];
-
-        for($i = 0; $i < count($names); $i++){
-
-            DB::table('categories')
-                ->where('id', $i + 1)
-                ->update($names[$i]);
-        }
+        factory(Category::class, 8)->create();    
     }
 }

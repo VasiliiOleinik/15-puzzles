@@ -14,7 +14,7 @@ class AddForeignKeysToPiecesTable extends Migration {
 	{
 		Schema::table('pieces', function(Blueprint $table)
 		{
-			$table->foreign('category_id', 'FK_pieces_categories')->references('id')->on('categories')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('type_id', 'FK_pieces_types')->references('id')->on('types')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 
@@ -28,7 +28,7 @@ class AddForeignKeysToPiecesTable extends Migration {
 	{
 		Schema::table('pieces', function(Blueprint $table)
 		{
-			$table->dropForeign('FK_pieces_categories');
+			$table->dropForeign('FK_pieces_types');
 		});
 	}
 
