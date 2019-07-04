@@ -6,4 +6,5 @@
 <script src="{{ asset('js/backend/auth.js') }}"></script>
 @yield('main-js')
 @yield('news-js')
+@yield('member_cases-js')
 @yield('personal_cabinet-js')

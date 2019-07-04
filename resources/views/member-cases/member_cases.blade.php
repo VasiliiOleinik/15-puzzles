@@ -13,28 +13,14 @@
               <div class="main-content">
                 <h1 class="title">Member's cases</h1>
                 <div class="post_container">
-                  <div class="post"><a class="post__image" href="javascript:void(0)"> <img class="post__img" src="img/post_1.png" alt="Post img"></a><a class="post__date" href="javascript:void(0)">19.10.2019</a><a class="post__title" href="javascript:void(0)">Fight history<span class="post__arrow"></span></a>
-                    <p class="post__description">We take the position of looking at cancer not as a tumor that has to be removed,rather as a consequence of number of individual systemic imbalances in differenorgans leading to formation of a malignant tumor. (see &quot;holistic approach to cancer&quot;).</p>
-                  </div>
-                  <div class="post"><a class="post__image" href="javascript:void(0)"> <img class="post__img" src="img/post_2.png" alt="Post img"></a><a class="post__date" href="javascript:void(0)">19.10.2019</a><a class="post__title" href="javascript:void(0)">Fight history<span class="post__arrow"></span></a>
-                    <p class="post__description">We take the position of looking at cancer not as a tumor that has to be removed,rather as a consequence of number of individual systemic imbalances in differenorgans leading to formation of a malignant tumor. (see &quot;holistic approach to cancer&quot;).</p>
-                  </div>
-                  <div class="post"><a class="post__image" href="javascript:void(0)"> <img class="post__img" src="img/post_3.png" alt="Post img"></a><a class="post__date" href="javascript:void(0)">19.10.2019</a><a class="post__title" href="javascript:void(0)">Fight history<span class="post__arrow"></span></a>
-                    <p class="post__description">We take the position of looking at cancer not as a tumor that has to be removed,rather as a consequence of number of individual systemic imbalances in differenorgans leading to formation of a malignant tumor. (see &quot;holistic approach to cancer&quot;).</p>
-                  </div>
-                  <div class="post"><a class="post__image" href="javascript:void(0)"> <img class="post__img" src="img/post_4.png" alt="Post img"></a><a class="post__date" href="javascript:void(0)">19.10.2019</a><a class="post__title" href="javascript:void(0)">Fight history<span class="post__arrow"></span></a>
-                    <p class="post__description">We take the position of looking at cancer not as a tumor that has to be removed,rather as a consequence of number of individual systemic imbalances in differenorgans leading to formation of a malignant tumor. (see &quot;holistic approach to cancer&quot;).</p>
-                  </div>
+                  @foreach($member_cases as $member_case)
+                  <div class="post"><a class="post__image" href="javascript:void(0)"> <img class="post__img" src="{{$member_case->img}}" alt="Post img"></a><a class="post__date" href="javascript:void(0)">19.10.2019</a><a class="post__title" href="javascript:void(0)">Fight history<span class="post__arrow"></span></a>
+                    <p class="post__description">{{$member_case->description}}</p>
+                  </div> 
+                  @endforeach
                 </div>
                 <div class="pagination">
-                  <ul class="pagination__list">
-                    <li class="pagination__page prev disabled"><a href="javascript:void(0)"><img src="img/svg/arrow.svg" alt="Prev arrow"></a></li>
-                    <li class="pagination__page active"><a href="javascript:void(0)">1</a></li>
-                    <li class="pagination__page"><a href="javascript:void(0)">2</a></li>
-                    <li class="pagination__page"><a href="javascript:void(0)">...</a></li>
-                    <li class="pagination__page"><a href="javascript:void(0)">6</a></li>
-                    <li class="pagination__page next"><a href="javascript:void(0)"><img src="img/svg/arrow.svg" alt="Prev arrow"></a></li>
-                  </ul>
+                {{$member_cases->appends(request()->except('page'))->links('vendor.pagination.15-puzzle')}}
                 </div>
               </div>
             </div>
@@ -109,4 +95,7 @@
             </div>
           </div>
         </main>      
+@endsection
+@section('news-js')
+    <script src="{{ asset('js/backend/member_cases.js') }}" defer></script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MemberCase;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class MemberCaseController extends Controller
 {
@@ -12,9 +13,16 @@ class MemberCaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('member-cases.member_cases');
+        if($request->page){
+            $member_cases = MemberCase::paginate(4);
+            return view('member-cases.partial.member_cases', compact(['member_cases']));
+        }
+        else{
+            $member_cases = MemberCase::with('user')->paginate(4);
+            return view('member-cases.member_cases',compact(['member_cases']));
+        }
     }
 
     /**

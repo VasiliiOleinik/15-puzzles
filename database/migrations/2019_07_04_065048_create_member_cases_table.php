@@ -16,7 +16,9 @@ class CreateMemberCasesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->bigInteger('user_id')->unsigned()->default(1)->index('FK_cases_users');
-			$table->text('content', 65535);
+			$table->string('description', 191)->nullable();
+			$table->text('content', 65535)->nullable();
+			$table->string('img', 191)->nullable();
 			$table->timestamps();
 		});
 	}
