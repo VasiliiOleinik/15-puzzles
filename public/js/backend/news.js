@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
-    let category_ajax;
+    let category_ajax;   
 
     //клик на категориях статей
     $('.categories__list li a').on('click', function () {
@@ -89,6 +89,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
 
         $("#tags").change(function () {
+
+            if ($("#tags").val().length) {
+                $('.tt-input').attr('placeholder', '');
+            }
+            else {
+                $('.tt-input').attr('placeholder', 'Search');
+            }
+
             var tags_id = $("#tags").val().split(',');
             
             news_ajax = $.ajax({

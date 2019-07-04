@@ -14,7 +14,7 @@
         @if($paginator->currentPage() > 2)
             <li class="hidden-xs pagination__page"><a href="{{ $paginator->url(1) }}">1</a></li>
         @endif
-        @if($paginator->currentPage() > 3)
+        @if($paginator->currentPage() > 2)
             <li class="pagination__page disabled" aria-disabled="true"><span>...</span></li>
         @endif
 
@@ -27,10 +27,10 @@
                 @endif
             @endif
         @endforeach
-        @if($paginator->currentPage() < $paginator->lastPage() - 4)
+        @if($paginator->currentPage() <= $paginator->lastPage() - 2)
             <li class="pagination__page disabled" aria-disabled="true"><span>...</span></li>
         @endif
-        @if($paginator->currentPage() < $paginator->lastPage() - 3)
+        @if($paginator->currentPage() < $paginator->lastPage() - 2)
             <li class="hidden-xs pagination__page"><a href="{{ $paginator->url($paginator->lastPage()) }}">{{ $paginator->lastPage() }}</a></li>
         @endif
 
