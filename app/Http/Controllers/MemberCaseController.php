@@ -14,7 +14,7 @@ class MemberCaseController extends Controller
      */
     public function index()
     {
-        return view('member_case');
+        return view('member-cases.member_cases');
     }
 
     /**
