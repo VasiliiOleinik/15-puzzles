@@ -77,7 +77,7 @@ class FileController extends Controller
     {
         $validatedData = $request->validate([
             //'upload_file' => ['mimes:docx,doc,pdf'],
-            'file_name' => ['required','alpha_dash', 'string', 'max:191'],
+            'file_name' => ['required', 'string', 'max:191'],
             'file_type' => ['required', 'max:191'],
             'file_size' => ['required', 'max:191'],
         ]);    
@@ -93,7 +93,7 @@ class FileController extends Controller
         $file_full_name =  self::checkUniqueFileName($file_path, $file_name, $file_full_name);
         $file_name = explode('.',$file_full_name)[0];
 
-        $request->file('upload_file')->move(public_path( $file_path ), $file_full_name);
+        $request->file('file')->move(public_path( $file_path ), $file_full_name);
 
 
         $file = new File;
