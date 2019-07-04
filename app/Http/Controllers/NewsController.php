@@ -18,7 +18,7 @@ class NewsController extends Controller
             function(){
                 return Category::with('articles')->get();
             }
-        );
+        );                
         if($request->tags_id){
             if($request->tags_id != [null] ){
                 $articles_id = array();                
@@ -39,6 +39,10 @@ class NewsController extends Controller
             $categoryActive = $request->categoryId;
             $articles = Article::where('category_id','=',$categoryActive)->paginate(4);
             return view('news.partial.articles', compact(['articles','categories', 'categoryActive']));
+        }
+        if($request->page){
+            $articles = Article::paginate(4);
+            return view('news.partial.articles', compact(['articles','categories']));
         }
         else{
             $articles = Article::paginate(4);

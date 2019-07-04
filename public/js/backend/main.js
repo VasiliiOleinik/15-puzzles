@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 
     /* ------------------ */
-    /*     LISTENERS      */
+    /*       EVENTS       */
     /* ------------------ */
 
     //Поменялось значение чекбокса

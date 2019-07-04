@@ -7,7 +7,7 @@
                   @endforeach                  
                 </div>
                 <div class="pagination">
-                {{$articles->links('vendor.pagination.15-puzzle')}}
+                {{$articles->appends(request()->except('page'))->links('vendor.pagination.15-puzzle')}}
                 </div>
               </div>
 

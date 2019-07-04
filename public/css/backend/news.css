@@ -1,3 +1,7 @@
 .news-left {
-    min-width: 655px;
+    min-width: 900px;
+}
+
+@media (max-width: 1600px) .news-left {
+    min-width: 655px!important
 }

@@ -31,7 +31,7 @@
                   @endforeach                                   
                 </div>
                 <div class="pagination">
-                    {{$articles->links('vendor.pagination.15-puzzle')}}                 
+                    {{$articles->appends(request()->except('page'))->links('vendor.pagination.15-puzzle')}}                 
                 </div>
               </div>
             </div>
@@ -62,15 +62,6 @@
                       <button class="search-news-btn"><img src="img/svg/search_news.svg" alt="Search news"></button>
                     </form>
               </div>
-              <!--
-              <div class="search">
-                <p class="news-right__title">Search in news</p>
-                <form class="search__input">
-                  <input class="search-news" type="text" placeholder="Search">
-                  <button class="search-news-btn"><img src="img/svg/search_news.svg" alt="Search news"></button>
-                </form>
-              </div>
-              -->
               <div class="subscribe">
                 <p class="news-right__title">Take latest news from 15-Puzzle</p>
                 <form class="subscribe__input">
