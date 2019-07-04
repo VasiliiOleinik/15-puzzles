@@ -1,0 +1,33 @@
+body {
+    background-color: #EBF3F6;;
+}
+
+#personal_cabinet-left_side {
+    background-color: white;
+}
+
+.file_img {
+    height: 40px;
+    width: 40px;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    background-image: url(/images/office_icons/office.png);
+    background-repeat: no-repeat;
+    background-size:cover;    
+}
+
+span.close.delete_file {
+    position: absolute;
+    right: 17px;
+    top: 0;
+    color: red;
+}
+
+    span.close.delete_file:hover {
+        color: #ff1616 !important;
+    }
+
+.alert {
+    position: absolute;
+    z-index: 1;
+}

@@ -77,9 +77,9 @@ class FileController extends Controller
     {
         $validatedData = $request->validate([
             //'upload_file' => ['mimes:docx,doc,pdf'],
-            'file_name' => ['required', 'string', 'alpha_dash', 'max:255'],
-            'file_type' => ['required', 'max:255'],
-            'file_size' => ['required', 'max:255'],
+            'file_name' => ['required','alpha_dash', 'string', 'max:191'],
+            'file_type' => ['required', 'max:191'],
+            'file_size' => ['required', 'max:191'],
         ]);    
         
         $file_name = $request['file_name'];

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Models\User\User;
 use Illuminate\Http\Request;
- use Illuminate\Validation\Rule; //import Rule class 
+use Illuminate\Validation\Rule; //import Rule class
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -72,14 +73,19 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {       
         $validatedData = $request->validate([
-        'nickname' => ['required','alpha_dash', 'string', 'max:255'],
-        'first_name' => ['max:255'],
-        'middle_name' => ['max:255'],
-        'last_name' => ['max:255'],
-        'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($user)],
+        'nickname' => ['required', 'string', 'max:191'],
+        'first_name' => ['max:191'],
+        'middle_name' => ['max:191'],
+        'last_name' => ['max:191'],
+        'email' => ['required', 'string', 'email', 'max:191', Rule::unique('users')->ignore($user)],
+        'password' => ['nullable','regex:/^[a-zA-Z]+$/u','min:8', 'max:191'],
+        'img' => ['nullable'],
         ]);
-            
-        $user->update($request->all());
+
+        if($request->password != null){         
+          $user->password = Hash::make($request->password);
+        }
+        $user->update($request->except('password'));
         $user->img = $request['img'];
 
         $user->save();
