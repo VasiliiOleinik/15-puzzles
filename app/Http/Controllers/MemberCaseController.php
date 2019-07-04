@@ -16,11 +16,11 @@ class MemberCaseController extends Controller
     public function index(Request $request)
     {
         if($request->page){
-            $member_cases = MemberCase::paginate(4);
+            $member_cases = MemberCase::with('user')->where('status','=','show')->paginate(4);
             return view('member-cases.partial.member_cases', compact(['member_cases']));
         }
         else{
-            $member_cases = MemberCase::with('user')->paginate(4);
+            $member_cases = MemberCase::with('user')->where('status','=','show')->paginate(4);
             return view('member-cases.member_cases',compact(['member_cases']));
         }
     }

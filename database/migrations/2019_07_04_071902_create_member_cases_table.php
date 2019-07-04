@@ -19,6 +19,7 @@ class CreateMemberCasesTable extends Migration {
 			$table->string('description', 191)->nullable();
 			$table->text('content', 65535)->nullable();
 			$table->string('img', 191)->nullable();
+			$table->string('status', 25)->default('moderating');
 			$table->timestamps();
 		});
 	}
