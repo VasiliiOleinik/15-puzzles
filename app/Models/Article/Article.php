@@ -44,6 +44,6 @@ class Article extends Model
      */
     public function categoriesForNews()
     {
-        return $this->belongsToMany('App\Models\CategoryForNews', 'article_categories_for_news');
+        return $this->belongsToMany('App\Models\Category\CategoryForNews', 'article_categories_for_news');
     }
 }

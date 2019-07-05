@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Article\Article;
-use App\Models\CategoryForNews;
+use App\Models\Category\CategoryForNews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -12,6 +12,7 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
+        dd((int)Article::count()-1);
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews',

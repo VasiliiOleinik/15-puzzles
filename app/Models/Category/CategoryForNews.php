@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Category;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
 class CategoryForNews extends Model
 {
     public $timestamps = false;
-
     protected $table = 'categories_for_news';
 
     /**
@@ -21,7 +20,7 @@ class CategoryForNews extends Model
     protected $fillable = ['name'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function articles()
     {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\CategoryForNews;
+use App\Models\Category\CategoryForNews;
 use App\Models\Article\Article;
 use Illuminate\Database\Seeder;
 
