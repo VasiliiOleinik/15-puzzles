@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if(data.responseJSON.auth === "success")
                 {
                     $('.fancybox-close-small').click();
-                    location.reload();
+                    location.href = "/personal_cabinet";
                 }
                 if(data.responseJSON.auth === "failed")
                 {
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if(data.responseJSON.auth === "success")
                 {
                     $('.fancybox-close-small').click();
-                    location.reload();
+                    location.href = "/personal_cabinet";
                 }
                 if(data.responseJSON.auth === "failed")
                 {

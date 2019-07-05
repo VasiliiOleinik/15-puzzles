@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property Artile[] $articles
  */
-class Category extends Model
+class CategoryForNews extends Model
 {
     public $timestamps = false;
+
+    protected $table = 'categories_for_news';
 
     /**
      * @var array
@@ -23,6 +25,6 @@ class Category extends Model
      */
     public function articles()
     {
-        return $this->hasMany('App\Models\Article\Article');
+        return $this->belongsToMany('App\Models\Article\Article', 'article_categories_for_news');
     }
 }

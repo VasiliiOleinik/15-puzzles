@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Article\Article;
-use App\Models\Category;
+use App\Models\CategoryForNews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -12,44 +12,67 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        $categories = Cache::remember(
-            'category',
+        //категории для новостей
+        $categoriesForNews = Cache::remember(
+            'categoryForNews',
             now()->addDay(1),
             function(){
-                return Category::with('articles')->get();
+                return CategoryForNews::with('articles')->get();
             }
-        );                
-        if($request->tags_id){
-            if($request->tags_id != [null] ){
-                $articles_id = array();                
-                $tags = Tag::with('articles')->whereIn('id',$request->tags_id)->get();              
-                foreach($tags as $tag){
-                    foreach($tag->articles as $obj) {
-                        array_push($articles_id, $obj->id);
-                    }               
-                }
-                $articles = Article::with('tags')->whereIn('id',$articles_id)->paginate(4);               
+        );
+        //Выбраны тэги
+        if($request->tagsActive){
+            $articles_id = array();                
+            $tags = Tag::with('articles')->whereIn('id',$request->tagsActive)->get();              
+            foreach($tags as $tag){
+                foreach($tag->articles as $obj) {
+                    array_push($articles_id, $obj->id);
+                }               
             }
-            else{
-                $articles = Article::with('tags')->paginate(4);
-            }
-            return view('news.partial.articles', compact(['articles','categories']));
+            $articlesWithTags = Article::with('tags')->whereIn('id',$articles_id)->get()->pluck('id')->toArray();               
         }
-        if($request->categoryId){
-            $categoryActive = $request->categoryId;
-            $articles = Article::where('category_id','=',$categoryActive)->paginate(4);
-            return view('news.partial.articles', compact(['articles','categories', 'categoryActive']));
+        //Выбраны категории
+        if($request->categoriesForNewsActive){
+        
+            $categoriesForNewsActive = $request->categoriesForNewsActive;
+
+            $articlesWithCategoriesForNews = Article::with('categoriesForNews')->whereHas(
+                'categoriesForNews', function ($query) use ( $categoriesForNewsActive ) {
+                $query->whereIn('category_for_news_id', $categoriesForNewsActive);
+            })->get()->pluck('id')->toArray();
         }
+        //Выбраны тэги или категории
+        if($request->categoriesForNewsActive || $request->tagsActive){
+            //если переменные с массивами выбранных категорий/тэгов не существуют => мы их создаем пустыми []
+            $variableNames = ['articlesWithCategoriesForNews', 'articlesWithTags'];
+            foreach($variableNames as $variableName)
+            if( !isset(${$variableName}) ){
+                ${$variableName} = [];
+            }
+
+            //коллекция статей с учетом фильтра по категориям и тэгам                           
+            $collection = array_unique(array_merge( $articlesWithCategoriesForNews, $articlesWithTags ));
+
+            //если не выбраны ни категории, ни тэги => отображаем все статьи
+            if( count($collection) > 0){
+                $articles = Article::whereIn('id',$collection)->paginate(4);
+            }else{
+                $articles = Article::paginate(4);
+            }       
+            return view('news.news-left.main-content', compact(['articles']));
+        }
+        //пагинация
         if($request->page){
             $articles = Article::paginate(4);
-            return view('news.partial.articles', compact(['articles','categories']));
+            return view('news.news-left.main-content', compact(['articles']));
         }
         else{
             $articles = Article::paginate(4);
-            return view('news.news', compact(['articles','categories']));
+            return view('news.news', compact(['articles','categoriesForNews']));
         }
     }
 
+    //Тэги, которые использовались в статьях
     public function usedTags(){
 
         $tag_with_articles = array();

@@ -18,7 +18,6 @@ class CreateArticlesTable extends Migration {
 			$table->string('title', 50)->nullable();
 			$table->string('description', 191)->nullable();
 			$table->text('content', 65535)->nullable();
-			$table->integer('category_id')->unsigned()->default(1)->index('FK_articles_categories');
 			$table->string('img', 191)->nullable();
 			$table->timestamps();
 		});

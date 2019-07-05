@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*     VARIABLES      */
     /* ------------------ */
     let category_ajax, tags_ajax;
+    let categoriesForNewsActive = [];
     /* ------------------ */
     /* ------------------ */
     
@@ -77,6 +78,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });        
     }
 
+    function clearFilter() {
+        $('.choosen').removeClass('choosen');
+        categoriesForNewsActive = [];
+        $("#tags").tagsinput('removeAll');
+    }
+
     /* ------------------ */
     /* ------------------ */
 
@@ -96,9 +103,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     });
 
+    //клик на сброс фильтра
+    $('.clear-filter-btn').on('click', function () {
+        clearFilter();
+    })
+
     //клик на категориях статей
     $('.categories__list li a').on('click', function () {
-        categoryId = $(this).attr('obj-id');
+        let category = $(this).attr('obj-id');
+        if (!categoriesForNewsActive.includes(category)) {
+            categoriesForNewsActive.push(category);
+        } else {
+            let index = categoriesForNewsActive.indexOf(category);
+            if (index !== -1) categoriesForNewsActive.splice(index, 1);
+        }
+        
+        let tagsActive = $("#tags").val().split(',');
 
         try {
             category_ajax.abort();
@@ -108,7 +128,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
             type: "GET",
             url: "/news",
             data: {
-                categoryId: categoryId,
+                categoriesForNewsActive: categoriesForNewsActive,
+                tagsActive: tagsActive,
                 "_token": $('meta[name="csrf-token"]').attr('content'),
             },
             complete: function (result) {
@@ -116,7 +137,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     $('.main-content').html(result.responseText);
             },
             error: function (err) {
-                if (result.responseText)
+                if (err.responseText)
                     console.log(err.responseText);
             }
         });
@@ -138,14 +159,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $('.tt-input').attr('placeholder', 'Search');
         }
 
-        var tags_id = $("#tags").val().split(',');
+        var tagsActive = $("#tags").val().split(',');
 
         news_ajax = $.ajax({
             type: "GET",
             url: "/news",
             data: {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
-                tags_id: tags_id,
+                categoriesForNewsActive: categoriesForNewsActive,
+                tagsActive: tagsActive,
             },
             complete: function (result) {
 
@@ -167,3 +189,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 });
 /* ------------------ */
 /* ------------------ */
+
+
+

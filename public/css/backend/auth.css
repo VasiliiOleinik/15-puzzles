@@ -1,14 +1,16 @@
-.errors {
-    color: red;
-    margin-top: -15px;
-    margin-bottom: 10px;
+.errors, .errors-auth {
+    font-size: 12px;
+    color: #f76577;
     text-align: center;
 }
 
+.errors {
+    margin-top: -15px;
+    margin-bottom: 10px;
+}
+
 .errors-auth {
-    color: red;
-    margin-top: 15px;
-    text-align: center;
+    margin-top: 4px;
 }
 
 .logout{
@@ -17,4 +19,8 @@
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: .7px;
+}
+
+main {
+    min-height: 1000px;
 }

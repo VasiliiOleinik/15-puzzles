@@ -14,14 +14,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property ArticleTag[] $articleTags
  * @property ArticleTag[] $tags
- * @property Category $category
+ * @property CategoryForNews[] $categories
  */
 class Article extends Model
 {
     /**
      * @var array
      */
-    protected $fillable = ['title', 'description', 'content', 'category_id', 'img', 'created_at', 'updated_at'];
+    protected $fillable = ['title', 'description', 'content', 'img', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -40,10 +40,10 @@ class Article extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function category()
+    public function categoriesForNews()
     {
-        return $this->belongsTo('App\Models\Category');
+        return $this->belongsToMany('App\Models\CategoryForNews', 'article_categories_for_news');
     }
 }

@@ -1,6 +1,6 @@
 <div class="container-authorization__login">
   <div class="login-inputs">
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="/personal_cabinet">
       @csrf
       <input name="login" type="text" placeholder="Login" required class="@error('login') is-invalid @enderror"
              value="{{ old('login') }}" autocomplete="login" autofocus>
