@@ -19,6 +19,7 @@ Route::get('/', 'MainController@index')->name('main');
 Route::resource('member_cases', 'MemberCaseController');
 Route::get('/factor_diagram', 'FactorDiagramController@index')->name('factor_diagram');
 Route::get('/about', 'AboutController@index')->name('about');
+Route::get('/literature', 'LiteratureController@index')->name('literature');
 
 /* MAIN */
 Route::post('/filter', 'MainController@filter')->name('filter');

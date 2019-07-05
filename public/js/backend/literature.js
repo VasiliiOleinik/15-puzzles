@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let categoriesForNewsActive = [];
     /* ------------------ */
     /* ------------------ */
-    
+
     tagsAjax = usedTags();
 
 
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             url: "/used_tags",
             data: {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
-                "with":"articles",
+                "with": "books",
             },
             complete: function (result) {
                 //console.log(result.responseText);
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     function formTheCorrectDataFormat(json, json_length) {
-        var data = '[';     
+        var data = '[';
         $.each(json, function (index, value) {
             data += '{"tag_id":' + index + ', "text":"' + value + '" }, ';
         });
@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         data += ']';
         return data;
     }
-   
+
     function tagsInputInit(data) {
         //var data ='[{ "tag_id": 1, "text": "Task 1" }, { "tag_id": 2, "text": "Task 2" }]';
 
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
 
         tags_input.tagsinput({
-        });        
+        });
     }
 
     function clearFilter() {
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let index = categoriesForNewsActive.indexOf(category);
             if (index !== -1) categoriesForNewsActive.splice(index, 1);
         }
-        
+
         let tagsActive = $("#tags").val().split(',');
 
         try {

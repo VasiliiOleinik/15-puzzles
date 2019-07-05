@@ -12,7 +12,6 @@ class NewsController extends Controller
 {
     public function index(Request $request)
     {
-        dd((int)Article::count()-1);
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews',
@@ -73,21 +72,21 @@ class NewsController extends Controller
         }
     }
 
-    //Тэги, которые использовались в статьях
-    public function usedTags(){
+    //Тэги, которые использовались ($request->with должен содержать таблицу, связанную с тэгами. например 'articles')
+    public function usedTags(Request $request){
 
-        $tag_with_articles = array();
-        $tags = Tag::with('articles')->get();
+        $tag_with = array();
+        $tags = Tag::with($request->with)->get();
 
         //find tags which have some relations with articles
         foreach($tags as $tag) {
 
-            if(count($tag->articles) > 0){
-                array_push($tag_with_articles, $tag->id);
+            if(count($tag[$request->with]) > 0){
+                array_push($tag_with, $tag->id);
             }
         }
 
-        $tags_names = Tag::with('articles')->whereIn('id',$tag_with_articles)->pluck('name','id')->toJson();
+        $tags_names = Tag::with($request->with)->whereIn('id',$tag_with)->pluck('name','id')->toJson();
 
         return response($tags_names);
     }

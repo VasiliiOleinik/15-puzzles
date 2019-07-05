@@ -9,7 +9,7 @@
           <li class="header__nav-li"><a class="header__nav-link" href="/factor_diagram" target="_self">Factor diagram</a></li>
           <li class="header__nav-li"><a class="header__nav-link" href="/about" target="_self">About</a></li>
           <li class="header__nav-li"><a class="header__nav-link" href="/news" target="_self">News</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_self">Literature</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="/literature" target="_self">Literature</a></li>
           <li class="header__nav-li"><a class="header__nav-link" href="#" target="_self">FAQ</a></li>
         </ul>
       </nav>
