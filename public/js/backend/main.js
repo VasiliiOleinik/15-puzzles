@@ -67,9 +67,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     //тэги обновились
-    $('.tags__list').bind("DOMSubtreeModified", function () {
-        dataFilter(getTagsData());
-    });
+    startObserver('.tags__list', dataFilter, getTagsData);
 
     /* ------------------ */
     /* ------------------ */
@@ -193,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   
     /* ------------------ */
     /*     FUNCTIONS      */
-    /* ------------------ */    
+    /* ------------------ */
 
     function getTagsData() {
         let piece = [], disease = [], protocol = [];
@@ -451,5 +449,29 @@ function uncheckAllCheckboxes() {
 function uncheckAllPuzzles() {
     $('.puzzle-15__item-outer').children().removeClass('active');
 }
+
+function startObserver(selector, callback, params) {
+    // Configuration of the observer:
+    let config = {
+        attributes: true,
+        childList: true,
+        characterData: true
+    };
+
+    let target = $(selector)[0];
+
+    // Create an observer instance
+    let observer = new MutationObserver(function (mutations) {
+        mutations.forEach(function (mutation) {
+            let newNodes = mutation.addedNodes; // DOM NodeList
+
+            callback(params());
+        });
+    });
+
+    // Pass in the target node, as well as the observer options
+    observer.observe(target, config);
+}
+
 /* ------------------ */
 /* ------------------ */
