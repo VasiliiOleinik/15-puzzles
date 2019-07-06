@@ -22,24 +22,28 @@ class NewsController extends Controller
         );
         //Выбраны тэги
         if($request->tagsActive){
-            $articles_id = array();                
-            $tags = Tag::with('articles')->whereIn('id',$request->tagsActive)->get();              
-            foreach($tags as $tag){
-                foreach($tag->articles as $obj) {
-                    array_push($articles_id, $obj->id);
-                }               
+            if($request->tagsActive[0]) {
+                $articles_id = array();
+                $tags = Tag::with('articles')->whereIn('id', $request->tagsActive)->get();
+                foreach ($tags as $tag) {
+                    foreach ($tag->articles as $obj) {
+                        array_push($articles_id, $obj->id);
+                    }
+                }
+                $articlesWithTags = Article::with('tags')->whereIn('id', $articles_id)->get()->pluck('id')->toArray();
             }
-            $articlesWithTags = Article::with('tags')->whereIn('id',$articles_id)->get()->pluck('id')->toArray();               
         }
         //Выбраны категории
         if($request->categoriesForNewsActive){
-        
-            $categoriesForNewsActive = $request->categoriesForNewsActive;
+            if(count($request->categoriesForNewsActive) > 0) {
 
-            $articlesWithCategoriesForNews = Article::with('categoriesForNews')->whereHas(
-                'categoriesForNews', function ($query) use ( $categoriesForNewsActive ) {
-                $query->whereIn('category_for_news_id', $categoriesForNewsActive);
-            })->get()->pluck('id')->toArray();
+                $categoriesForNewsActive = $request->categoriesForNewsActive;
+
+                $articlesWithCategoriesForNews = Article::with('categoriesForNews')->whereHas(
+                    'categoriesForNews', function ($query) use ( $categoriesForNewsActive ) {
+                    $query->whereIn('category_for_news_id', $categoriesForNewsActive);
+                })->get()->pluck('id')->toArray();
+            }
         }
         //Выбраны тэги или категории
         if($request->categoriesForNewsActive || $request->tagsActive){

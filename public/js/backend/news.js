@@ -85,6 +85,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $("#tags").tagsinput('removeAll');
     }
 
+    function setData(categoriesForNewsActive, tagsActive){
+        let data = {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            categoriesForNewsActive: categoriesForNewsActive,
+            tagsActive: tagsActive,
+        };
+        return data;
+    }
+
     /* ------------------ */
     /* ------------------ */
 
@@ -107,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //клик на сброс фильтра
     $('.clear-filter-btn').on('click', function () {
         clearFilter();
-    })
+    });
 
     //клик на категориях статей
     $('.categories__list li a').on('click', function () {
@@ -125,14 +134,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
             categoryAjax.abort();
         } catch (err) { }
 
+        let data = setData(categoriesForNewsActive, tagsActive);
+
         categoryAjax = $.ajax({
             type: "GET",
             url: "/news",
-            data: {
-                categoriesForNewsActive: categoriesForNewsActive,
-                tagsActive: tagsActive,
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-            },
+            data: data,
             complete: function (result) {
                 if (result.responseText)
                     $('.main-content').html(result.responseText);
@@ -151,7 +158,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     })
 
     //Тэги изменились
-    $("#tags").change(function () {
+    $("#tags").on('change',function () {
 
         if ($("#tags").val().length) {
             $('.tt-input').attr('placeholder', '');
@@ -160,16 +167,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $('.tt-input').attr('placeholder', 'Search');
         }
 
-        var tagsActive = $("#tags").val().split(',');
+        let tagsActive = $("#tags").val().split(',');
+        let data = setData(categoriesForNewsActive, tagsActive);
 
-        news_ajax = $.ajax({
+        newsAjax = $.ajax({
             type: "GET",
             url: "/news",
-            data: {
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-                categoriesForNewsActive: categoriesForNewsActive,
-                tagsActive: tagsActive,
-            },
+            data: data,
             complete: function (result) {
 
                 if (result.responseText.length != 0) {

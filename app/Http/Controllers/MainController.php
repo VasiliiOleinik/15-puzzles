@@ -114,7 +114,7 @@ class MainController extends Controller
                 $json[$table] = $modelResults;
             }else {
 
-                $resultStartArray = $model::all()->pluck('id')->toArray();
+                $resultStartArray = Cache::get($table)->pluck('id')->toArray();
                 $withArray = ['piece', 'disease', 'protocol'];
 
                 //фильтр по таблице не задан => ищем
@@ -126,9 +126,7 @@ class MainController extends Controller
                             if ($request[$with]) {
                                 $result = $this->withWhereIn($model, $with, $request[$with], $resultStartArray);
                                 $resultStartArray = $this->getStartModelIdArray($with, $result, $request[$with]);
-                            } else {
-                                $result = $this->withWhereIn($model, $with, [], $resultStartArray);
-                                $resultStartArray = $this->getStartModelIdArray($with, $result, []);
+                                break;
                             }
                         }
                     }

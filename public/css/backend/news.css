@@ -1,12 +1,12 @@
-.news-left {
+/*.news-left {
     min-width: 900px;
-    /*height: 3160px;*/
+    height: 3160px;
 }
 
 @media (max-width: 1600px) .news-left {
     min-width: 655px!important;
 }
-
+*/
 .news-left .main-content .post_container .post__img {
-    height: 470px;
+    height: 434px;
 }
