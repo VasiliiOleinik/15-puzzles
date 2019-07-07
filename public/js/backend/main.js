@@ -69,6 +69,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //тэги обновились
     startObserver('.tags__list', dataFilter, getTagsData);
 
+    //удаление тэга с панели тэгов
+    $('.tags__list').delegate('.tag-remove','click',function(){
+        removeTag($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
+        checkCheckbox($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
+        checkPuzzle($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
+    });
+
     /* ------------------ */
     /* ------------------ */
 
