@@ -126,7 +126,6 @@ class MainController extends Controller
                             if ($request[$with]) {
                                 $result = $this->withWhereIn($model, $with, $request[$with], $resultStartArray);
                                 $resultStartArray = $this->getStartModelIdArray($with, $result, $request[$with]);
-                                break;
                             }
                         }
                     }
