@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*     VARIABLES      */
     /* ------------------ */
     let categoryAjax, tagsAjax;
-    let categoriesForNewsActive = [];
+    let categoriesForBooksActive = [];
     /* ------------------ */
     /* ------------------ */
 
@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     function clearFilter() {
         $('.choosen').removeClass('choosen');
-        categoriesForNewsActive = [];
+        categoriesForBooksActive = [];
         $("#tags").tagsinput('removeAll');
     }
 
@@ -104,6 +104,46 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     });
 
+    //клик на "Где купить"
+    $('.main-content').delegate('.show-more-info-book','click', function () {
+        $('#more-info-book-modal-js').html("");
+        let loop = setInterval(function () {
+            if ($('.fancybox-close-small')) {
+                $('.fancybox-close-small').remove();
+                clearInterval(loop);
+            }
+        }, 1);
+
+        let bookId = $(this).parent().parent().attr('obj-id');
+        let bookName = $(this).parent().find('.book-name').html();
+        let bookAuthor = $(this).parent().find('.book-author').html();
+        let bookDescription = $(this).parent().find('.book-review').html();
+        let bookImg = $(this).parent().parent().find('.book-img').attr('src');
+        let data = {
+            "id" : bookId,
+            "title" : bookName,
+            "author" : bookAuthor,
+            "description": bookDescription,
+            "img": bookImg,
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+        };
+        let closeButtonHtml = '<button type="button" data-fancybox-close="" class="fancybox-button fancybox-close-small" title="Close"><svg xmlns="http://www.w3.org/2000/svg" version="1" viewBox="0 0 24 24"><path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path></svg></button>';
+
+        $.ajax({
+            type: "GET",
+            url: "/literature-modal",
+            data: data,
+            complete: function (result) {
+                if (result.responseText)
+                    $('#more-info-book-modal-js').html(result.responseText + closeButtonHtml);
+            },
+            error: function (err) {
+                if (err.responseText)
+                    console.log(err.responseText);
+            }
+        });
+    })
+
     //клик на сброс фильтра
     $('.clear-filter-btn').on('click', function () {
         clearFilter();
@@ -112,11 +152,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //клик на категориях статей
     $('.categories__list li a').on('click', function () {
         let category = $(this).attr('obj-id');
-        if (!categoriesForNewsActive.includes(category)) {
-            categoriesForNewsActive.push(category);
+        if (!categoriesForBooksActive.includes(category)) {
+            categoriesForBooksActive.push(category);
         } else {
-            let index = categoriesForNewsActive.indexOf(category);
-            if (index !== -1) categoriesForNewsActive.splice(index, 1);
+            let index = categoriesForBooksActive.indexOf(category);
+            if (index !== -1) categoriesForBooksActive.splice(index, 1);
         }
 
         let tagsActive = $("#tags").val().split(',');
@@ -127,9 +167,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         categoryAjax = $.ajax({
             type: "GET",
-            url: "/news",
+            url: "/literature",
             data: {
-                categoriesForNewsActive: categoriesForNewsActive,
+                categoriesForBooksActive: categoriesForBooksActive,
                 tagsActive: tagsActive,
                 "_token": $('meta[name="csrf-token"]').attr('content'),
             },
@@ -164,10 +204,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         news_ajax = $.ajax({
             type: "GET",
-            url: "/news",
+            url: "/literature",
             data: {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
-                categoriesForNewsActive: categoriesForNewsActive,
+                categoriesForBooksActive: categoriesForBooksActive,
                 tagsActive: tagsActive,
             },
             complete: function (result) {

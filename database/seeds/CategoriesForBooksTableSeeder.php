@@ -19,12 +19,6 @@ class CategoriesForBooksTableSeeder extends Seeder
         
         $countModel = 8;
         factory(CategoryForBooks::class, $countModel)->create();
-        
-        //pivot table
-        $categoriesForBooks = CategoryForBooks::all();
-        $books = Book::with('categoriesForBooks')->get();
-        foreach ($books as $book) {
-            $book->categoriesForBooks()->attach($categoriesForBooks->random( rand(1,  $countModel/2  ) ) );
-        }    
+       
     }
 }

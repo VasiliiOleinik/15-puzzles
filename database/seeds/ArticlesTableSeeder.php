@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Article\Article;
+use App\Models\Category\CategoryForNews;
 use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
@@ -19,12 +20,22 @@ class ArticlesTableSeeder extends Seeder
         factory(Article::class, 17)->create();
 
         $tags = Tag::all();
+        $categoriesForNews = CategoryForNews::all();
 
         // Populate the pivot table
         Article::all()->each(function ($article) use ($tags) { 
             $article->tags()->attach(
                 $tags->random(
                     rand(6,  25))->pluck('id')->toArray()
+                
+            ); 
+        });
+
+        // Populate the pivot table
+        Article::all()->each(function ($article) use ($categoriesForNews) { 
+            $article->categoriesForNews()->sync(
+                $categoriesForNews->random(
+                    rand(1,  3))->pluck('id')->toArray()
                 
             ); 
         });

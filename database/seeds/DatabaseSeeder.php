@@ -10,11 +10,7 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        $this->call(BooksTableSeeder::class);
-        $this->call(LinksForBooksTableSeeder::class);
-        $this->call(CategoriesForBooksTableSeeder::class);
-
+    {       
 		$this->call(RolesTableSeeder::class);
 		$this->call(PermissionsTableSeeder::class);
 		$this->call(RolePermissionsTableSeeder::class);
@@ -36,7 +32,12 @@ class DatabaseSeeder extends Seeder
         
 
         $this->call(TagsTableSeeder::class);
-        $this->call(ArticlesTableSeeder::class);
-        $this->call(CategoriesForNewsTableSeeder::class);        
+        $this->call(CategoriesForNewsTableSeeder::class);
+        $this->call(ArticlesTableSeeder::class);        
+
+        $this->call(CategoriesForBooksTableSeeder::class);
+        $this->call(BooksTableSeeder::class);
+        $this->call(LinksForBooksTableSeeder::class);
+        
     }
 }

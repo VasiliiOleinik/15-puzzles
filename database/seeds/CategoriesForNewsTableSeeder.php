@@ -18,12 +18,6 @@ class CategoriesForNewsTableSeeder extends Seeder
         
         $countCategoriesForNews = 8;
         factory(CategoryForNews::class, $countCategoriesForNews)->create();
-        
-        //pivot table
-        $categoriesForNews = CategoryForNews::all();
-        $articles = Article::with('categoriesForNews')->get();
-        foreach ($articles as $article) {
-            $article->categoriesForNews()->attach($categoriesForNews->random( rand(1,  $countCategoriesForNews/2  ) ) );
-        }        
+               
     }
 }

@@ -33,6 +33,10 @@ Route::resource('news', 'NewsController');
 Route::get('/used_tags', 'NewsController@usedTags')->name('used_tags');
 /* ---- */
 
+/* LITERATURE */
+Route::get('/literature-modal', 'LiteratureController@literatureModal')->name('literature-modal');
+/* ---- */
+
 /* PERSONAL CABINET */
 Route::resource('user', 'UserController');
 Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet

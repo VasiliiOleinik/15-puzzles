@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Models\Book\Book;
 use App\Models\Category\CategoryForBooks;
+use App\Models\Book\LinkForBooks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -19,28 +20,31 @@ class LiteratureController extends Controller
             function(){
                 return CategoryForBooks::with('books')->get();
             }
-        );
-        /*
+        );        
         //Выбраны тэги
         if($request->tagsActive){
-            $books_id = array();                
-            $tags = Tag::with('books')->whereIn('id',$request->tagsActive)->get();              
-            foreach($tags as $tag){
-                foreach($tag->books as $obj) {
-                    array_push($books_id, $obj->id);
-                }               
+            if($request->tagsActive[0]) {
+                $books_id = array();                
+                $tags = Tag::with('books')->whereIn('id',$request->tagsActive)->get();              
+                foreach($tags as $tag){
+                    foreach($tag->books as $obj) {
+                        array_push($books_id, $obj->id);
+                    }               
+                }
+                $booksWithTags = Book::with('tags')->whereIn('id',$books_id)->get()->pluck('id')->toArray();
             }
-            $booksWithTags = Book::with('tags')->whereIn('id',$books_id)->get()->pluck('id')->toArray();               
-        }
+        }          
         //Выбраны категории
         if($request->categoriesForBooksActive){
+            if(count($request->categoriesForBooksActive) > 0) {
         
-            $categoriesForBooksActive = $request->categoriesForBooksActive;
+                $categoriesForBooksActive = $request->categoriesForBooksActive;
 
-            $booksWithCategoriesForBooks = Book::with('categoriesForBooks')->whereHas(
-                'categoriesForBooks', function ($query) use ( $categoriesForBooksActive ) {
-                $query->whereIn('category_for_literature_id', $categoriesForBooksActive);
-            })->get()->pluck('id')->toArray();
+                $booksWithCategoriesForBooks = Book::with('categoriesForBooks')->whereHas(
+                    'categoriesForBooks', function ($query) use ( $categoriesForBooksActive ) {
+                    $query->whereIn('category_for_books_id', $categoriesForBooksActive);
+                })->get()->pluck('id')->toArray();
+            }
         }
         //Выбраны тэги или категории
         if($request->categoriesForBooksActive || $request->tagsActive){
@@ -66,11 +70,21 @@ class LiteratureController extends Controller
         if($request->page){
             $books = Book::paginate(4);
             return view('literature.literature-left.main-content', compact(['books']));
-        }
-        */
-        //else{
+        }        
+        else{
             $books = Book::paginate(4);
             return view('literature.literature', compact(['books','categoriesForBooks']));
-        //}
+        }
+    }
+
+    public function literatureModal(Request $request)
+    {
+        $links = LinkForBooks::with('books')->whereHas(
+                    'books', function ($query) use ( $request ) {
+                    $query->whereIn('book_id', [$request->id]);
+                })->get();
+        return view('literature.literature-left.modal', ['title' => $request->title, 'author' => $request->author,
+                                              'description' => $request->description, 'img' => $request->img,
+                                              'links' => $links]);
     }
 }

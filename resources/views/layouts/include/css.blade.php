@@ -10,4 +10,5 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('css/backend/auth.css') }}">
 @yield('main-css')
 @yield('news-css')
+@yield('literature-css')
 @yield('personal_cabinet-css')

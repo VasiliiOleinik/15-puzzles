@@ -7,9 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property string $title
+ * @property string $author
  * @property string $description
  * @property string $img
  * @property LinkForBooks[] $linksForBooks
+ * @property CategoryForBooks[] $categoriesForBooks
+ * @property BookTag[] $tags
  */
 class Book extends Model
 {
@@ -18,7 +21,7 @@ class Book extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'description', 'img'];
+    protected $fillable = ['title', 'author', 'description', 'img'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -34,5 +37,13 @@ class Book extends Model
     public function categoriesForBooks()
     {
         return $this->belongsToMany('App\Models\Category\CategoryForBooks', 'book_categories_for_books');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+    return $this->belongsToMany('App\Models\Tag', 'book_tags');
     }
 }
