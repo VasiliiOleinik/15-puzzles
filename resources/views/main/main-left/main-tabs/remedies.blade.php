@@ -13,8 +13,8 @@
           <div class="text">
             <p>{{$remedy->content}}</p>
           </div>
-          <a class="show-more" href="javascript:void(0)">Show more</a><a class="link"
-                                                                         href="javascript:void(0)">{{$remedy->url}}</a>
+          <a class="show-more" href="javascript:void(0)">Show more</a><a class="link" target="_blank"
+                                                                         href="{{$remedy->url}}">{{$remedy->url}}</a>
         </div>
       </div>
   @endforeach

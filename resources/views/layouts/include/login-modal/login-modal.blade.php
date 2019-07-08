@@ -1,6 +1,6 @@
 <div class="header-login-modal" id="header-login-modal-js">
   <div class="header-login-modal__container">
-    <button class="header-login-modal__close"><img src="img/svg/close-modal.svg" alt=""></button>
+    <button class="header-login-modal__close"><img src="/img/svg/close-modal.svg" alt=""></button>
     <div class="container-authorization">
       <div class="container-authorization__tabs">
         <div class="authorization-tab active" id="tabs-login">Authorization</div>

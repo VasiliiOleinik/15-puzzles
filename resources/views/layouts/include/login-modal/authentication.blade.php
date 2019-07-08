@@ -2,26 +2,26 @@
   <div class="login-inputs">
     <form method="POST" action="/personal_cabinet">
       @csrf
-      <input name="login" type="text" placeholder="Login" required class="@error('login') is-invalid @enderror"
+      <input name="login" type="text" placeholder="Login" class="@error('login') is-invalid @enderror"
              value="{{ old('login') }}" autocomplete="login" autofocus>
       @error('login')
-      <span class="invalid-feedback" role="alert">
+      <label for="login" class="invalid-feedback" role="alert">
         <strong>{{ $message }}</strong>
-      </span>
+      </label>
       @enderror
-      <input name="password" type="password" placeholder="Password" required
+      <input name="password" type="password" placeholder="Password"
              class="@error('password') is-invalid @enderror" value="{{ old('password') }}" autocomplete="password"
              autofocus>
       @error('password')
-      <span class="invalid-feedback" role="alert">
+      <label for="password" class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
-                      </span>
+                      </label>
       @enderror
       <button class="modal-login-btn">Login</button>
       <span class="errors-auth"></span>
     </form>
   </div>
   <div class="login-footer"><a class="forgot-pass" id="forgot-pass-js" href="javascript:void(0);">Forgot you password?
-      <img src="img/svg/arrow.svg" alt=""></a>
+      <img src="/img/svg/arrow.svg" alt=""></a>
   </div>
 </div>

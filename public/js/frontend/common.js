@@ -1,4 +1,5 @@
-$(document).ready(function() {
+$(document).ready(function () {
+
   // preloader();//Fade preloader when page loaded
   setCategoryPosition(); // Позиционирование названия групп в секции puzzle-15
   var maintabsProps = {

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Auth;
 
 class RegisterController extends Controller
 {
@@ -51,17 +53,30 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+      protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nickname' => ['required', 'string', 'max:255'],
-            'first_name' => ['max:255'],
-            'middle_name' => ['max:255'],
-            'last_name' => ['max:255'],
+            'login-register' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password-register' => ['required', 'string', 'min:8'],
         ]);
     }
+
+
+    public function register(Request $request)
+    {
+        $validation = $this->validator($request->all());
+        if ($validation->fails())  {
+            return response()->json(["errorsRegister" => $validation->errors()->toArray()]);
+        }
+        else{
+           $user = $this->create($request->all());
+           Auth::login($user);
+           return json_encode("success");
+            
+        }
+    }
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -72,12 +87,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'nickname' => $data['nickname'],
-            'first_name' => $data['first_name'],
-            'middle_name' => $data['middle_name'],
-            'last_name' => $data['last_name'],
+            'nickname' => $data['login-register'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($data['password-register']),
         ]);
     }
 }

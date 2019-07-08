@@ -2,7 +2,7 @@
   <div class="box">
     <div class="footer__items">
       <div class="footer__left footer__item">
-        <div class="footer__logo logo"><img src="img/svg/logo.svg"></div>
+        <div class="footer__logo logo"><img src="/img/svg/logo.svg"></div>
         <ul class="footer__list">
           <li class="footer__li"><a class="footer__link" href="#" target="_blank">letter to the editor</a></li>
           <li class="footer__li"><a class="footer__link" href="#" target="_blank">Privacy Policy</a></li>
@@ -35,11 +35,11 @@
   </div>
   <div class="box">
     <div class="footer__copirate">Copyright © 2019 15Puzzle Company. All rights reserved.
-      <div class="footer__socs"><a class="footer__soc" href="#" target="_blank"><img src="img/svg/youtube.svg"></a><a
-                class="footer__soc" href="#" target="_blank"><img src="img/svg/facebook.svg"></a><a class="footer__soc"
+      <div class="footer__socs"><a class="footer__soc" href="#" target="_blank"><img src="/img/svg/youtube.svg"></a><a
+                class="footer__soc" href="#" target="_blank"><img src="/img/svg/facebook.svg"></a><a class="footer__soc"
                                                                                                     href="#"
                                                                                                     target="_blank"><img
-                  src="img/svg/insta.svg"></a></div>
+                  src="/img/svg/insta.svg"></a></div>
     </div>
   </div>
 </footer>

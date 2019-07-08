@@ -13,5 +13,5 @@
         <h6 class="puzzle-15__item-title">{{$factor->name}}</h6>
       </div>
     </div>
-@endforeach
-                
+  @endforeach
+</div>           

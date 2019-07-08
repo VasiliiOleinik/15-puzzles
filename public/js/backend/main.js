@@ -280,9 +280,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             html += '       <p>' + content + '</p>';
                         }
                         html += '       </div>';
-                        html += '       <a class="show-more" href="javascript:void(0)">Show more</a>';
+                        html += '       <a class="show-more" target="_black" href="' + url + '">Show more</a>';
                         if (modelNames[i] == "protocol" || modelNames[i] == "remedy") {
-                            html += '   <a class="link" href="javascript:void(0)"> ' + url + ' </a>';
+                            html += '   <a class="link"  target="_black" href="' + url + '"> ' + url + ' </a>';
                         }
                         html += '   </div>';
                         html += '</div>';

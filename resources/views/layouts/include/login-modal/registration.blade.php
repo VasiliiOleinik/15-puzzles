@@ -1,11 +1,12 @@
 <div class="container-authorization__reg">
   <div class="reg-inputs">
-    <form action="">
-      <input name="login" type="text" placeholder="Login">
+    <form method="POST" action="/" id="registration-form">
+      @csrf
+      <input name="login-register" type="text" placeholder="Login">
       <input name="email" type="email" placeholder="Email">
-      <input name="password" type="password" placeholder="Password">
-      <input name="congirm-password" type="password" placeholder="Confirm password">
-      <button class="modal-reg-btn">Registration</button>
+      <input name="password-register" type="password" placeholder="Password">
+      <input name="congirm-password-register" type="password" placeholder="Confirm password">
+      <button class="modal-reg-btn" type="submit" form="registration-form">Registration</button>
     </form>
   </div>
   <div class="reg-footer">

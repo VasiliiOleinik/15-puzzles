@@ -49,20 +49,25 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         let data = {
-            "login": $('[name=login]').val(),
+            "login-register": $('[name=login-register]').val(),
             "email": $('[name=email]').val(),
-            "password": $('[name=password]').val(),
-            "confirm-password": $('[name=confirm-password]').val(),
+            "password-register": $('[name=password-register]').val(),
+            //"confirm-password-register": $('[name=congirm-password]').val(),
             "_token": $('meta[name="csrf-token"]').attr('content'),
         };
-
+        console.log(data);
         $.ajax({
             type: "post",
-            url: "/login",
+            url: "/register",
             data: data,
             dataType: 'json',
             complete: function (data) {
-                if(data.responseJSON.auth === "success")
+                //console.log(data.responseText);
+                if (data.responseJSON === "success") {
+                    $('.fancybox-close-small').click();
+                    location.href = "/personal_cabinet";
+                }
+                /*if(data.responseJSON.auth === "success")
                 {
                     $('.fancybox-close-small').click();
                     location.href = "/personal_cabinet";
@@ -70,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if(data.responseJSON.auth === "failed")
                 {
                     $('.errors-auth').html('Login or password invalid')
-                }
+                }*/
             },
             error: function (err) {
                 if (err.status === 422) { // when status code is 422, it's a validation issue

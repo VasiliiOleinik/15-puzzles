@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Cache;
 
 class NewsController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         //категории для новостей
@@ -74,6 +79,25 @@ class NewsController extends Controller
             $articles = Article::paginate(4);
             return view('news.news', compact(['articles','categoriesForNews']));
         }
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Article\Article  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //категории для новостей
+        $categoriesForNews = Cache::remember(
+            'categoryForNews',
+            now()->addDay(1),
+            function(){
+                return CategoryForNews::with('articles')->get();
+            }
+        );
+        return view('news.news-single', ['article' => Article::find($id),'categoriesForNews' => $categoriesForNews]);
     }
 
     //Тэги, которые использовались ($request->with должен содержать таблицу, связанную с тэгами. например 'articles')

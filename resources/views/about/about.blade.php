@@ -3,7 +3,7 @@
         <main class="main">
           <div class="box about">
             <div class="main__left">
-              <div class="title-container"><img src="img/about_bg.jpg" alt="About BG">
+              <div class="title-container"><img src="/img/about_bg.jpg" alt="About BG">
                 <h2 class="main__left-title">About 15-PUZZLE<br>Project <span class="title-line"></span><span class="title-text">Cancerogenesis reversal hypothesis</span></h2>
               </div>
               <div class="main__left-subtitle">
@@ -20,9 +20,9 @@
             <div class="main__right">
               <div class="main__video">
                 <div class="main__video-overlay"></div>
-                <video poster="img/Video.png">
-                  <source src="https://quirksmode.org/html5/videos/big_buck_bunny.mp4" type="video/mp4">
-                  <source src="https://quirksmode.org/html5/videos/big_buck_bunny.ogv" type="video/ogg">
+                <video poster="/img/Video.png">
+                  <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
+                  <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg">
                 </video>
               </div>
               <div class="puzzle-15">
@@ -30,82 +30,18 @@
                 <div class="puzzle-15__category conditions"><span></span>conditions</div>
                 <div class="puzzle-15__category defence"><span></span>defence</div>
                 <div class="puzzle-15__category dangers"><span></span>dangers</div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item reasons"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/oxygen_metabolism.svg">
-                    <h6 class="puzzle-15__item-title">Oxygen <br> metabolism change</h6>
+                <div class="puzzle-15__category dangers"><span></span>dangers</div>
+                <div class="puzzle-15__category dangers"><span></span>dangers</div>
+                @foreach($factors as $factor)
+                  <div class="puzzle-15__item-outer" obj-id="{{$factor->id}}">
+                    <div class="puzzle-15__item {{$factor->type->name}}"><img class="factors-check"
+                                                                                  src="img/svg/factors-check.svg" alt=""><img
+                              src="{{$factor->img}}">
+                      <h6 class="puzzle-15__item-title">{{$factor->name}}</h6>
+                    </div>
                   </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item reasons"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/dna.svg">
-                    <h6 class="puzzle-15__item-title">DNA <br> damage</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item reasons"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/etiology.svg">
-                    <h6 class="puzzle-15__item-title">Etiology</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item defence"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/hand.svg">
-                    <h6 class="puzzle-15__item-title">Looking up</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item conditions"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/detox.svg">
-                    <h6 class="puzzle-15__item-title">Detox</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item conditions"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/voltage.svg">
-                    <h6 class="puzzle-15__item-title">Cell <br> voltage</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item conditions"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/ph.svg">
-                    <h6 class="puzzle-15__item-title">pH</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item conditions"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/cellular.svg">
-                    <h6 class="puzzle-15__item-title">Cellular <br> metabolism</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item defence"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/cancer_cell_recognation.svg">
-                    <h6 class="puzzle-15__item-title">Cancer cell recognition by immune system</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item defence"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/reactivation.svg">
-                    <h6 class="puzzle-15__item-title">Reactivation <br> of immune system</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item defence"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/connective.svg">
-                    <h6 class="puzzle-15__item-title">Connective <br> tissue recovery</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item defence"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/cancer_cell_elimination.svg">
-                    <h6 class="puzzle-15__item-title">Cancer <br> cell elimination</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item dangers"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/free_radical.svg">
-                    <h6 class="puzzle-15__item-title">Free Radical <br> stress</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item dangers"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/cancer_cell_division.svg">
-                    <h6 class="puzzle-15__item-title">Cancer <br> cell division</h6>
-                  </div>
-                </div>
-                <div class="puzzle-15__item-outer">
-                  <div class="puzzle-15__item dangers"><img class="factors-check" src="../img/svg/factors-check.svg" alt=""><img src="img/svg/angiogenesis.svg">
-                    <h6 class="puzzle-15__item-title">Angiogenesis</h6>
-                  </div>
-                </div>
-              </div>
+                @endforeach
+              </div>                  
               <div class="main__right-note">The 15 pieces of the cancer process may look confusing at a first glance. But keep in mind that there are evidences of completing the riddle in 1-2 moves only. It might be necessary to move as much as 4 or 6 pieces to fix your body, feel free to explore the puzzle and sort it out!</div>
               <ul class="main__books">
                 <li><img src="img/svg/book.svg">Detoxifying for cancer (by dr. George Andonevris)

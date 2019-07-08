@@ -113,6 +113,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     });
 
+    /*
+    $('.news-left').delegate('.post__image', 'click', function (e) {        
+        e.preventDefault();
+        location.href = $(this).attr('href');
+        e.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: $(this).attr('href'),
+            data: {
+                id: $(this).attr('obj-id')
+            },
+            complete: function (result) {
+                if (result.responseText)
+                    $('.main-content').html(result.responseText);
+            },
+            error: function (err) {
+                if (err.responseText)
+                    console.log(err.responseText);
+            }
+        });
+    })*/
+
     //клик на сброс фильтра
     $('.clear-filter-btn').on('click', function () {
         clearFilter();

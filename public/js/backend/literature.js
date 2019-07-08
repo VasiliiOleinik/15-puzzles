@@ -2,7 +2,7 @@
 /*     DOCUMENT READY      */
 /* ----------------------- */
 document.addEventListener("DOMContentLoaded", function (event) {
-
+    
     /* ------------------ */
     /*     VARIABLES      */
     /* ------------------ */
@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
     /*     FUNCTIONS      */
     /* ------------------ */
+
+    //Без этого кнопки "Где купить" будут disabled (ждем document ready и активуруем их)
+    $('.show-more-info-book').attr('data-fancybox', '');
 
     function usedTags() {
         $.ajax({
@@ -105,7 +108,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     //клик на "Где купить"
-    $('.main-content').delegate('.show-more-info-book','click', function () {
+    $('.main-content').delegate('.show-more-info-book', 'click', function () {
+       
         $('#more-info-book-modal-js').html("");
         let loop = setInterval(function () {
             if ($('.fancybox-close-small')) {
@@ -134,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             url: "/literature-modal",
             data: data,
             complete: function (result) {
-                if (result.responseText)
+                //if (result.responseText)
                     $('#more-info-book-modal-js').html(result.responseText + closeButtonHtml);
             },
             error: function (err) {
