@@ -56,9 +56,10 @@ class RegisterController extends Controller
       protected function validator(array $data)
     {
         return Validator::make($data, [
-            'login-register' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password-register' => ['required', 'string', 'min:8'],
+            'nickname' => ['required', 'unique:users', 'string', 'max:191', "regex:/^([0-9\p{Latin}]+[\ -]?)+[a-zA-Z0-9]+$/u"],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+            'password-register' => ['required', 'string', 'min:8', "regex:/^([0-9\p{Latin}]+[\ -]?)+[a-zA-Z0-9]+$/u"],
+            'confirm-password-register' => ['max:191', 'same:password-register'],
         ]);
     }
 
@@ -70,8 +71,9 @@ class RegisterController extends Controller
             return response()->json(["errorsRegister" => $validation->errors()->toArray()]);
         }
         else{
-           $user = $this->create($request->all());
+           $user = $this->create($request->all());           
            Auth::login($user);
+           $user->sendEmailVerificationNotification();
            return json_encode("success");
             
         }
@@ -87,7 +89,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'nickname' => $data['login-register'],
+            'nickname' => $data['nickname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password-register']),
         ]);

@@ -16,12 +16,15 @@
       <div class="header__langs"><a class="header__lang" href="#">ENG</a><span class="header__lang-devider"></span><a
                 class="header__lang" href="#">RU</a></div>
       <div class="header__login">
-        <button id="login-btn" data-fancybox data-src="#header-login-modal-js"><img src="/img/svg/user.svg" alt="User">
+        
           @guest
+          <button id="login-btn" data-fancybox data-src="#header-login-modal-js"><img src="/img/svg/user.svg" alt="User">
             <span>Login</span>
+          </button>
           @endguest
-        </button>
+        
         @auth
+          <button ><img src="/img/svg/user.svg" alt="User"></button>
           <a class="logout" href="{{ route('logout') }}"
              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

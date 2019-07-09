@@ -1,4 +1,4 @@
-.errors, .errors-auth {
+.errors, .errors-auth, #errors-register {
     font-size: 12px;
     color: #f76577;
     text-align: center;
@@ -13,7 +13,37 @@
     margin-top: 4px;
 }
 
-.logout{
+.errors.nickname, .errors.email, .errors.password-register, .errors.confirm-password-register {
+    position: absolute;
+}
+
+.errors.nickname {
+    left: 75px;
+    top: 218px;
+}
+
+.errors.email {
+    top: 218px;
+    left: 285px;
+}
+
+.errors.password-register {
+    left: 75px;
+    top: 290px;
+}
+
+label.errors.confirm-password-register {
+    top: 396px;
+    left: 75px;
+}
+
+#errors-register {
+    position: absolute;
+    bottom: 100px;
+    left: 76px;
+}
+
+.logout {
     color: #589ba7;
     font-size: 14px;
     font-weight: 400;
@@ -25,3 +55,47 @@ main {
     min-height: 1000px;
 }
 
+
+@-webkit-keyframes spinner-border {
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner-border {
+    to {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.spinner-border {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    vertical-align: text-bottom;
+    border: 0.25em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    -webkit-animation: spinner-border .95s linear infinite;
+    animation: spinner-border .95s linear infinite;
+}
+
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+    border-width: 0.2em;
+}
+
+.text-medicine {
+    color: #599ba7;
+}
+
+.spinner-register {
+    zoom: 50%;
+    margin-top: 12px;
+    margin-right: 19px;
+    height: 20px;
+    width: 20px;
+}
