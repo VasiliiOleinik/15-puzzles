@@ -8,6 +8,6 @@ class FactorDiagramController extends Controller
 {
     public function index()
     {
-    return view('factor_diagram');
+    return view('factor-diagram.factor-diagram');
     }
 }
