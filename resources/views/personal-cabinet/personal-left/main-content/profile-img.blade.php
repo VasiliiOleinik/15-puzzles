@@ -5,6 +5,6 @@
                     <div class="imageWrapper"><img class="image" src="{{$user->img}}"></div>
                     @endif
                     <button class="file-upload">
-                      <input class="file-input" type="file" placeholder="Choose File">
+                      <input class="file-input" type="file" placeholder="Choose File" accept="image/x-png,image/gif,image/jpeg" />
                     </button>
                   </div>

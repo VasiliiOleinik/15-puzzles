@@ -85,8 +85,10 @@ class UserController extends Controller
         if($request->password != null){         
           $user->password = Hash::make($request->password);
         }
-        $user->update($request->except('password'));
-        $user->img = $request['img'];
+        if($request->img != null){         
+          $user->img = $request['img'];
+        }
+        $user->update($request->except(['password','img']));        
 
         $user->save();
 

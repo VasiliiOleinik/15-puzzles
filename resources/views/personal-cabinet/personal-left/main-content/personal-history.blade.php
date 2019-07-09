@@ -7,7 +7,8 @@
                     <div class="upload-file">
                       <div class="fileImg"><img class="file" src="img/file.png"></div>
                       <button class="file-upload">
-                        <input class="file-input" type="file" id="file" name="file" placeholder="Choose File">
+                        <input class="file-input" type="file" id="file" name="file" placeholder="Choose File"
+                                accept=".xlsx, .pdf, .txt,.docx"/> 
                       </button>
                     </div>
                     <div class="upload-info">
