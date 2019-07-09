@@ -40,6 +40,7 @@ Route::get('/literature-modal', 'LiteratureController@literatureModal')->name('l
 /* PERSONAL CABINET */
 Route::resource('user', 'UserController');
 Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet
+Route::get('/download/{id}', 'FileController@download');
 /* ---- */
 
 Auth::routes(['verify' => true]);

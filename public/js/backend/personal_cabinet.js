@@ -1,4 +1,47 @@
 document.addEventListener("DOMContentLoaded", function (event) {
+
+    //если поля поиска Search by analysis history пусты, то очищаем url от get параметров
+    $(".search-btn, .search-byName").on("click", function (e) {
+        e.preventDefault();
+        let inputs = "";
+        $("#file-search-form").find('input').each(function () {
+            inputs += $(this).val();
+        });
+        if (inputs == "") {
+            location.href = location.href.substring(0, location.href.indexOf('?'));
+        } else
+            $("#file-search-form").submit();
+    })
+
+    //загрузка файлов
+    $('.result-item').on('click', function (e) {
+        let id = $(this).attr('obj-id');
+        location.href = '/download/' + id
+        let data = {
+            "action": "download",
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+        };
+        //location.href = '{{ route("file.personal_cabinet.store") }}';
+        /*$.ajax({
+            type: "post",
+            uploadUrl: '{{route("file.personal_cabinet")}}',
+            data: data,
+            dataType: 'json',
+            success: function (data) {
+
+                console.log(data.responseText)
+                var url = '{{route("file.personal_cabinet")}}';
+                window.location = url;
+            },
+            error: function (err) {
+                console.log(err.responseText)
+                var url = '{{route("file.personal_cabinet")}}';
+                window.location = err.responseText;
+            }
+        });*/
+        
+    })
+        
     //при смене аватара добавляем img src в hidden input формы
     $('.profile-img').find('.image').on('load', function () {
         setUserAvatar();

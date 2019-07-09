@@ -22,7 +22,6 @@
                         </label>
                       @enderror
                       <!- - ->
-                      <!--<input id="personal_file_name" type="text" value="File name">-->
                       <input class="add-file" type="submit" value="ADD">
                     </div>
                   </form>

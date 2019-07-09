@@ -6,6 +6,7 @@ use Auth;
 use App\Models\File;
 use App\Models\User\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 
@@ -37,7 +38,7 @@ class FileController extends Controller
         $date_from = new Carbon($search_file['date_from']);
         $date_to = new Carbon($search_file['date_to']);
 
-        $user_files = File::with('user')->where('user_id','=',Auth::id());
+        $user_files = File::with('user')->where('user_id','=',Auth::id())->orderBy('updated_at','desc');
 
         if($search_file['name']){
             $user_files = $user_files->where('name', 'like', '%'.$search_file['name'].'%');                  
@@ -75,6 +76,8 @@ class FileController extends Controller
      */
     public function store(Request $request)
     {
+
+
         $validatedData = $request->validate([
             //'upload_file' => ['mimes:docx,doc,pdf'],
             'file_name' => ['required', 'string', 'max:191'],
@@ -111,7 +114,7 @@ class FileController extends Controller
         $request->session()->flash('status-file_upload', 'You have successfully upload your file.');
 
         $request->file = null;         
-        return redirect('personal_cabinet');
+        return redirect('personal_cabinet');        
     }
 
     /**
@@ -133,7 +136,7 @@ class FileController extends Controller
      */
     public function edit(File $file)
     {
-        //
+        
     }
 
     /**
@@ -168,9 +171,23 @@ class FileController extends Controller
          //return redirect('personal_cabinet');
     }
 
+    /**
+     * Download the specified resource from server.
+     *
+     * @param  \App\Models\File  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function download($id)
+    {
+        $file = File::findOrFail($id);
 
+        $file_name = $file->name;
+        $file_type = $file->type;
+        $file_path = $file->path;
 
-
+        $file= public_path()."/".$file_path."/".$file_name.".".$file->type;     
+        return response()->download($file, $file_name.".".$file_type);        
+    }
 
     public function removeFileFromFolder($file_name, $file_type, $file_path){
         $data= $file_name.".".$file_type;    
