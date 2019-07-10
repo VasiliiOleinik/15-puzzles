@@ -1,5 +1,3 @@
-<div id="tab-5">
-  <div class="tab-list main-scroll markers" id="tabListMarkers">
     @foreach($markers as $marker)
       <div class="tab-item markers">
         <div class="tab-head-markers">
@@ -27,5 +25,3 @@
         </div>
       </div>
   @endforeach
-  </div>
-</div>

@@ -15,9 +15,29 @@
     <div class="tags__list">
     </div>
   </div>
-  @include('main.main-left.main-tabs.factors')
-  @include('main.main-left.main-tabs.diseases')
-  @include('main.main-left.main-tabs.protocols')
-  @include('main.main-left.main-tabs.remedies')
-  @include('main.main-left.main-tabs.markers')
+  <div id="tab-1">
+    <div class="tab-list main-scroll" id="tabListFactors">
+      @include('main.main-left.main-tabs.factors')
+    </div>
+  </div>
+  <div id="tab-2">
+    <div class="tab-list main-scroll" id="tabListDiseases">
+      @include('main.main-left.main-tabs.diseases')
+    </div>
+  </div>
+  <div id="tab-3">
+    <div class="tab-list main-scroll" id="tabListProtocols">
+      @include('main.main-left.main-tabs.protocols')
+    </div>
+  </div>
+  <div id="tab-4">
+    <div class="tab-list main-scroll" id="tabListRemedies">
+      @include('main.main-left.main-tabs.remedies')
+    </div>
+  </div>
+  <div id="tab-5">
+    <div class="tab-list main-scroll markers" id="tabListMarkers">
+      @include('main.main-left.main-tabs.markers')
+    </div>
+  </div>
 </div>

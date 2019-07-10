@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let modelDisease = "App\\Models\\Disease\\Disease";
     let modelProtocol = "App\\Models\\Protocol\\Protocol";
     let modelRemedy = "App\\Models\\Remedy";
-    let modelMarker = "App\\Models\\Marker\\Marker";
+    let modelMarker = "App\\Models\\Marker\\Marker";    
 
     let modelNames = {
         0: "piece",
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let tab4 = $('#tabListRemedies').html();
     let tab5 = $('#tabListMarkers').html();
 
-    evidences = evidencesAjax();
+    //evidences = evidencesAjax();
 
     /* ------------------ */
     /* ------------------ */
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
     //главный фильтр табов
-    function dataFilter(data) {
+    function dataFilterPrev(data) {
 
         try {
             filter_ajax.abort();
@@ -99,9 +99,43 @@ document.addEventListener("DOMContentLoaded", function (event) {
             data: data,
             dataType: 'json',
             complete: function (response) {
-                if (response.responseJSON.diseasePieces) {
-                    diseasePieces = response.responseJSON.diseasePieces;
-                }
+                //console.log(response.responseText);
+
+                //$('#tabListProtocols').html(response.responseJSON.protocol);
+            if (response.responseJSON.diseasePieces) {
+                diseasePieces = response.responseJSON.diseasePieces;
+            }
+            if (data.piece.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
+                refreshTabsCounts(response.responseJSON.models);
+                $('#tabListFactors').html(tab1);
+                $('#tabListDiseases').html(tab2);
+                $('#tabListProtocols').html(tab3);
+                $('#tabListRemedies').html(tab4);
+                $('#tabListMarkers').html(tab5);
+            } else {
+                refreshTabsContent(response.responseJSON.models);
+            }                
+            },
+            error: function (err) {
+            }
+        });
+    }
+
+    //главный фильтр табов
+    function dataFilter(data) {
+
+        try {
+            filter_ajax.abort();
+        } catch (err) {
+        }
+
+        filter_ajax = $.ajax({
+            type: "post",
+            url: "/model_partial",
+            data: data,
+            dataType: 'json',
+            complete: function (response) {
+                //console.log(response.responseText);                
                 if (data.piece.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
                     refreshTabsCounts(response.responseJSON.models);
                     $('#tabListFactors').html(tab1);
@@ -110,8 +144,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     $('#tabListRemedies').html(tab4);
                     $('#tabListMarkers').html(tab5);
                 } else {
-                    refreshTabsContent(response.responseJSON.models);
-                }
+                    refreshTabsCounts(response.responseJSON.models);
+                    if (response.responseJSON.diseasePieces) {
+                        diseasePieces = response.responseJSON.diseasePieces;
+                    }
+                    let activeTab = checkActiveTab();
+
+                    if (activeTab != 0)
+                        $('#tabListFactors').html(response.responseJSON.views.factor);
+                    if (activeTab != 1)
+                        $('#tabListDiseases').html(response.responseJSON.views.disease);
+                    if (activeTab != 2)
+                        $('#tabListProtocols').html(response.responseJSON.views.protocol);
+                    if (activeTab != 3)
+                        $('#tabListRemedies').html(response.responseJSON.views.remedy);
+                    if (activeTab != 4)
+                        $('#tabListMarkers').html(response.responseJSON.views.marker);                        
+                }                
             },
             error: function (err) {
             }
@@ -221,16 +270,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
             "protocol": protocol,
             "models": [modelPiece, modelDisease, modelProtocol, modelRemedy, modelMarker],
             "_token": $('meta[name="csrf-token"]').attr('content'),
-        };
+        };        
         return data;
     }
 
+    
     function refreshTabsCounts(models) {
         let length = Object.keys(modelNames).length;
         for (let i = 0; i < length; i++) {
             $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]].length + ']');
         }
     }
+    
+    /*
+    function refreshTabsCounts(models) {
+        let length = Object.keys(modelNames).length;
+        for (let i = 0; i < length; i++) {
+            $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]] + ']');
+        }
+    }*/
 
     function refreshTabsContent(models) {
 
@@ -381,9 +439,10 @@ function addTagToTagsList(objId, objName, objType) {
     if (tagExists(objId, objType)) {
         removeTag(objId, objType);
     } else {
-        if (objType === 'disease') {
-            
+        /*if (objType === 'disease') {
+
             var loop = setInterval(function () {
+                console.log(diseasePieces)
                 if (diseasePieces) {
                     $.each(diseasePieces, function (index, id) {
                         let type = "factor";
@@ -409,7 +468,7 @@ function addTagToTagsList(objId, objName, objType) {
             }, 1);
          
             checkOnlyThisCheckbox(objId, objType);
-        }
+        }*/
         if (objType === 'protocol') {
             let elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
             name = elem.parent().find('.title').html().split('<span')[0].trim();

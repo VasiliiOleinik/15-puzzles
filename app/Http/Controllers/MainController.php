@@ -87,6 +87,14 @@ class MainController extends Controller
             }
         );
 
+        $evidences = Cache::remember(
+            'evidences',
+            now()->addDay(1),
+            function(){
+                return Evidence::all();
+            }
+        );
+
         $data = [
             'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods',
             'newsLatest'
@@ -134,20 +142,31 @@ class MainController extends Controller
                     $resultStartArray = $request[$table];
                 }
 
-                $modelResults = $model::whereIn('id', $resultStartArray)->get();
+                //добавляем связанную таблицу
+                if($table == "piece"){
+                    $modelResults = $model::with('type')->whereIn('id', $resultStartArray)->get();    
+                }else
+                if($table == "protocol"){
+                    $modelResults = $model::with('evidence')->whereIn('id', $resultStartArray)->get();    
+                }else
+                if($table == "marker"){
+                    $modelResults = $model::with('methods')->whereIn('id', $resultStartArray)->get();    
+                }else
+                    $modelResults = $model::whereIn('id', $resultStartArray)->get();
                 $json[$table] = $modelResults;
             }
         }
         if($request['disease']){     
-            return json_encode([
+            return ([
                                 "models" => $json,
                                 "diseasePieces" => Disease::with('pieces')
                                                           ->find($request['disease'][0])
                                                           ->pieces()->get()
                                                           ->pluck('id')->toArray()
                                 ]);
-        }else{
-            return json_encode(["models" => $json]);
+        }else
+        {
+            return (["models" => $json]);
         }
     }    
 
@@ -159,13 +178,67 @@ class MainController extends Controller
     public function markersPartial(Request $request)
     {        
         $markers = Marker::with('methods')->whereIn('id',$request->array)->get();      
-        return view('main._partial.markers', compact(['markers']));
+        return view('main.main-left.main-tabs.markers', compact(['markers']));
     }
+
+    public $modelPiece = "App\\Models\\Piece\\Piece";
+    public $modelDisease = "App\\Models\\Disease\\Disease";
+    public $modelProtocol = "App\\Models\\Protocol\\Protocol";
+    public $modelRemedy = "App\\Models\\Remedy";
+    public $modelMarker = "App\\Models\\Marker\\Marker";
 
     public function modelPartial(Request $request)
     {        
-        $model = $request->model::with($request->with)->whereIn('id',$request->array)->get();      
-        return view('main._partial.'.$request->view, compact(['model']));
+        
+        $report = new MainController();
+        $result = $report->filter($request);        
+        $_models = $result['models'];
+        $tabActive = 0;
+        $view = [];
+        $counts = [];
+        $views = [];
+        $diseasePieces = [];
+        if(count($result) > 1){           
+            $diseasePieces = $result['diseasePieces'];             
+        }
+        if ( count($_models['piece']) == Piece::count() &&
+             count($_models['disease']) == Disease::count() &&
+             count($_models['protocol']) == Protocol::count()) {
+
+            return json_encode(['views' => $views, 'counts' => $counts, 'models' => $_models, 'diseasePieces' => $diseasePieces]);
+        }else
+        {            
+            $models = [$this->modelPiece, $this->modelDisease, $this->modelProtocol, $this->modelRemedy, $this->modelMarker];
+            foreach ($models as $model) {// example: 'App\\Models\\Protocol\\Protocol'
+                $modelName = $this->getModelNameLowercase($model);// example: 'protocol'            
+                $modelArray =  $result['models'][$modelName]->pluck('id')->toArray();
+
+                if($modelName == 'piece') {
+                    $modelName = 'factor';
+                    $factors = $result['models']['piece'];
+                }
+                if($modelName == 'disease') {
+                    $diseases = $result['models']['disease'];
+                }
+                if($modelName == 'protocol') {
+                    $protocols = $result['models']['protocol'];
+                }
+                if($modelName == 'remedy') {
+                    $modelName = 'remedie';
+                    $remedies = $result['models']['remedy'];
+                }
+                if($modelName == 'marker') {
+                    $markers = $result['models']['marker'];
+                }
+                     
+                //${$modelName.'s'} = $model::whereIn('id',$modelArray)->get();
+                //${$modelName.'s'} = $result['models'][$modelName];   
+                $view[ $modelName ] = view('main.main-left.main-tabs.'.$modelName.'s', [ $modelName.'s' => ${$modelName.'s'} ] );
+                $views[ $modelName ] = (string)$view[ $modelName ] ;
+                $counts [ $modelName ] = ${$modelName.'s'}->count();
+            }
+        }
+        return json_encode(['views' => $views, 'counts' => $counts, 'models' => $_models, 'diseasePieces' => $diseasePieces]);
     }
 
     public function getModelNameLowercase($model){

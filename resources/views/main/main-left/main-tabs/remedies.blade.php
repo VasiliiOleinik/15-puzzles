@@ -1,5 +1,3 @@
-<div id="tab-4">
-  <div class="tab-list main-scroll" id="tabListRemedies">
     @foreach($remedies as $remedy)
       <div class="tab-item">
         <div class="tab-item__head">
@@ -18,5 +16,3 @@
         </div>
       </div>
   @endforeach
-  </div>
-</div>

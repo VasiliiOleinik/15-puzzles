@@ -1,5 +1,3 @@
-<div id="tab-3">
-  <div class="tab-list main-scroll" id="tabListProtocols">
     @foreach($protocols as $protocol)
       <div class="tab-item">
         <div class="tab-item__head">
@@ -21,5 +19,3 @@
         </div>
       </div>
   @endforeach
-  </div>
-</div>
