@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBooksTable extends Migration {
+class CreateBookTagsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,11 @@ class CreateBooksTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('books', function(Blueprint $table)
+		Schema::create('book_tags', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title', 50)->nullable();
-			$table->string('description', 191)->nullable();
-			$table->string('img', 191)->nullable();
+			$table->integer('book_id')->unsigned()->default(1)->index('FK_book_tags_books');
+			$table->integer('tag_id')->unsigned()->default(1)->index('FK_book_tags_tags');
 		});
 	}
 
@@ -29,7 +28,7 @@ class CreateBooksTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('books');
+		Schema::drop('book_tags');
 	}
 
 }

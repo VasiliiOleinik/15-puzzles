@@ -15,5 +15,9 @@ class UsersTableSeeder extends Seeder
         DB::update("ALTER TABLE users AUTO_INCREMENT = 0;");
 
         factory(App\Models\User\User::class, 30)->create();
+
+        DB::table('users')
+                ->where('id', 1)
+                ->update(['nickname' => 'admin', 'email' => 'admin@gmail.com']);
     }
 }
