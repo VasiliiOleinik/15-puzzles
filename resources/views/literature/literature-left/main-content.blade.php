@@ -2,7 +2,7 @@
                 <div class="post_container">
                   @foreach($books as $book)                  
                   <div class="book" obj-id={{$book->id}}>
-                    <div class="book__image-block"><img class="book-img" src="{{$book->img}}" alt="Book img"></div>
+                    <div class="book__image-block"><img class="book-img" src="/{{$book->img}}" alt="Book img"></div>
                     <div class="book__info-block">
                       <h3 class="book-name">{{$book->title}}</h3>
                       <h4 class="book-author">{{$book->author}}</h4>

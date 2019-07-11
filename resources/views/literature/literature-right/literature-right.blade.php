@@ -23,14 +23,14 @@
                 <p class="news-right__title">Search in literature</p>
                 <form class="search__input">
                   <input class="search-news" type="text" placeholder="Search" id="tags">
-                  <button class="search-news-btn"><img src="img/svg/search_news.svg" alt="Search news"></button>
+                  <button class="search-news-btn"><img src="/img/svg/search_news.svg" alt="Search news"></button>
                 </form>
               </div>
               <div class="subscribe">
                 <p class="news-right__title">Take latest news from 15-Puzzle</p>
                 <form class="subscribe__input">
                   <input class="subscribe-field" type="text" placeholder="Your Email Address">
-                  <button class="subscribe-btn"><img src="img/svg/envelope.svg" alt="Subscribe"></button>
+                  <button class="subscribe-btn"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                 </form>
               </div>
             </div>

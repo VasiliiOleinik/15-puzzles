@@ -63,7 +63,6 @@ class RegisterController extends Controller
         ]);
     }
 
-
     public function register(Request $request)
     {
         $validation = $this->validator($request->all());
@@ -79,7 +78,6 @@ class RegisterController extends Controller
         }
     }
 
-
     /**
      * Create a new user instance after a valid registration.
      *
@@ -93,5 +91,10 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password-register']),
         ]);
+    }
+
+    public function redirectTo()
+    {
+        return app()->getLocale() . '/personal_cabinet';
     }
 }

@@ -16,7 +16,7 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
+    {        
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews',
@@ -87,7 +87,7 @@ class NewsController extends Controller
      * @param  \App\Models\Article\Article  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($locale, $id)
     {
         //категории для новостей
         $categoriesForNews = Cache::remember(

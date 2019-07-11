@@ -35,8 +35,8 @@
                 @foreach($factors as $factor)
                   <div class="puzzle-15__item-outer" obj-id="{{$factor->id}}">
                     <div class="puzzle-15__item {{$factor->type->name}}"><img class="factors-check"
-                                                                                  src="img/svg/factors-check.svg" alt=""><img
-                              src="{{$factor->img}}">
+                                                                                  src="/img/svg/factors-check.svg" alt=""><img
+                              src="/{{$factor->img}}">
                       <h6 class="puzzle-15__item-title">{{$factor->name}}</h6>
                     </div>
                   </div>
@@ -44,17 +44,17 @@
               </div>                  
               <div class="main__right-note">The 15 pieces of the cancer process may look confusing at a first glance. But keep in mind that there are evidences of completing the riddle in 1-2 moves only. It might be necessary to move as much as 4 or 6 pieces to fix your body, feel free to explore the puzzle and sort it out!</div>
               <ul class="main__books">
-                <li><img src="img/svg/book.svg">Detoxifying for cancer (by dr. George Andonevris)
+                <li><img src="/img/svg/book.svg">Detoxifying for cancer (by dr. George Andonevris)
                 </li>
-                <li><img src="img/svg/book.svg">Using bioresonance for cancer (by dr. George Andonevris)
+                <li><img src="/img/svg/book.svg">Using bioresonance for cancer (by dr. George Andonevris)
                 </li>
-                <li><img src="img/svg/book.svg">Spiritual and psychoemotional causes of cancer (by dr. George Andonevris)
+                <li><img src="/img/svg/book.svg">Spiritual and psychoemotional causes of cancer (by dr. George Andonevris)
                 </li>
-                <li><img src="img/svg/book.svg">Holistic model of cancer (by dr. George Andonevris)
+                <li><img src="/img/svg/book.svg">Holistic model of cancer (by dr. George Andonevris)
                 </li>
-                <li><img src="img/svg/book.svg">Be healthy (by dr. Pokrywka)
+                <li><img src="/img/svg/book.svg">Be healthy (by dr. Pokrywka)
                 </li>
-                <li><img src="img/svg/book.svg">Antioxidant curing of cancer (by dr. Garbuzov)
+                <li><img src="/img/svg/book.svg">Antioxidant curing of cancer (by dr. Garbuzov)
                 </li>
               </ul><a class="arrow-link" href="#" target="_blank">Literature</a>
             </div>

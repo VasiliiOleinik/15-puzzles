@@ -5,8 +5,8 @@
             <div class="cases-left">
               <div class="breadcrumbs">
                 <ul class="breadcrumbs__list">
-                  <li class="breadcrumbs__element"><a class="breadcrumbs__link" href="/">Main</a></li>
-                  <li class="breadcrumbs__element divider"><img src="img/svg/arrow.svg" alt="Bredcrumb arrow"></li>
+                  <li class="breadcrumbs__element"><a class="breadcrumbs__link" href="{{ url('/', app()->getLocale() )}}">Main</a></li>
+                  <li class="breadcrumbs__element divider"><img src="/img/svg/arrow.svg" alt="Bredcrumb arrow"></li>
                   <li class="breadcrumbs__element"><a class="breadcrumbs__link current" href="javascript:void(0);">Member's cases</a></li>
                 </ul>
               </div>
@@ -14,7 +14,7 @@
                 <h1 class="title">Member's cases</h1>
                 <div class="post_container">
                   @foreach($member_cases as $member_case)
-                  <div class="post"><a class="post__image" href="javascript:void(0)"> <img class="post__img" src="{{$member_case->img}}" alt="Post img"></a><a class="post__date" href="javascript:void(0)">19.10.2019</a><a class="post__title" href="javascript:void(0)">Fight history<span class="post__arrow"></span></a>
+                  <div class="post"><a class="post__image" href="javascript:void(0)"> <img class="post__img" src="/{{$member_case->img}}" alt="Post img"></a><a class="post__date" href="javascript:void(0)">19.10.2019</a><a class="post__title" href="javascript:void(0)">Fight history<span class="post__arrow"></span></a>
                     <p class="post__description">{{$member_case->description}}</p>
                   </div> 
                   @endforeach
@@ -40,7 +40,7 @@
                 <h3 class="news-right__title">Take latest news from 15-Puzzle</h3>
                 <form class="subscribe__input">
                   <input class="subscribe-field" type="text" placeholder="Your Email Address">
-                  <button class="subscribe-btn"><img src="img/svg/envelope.svg" alt="Subscribe"></button>
+                  <button class="subscribe-btn"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                 </form>
               </div>
               <div class="add-story">
@@ -53,31 +53,31 @@
                     <h3 class="add-images__title">Add images</h3>
                     <div class="images-container">
                       <div class="item-img">
-                        <div class="imageWrapper"><img class="image" src="img/upload.png"></div>
+                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">
                           <input class="file-input" type="file" placeholder="Choose File">
                         </button>
                       </div>
                       <div class="item-img">
-                        <div class="imageWrapper"><img class="image" src="img/upload.png"></div>
+                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">         
                           <input class="file-input" type="file" placeholder="Choose File">
                         </button>
                       </div>
                       <div class="item-img">
-                        <div class="imageWrapper"><img class="image" src="img/upload.png"></div>
+                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">         
                           <input class="file-input" type="file" placeholder="Choose File">
                         </button>
                       </div>
                       <div class="item-img">
-                        <div class="imageWrapper"><img class="image" src="img/upload.png"></div>
+                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">         
                           <input class="file-input" type="file" placeholder="Choose File">
                         </button>
                       </div>
                       <div class="item-img">
-                        <div class="imageWrapper"><img class="image" src="img/upload.png"></div>
+                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">         
                           <input class="file-input" type="file" placeholder="Choose File">
                         </button>

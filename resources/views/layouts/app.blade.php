@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="{{ config('app.locale') }}">
 <head>
   @include('layouts.include.meta')
   @include('layouts.include.css')

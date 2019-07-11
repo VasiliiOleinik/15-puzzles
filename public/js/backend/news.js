@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         categoryAjax = $.ajax({
             type: "GET",
-            url: "/news",
+            url: "/en/news",
             data: data,
             complete: function (result) {
                 if (result.responseText)
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         newsAjax = $.ajax({
             type: "GET",
-            url: "/news",
+            url: "/en/news",
             data: data,
             complete: function (result) {
 

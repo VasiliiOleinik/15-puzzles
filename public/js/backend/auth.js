@@ -1,14 +1,16 @@
+let locale = $('html').attr('lang');
+
 /* ----------------------- */
 /*     DOCUMENT READY      */
 /* ----------------------- */
 
 document.addEventListener("DOMContentLoaded", function () {
-
+    
     //кликнули на login submit
     $('.modal-login-btn').click(function (event) {
         event.preventDefault();
         $(this).attr("disabled", true);
-
+        console.log('login clicked')
         let data = {
             "login": $('[name=login]').val(),
             "password": $('[name=password]').val(),
@@ -17,10 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         $.ajax({
             type: "post",
-            url: "/login",
+            url: "/" + locale + "/login",
             data: data,
             dataType: 'json',
-            complete: function (data) {
+            complete: function (data) {                
                 $('.modal-login-btn').removeAttr("disabled");
                 if(data.responseJSON.auth === "success")
                 {
@@ -71,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         $.ajax({
             type: "post",
-            url: "/register",
+            url: "/" + locale + "/register",
             data: data,
             dataType: 'json',
             complete: function (data) {

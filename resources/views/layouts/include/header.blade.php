@@ -4,17 +4,21 @@
       <div class="header__logo logo"><img src="/img/svg/logo.svg"></div>
       <nav class="header__nav">
         <ul class="header__nav-list">
-          <li class="header__nav-li"><a class="header__nav-link" href="/" target="_self">Main</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="/member_cases" target="_self">Member&apos;s cases</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="/factor_diagram" target="_self">Factor diagram</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="/about" target="_self">About</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="/news" target="_self">News</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="/literature" target="_self">Literature</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url('/', app()->getLocale() )}}" target="_self">Main</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/member_cases') }}" target="_self">Member&apos;s cases</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/factor_diagram') }}" target="_self">Factor diagram</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/about') }}" target="_self">About</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/news') }}" target="_self">News</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/literature') }}" target="_self">Literature</a></li>
           <li class="header__nav-li"><a class="header__nav-link" href="#" target="_self">FAQ</a></li>
         </ul>
       </nav>
-      <div class="header__langs"><a class="header__lang" href="#">ENG</a><span class="header__lang-devider"></span><a
-                class="header__lang" href="#">RU</a></div>
+      <div class="header__langs">
+      @foreach (config('app.available_locales') as $locale)
+        <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), $locale) }}">{{ strtoupper($locale) }}</a><span class="header__lang-devider"></span>
+        
+      @endforeach
+      </div>
       <div class="header__login">
         
           @guest
