@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 class AboutController extends Controller
 {
     /**
-     * Show the "about" page.
+     * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */

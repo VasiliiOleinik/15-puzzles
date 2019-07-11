@@ -171,15 +171,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         categoryAjax = $.ajax({
             type: "GET",
-            url: "/literature",
+            url: "/" + locale + "/literature",
             data: {
                 categoriesForBooksActive: categoriesForBooksActive,
                 tagsActive: tagsActive,
                 "_token": $('meta[name="csrf-token"]').attr('content'),
             },
             complete: function (result) {
-                if (result.responseText)
+                if (result.responseText) {
                     $('.main-content').html(result.responseText);
+                    $('.show-more-info-book').attr('data-fancybox', '');
+                }
             },
             error: function (err) {
                 if (err.responseText)
@@ -208,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         news_ajax = $.ajax({
             type: "GET",
-            url: "/literature",
+            url: "/" + locale + "/literature",
             data: {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
                 categoriesForBooksActive: categoriesForBooksActive,
