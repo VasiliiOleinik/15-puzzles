@@ -1,9 +1,16 @@
+/* ------------------------- */
+/*      GLOBAL VARIABLES     */
+/* ------------------------- */
+
 let locale = $('html').attr('lang');
+
+/* ------------------ */
+/* ------------------ */
+
 
 /* ----------------------- */
 /*     DOCUMENT READY      */
 /* ----------------------- */
-
 document.addEventListener("DOMContentLoaded", function () {
     
     //кликнули на login submit

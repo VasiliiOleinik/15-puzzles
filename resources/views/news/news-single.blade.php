@@ -24,7 +24,7 @@
                 </ul>
               </div>
               <div class="main-content">
-                <h1 class="title">News and Articles</h1>
+                <h1 class="title">@lang('news.title_news')</h1>
                 <div class="post_container">
                   <div class="post news-full"><img class="post__img" src="/{{$article->img}}" alt="Post img">
                     <span class="post__description">
