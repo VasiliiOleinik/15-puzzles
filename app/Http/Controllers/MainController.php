@@ -21,13 +21,25 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     /**
+     * @property string $modelFactor
+     * @property string $modelDisease
+     * @property string $modelProtocol
+     * @property string $modelRemedy
+     * @property string $modelMarker
+    */
+    public $modelFactor = "App\\Models\\Factor\\Factor";
+    public $modelDisease = "App\\Models\\Disease\\Disease";
+    public $modelProtocol = "App\\Models\\Protocol\\Protocol";
+    public $modelRemedy = "App\\Models\\Remedy";
+    public $modelMarker = "App\\Models\\Marker\\Marker";
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
     public function __construct()
     {
-        //$this->middleware(['auth','verified']);
     }    
 
     /**
@@ -38,62 +50,27 @@ class MainController extends Controller
     public function index(Request $request)
     {
         $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
-
-        $factors = Cache::remember(
-            'factor',
-            now()->addDay(1),
-            function(){
+        $factors = Cache::remember('factor', now()->addDay(1), function(){
                 return Factor::with('type')->get();
-            }
-        );
-
-        $diseases = Cache::remember(
-            'disease',
-            now()->addDay(1),
-            function(){
+        });
+        $diseases = Cache::remember('disease', now()->addDay(1), function(){
                 return Disease::all();
-            }
-        );
-
-        $protocols = Cache::remember(
-            'protocol',
-            now()->addDay(1),
-            function(){
+        });
+        $protocols = Cache::remember('protocol', now()->addDay(1), function(){
                 return Protocol::with('evidence')->get();
-            }
-        );
-
-        $remedies = Cache::remember(
-            'remedy',
-            now()->addDay(1),
-            function(){
+        });
+        $remedies = Cache::remember('remedy', now()->addDay(1), function(){
                 return Remedy::all();
-            }
-        );
-
-        $markers = Cache::remember(
-            'marker',
-            now()->addDay(1),
-            function(){
+        });
+        $markers = Cache::remember('marker', now()->addDay(1), function(){
                 return Marker::with('methods')->get();
-            }
-        );
-
-        $methods = Cache::remember(
-            'methods',
-            now()->addDay(1),
-            function(){
+        });
+        $methods = Cache::remember('methods', now()->addDay(1), function(){
                 return Method::all();
-            }
-        );
-
-        $evidences = Cache::remember(
-            'evidences',
-            now()->addDay(1),
-            function(){
+        });
+        $evidences = Cache::remember('evidences', now()->addDay(1), function(){
                 return Evidence::all();
-            }
-        );
+        });
 
         $data = [
             'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods',
@@ -102,21 +79,20 @@ class MainController extends Controller
         return view('main.main', compact($data));
     }
 
+    /**
+     * Main tabs filter
+     *
+     * @return JSON
+     */
     public function filter(Request $request)
     {
         $json = [];
-
-        $modelFactor = "App\\Models\\Factor\\Factor";
-        $modelDisease = "App\\Models\\Disease\\Disease";
-        $modelProtocol = "App\\Models\\Protocol\\Protocol";
-        $modelRemedy = "App\\Models\\Remedy";
-        $modelMarker = "App\\Models\\Marker\\Marker";
-
-        $models = [$modelFactor, $modelDisease, $modelProtocol, $modelRemedy, $modelMarker];
+        $models = [$this->modelFactor, $this->modelDisease, $this->modelProtocol, $this->modelRemedy, $this->modelMarker];
 
         foreach ($models as $model) {
 
             $table = $this->getModelNameLowercase($model);
+            //если фильтр не задан => берем значения таблиц из кэша
             if(!$request['factor'] && !$request['disease'] && !$request['protocol']){
                 $modelResults = Cache::get($table);
                 $json[$table] = $modelResults;
@@ -158,54 +134,40 @@ class MainController extends Controller
         }
         if($request['disease']){     
             return ([
-                                "models" => $json,
-                                "diseaseFactors" => Disease::with('factors')
-                                                          ->find($request['disease'][0])
-                                                          ->factors()->get()
-                                                          ->pluck('id')->toArray()
-                                ]);
+                    "models" => $json,
+                    "diseaseFactors" => Disease::with('factors')
+                                                ->find($request['disease'][0])
+                                                ->factors()->get()
+                                                ->pluck('id')->toArray()
+                    ]);
         }else
         {
             return (["models" => $json]);
         }
-    }    
+    }          
 
-    public function evidences()
-    {      
-        return Evidence::all();
-    }
-
-    public function markersPartial(Request $request)
-    {        
-        $markers = Marker::with('methods')->whereIn('id',$request->array)->get();      
-        return view('main.main-left.main-tabs.markers', compact(['markers']));
-    }
-
-    public $modelFactor = "App\\Models\\Factor\\Factor";
-    public $modelDisease = "App\\Models\\Disease\\Disease";
-    public $modelProtocol = "App\\Models\\Protocol\\Protocol";
-    public $modelRemedy = "App\\Models\\Remedy";
-    public $modelMarker = "App\\Models\\Marker\\Marker";
-
+    /**
+     * Return array of rendered views and array of models data
+     *
+     * @return JSON
+     */
     public function modelPartial(Request $request)
     {        
         
         $report = new MainController();
         $result = $report->filter($request);        
-        $_models = $result['models'];
         $tabActive = 0;
         $view = [];
-        $counts = [];
         $views = [];
-        $diseaseFactors = [];
-        if(count($result) > 1){           
+        //$diseaseFactors = [];
+        /*if(count($result) > 1){           
             $diseaseFactors = $result['diseaseFactors'];             
-        }
-        if ( count($_models['factor']) == Factor::count() &&
-             count($_models['disease']) == Disease::count() &&
-             count($_models['protocol']) == Protocol::count()) {
+        }*/
+        if ( count($result['models']['factor']) == Factor::count() &&
+             count($result['models']['disease']) == Disease::count() &&
+             count($result['models']['protocol']) == Protocol::count()) {
 
-            return json_encode(['views' => $views, 'counts' => $counts, 'models' => $_models, 'diseaseFactors' => $diseaseFactors]);
+            return json_encode(['views' => $views,  'models' => $result['models']/*, 'diseaseFactors' => $diseaseFactors*/]);
         }else
         {            
             $models = [$this->modelFactor, $this->modelDisease, $this->modelProtocol, $this->modelRemedy, $this->modelMarker];
@@ -213,38 +175,34 @@ class MainController extends Controller
                 $modelName = $this->getModelNameLowercase($model);// example: 'protocol'            
                 $modelArray =  $result['models'][$modelName]->pluck('id')->toArray();
 
-                if($modelName == 'factor') {
-                    $modelName = 'factor';
-                    $factors = $result['models']['factor'];
-                }
-                if($modelName == 'disease') {
-                    $diseases = $result['models']['disease'];
-                }
-                if($modelName == 'protocol') {
-                    $protocols = $result['models']['protocol'];
-                }
                 if($modelName == 'remedy') {
                     $modelName = 'remedie';
                     $remedies = $result['models']['remedy'];
+                }else{
+                    ${$modelName.'s'} = $result['models'][$modelName];
                 }
-                if($modelName == 'marker') {
-                    $markers = $result['models']['marker'];
-                }
-                     
-                //${$modelName.'s'} = $model::whereIn('id',$modelArray)->get();
-                //${$modelName.'s'} = $result['models'][$modelName];   
+               
                 $view[ $modelName ] = view('main.main-left.main-tabs.'.$modelName.'s', [ $modelName.'s' => ${$modelName.'s'} ] );
                 $views[ $modelName ] = (string)$view[ $modelName ] ;
-                $counts [ $modelName ] = ${$modelName.'s'}->count();
             }
         }
-        return json_encode(['views' => $views, 'counts' => $counts, 'models' => $_models, 'diseaseFactors' => $diseaseFactors]);
+        return json_encode(['views' => $views, 'models' => $result['models']/*, 'diseaseFactors' => $diseaseFactors*/]);
     }
 
+    /**
+     * Return lowercase model name
+     *
+     * @return string
+     */
     public function getModelNameLowercase($model){
         return strtolower(substr($model, strrpos($model, '\\') + 1));
     }
 
+    /**
+     * Filter model data
+     *
+     * @return model
+     */
     public function withWhereIn($model, $with, $array, $resultStartArray){
         if (count($array) > 0) {
             return $model::whereIn('id', $resultStartArray)->with($with.'s')->whereHas(
@@ -257,6 +215,11 @@ class MainController extends Controller
         }
     }
 
+     /**
+     * Return 'with' model array
+     *
+     * @return int []
+     */
     public function getStartModelIdArray($with, $result, $array)
     {
         $resultStartArray = [];

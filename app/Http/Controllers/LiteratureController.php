@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Cache;
 
 class LiteratureController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function index(Request $request)
     {
         //категории для новостей
@@ -77,6 +82,11 @@ class LiteratureController extends Controller
         }
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
     public function literatureModal(Request $request)
     {
         $links = LinkForBooks::with('books')->whereHas(

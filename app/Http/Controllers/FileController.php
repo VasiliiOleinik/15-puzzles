@@ -25,7 +25,7 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request)
     {
@@ -72,12 +72,10 @@ class FileController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return redirect
      */
     public function store(Request $request)
     {
-
-
         $validatedData = $request->validate([
             //'upload_file' => ['mimes:docx,doc,pdf'],
             'file_name' => ['required', 'string', 'max:191'],
@@ -90,14 +88,11 @@ class FileController extends Controller
         $file_size = $request['file_size'];
         $file_path = 'files/users_id/'.Auth::id();
         $file_full_name = $file_name.".".$file_type;
-        
-        
 
         $file_full_name =  self::checkUniqueFileName($file_path, $file_name, $file_full_name);
         $file_name = explode('.',$file_full_name)[0];
 
         $request->file('file')->move(public_path( $file_path ), $file_full_name);
-
 
         $file = new File;
         $file->name = $file_name;
@@ -109,8 +104,7 @@ class FileController extends Controller
         $file->save();
 
         $user_files = File::with('user')->where('user_id','=',Auth::id())->get();
-               
-
+ 
         $request->session()->flash('status-file_upload', 'You have successfully upload your file.');
 
         $request->file = null;         
@@ -155,7 +149,6 @@ class FileController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\File  $id
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
@@ -167,7 +160,6 @@ class FileController extends Controller
 
          $this->removeFileFromFolder($file_name, $file_type, $file_path);
          $file->delete();
-
          //return redirect('personal_cabinet');
     }
 
@@ -189,6 +181,9 @@ class FileController extends Controller
         return response()->download($file, $file_name.".".$file_type);        
     }
 
+    /**
+     * Remove file from server
+     */
     public function removeFileFromFolder($file_name, $file_type, $file_path){
         $data= $file_name.".".$file_type;    
         $dir = $file_path."/";    
@@ -201,28 +196,25 @@ class FileController extends Controller
         closedir($dirHandle);
     }
 
+    /**
+     * Return file name
+     *
+     * @return string
+     */
     public function checkUniqueFileName($file_path, $file_name, $file_full_name){
-
         $files = File::with('user')->get();
-
         $count = 0;
-
         while(file_exists( $file_path."/".$file_full_name ))
-
         foreach($files as $file){
             if($file->name.".".$file->type == $file_full_name){
-
                 $count ++;
                 //remove (n)
                 if($count > 1){
                     $file_name = substr($file_name, 0, -3);
                 }
-
                 //add (n)
                 $file_name .= "(".$count.")";
-
-                $file_full_name = $file_name.".".$file->type;
-      
+                $file_full_name = $file_name.".".$file->type;  
                 break;
             }
         }

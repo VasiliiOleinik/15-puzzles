@@ -100,6 +100,11 @@ class NewsController extends Controller
         return view('news.news-single', ['article' => Article::find($id),'categoriesForNews' => $categoriesForNews]);
     }
 
+    /**
+     * Return used tags.
+     *
+     * @return \Illuminate\Http\Response
+     */
     //Тэги, которые использовались ($request->with должен содержать таблицу, связанную с тэгами. например 'articles')
     public function usedTags(Request $request){
 

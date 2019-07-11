@@ -15,15 +15,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
   
     /* ------------------ */
     /*     VARIABLES      */
-    /* ------------------ */
-
-    let evidences_ajax, model_ajax, markers_ajax;
-  
-    let modelFactor = "App\\Models\\Factor\\Factor";
-    let modelDisease = "App\\Models\\Disease\\Disease";
-    let modelProtocol = "App\\Models\\Protocol\\Protocol";
-    let modelRemedy = "App\\Models\\Remedy";
-    let modelMarker = "App\\Models\\Marker\\Marker";    
+    /* ------------------ */ 
 
     let modelNames = {
         0: "factor",
@@ -45,8 +37,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let tab3 = $('#tabListProtocols').html();
     let tab4 = $('#tabListRemedies').html();
     let tab5 = $('#tabListMarkers').html();
-
-    //evidences = evidencesAjax();
 
     /* ------------------ */
     /* ------------------ */
@@ -84,42 +74,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
     /*   AJAX FUNCTIONS   */
     /* ------------------ */
-
-    //главный фильтр табов
-    function dataFilterPrev(data) {
-
-        try {
-            filter_ajax.abort();
-        } catch (err) {
-        }
-
-        filter_ajax = $.ajax({
-            type: "post",
-            url: "/filter",
-            data: data,
-            dataType: 'json',
-            complete: function (response) {
-                //console.log(response.responseText);
-
-                //$('#tabListProtocols').html(response.responseJSON.protocol);
-            if (response.responseJSON.diseaseFactors) {
-                diseaseFactors = response.responseJSON.diseaseFactors;
-            }
-            if (data.factor.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
-                refreshTabsCounts(response.responseJSON.models);
-                $('#tabListFactors').html(tab1);
-                $('#tabListDiseases').html(tab2);
-                $('#tabListProtocols').html(tab3);
-                $('#tabListRemedies').html(tab4);
-                $('#tabListMarkers').html(tab5);
-            } else {
-                refreshTabsContent(response.responseJSON.models);
-            }                
-            },
-            error: function (err) {
-            }
-        });
-    }
 
     //главный фильтр табов
     function dataFilter(data) {
@@ -163,79 +117,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }
 
-    function modelPartialAjax(data) {
-
-        try {
-            model_ajax.abort();
-        } catch (err) {
-        }
-
-        model_ajax = $.ajax({
-            type: "post",
-            url: "/model_partial",
-            data: data,
-            dataType: 'json',
-            complete: function (response) {
-                if (response.responseText) {
-                    $('#' + data.container).html(response.responseText);
-                }
-            },
-            error: function (err) {
-            }
-        });
-    }
-
-    function markersPartialAjax(data) {
-
-        try {
-            markers_ajax.abort();
-        } catch (err) {
-        }
-
-        markers_ajax = $.ajax({
-            type: "post",
-            url: "/markers_partial",
-            data: data,
-            dataType: 'json',
-            complete: function (response) {
-                if (response.responseText) {
-                    $('#tabListMarkers').html(response.responseText);
-                }
-            },
-            error: function (err) {
-            }
-        });
-    }
-
-    function evidencesAjax() {
-
-        try {
-            evidences_ajax.abort();
-        } catch (err) {
-        }
-
-        //get content of evidences
-        evidences_ajax = $.ajax({
-            type: "POST",
-            url: "/evidences",
-            data: {
-                "_token": $('meta[name="csrf-token"]').attr('content')
-            },
-            complete: function (result) {
-                if (result.responseText.length != 0) {
-
-                    var json_result = JSON.parse(result.responseText);
-
-                    evidences = json_result;
-                    return evidences;
-                }
-            },
-            error: function (err) {
-            }
-        });
-
-    }
-
     /* ------------------ */
     /* ------------------ */
 
@@ -265,7 +146,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             "factor": factor,
             "disease": disease,
             "protocol": protocol,
-            "models": [modelFactor, modelDisease, modelProtocol, modelRemedy, modelMarker],
             "activeTab": activeTab,
             "_token": $('meta[name="csrf-token"]').attr('content'),
         };        
@@ -277,90 +157,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let length = Object.keys(modelNames).length;
         for (let i = 0; i < length; i++) {
             $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]].length + ']');
-        }
-    }
-
-    function refreshTabsContent(models) {
-
-        let length = Object.keys(modelNames).length;
-        let markersArray = [];
-
-        for (let i = 0; i < length; i++) {
-
-            let html = "";
-            if (models[modelNames[i]].length > 0) {
-                for (let count = 0; count < models[modelNames[i]].length; count++) {
-
-                    let id = models[modelNames[i]][count].id;
-                    let name = models[modelNames[i]][count].name;
-                    let content = models[modelNames[i]][count].content;
-                    let url = models[modelNames[i]][count].url;
-
-                    if (modelNames[i] != "marker" ) {
-                        html += '<div class="tab-item">';
-                        html += '   <div class="tab-item__head">';
-                        html += '       <label class="tab_head_check">';
-                        if (modelNames[i] == "factor") {
-                            html += '           <input class="checkbox" type="checkbox" obj-id="' + id + '" obj-type="factor"><span class="checkbox-custom"></span>';
-                        } else
-                            if (modelNames[i] == "disease" || modelNames[i] == "protocol") {
-                                html += '           <input class="checkbox" type="checkbox" obj-id="' + id + '" obj-type="' + modelNames[i] + '"><span class="checkbox-custom"></span>';
-                            } else {
-                                html += '           <input class="checkbox" type="checkbox"><span class="checkbox-custom"></span>';
-                            }
-                        if (modelNames[i] == "factor" || modelNames[i] == "disease") {
-                            html += '           <p class="title">' + modelSelectors[i].substring(0, modelSelectors[i].length - 1) + ' #' + (count + 1) + ': ' + name + '</p>';
-                        } else {
-                            html += '           <p class="title">' + name;
-                        }
-                        if (modelNames[i] == "protocol") {
-                            html += '           <span class="evidence ' + evidences[models[modelNames[i]][count].evidence_id - 1].name + '"><span class="evidence__detail">Level of evidence:<span class="evidence__level ' + evidences[models[modelNames[i]][count].evidence_id - 1].name + '">' + evidences[models[modelNames[i]][count].evidence_id - 1].name + '</span></span></span>';
-                        }
-                        html += '           </p>';
-                        html += '       </label>';
-                        html += '       <div class="arrow"><img src="img/svg/dropdown-ico.svg" alt=""></div>';
-                        html += '   </div>';
-                        html += '   <div class="tab-item__content">';
-                        html += '       <div class="text">';
-                        if (modelNames[i] == "protocol") {
-                            html += '       <p class="subtitle">' + content + '</p>';
-                        } else {
-                            html += '       <p>' + content + '</p>';
-                        }
-                        html += '       </div>';
-                        html += '       <a class="show-more" target="_black" href="' + url + '">Show more</a>';
-                        if (modelNames[i] == "protocol" || modelNames[i] == "remedy") {
-                            html += '   <a class="link"  target="_black" href="' + url + '"> ' + url + ' </a>';
-                        }
-                        html += '   </div>';
-                        html += '</div>';
-                    }
-
-                    if (modelNames[i] == "marker") {
-                        markersArray.push(models[modelNames[i]][count].id);
-                    }
-
-                    let activeTab = checkActiveTab();
-
-                    //во вкладке факторов показывать всегда все элементы
-                    if (modelNames[i] != "factor" && activeTab != 2) {
-                        $('#tabList' + modelSelectors[i]).html(html);
-                    }
-                    $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]].length + ']');
-                }
-            } else {
-                $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]].length + ']');
-                html = $('#tabList' + modelSelectors[i]).html();
-                $('#tabList' + modelSelectors[i]).html('');
-            }
-        }
-
-        if (markersArray.length > 0) {
-            data = {
-                "array": markersArray,
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-            }
-            markersPartialAjax(data);
         }
     }
 
@@ -470,9 +266,6 @@ function addTagToTagsList(objId, objName, objType) {
 
     }
 }
-
-
-
 
 function removeTag(objId, objType) {
     var elem = $('.tag-item[obj-id=' + objId + '][obj-type=' + objType + ']');
