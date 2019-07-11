@@ -2,7 +2,7 @@
 
 use App\Models\Marker\Marker;
 use App\Models\Method;
-use App\Models\Piece\Piece;
+use App\Models\Factor\Factor;
 use App\Models\Disease\Disease;
 use App\Models\Protocol\Protocol;
 use Illuminate\Database\Seeder;
@@ -34,20 +34,20 @@ class MarkersTableSeeder extends Seeder
         });
 
         $markers = Marker::all();
-        $diseases = Disease::with('pieces')->get();
+        $diseases = Disease::with('factors')->get();
         $skip = [];
 
         foreach($diseases as $disease){
             $attach = $markers->random(rand(1,4));
-            if($disease->pieces()->count() > 0){
-                foreach($disease->pieces()->get() as $piece){
-                    foreach($piece->protocols()->get() as $protocol){
+            if($disease->factors()->count() > 0){
+                foreach($disease->factors()->get() as $factor){
+                    foreach($factor->protocols()->get() as $protocol){
                         if( !in_array($protocol->id,$skip) ){
                             $protocol->markers()->attach($attach);
                             array_push($skip, $protocol->id);
                         }
                     }
-                    $piece->markers()->attach($attach);
+                    $factor->markers()->attach($attach);
                 }
             }
             $disease->markers()->attach($attach);

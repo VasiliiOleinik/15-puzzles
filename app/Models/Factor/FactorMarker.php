@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Models\Piece;
+namespace App\Models\Factor;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $piece_id
+ * @property int $factor_id
  * @property int $marker_id
  * @property Marker $marker
- * @property Piece $piece
+ * @property Factor $factor
  */
-class PieceMarker extends Model
+class FactorMarker extends Model
 {
     /**
      * @var array
      */
-    protected $fillable = ['piece_id', 'marker_id'];
+    protected $fillable = ['factor_id', 'marker_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -29,8 +29,8 @@ class PieceMarker extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function piece()
+    public function factor()
     {
-        return $this->belongsTo('App\Models\Piece\Piece');
+        return $this->belongsTo('App\Models\Factor\Factor');
     }
 }

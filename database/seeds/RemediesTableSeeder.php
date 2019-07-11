@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Remedy;
-use App\Models\Piece\Piece;
+use App\Models\Factor\Factor;
 use App\Models\Disease\Disease;
 use App\Models\Protocol\Protocol;
 use Illuminate\Database\Seeder;
@@ -21,20 +21,20 @@ class RemediesTableSeeder extends Seeder
         factory(Remedy::class, 150)->create();
 
         $remedies = Remedy::all();
-        $diseases = Disease::with('pieces')->get();
+        $diseases = Disease::with('factors')->get();
         $skip = [];
 
         foreach($diseases as $disease){
             $attach = $remedies->random(rand(4,6));
-            if($disease->pieces()->count() > 0){
-                foreach($disease->pieces()->get() as $piece){
-                    foreach($piece->protocols()->get() as $protocol){
+            if($disease->factors()->count() > 0){
+                foreach($disease->factors()->get() as $factor){
+                    foreach($factor->protocols()->get() as $protocol){
                         if( !in_array($protocol->id,$skip) ){
                             $protocol->remedies()->attach($attach);
                             array_push($skip, $protocol->id);
                         }
                     }
-                    $piece->remedies()->attach($attach);
+                    $factor->remedies()->attach($attach);
                 }
             }
             $disease->remedies()->attach($attach);

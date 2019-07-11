@@ -1,30 +1,30 @@
 <?php
 
-namespace App\Models\Piece;
+namespace App\Models\Factor;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $piece_id
+ * @property int $factor_id
  * @property int $protocol_id
- * @property Piece $piece
+ * @property Factor $factor
  * @property Protocol $protocol
  */
-class PieceProtocol extends Model
+class FactorProtocol extends Model
 {
 
     /**
      * @var array
      */
-    protected $fillable = ['piece_id', 'protocol_id'];
+    protected $fillable = ['factor_id', 'protocol_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function piece()
+    public function factor()
     {
-        return $this->belongsTo('App\Models\Piece\Piece');
+        return $this->belongsTo('App\Models\Factor\Factor');
     }
 
     /**

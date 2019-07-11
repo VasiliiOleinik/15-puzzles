@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $content
  * @property Evidence $evidence
  * @property DiseaseProtocol[] $diseaseProtocols
- * @property PieceProtocol[] $pieceProtocols
+ * @property FactorProtocol[] $factorProtocols
  * @property ProtocolMarker[] $protocolMarkers
  * @property ProtocolRemedy[] $protocolRemedies
  */
@@ -43,9 +43,9 @@ class Protocol extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pieceProtocols()
+    public function factorProtocols()
     {
-        return $this->hasMany('App\Models\Piece\PieceProtocol');
+        return $this->hasMany('App\Models\Factor\FactorProtocol');
     }
 
     /**
@@ -67,9 +67,9 @@ class Protocol extends Model
 	/**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function pieces()
+    public function factors()
     {
-    return $this->belongsToMany('App\Models\Piece\Piece', 'piece_protocols');
+    return $this->belongsToMany('App\Models\Factor\Factor', 'factor_protocols');
     }
 
     /**

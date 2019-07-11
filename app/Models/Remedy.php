@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string $content
  * @property DiseaseRemedy[] $diseaseRemedies
- * @property PieceRemedy[] $pieceRemedies
+ * @property FactorRemedy[] $factorRemedies
  * @property ProtocolRemedy[] $protocolRemedies
  */
 class Remedy extends Model
@@ -32,9 +32,9 @@ class Remedy extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pieceRemedies()
+    public function factorRemedies()
     {
-        return $this->hasMany('App\Models\Piece\PieceRemedy');
+        return $this->hasMany('App\Models\Factor\FactorRemedy');
     }
 
     /**
@@ -48,9 +48,9 @@ class Remedy extends Model
 	/**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function pieces()
+    public function factors()
     {
-    return $this->belongsToMany('App\Models\Piece\Piece', 'piece_remedies');
+    return $this->belongsToMany('App\Models\Factor\Factor', 'factor_remedies');
     }
 
     /**

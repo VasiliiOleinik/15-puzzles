@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property DiseaseMarker[] $diseaseMarkers
  * @property DiseaseProtocol[] $diseaseProtocols
  * @property DiseaseRemedy[] $diseaseRemedies
- * @property PieceDisease[] $pieceDiseases
+ * @property FactorDisease[] $factorDiseases
  */
 class Disease extends Model
 {
@@ -50,17 +50,17 @@ class Disease extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pieceDiseases()
+    public function factorDiseases()
     {
-        return $this->hasMany('App\Models\Piece\PieceDisease');
+        return $this->hasMany('App\Models\Factor\FactorDisease');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function pieces()
+    public function factors()
     {
-        return $this->belongsToMany('App\Models\Piece\Piece', 'piece_diseases');
+        return $this->belongsToMany('App\Models\Factor\Factor', 'factor_diseases');
     }
 
     /**

@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Protocol\Protocol;
-use App\Models\Piece\Piece;
+use App\Models\Factor\Factor;
 use App\Models\Disease\Disease;
 use App\Models\Remedy;
 use App\Models\Marker;
@@ -21,22 +21,22 @@ class ProtocolsTableSeeder extends Seeder
 
         factory(Protocol::class, 100)->create();
 
-        $pieces = Piece::all();
-        $protocols = Protocol::with('pieces')->get();
+        $factors = Factor::all();
+        $protocols = Protocol::with('factors')->get();
 
         foreach($protocols as $protocol){
-            $attach = $pieces->random(rand(1,2));
-            $protocol->pieces()->attach($attach);
+            $attach = $factors->random(rand(1,2));
+            $protocol->factors()->attach($attach);
         }
 
-        $diseases = Disease::with('pieces')->get();
+        $diseases = Disease::with('factors')->get();
         $skip = [];
 
         foreach($diseases as $disease){
             $attach = $protocols->random(rand(1,5));
-            if($disease->pieces()->count() > 0){
-                foreach($disease->pieces()->get() as $piece){
-                    $piece->protocols()->attach($attach);                    
+            if($disease->factors()->count() > 0){
+                foreach($disease->factors()->get() as $factor){
+                    $factor->protocols()->attach($attach);                    
                 }
             }
             $disease->protocols()->attach($attach);

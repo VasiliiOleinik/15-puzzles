@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string $abnormal_condition
  * @property string $normal_condition
- * @property Piece[] $pieces
+ * @property Factor[] $factors
  */
 class Type extends Model
 {
@@ -22,8 +22,8 @@ class Type extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pieces()
+    public function factors()
     {
-        return $this->hasMany('App\Models\Piece\Piece');
+        return $this->hasMany('App\Models\Factor\Factor');
     }
 }

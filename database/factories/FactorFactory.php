@@ -2,11 +2,11 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Models\Piece\Piece;
+use App\Models\Factor\Factor;
 use Faker\Generator as Faker;
 
 
-$factory->define(Piece::class, function (Faker $faker) {
+$factory->define(Factor::class, function (Faker $faker) {
     return [
         'content' => $faker->realText(800),    
     ];

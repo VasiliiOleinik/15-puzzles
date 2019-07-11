@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Piece\Piece;
+use App\Models\Factor\Factor;
 use Illuminate\Database\Seeder;
 use App\Models\Disease\Disease;
 
@@ -45,11 +45,11 @@ class DiseasesTableSeeder extends Seeder
                 ->update($disease_names[$i]);
         }
 
-        $pieces = Piece::all();
-        $countPieces = Piece::count();
-        $diseases = Disease::with('pieces')->get();
+        $factors = Factor::all();
+        $countFactors = Factor::count();
+        $diseases = Disease::with('factors')->get();
         foreach ($diseases as $disease) {
-            $disease->pieces()->attach($pieces->random( rand(1,  8 ) ) );
+            $disease->factors()->attach($factors->random( rand(1,  8 ) ) );
         }
     }
 }

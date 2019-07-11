@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(MethodsTableSeeder::class);
 
-        $this->call(PiecesTableSeeder::class);
+        $this->call(FactorsTableSeeder::class);
         $this->call(DiseasesTableSeeder::class);
         $this->call(ProtocolsTableSeeder::class);
         $this->call(RemediesTableSeeder::class);

@@ -2,7 +2,7 @@
 /*     VARIABLES      */
 /* ------------------ */
 let evidences;
-let diseasePieces;
+let diseaseFactors;
 /* ------------------ */
 /* ------------------ */
 
@@ -19,14 +19,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     let evidences_ajax, model_ajax, markers_ajax;
   
-    let modelPiece = "App\\Models\\Piece\\Piece";
+    let modelFactor = "App\\Models\\Factor\\Factor";
     let modelDisease = "App\\Models\\Disease\\Disease";
     let modelProtocol = "App\\Models\\Protocol\\Protocol";
     let modelRemedy = "App\\Models\\Remedy";
     let modelMarker = "App\\Models\\Marker\\Marker";    
 
     let modelNames = {
-        0: "piece",
+        0: "factor",
         1: "disease",
         2: "protocol",
         3: "remedy",
@@ -102,10 +102,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 //console.log(response.responseText);
 
                 //$('#tabListProtocols').html(response.responseJSON.protocol);
-            if (response.responseJSON.diseasePieces) {
-                diseasePieces = response.responseJSON.diseasePieces;
+            if (response.responseJSON.diseaseFactors) {
+                diseaseFactors = response.responseJSON.diseaseFactors;
             }
-            if (data.piece.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
+            if (data.factor.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
                 refreshTabsCounts(response.responseJSON.models);
                 $('#tabListFactors').html(tab1);
                 $('#tabListDiseases').html(tab2);
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             dataType: 'json',
             complete: function (response) {
                 //console.log(response.responseText);                
-                if (data.piece.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
+                if (data.factor.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
                     refreshTabsCounts(response.responseJSON.models);
                     $('#tabListFactors').html(tab1);
                     $('#tabListDiseases').html(tab2);
@@ -144,21 +144,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     $('#tabListRemedies').html(tab4);
                     $('#tabListMarkers').html(tab5);
                 } else {
-                    refreshTabsCounts(response.responseJSON.models);
-                    if (response.responseJSON.diseasePieces) {
-                        diseasePieces = response.responseJSON.diseasePieces;
-                    }
-                    let activeTab = checkActiveTab();
-
-                    if (activeTab != 0)
+                    //console.log(data.activeTab)
+                    refreshTabsCounts(response.responseJSON.models);                    
+                    if (data.activeTab != 0)
                         $('#tabListFactors').html(response.responseJSON.views.factor);
-                    if (activeTab != 1)
+                    if (data.activeTab != 1)
                         $('#tabListDiseases').html(response.responseJSON.views.disease);
-                    if (activeTab != 2)
+                    if (data.activeTab != 2)
                         $('#tabListProtocols').html(response.responseJSON.views.protocol);
-                    if (activeTab != 3)
+                    if (data.activeTab != 3)
                         $('#tabListRemedies').html(response.responseJSON.views.remedy);
-                    if (activeTab != 4)
+                    if (data.activeTab != 4)
                         $('#tabListMarkers').html(response.responseJSON.views.marker);                        
                 }                
             },
@@ -250,12 +246,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
     function getTagsData() {
-        let piece = [], disease = [], protocol = [];
+        let factor = [], disease = [], protocol = [];
         $(".tag-item").each(function () {
             let objId = $(this).attr('obj-id');
             let objType = $(this).attr('obj-type');
             if (objType === "factor") {
-                piece.push(objId);
+                factor.push(objId);
             }
             if (objType === "disease") {
                 disease.push(objId);
@@ -264,11 +260,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 protocol.push(objId);
             }
         });
+        let activeTab = checkActiveTab();
         let data = {
-            "piece": piece,
+            "factor": factor,
             "disease": disease,
             "protocol": protocol,
-            "models": [modelPiece, modelDisease, modelProtocol, modelRemedy, modelMarker],
+            "models": [modelFactor, modelDisease, modelProtocol, modelRemedy, modelMarker],
+            "activeTab": activeTab,
             "_token": $('meta[name="csrf-token"]').attr('content'),
         };        
         return data;
@@ -281,14 +279,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]].length + ']');
         }
     }
-    
-    /*
-    function refreshTabsCounts(models) {
-        let length = Object.keys(modelNames).length;
-        for (let i = 0; i < length; i++) {
-            $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]] + ']');
-        }
-    }*/
 
     function refreshTabsContent(models) {
 
@@ -310,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         html += '<div class="tab-item">';
                         html += '   <div class="tab-item__head">';
                         html += '       <label class="tab_head_check">';
-                        if (modelNames[i] == "piece") {
+                        if (modelNames[i] == "factor") {
                             html += '           <input class="checkbox" type="checkbox" obj-id="' + id + '" obj-type="factor"><span class="checkbox-custom"></span>';
                         } else
                             if (modelNames[i] == "disease" || modelNames[i] == "protocol") {
@@ -318,7 +308,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             } else {
                                 html += '           <input class="checkbox" type="checkbox"><span class="checkbox-custom"></span>';
                             }
-                        if (modelNames[i] == "piece" || modelNames[i] == "disease") {
+                        if (modelNames[i] == "factor" || modelNames[i] == "disease") {
                             html += '           <p class="title">' + modelSelectors[i].substring(0, modelSelectors[i].length - 1) + ' #' + (count + 1) + ': ' + name + '</p>';
                         } else {
                             html += '           <p class="title">' + name;
@@ -353,7 +343,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     let activeTab = checkActiveTab();
 
                     //во вкладке факторов показывать всегда все элементы
-                    if (modelNames[i] != "piece" && activeTab != 2) {
+                    if (modelNames[i] != "factor" && activeTab != 2) {
                         $('#tabList' + modelSelectors[i]).html(html);
                     }
                     $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]].length + ']');
@@ -442,9 +432,9 @@ function addTagToTagsList(objId, objName, objType) {
         /*if (objType === 'disease') {
 
             var loop = setInterval(function () {
-                console.log(diseasePieces)
-                if (diseasePieces) {
-                    $.each(diseasePieces, function (index, id) {
+                console.log(diseaseFactors)
+                if (diseaseFactors) {
+                    $.each(diseaseFactors, function (index, id) {
                         let type = "factor";
                         let elem = $("input[type='checkbox'][obj-id=" + id + "][obj-type=" + type + "]");
                         let checkbox = $("input[type='checkbox'][obj-id=" + id + "][obj-type=" + type + "]");

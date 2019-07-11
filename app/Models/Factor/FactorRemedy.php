@@ -1,29 +1,29 @@
 <?php
 
-namespace App\Models\Piece;
+namespace App\Models\Factor;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property int $piece_id
+ * @property int $factor_id
  * @property int $remedy_id
- * @property Piece $piece
+ * @property Factor $factor
  * @property Remedy $remedy
  */
-class PieceRemedy extends Model
+class FactorRemedy extends Model
 {
     /**
      * @var array
      */
-    protected $fillable = ['piece_id', 'remedy_id'];
+    protected $fillable = ['factor_id', 'remedy_id'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function piece()
+    public function factor()
     {
-        return $this->belongsTo('App\Models\Piece\Piece');
+        return $this->belongsTo('App\Models\Factor\Factor');
     }
 
     /**

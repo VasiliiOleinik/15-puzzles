@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
-use App\Models\Piece\Piece;
+use App\Models\Factor\Factor;
 use App\Models\Category;
 
-class PiecesTableSeeder extends Seeder
+class FactorsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,12 +14,12 @@ class PiecesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('pieces')->delete();
-        DB::update("ALTER TABLE pieces AUTO_INCREMENT = 0;");
+        DB::table('factors')->delete();
+        DB::update("ALTER TABLE factors AUTO_INCREMENT = 0;");
 
-        factory(Piece::class, 22)->create();        
+        factory(Factor::class, 22)->create();        
         
-        $piece_names = [
+        $factor_names = [
             ['img' => 'img/svg/oxygen_metabolism.svg', 'name' => 'Oxygen metabolism change', 'type_id' => 1],
             ['img' => 'img/svg/dna.svg', 'name' => 'DNA damage', 'type_id' => 1],
 			['img' => 'img/svg/etiology.svg', 'name' => 'Etiology', 'type_id' => 1],
@@ -41,31 +41,14 @@ class PiecesTableSeeder extends Seeder
             ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'type_id' => 4],
             ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'type_id' => 4],
             ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'type_id' => 4],
-            ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'type_id' => 4],
-        /*
-            ['img' => 'piece_1.png', 'name' => 'Oxygen metabolism change'],
-            ['img' => 'piece_2.png', 'name' => 'DNA damage'],
-			['img' => 'piece_3.png', 'name' => 'Etiology'],
-            ['img' => 'piece_4.png', 'name' => 'Looking up'],
-            ['img' => 'piece_5.png', 'name' => 'Detox'],
-            ['img' => 'piece_6.png', 'name' => 'Cell voltage'],
-            ['img' => 'piece_7.png', 'name' => 'pH'],
-            ['img' => 'piece_8.png', 'name' => 'Cellular metabolism'],
-            ['img' => 'piece_9.png', 'name' => 'Cancer cell recognition by immune system'],
-            ['img' => 'piece_10.png', 'name' => 'Reactivation of immune system'],
-            ['img' => 'piece_11.png', 'name' => 'Connective tissue recovery'],
-            ['img' => 'piece_12.png', 'name' => 'Canver cell ellimination'],
-            ['img' => 'piece_13.png', 'name' => 'Free Radical stress'],
-            ['img' => 'piece_14.png', 'name' => 'Cancer cell division'],
-            ['img' => 'piece_15.png', 'name' => 'Angiogenesis'],
-        */
+            ['img' => 'img/svg/angiogenesis.svg', 'name' => 'Angiogenesis', 'type_id' => 4],     
         ];
 
-        for($i = 0; $i < count($piece_names); $i++){
+        for($i = 0; $i < count($factor_names); $i++){
 
-            DB::table('pieces')
+            DB::table('factors')
                 ->where('id', $i + 1)
-                ->update($piece_names[$i]);
+                ->update($factor_names[$i]);
         }
     }
 }

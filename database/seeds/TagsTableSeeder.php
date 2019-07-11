@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Tag;
-use App\Models\Piece\Piece;
+use App\Models\Factor\Factor;
 use App\Models\Disease\Disease;
 use App\Models\Protocol\Protocol;
 use App\Models\Remedy;
@@ -22,7 +22,7 @@ class TagsTableSeeder extends Seeder
 
 
         $all_models = array();
-        array_push($all_models, Piece::all());
+        array_push($all_models, Factor::all());
         array_push($all_models, Disease::all());
         array_push($all_models, Protocol::all());
         array_push($all_models, Remedy::all());

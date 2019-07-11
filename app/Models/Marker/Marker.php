@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $subtitle
  * @property DiseaseMarker[] $diseaseMarkers
  * @property MarkerMethod[] $markerMethods
- * @property PieceMarker[] $pieceMarkers
+ * @property FactorMarker[] $factorMarkers
  * @property ProtocolMarker[] $protocolMarkers
  */
 class Marker extends Model
@@ -42,9 +42,9 @@ class Marker extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pieceMarkers()
+    public function factorMarkers()
     {
-        return $this->hasMany('App\Models\Piece\PieceMarker');
+        return $this->hasMany('App\Models\Factor\FactorMarker');
     }
 
     /**
@@ -58,9 +58,9 @@ class Marker extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function pieces()
+    public function factors()
     {
-    return $this->belongsToMany('App\Models\Piece\Piece', 'piece_markers');
+    return $this->belongsToMany('App\Models\Factor\Factor', 'factor_markers');
     }
 
     /**

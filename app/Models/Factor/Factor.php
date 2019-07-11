@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Piece;
+namespace App\Models\Factor;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,16 +11,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $content
  * @property string $img
  * @property Type $type
- * @property PieceDisease[] $pieceDiseases
- * @property PieceMarker[] $pieceMarkers
- * @property PieceProtocol[] $pieceProtocols
- * @property PieceRemedy[] $pieceRemedies
- * @property PieceDisease[] $diseases
- * @property PieceProtocol[] $protocols
- * @property PieceRemedy[] $remedies
- * @property PieceMarker[] $markers
+ * @property FactorDisease[] $factorDiseases
+ * @property FactorMarker[] $factorMarkers
+ * @property FactorProtocol[] $factorProtocols
+ * @property FactorRemedy[] $factorRemedies
+ * @property FactorDisease[] $diseases
+ * @property FactorProtocol[] $protocols
+ * @property FactorRemedy[] $remedies
+ * @property FactorMarker[] $markers
  */
-class Piece extends Model
+class Factor extends Model
 {
 	public $timestamps = false;
 	
@@ -40,33 +40,33 @@ class Piece extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pieceDiseases()
+    public function factorDiseases()
     {
-        return $this->hasMany('App\Models\Piece\PieceDisease');
+        return $this->hasMany('App\Models\Factor\FactorDisease');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pieceMarkers()
+    public function factorMarkers()
     {
-        return $this->hasMany('App\Models\Piece\PieceMarker');
+        return $this->hasMany('App\Models\Factor\FactorMarker');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pieceProtocols()
+    public function factorProtocols()
     {
-        return $this->hasMany('App\Models\Piece\PieceProtocol');
+        return $this->hasMany('App\Models\Factor\FactorProtocol');
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function pieceRemedies()
+    public function factorRemedies()
     {
-        return $this->hasMany('App\Models\Piece\PieceRemedy');
+        return $this->hasMany('App\Models\Factor\FactorRemedy');
     }
 
     /**
@@ -74,7 +74,7 @@ class Piece extends Model
      */
     public function diseases()
     {
-        return $this->belongsToMany('App\Models\Disease\Disease', 'piece_diseases');
+        return $this->belongsToMany('App\Models\Disease\Disease', 'factor_diseases');
     }
 
     /**
@@ -82,7 +82,7 @@ class Piece extends Model
      */
     public function protocols()
     {
-        return $this->belongsToMany('App\Models\Protocol\Protocol', 'piece_protocols');
+        return $this->belongsToMany('App\Models\Protocol\Protocol', 'factor_protocols');
     }
 
     /**
@@ -90,7 +90,7 @@ class Piece extends Model
      */
     public function remedies()
     {
-    return $this->belongsToMany('App\Models\Remedy', 'piece_remedies');
+    return $this->belongsToMany('App\Models\Remedy', 'factor_remedies');
     }
 
     /**
@@ -98,6 +98,6 @@ class Piece extends Model
      */
     public function markers()
     {
-    return $this->belongsToMany('App\Models\Marker\Marker', 'piece_markers');
+    return $this->belongsToMany('App\Models\Marker\Marker', 'factor_markers');
     }
 }

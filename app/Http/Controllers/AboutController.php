@@ -10,10 +10,10 @@ class AboutController extends Controller
     public function index()
     {
         $factors = Cache::remember(
-            'piece',
+            'factor',
             now()->addDay(1),
             function(){
-                return Piece::with('type')->get();
+                return Factor::with('type')->get();
             }
         );
         return view('about.about', compact(['factors']));

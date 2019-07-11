@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User\User;
 use App\Models\Permission;
-use App\Models\Piece\Piece;
-use App\Models\Piece\PieceRemedy;
+use App\Models\Factor\Factor;
+use App\Models\Factor\FactorRemedy;
 use App\Models\Disease\Disease;
 use App\Models\Protocol\Protocol;
 use App\Models\Remedy;
@@ -40,10 +40,10 @@ class MainController extends Controller
         $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
 
         $factors = Cache::remember(
-            'piece',
+            'factor',
             now()->addDay(1),
             function(){
-                return Piece::with('type')->get();
+                return Factor::with('type')->get();
             }
         );
 
@@ -106,28 +106,28 @@ class MainController extends Controller
     {
         $json = [];
 
-        $modelPiece = "App\\Models\\Piece\\Piece";
+        $modelFactor = "App\\Models\\Factor\\Factor";
         $modelDisease = "App\\Models\\Disease\\Disease";
         $modelProtocol = "App\\Models\\Protocol\\Protocol";
         $modelRemedy = "App\\Models\\Remedy";
         $modelMarker = "App\\Models\\Marker\\Marker";
 
-        $models = [$modelPiece, $modelDisease, $modelProtocol, $modelRemedy, $modelMarker];
+        $models = [$modelFactor, $modelDisease, $modelProtocol, $modelRemedy, $modelMarker];
 
         foreach ($models as $model) {
 
             $table = $this->getModelNameLowercase($model);
-            if(!$request['piece'] && !$request['disease'] && !$request['protocol']){
+            if(!$request['factor'] && !$request['disease'] && !$request['protocol']){
                 $modelResults = Cache::get($table);
                 $json[$table] = $modelResults;
             }else {
 
                 $resultStartArray = Cache::get($table)->pluck('id')->toArray();
-                $withArray = ['piece', 'disease', 'protocol'];
+                $withArray = ['factor', 'disease', 'protocol'];
 
                 //фильтр по таблице не задан => ищем
                 if (!$request[$table]) {
-                    //проходим по всем фильтры: 'piece', 'disease', 'protocol'
+                    //проходим по всем фильтры: 'factor', 'disease', 'protocol'
                     foreach ($withArray as $with) {
                         //проверка чтобы имя таблицы и with() не совпадали
                         if ($with != $table) {
@@ -143,7 +143,7 @@ class MainController extends Controller
                 }
 
                 //добавляем связанную таблицу
-                if($table == "piece"){
+                if($table == "factor"){
                     $modelResults = $model::with('type')->whereIn('id', $resultStartArray)->get();    
                 }else
                 if($table == "protocol"){
@@ -159,9 +159,9 @@ class MainController extends Controller
         if($request['disease']){     
             return ([
                                 "models" => $json,
-                                "diseasePieces" => Disease::with('pieces')
+                                "diseaseFactors" => Disease::with('factors')
                                                           ->find($request['disease'][0])
-                                                          ->pieces()->get()
+                                                          ->factors()->get()
                                                           ->pluck('id')->toArray()
                                 ]);
         }else
@@ -181,7 +181,7 @@ class MainController extends Controller
         return view('main.main-left.main-tabs.markers', compact(['markers']));
     }
 
-    public $modelPiece = "App\\Models\\Piece\\Piece";
+    public $modelFactor = "App\\Models\\Factor\\Factor";
     public $modelDisease = "App\\Models\\Disease\\Disease";
     public $modelProtocol = "App\\Models\\Protocol\\Protocol";
     public $modelRemedy = "App\\Models\\Remedy";
@@ -197,25 +197,25 @@ class MainController extends Controller
         $view = [];
         $counts = [];
         $views = [];
-        $diseasePieces = [];
+        $diseaseFactors = [];
         if(count($result) > 1){           
-            $diseasePieces = $result['diseasePieces'];             
+            $diseaseFactors = $result['diseaseFactors'];             
         }
-        if ( count($_models['piece']) == Piece::count() &&
+        if ( count($_models['factor']) == Factor::count() &&
              count($_models['disease']) == Disease::count() &&
              count($_models['protocol']) == Protocol::count()) {
 
-            return json_encode(['views' => $views, 'counts' => $counts, 'models' => $_models, 'diseasePieces' => $diseasePieces]);
+            return json_encode(['views' => $views, 'counts' => $counts, 'models' => $_models, 'diseaseFactors' => $diseaseFactors]);
         }else
         {            
-            $models = [$this->modelPiece, $this->modelDisease, $this->modelProtocol, $this->modelRemedy, $this->modelMarker];
+            $models = [$this->modelFactor, $this->modelDisease, $this->modelProtocol, $this->modelRemedy, $this->modelMarker];
             foreach ($models as $model) {// example: 'App\\Models\\Protocol\\Protocol'
                 $modelName = $this->getModelNameLowercase($model);// example: 'protocol'            
                 $modelArray =  $result['models'][$modelName]->pluck('id')->toArray();
 
-                if($modelName == 'piece') {
+                if($modelName == 'factor') {
                     $modelName = 'factor';
-                    $factors = $result['models']['piece'];
+                    $factors = $result['models']['factor'];
                 }
                 if($modelName == 'disease') {
                     $diseases = $result['models']['disease'];
@@ -238,7 +238,7 @@ class MainController extends Controller
                 $counts [ $modelName ] = ${$modelName.'s'}->count();
             }
         }
-        return json_encode(['views' => $views, 'counts' => $counts, 'models' => $_models, 'diseasePieces' => $diseasePieces]);
+        return json_encode(['views' => $views, 'counts' => $counts, 'models' => $_models, 'diseaseFactors' => $diseaseFactors]);
     }
 
     public function getModelNameLowercase($model){
