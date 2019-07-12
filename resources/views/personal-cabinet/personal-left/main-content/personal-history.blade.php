@@ -5,7 +5,7 @@
                   <form class="upload-label" method="POST" action="{{ route('file.personal_cabinet.store', app()->getLocale()) }}" enctype="multipart/form-data">
                   @csrf
                     <div class="upload-file">
-                      <div class="fileImg"><img class="file" src="img/file.png"></div>
+                      <div class="fileImg"><img class="file" src="/img/file.png"></div>
                       <button class="file-upload">
                         <input class="file-input" type="file" id="file" name="file" placeholder="Choose File"
                                 accept=".xlsx, .pdf, .txt,.docx"/> 
