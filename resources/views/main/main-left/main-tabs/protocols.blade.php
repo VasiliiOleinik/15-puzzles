@@ -14,7 +14,7 @@
             <p class="subtitle">{{$protocol->subtitle}}</p>
             <p>{{$protocol->content}}</p>
           </div>
-          <a class="show-more" href="javascript:void(0)">Show more</a><a class="link protocols" target="_blank"
+          <a class="show-more" href="javascript:void(0)">@lang('main.show_more')</a><a class="link protocols" target="_blank"
                                                                          href="{{$protocol->url}}">{{$protocol->url}}</a>
         </div>
       </div>

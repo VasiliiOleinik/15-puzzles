@@ -1,10 +1,10 @@
 <div class="puzzle-15">
-  <div class="puzzle-15__category resons"><span></span>resons</div>
-  <div class="puzzle-15__category conditions"><span></span>conditions</div>
-  <div class="puzzle-15__category defence"><span></span>defence</div>
-  <div class="puzzle-15__category dangers"><span></span>dangers</div>
-  <div class="puzzle-15__category dangers"><span></span>dangers</div>
-  <div class="puzzle-15__category dangers"><span></span>dangers</div>
+  <div class="puzzle-15__category resons"><span></span>@lang('main.reasons')</div>
+  <div class="puzzle-15__category conditions"><span></span>@lang('main.conditions')</div>
+  <div class="puzzle-15__category defence"><span></span>@lang('main.defence')</div>
+  <div class="puzzle-15__category dangers"><span></span>@lang('main.dangers')</div>
+  <div class="puzzle-15__category dangers"><span></span>@lang('main.dangers')</div>
+  <div class="puzzle-15__category dangers"><span></span>@lang('main.dangers')</div>
   @foreach($factors as $factor)
     <div class="puzzle-15__item-outer" obj-id="{{$factor->id}}">
       <div class="puzzle-15__item {{$factor->type->name}}"><img class="factors-check"

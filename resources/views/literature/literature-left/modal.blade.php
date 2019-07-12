@@ -6,7 +6,7 @@
                     <div class="book-modal-container__review">
                       <p class="book-review">{{$description}}</p>
                     </div>
-                    <div class="book-modal-container__adress"><span class="shops-list">Shops list:</span>
+                    <div class="book-modal-container__adress"><span class="shops-list">@lang('literature.shops_list')</span>
                       <ol class="adress-list">
                         @foreach($links as $link)
                         <li> <a href="{{$link->url}}" target="_blank">{{$link->title}}</a></li>

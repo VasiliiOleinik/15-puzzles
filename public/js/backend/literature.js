@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         $.ajax({
             type: "GET",
-            url: "/literature-modal",
+            url: "/" + locale + "/literature-modal",
             data: data,
             complete: function (result) {
                 //if (result.responseText)

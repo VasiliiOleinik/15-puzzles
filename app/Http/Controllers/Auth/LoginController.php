@@ -21,14 +21,9 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/personal_cabinet';
+    use AuthenticatesUsers {
+        logout as performLogout;
+    }
 
     /**
      * Create a new controller instance.
@@ -55,6 +50,12 @@ class LoginController extends Controller
             return json_encode(array('auth'=>'failed'));//redirect()->back();
         }
 
+    }
+
+    public function logout(Request $request)
+    {
+        $this->performLogout($request);
+        return redirect()->back();
     }
 
     public function redirectTo()

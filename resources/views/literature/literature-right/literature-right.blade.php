@@ -1,6 +1,6 @@
             <div class="news-right">
               <div class="categories">
-                <p class="news-right__title">Literature categories</p>
+                <p class="news-right__title">@lang('literature.title_categories')</p>
                 <ul class="categories__list">
                   @foreach($categoriesForBooks as $category)
                   <li class="item"><a href="javascript:void(0)" obj-id={{$category->id}}>{{$category->name}}</a></li>
@@ -8,7 +8,7 @@
                 </ul>
               </div>
               <div class="tags">
-                <p class="news-right__title">Literature tags</p>
+                <p class="news-right__title">@lang('literature.title_tags_cloud')</p>
                 <ul class="tags__list">
                   <li class="item"><a href="#item">Oxygen metabolism change</a></li>
                   <li class="item"><a href="#item">Cellular</a></li>
@@ -18,18 +18,18 @@
                   <li class="item"><a href="#item">Reactivation of immune system</a></li>
                 </ul>
               </div>
-              <div class="clear-filter"><a class="clear-filter-btn" id="clear-filter-btn-js" href="javascript:void(0)">Clear filter</a></div>
+              <div class="clear-filter"><a class="clear-filter-btn" id="clear-filter-btn-js" href="javascript:void(0)">@lang('literature.clear_filter')</a></div>
               <div class="search">
-                <p class="news-right__title">Search in literature</p>
+                <p class="news-right__title">@lang('literature.title_search')</p>
                 <form class="search__input">
-                  <input class="search-news" type="text" placeholder="Search" id="tags">
-                  <button class="search-news-btn"><img src="/img/svg/search_news.svg" alt="Search news"></button>
+                  <input class="search-news" type="text" placeholder="@lang('literature.placeholder_search')" id="tags">
+                  <button class="search-news-btn"><img src="/img/svg/search_news.svg" alt=""></button>
                 </form>
               </div>
               <div class="subscribe">
-                <p class="news-right__title">Take latest news from 15-Puzzle</p>
+                <p class="news-right__title">@lang('literature.title_subscribe')</p>
                 <form class="subscribe__input">
-                  <input class="subscribe-field" type="text" placeholder="Your Email Address">
+                  <input class="subscribe-field" type="text" placeholder="@lang('literature.placeholder_subscribe')">
                   <button class="subscribe-btn"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                 </form>
               </div>

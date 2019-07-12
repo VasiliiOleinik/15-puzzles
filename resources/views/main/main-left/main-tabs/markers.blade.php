@@ -5,8 +5,8 @@
           <div class="arrow markers"><img src="img/svg/dropdown-ico.svg" alt=""></div>
         </div>
         <div class="tab-item__content markers">
-          <h3 class="content-markers-title">How to check to what extent the cells are under dna mutagenic influence</h3>
-          <span class="methods">Methods</span>
+          <h3 class="content-markers-title">@lang('main.subtitle_markers')</h3>
+          <span class="methods">@lang('main.methods')</span>
           <div class="method-list">
             @foreach($marker->methods as $method)
               <div class="method-item">

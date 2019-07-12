@@ -30,16 +30,14 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::get('literature', 'LiteratureController@index')->name('literature');           
     Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet    
 
+    Route::get('literature-modal', 'LiteratureController@literatureModal')->name('literature-modal');
+
     Auth::routes(['verify' => true]);
 });
 
 /* MAIN */
     Route::post('filter', 'MainController@filter')->name('filter');
     Route::post('model_partial', 'MainController@modelPartial')->name('model_partial');
-/* ---- */
-
-/* LITERATURE */
-    Route::get('literature-modal', 'LiteratureController@literatureModal')->name('literature-modal');
 /* ---- */
 
 Route::resource('user', 'UserController');

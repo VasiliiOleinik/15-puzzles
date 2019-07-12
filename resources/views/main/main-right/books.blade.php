@@ -6,4 +6,4 @@
   <li><img src="img/svg/book.svg">Be healthy (by dr. Pokrywka)</li>
   <li><img src="img/svg/book.svg">Antioxidant curing of cancer (by dr. Garbuzov)</li>
 </ul>
-<a class="arrow-link" href="/literature" target="_self">Literature</a>
+<a class="arrow-link" href="/literature" target="_self">@lang('main.button_literature')</a>

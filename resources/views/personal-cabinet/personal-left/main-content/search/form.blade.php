@@ -1,4 +1,4 @@
-                  <form  id="file-search-form" method="get" action="{{ route('file.personal_cabinet.index') }}" class="search-byHistory__labels" enctype="multipart/form-data">
+                  <form  id="file-search-form" method="get" action="{{ route('file.personal_cabinet.index', app()->getLocale()) }}" class="search-byHistory__labels" enctype="multipart/form-data">
                     <div class="label-search">
                       <input type="text" placeholder="Search by name" name="search_file_name" value="{{$search_file['name']}}" autofocus autocomplete="search_file_name">
                       <button class="search-byName" type="submit"><img src="img/svg/history-search.svg" alt=""></button>

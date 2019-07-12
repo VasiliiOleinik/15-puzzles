@@ -2,7 +2,7 @@
                   <h3 class="personal-history__title">History of analyzes</h3>
                   <p class="personal-history__message">You can add file formats: PDF and Office files</p>
                   <!--<form class="upload-label">-->
-                  <form class="upload-label" method="POST" action="{{ route('file.personal_cabinet.store') }}" enctype="multipart/form-data">
+                  <form class="upload-label" method="POST" action="{{ route('file.personal_cabinet.store', app()->getLocale()) }}" enctype="multipart/form-data">
                   @csrf
                     <div class="upload-file">
                       <div class="fileImg"><img class="file" src="img/file.png"></div>

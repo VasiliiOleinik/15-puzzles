@@ -108,7 +108,7 @@ class FileController extends Controller
         $request->session()->flash('status-file_upload', 'You have successfully upload your file.');
 
         $request->file = null;         
-        return redirect('personal_cabinet');        
+        return redirect()->back();        
     }
 
     /**
@@ -150,7 +150,7 @@ class FileController extends Controller
      *
      * @param  \App\Models\File  $id
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $locale, $id)
     {
          $file = File::findOrFail($id);
 

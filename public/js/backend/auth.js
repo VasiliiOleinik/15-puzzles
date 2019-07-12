@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if(data.responseJSON.auth === "success")
                 {
                     $('.fancybox-close-small').click();
-                    location.href = "/personal_cabinet";
+                    location.href = "/" + locale + "/personal_cabinet";
                 }
                 if(data.responseJSON.auth === "failed")
                 {

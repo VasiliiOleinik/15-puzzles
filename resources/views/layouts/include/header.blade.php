@@ -4,13 +4,13 @@
       <div class="header__logo logo"><img src="/img/svg/logo.svg"></div>
       <nav class="header__nav">
         <ul class="header__nav-list">
-          <li class="header__nav-li"><a class="header__nav-link" href="{{ url('/', app()->getLocale() )}}" target="_self">Main</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/member_cases') }}" target="_self">Member&apos;s cases</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/factor_diagram') }}" target="_self">Factor diagram</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/about') }}" target="_self">About</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/news') }}" target="_self">News</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/literature') }}" target="_self">Literature</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_self">FAQ</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url('/', app()->getLocale() )}}" target="_self">@lang('header.main')</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/member_cases') }}" target="_self">@lang('header.member_cases')</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/factor_diagram') }}" target="_self">@lang('header.factor_diagram')</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/about') }}" target="_self">@lang('header.about')</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/news') }}" target="_self">@lang('header.news')</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/literature') }}" target="_self">@lang('header.literature')</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_self">@lang('header.faq')</a></li>
         </ul>
       </nav>
       <div class="header__langs">
@@ -23,23 +23,23 @@
         
           @guest
           <button id="login-btn" data-fancybox data-src="#header-login-modal-js"><img src="/img/svg/user.svg" alt="User">
-            <span>Login</span>
+            <span>@lang('header.login')</span>
           </button>
           @endguest
         
         @auth
           <button ><img src="/img/svg/user.svg" alt="User"></button>
-          <a class="logout" href="{{ route('logout') }}"
-             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+          <a class="logout" href="{{ route('logout', app()->getLocale() ) }}"
+             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('header.logout')</a>
+          <form id="logout-form" action="{{ route('logout', app()->getLocale() ) }}" method="POST" style="display: none;">
             @csrf
           </form>
         @endauth
       </div>
       <div class="header__search-block">
-        <button class="search-btn" id="search-btn-js"><img src="/img/svg/search.svg" alt="Search"></button>
+        <button class="search-btn" id="search-btn-js"><img src="/img/svg/search.svg" alt="@lang('header.placeholder_search')"></button>
         <form class="header__search">
-          <input class="header__search-input" type="text" placeholder="Search">
+          <input class="header__search-input" type="text" placeholder="@lang('header.placeholder_search')">
           <button class="header__search-btn"><i class="fas fa-search"></i></button>
         </form>
       </div>

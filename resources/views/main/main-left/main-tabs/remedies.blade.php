@@ -11,7 +11,7 @@
           <div class="text">
             <p>{{$remedy->content}}</p>
           </div>
-          <a class="show-more" href="javascript:void(0)">Show more</a><a class="link" target="_blank"
+          <a class="show-more" href="javascript:void(0)">@lang('main.show_more')</a><a class="link" target="_blank"
                                                                          href="{{$remedy->url}}">{{$remedy->url}}</a>
         </div>
       </div>
