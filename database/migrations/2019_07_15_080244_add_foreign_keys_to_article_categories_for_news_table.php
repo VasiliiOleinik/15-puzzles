@@ -15,7 +15,8 @@ class AddForeignKeysToArticleCategoriesForNewsTable extends Migration {
 		Schema::table('article_categories_for_news', function(Blueprint $table)
 		{
 			$table->foreign('article_id', 'FK_articles_categories_for_news_articles')->references('id')->on('articles')->onUpdate('CASCADE')->onDelete('CASCADE');
-			$table->foreign('category_for_news_id', 'FK_articles_categories_for_news_categories_for_news')->references('id')->on('categories_for_news')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('category_for_news_id', 'FK_articles_categories_for_news_categories_for_news')->references('id')->on('categories_for_news')->onUpdate('CASCADE')->onDelete('CASCADE');		
+			\Illuminate\Support\Facades\DB::statement('ALTER TABLE articles ADD FULLTEXT search(title, description, content)');			
 		});
 	}
 

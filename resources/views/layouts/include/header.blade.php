@@ -37,9 +37,9 @@
       </div>
       <div class="header__search-block">
         <button class="search-btn" id="search-btn-js"><img src="/img/svg/search.svg" alt="@lang('header.placeholder_search')"></button>
-        <form class="header__search">
-          <input class="header__search-input" type="text" placeholder="@lang('header.placeholder_search')">
-          <button class="header__search-btn"><i class="fas fa-search"></i></button>
+        <form action="{{ route( 'search', app()->getLocale() ) }}" method="GET" class="header__search">
+            <input class="header__search-input" type="text" placeholder="@lang('header.placeholder_search')" name="q" value="{{ old('q') }}">
+            <button class="header__search-btn"><i class="fas fa-search"></i></button>
         </form>
       </div>
     </div>

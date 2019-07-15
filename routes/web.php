@@ -33,6 +33,8 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
 
     Route::get('literature-modal', 'LiteratureController@literatureModal')->name('literature-modal');
 
+    Route::get('search', 'SearchController@index')->name('search');
+
     Auth::routes(['verify' => true]);
 });
 
