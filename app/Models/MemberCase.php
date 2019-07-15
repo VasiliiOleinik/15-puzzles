@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 class MemberCase extends Model
 {
-    //public $timestamps = false;
 
     /**
      * @var array

@@ -15,7 +15,11 @@
       </nav>
       <div class="header__langs">
       @foreach (config('app.available_locales') as $locale)
-        <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale, substr(url()->current(), strrpos(url()->current(), '/') + 1)]) }}">{{ strtoupper($locale) }}</a><span class="header__lang-devider"></span>        
+        @if(ctype_digit(substr(url()->current(), strrpos(url()->current(), '/') + 1)) && (int) substr(url()->current(), strrpos(url()->current(), '/') + 1) > 0)
+        <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale, substr(url()->current(), strrpos(url()->current(), '/') + 1)]) }}">{{ strtoupper($locale) }}</a><span class="header__lang-devider"></span>
+        @else
+        <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale]) }}">{{ strtoupper($locale) }}</a><span class="header__lang-devider"></span>
+        @endif
       @endforeach
       </div>
       <div class="header__login">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article\Article;
 use App\Models\MemberCase;
+use Illuminate\Support\Facades\DB; 
 
 class SearchController extends Controller
 {
@@ -67,15 +68,25 @@ class SearchController extends Controller
             }
         }
         $query = array_unique($query, SORT_STRING);
-        $qQeury = implode(" ", $query); //объединяет массив в строку        
+        $qQeury = implode(" ", $query); //объединяет массив в строку
+        $articles = Article::where('title', 'like', "%".$q."%")
+                          ->orWhere('description', 'like', "%".$q."%")
+                          ->orWhere('content', 'like', "%".$q."%")
+                          ->get();
+        $memberCases = MemberCase::where('title', 'like', "%".$q."%")
+                          ->orWhere('description', 'like', "%".$q."%")
+                          ->orWhere('content', 'like', "%".$q."%")
+                          ->get();
+        $results = $memberCases->merge($articles);
+        //dd($results);
         // Таблица для поиска
-        $articles = Article::whereRaw(
+        /*$articles = Article::whereRaw(
             "MATCH(title,description,content) AGAINST(? IN BOOLEAN MODE)", // - поля, по которым нужно искать
             $qQeury)->get() ;
         $memberCases = MemberCase::whereRaw(
             "MATCH(title,description,content) AGAINST(? IN BOOLEAN MODE)", // - поля, по которым нужно искать
             $qQeury)->get() ;
-        $results = $memberCases->merge($articles);
+        $results = $memberCases->merge($articles);*/
         //$results = $results->paginate( 15 ); //Filter the page var
 
         return $results;

@@ -190,7 +190,7 @@ $(function() {
     .val();
 
   // Окрытие доп.информации в табах на home page
-  $(".arrow").on("click", function() {
+  $(".tab-list.main-scroll").delegate(".arrow", "click", function () {
     var isOpen = $(this).hasClass("dropdown");
 
     $(".arrow").removeClass("dropdown");
@@ -246,7 +246,7 @@ $(function() {
     });
   });
   // Подсветка выбранного таба на странице home page
-  $(".tab_head_check input").on("click", function() {
+  $(".tab-list.main-scroll").delegate(".tab_head_check input", "click", function () {
     $(this)
       .parent()
       .parent()
@@ -254,11 +254,11 @@ $(function() {
   });
 
   // Делаю фактор активным
-  $(".puzzle-15__item").on("click", function() {
-    $(this).toggleClass("active");
-  });
+  $(".tab-list.main-scroll").delegate(".puzzle-15__item", "click", function () {
+        $(this).toggleClass("active");
+    });
 
-  $(".evidence").hover(
+  $(".tab-list.main-scroll").delegate(".evidence", "hover",
     function() {
       $(this)
         .find(".evidence__detail")
@@ -272,7 +272,7 @@ $(function() {
   );
 });
 
-$(".method-item__head").on("change", function() {
+$(".tab-list.main-scroll").delegate(".method-item__head","change", function() {
   var thisTitle = $(this)
     .find(".title")
     .text();
