@@ -4,7 +4,7 @@ $(document).ready(function() {
   var maintabsProps = {
     startCollapsed: "accordion"
   };
-  tabsInit($("#mainTabs, #faqTabs"), maintabsProps); //Инит табов на главной
+  tabsInit($("#mainTabs"), maintabsProps); //Инит табов на главной
   playVideo();
   $(".tooltip").tooltipster({
     side: "bottom",
@@ -117,48 +117,16 @@ $(function() {
   });
 
   // Скрываю label когда input активен (personal page)
-  $(
-    ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
-  ).on("click", function() {
-    $(this).css({
-      "box-shadow": "rgba(91, 156, 167, 0.32) 0px 1px 6px",
-      border: "1px solid rgba(91, 156, 167, .5)",
-      transition: ".1s ease-in-out"
-    });
+  $(".profile-labels .label input").on("click", function() {
     $(this)
       .siblings("label")
-      .css({
-        transition: ".1s ease-in-out",
-        top: "-7px",
-        "z-index": "5",
-        padding: "0px 10px",
-        background: "#ffff",
-        left: "15px",
-        "font-size": "10px",
-        "box-shadow": "0px 0px 3px 0px rgba(0,0,0,0.1)"
-      });
+      .hide(100);
   });
-  $(
-    ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
-  ).on("blur", function() {
+  $(".profile-labels .label input").on("blur", function() {
     if ($(this).val().length == "") {
-      $(this).css({
-        "box-shadow": "none",
-        border: "1px solid #d6dbde",
-        transition: ".1s ease-in-out"
-      });
       $(this)
         .siblings("label")
-        .css({
-          transition: ".1s ease-in-out",
-          top: "15px",
-          "z-index": "1",
-          padding: "0px",
-          background: "transparent",
-          left: "30px",
-          "font-size": "15px",
-          "box-shadow": "none"
-        });
+        .show(100);
     }
   });
 
@@ -189,90 +157,90 @@ $(function() {
     })
     .val();
 
-  // Окрытие доп.информации в табах на home page
-  $(".arrow").on("click", function() {
-    var isOpen = $(this).hasClass("dropdown");
+    // Окрытие доп.информации в табах на home page
+    $(".tab-list.main-scroll").delegate(".arrow", "click", function () {
+        var isOpen = $(this).hasClass("dropdown");
 
-    $(".arrow").removeClass("dropdown");
-    $(".tab-item__content").slideUp();
-    $(".tab-head-markers").removeClass("checked-tab");
-    // $(".tab-item__head").removeClass("checked-tab");
+        $(".arrow").removeClass("dropdown");
+        $(".tab-item__content").slideUp();
+        $(".tab-head-markers").removeClass("checked-tab");
+        $(".tab-item__head").removeClass("checked-tab");
 
-    if (isOpen) {
-      $(this).removeClass("dropdown");
-      $(this)
-        .parent()
-        .siblings(".tab-item__content")
-        .slideUp();
-      $(this)
-        .parent(".tab-head-markers")
-        .removeClass("checked-tab");
-    } else {
-      $(this).addClass("dropdown");
-      $(this)
-        .parent()
-        .siblings(".tab-item__content")
-        .slideDown();
-      $(this)
-        .parent(".tab-head-markers")
-        .addClass("checked-tab");
-    }
+        if (isOpen) {
+            $(this).removeClass("dropdown");
+            $(this)
+                .parent()
+                .siblings(".tab-item__content")
+                .slideUp();
+            $(this)
+                .parent(".tab-head-markers")
+                .removeClass("checked-tab");
+        } else {
+            $(this).addClass("dropdown");
+            $(this)
+                .parent()
+                .siblings(".tab-item__content")
+                .slideDown();
+            $(this)
+                .parent(".tab-head-markers")
+                .addClass("checked-tab");
+        }
 
-    // Модалка, если текста больше чем 160px по высоте
-    var tabText = $(this)
-        .parent()
-        .siblings(".tab-item__content")
-        .find(".text p"),
-      showMore = $(this)
-        .parent()
-        .siblings(".tab-item__content")
-        .find(".show-more"),
-      modalText = $(".tabs-modal .tabs-modal-text");
-    if (tabText.height() > 160) {
-      showMore.css({ display: "flex" });
-      modalText.append("<p>" + tabText.html() + "</p>");
-    }
-    showMore.on("click", function() {
-      $(".tabs-modal").show();
-      $("html, body").animate(
-        {
-          scrollTop: $(".header").height() / 2
+        // Модалка, если текста больше чем 160px по высоте
+        var tabText = $(this)
+            .parent()
+            .siblings(".tab-item__content")
+            .find(".text p"),
+            showMore = $(this)
+                .parent()
+                .siblings(".tab-item__content")
+                .find(".show-more"),
+            modalText = $(".tabs-modal .tabs-modal-text");
+        if (tabText.height() > 160) {
+            showMore.css({ display: "flex" });
+            modalText.append("<p>" + tabText.html() + "</p>");
+        }
+        showMore.on("click", function () {
+            $(".tabs-modal").show();
+            $("html, body").animate(
+                {
+                    scrollTop: $(".header").height() / 2
+                },
+                500
+            );
+        });
+        $(".close-tabs-modal-btn, .close-tabs-modal-ico").on("click", function () {
+            $(".tabs-modal").hide();
+        });
+    });
+    // Подсветка выбранного таба на странице home page
+    $(".tab-list.main-scroll").delegate(".tab_head_check input", "click", function () {
+        $(this)
+            .parent()
+            .parent()
+            .toggleClass("checked-tab");
+    });
+
+    // Делаю фактор активным
+    $(".tab-list.main-scroll").delegate(".puzzle-15__item", "click", function () {
+        $(this).toggleClass("active");
+    });
+
+    $(".tab-list.main-scroll").delegate(".evidence", "hover",
+        function () {
+            $(this)
+                .find(".evidence__detail")
+                .css({ display: "flex" });
         },
-        500
-      );
-    });
-    $(".close-tabs-modal-btn, .close-tabs-modal-ico").on("click", function() {
-      $(".tabs-modal").hide();
-    });
-  });
-  // Подсветка выбранного таба на странице home page
-  $(".tab_head_check input").on("click", function() {
-    $(this)
-      .parent()
-      .parent()
-      .toggleClass("checked-tab");
-  });
-
-  // Делаю фактор активным
-  $(".puzzle-15__item").on("click", function() {
-    $(this).toggleClass("active");
-  });
-
-  $(".evidence").hover(
-    function() {
-      $(this)
-        .find(".evidence__detail")
-        .css({ display: "flex" });
-    },
-    function() {
-      $(this)
-        .find(".evidence__detail")
-        .css({ display: "none" });
-    }
-  );
+        function () {
+            $(this)
+                .find(".evidence__detail")
+                .css({ display: "none" });
+        }
+    );
 });
 
-$(".method-item__head").on("change", function() {
+$(".tab-list.main-scroll").delegate(".method-item__head","change", function() {
   var thisTitle = $(this)
     .find(".title")
     .text();
@@ -369,42 +337,3 @@ $(" #close-recovery-js, .fancybox-container").on("click", function() {
   $(".recovery-pass-footer-link.close").hide();
   $(".recovery-pass-inputs").removeClass("success");
 });
-
-// Работа с правой частью новостей
-$(function() {
-  var categorItem = $(".categories__list .item"),
-    tagsItem = $(".tags__list .item");
-  $(tagsItem).on("click", function() {
-    $(this).toggleClass("choosen");
-    if (categorItem.hasClass("choosen") || tagsItem.hasClass("choosen")) {
-      $("#clear-filter-btn-js").css({ cursor: "pointer" });
-    } else {
-      $("#clear-filter-btn-js").css({ cursor: "not-allowed" });
-    }
-  });
-  $(categorItem).on("click", function() {
-    $(this).toggleClass("choosen");
-    if (categorItem.hasClass("choosen") || tagsItem.hasClass("choosen")) {
-      $("#clear-filter-btn-js").css({ cursor: "pointer" });
-    } else {
-      $("#clear-filter-btn-js").css({ cursor: "not-allowed" });
-    }
-  });
-});
-
-$(function() {
-  $(".faq__tabs-nav-item")
-    .first()
-    .addClass("active");
-  $(".faq__tabs-nav-item").on("click", function() {
-    $(".faq__tabs-nav-item").removeClass("active");
-    $(this).addClass("active");
-  });
-
-
-  $('.search-byHistory__result .result-item').hover(function(){
-    $(this).find('.control-block').slideToggle();
-    $(this).find('.control-block').css({'display':'flex'});
-  });
-});
-

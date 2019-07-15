@@ -25,9 +25,10 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::get('/', 'MainController@index')->name('main');
     Route::resource('member_cases', 'MemberCaseController');
     Route::get('factor_diagram', 'FactorDiagramController@index')->name('factor_diagram');
-    Route::resource('news', 'NewsController');    
     Route::get('about', 'AboutController@index')->name('about');
-    Route::get('literature', 'LiteratureController@index')->name('literature');           
+    Route::resource('news', 'NewsController');        
+    Route::get('literature', 'LiteratureController@index')->name('literature');
+    Route::get('faq', 'FaqController@index')->name('faq');
     Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet    
 
     Route::get('literature-modal', 'LiteratureController@literatureModal')->name('literature-modal');

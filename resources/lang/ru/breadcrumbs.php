@@ -18,7 +18,7 @@ return [
     'about' => 'О нас',
     'news' => 'Новости',
     'literature' => 'Литература',
-    'faq' => 'Faq',
+    'faq' => 'FAQ',
     'personal_cabinet' => 'Личный кабинет',
 
 ];

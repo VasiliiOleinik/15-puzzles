@@ -8,7 +8,8 @@
                       <input name="nickname" type="text">
                       <label for="nickname">Nickname</label>
                       -->
-                      <input id="nickname" type="text" placeholder="Nickname" class="form-control @error('nickname') is-invalid @enderror" name="nickname" value="{{Auth::user()->nickname}}" required autocomplete="nickname" autofocus>
+                      <input id="nickname" type="text"class="form-control @error('nickname') is-invalid @enderror" name="nickname" value="{{Auth::user()->nickname}}" required autocomplete="nickname" autofocus>
+                      <label for="nickname">Nickname</label>
                       @error('nickname')
                         <label class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -22,7 +23,8 @@
                       <input name="email" type="text">
                       <label for="email">Email<span>*</span></label>
                       -->
-                      <input id="email" type="text" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{Auth::user()->email}}" required autocomplete="email" autofocus>
+                      <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{Auth::user()->email}}" required autocomplete="email" autofocus>
+                      <label for="email">Email<span>*</span></label>
                       @error('email')
                         <label class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -36,7 +38,8 @@
                       <input name="name" type="text">
                       <label for="name">Name<span>*</span></label>
                       -->
-                      <input id="first_name" type="text" placeholder="Name" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{Auth::user()->first_name}}" autocomplete="first_name" autofocus>
+                      <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{Auth::user()->first_name}}" autocomplete="first_name" autofocus>
+                      <label for="name">Name<span>*</span></label>
                       @error('first_name')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -50,7 +53,8 @@
                       <input name="last_name" type="text">
                       <label for="last_name">Last Name<span>*</span></label>
                       -->
-                      <input id="last_name" type="text" placeholder="Last Name" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{Auth::user()->last_name}}" autocomplete="last_name" autofocus>
+                      <input id="last_name" type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{Auth::user()->last_name}}" autocomplete="last_name" autofocus>
+                      <label for="last_name">Last Name<span>*</span></label>
                       @error('last_name')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -64,7 +68,8 @@
                       <input name="middle_name" type="text">
                       <label for="middle_name">Middle Name<span>*</span></label>
                       -->
-                      <input id="middle_name" type="text" placeholder="Middle name" class="form-control @error('middle_name') is-invalid @enderror" name="middle_name" value="{{Auth::user()->middle_name}}" autocomplete="middle_name" autofocus>
+                      <input id="middle_name" type="text" class="form-control @error('middle_name') is-invalid @enderror" name="middle_name" value="{{Auth::user()->middle_name}}" autocomplete="middle_name" autofocus>
+                      <label for="middle_name">Middle Name<span>*</span></label>
                       @error('middle_name')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -78,7 +83,8 @@
                       <input class="date-inp" id="personal-dob" name="dob" type="text">
                       <label for="dob">Date Of Birth<span>*</span></label>
                       -->
-                      <input class="date-inp" id="birthday" name="birthday" value="{{Auth::user()->birthday}}" placeholder="dd.mm.yyyy" type="text">         
+                      <input class="date-inp" id="birthday" name="birthday" value="{{Auth::user()->birthday}}" type="text">
+                      <label for="dob">Date Of Birth<span>*</span></label>
                       @error('birthday')
                         <span class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>
@@ -88,7 +94,8 @@
                     <!- - ->
                     <!-- password -->                    
                     <div class="label">
-                      <input id="password" type="text" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="password" autofocus>
+                      <input id="password" type="text" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="password" autofocus>
+                      <label for="nickname">Password</label>
                       @error('password')
                         <label class="invalid-feedback" role="alert">
                           <strong>{{ $message }}</strong>

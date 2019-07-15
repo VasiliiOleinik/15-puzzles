@@ -13,12 +13,12 @@ return [
     */
 
     'main' => 'Main',
-    'members_cases' => "Member's cases",
+    'member_cases' => "Member's cases",
     'factor_diagram' => "Factor diagram",
     'about' => 'About',
     'news' => 'News',
     'literature' => 'Literature',
-    'faq' => 'Faq',
+    'faq' => 'FAQ',
     'personal_cabinet' => 'Personal Cabinet',
 
 ];

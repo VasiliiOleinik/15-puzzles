@@ -1,4 +1,5 @@
-$(document).ready(function() {
+$(document).ready(function () {
+
   // preloader();//Fade preloader when page loaded
   setCategoryPosition(); // Позиционирование названия групп в секции puzzle-15
   var maintabsProps = {
@@ -157,63 +158,63 @@ $(function() {
     })
     .val();
 
-    // Окрытие доп.информации в табах на home page
-    $(".tab-list.main-scroll").delegate(".arrow", "click", function () {
-        var isOpen = $(this).hasClass("dropdown");
+  // Окрытие доп.информации в табах на home page
+  $(".tab-list.main-scroll").delegate(".arrow", "click", function () {
+    var isOpen = $(this).hasClass("dropdown");
 
-        $(".arrow").removeClass("dropdown");
-        $(".tab-item__content").slideUp();
-        $(".tab-head-markers").removeClass("checked-tab");
-        $(".tab-item__head").removeClass("checked-tab");
+    $(".arrow").removeClass("dropdown");
+    $(".tab-item__content").slideUp();
+    $(".tab-head-markers").removeClass("checked-tab");
+    // $(".tab-item__head").removeClass("checked-tab");
 
-        if (isOpen) {
-            $(this).removeClass("dropdown");
-            $(this)
-                .parent()
-                .siblings(".tab-item__content")
-                .slideUp();
-            $(this)
-                .parent(".tab-head-markers")
-                .removeClass("checked-tab");
-        } else {
-            $(this).addClass("dropdown");
-            $(this)
-                .parent()
-                .siblings(".tab-item__content")
-                .slideDown();
-            $(this)
-                .parent(".tab-head-markers")
-                .addClass("checked-tab");
-        }
+    if (isOpen) {
+      $(this).removeClass("dropdown");
+      $(this)
+        .parent()
+        .siblings(".tab-item__content")
+        .slideUp();
+      $(this)
+        .parent(".tab-head-markers")
+        .removeClass("checked-tab");
+    } else {
+      $(this).addClass("dropdown");
+      $(this)
+        .parent()
+        .siblings(".tab-item__content")
+        .slideDown();
+      $(this)
+        .parent(".tab-head-markers")
+        .addClass("checked-tab");
+    }
 
-        // Модалка, если текста больше чем 160px по высоте
-        var tabText = $(this)
-            .parent()
-            .siblings(".tab-item__content")
-            .find(".text p"),
-            showMore = $(this)
-                .parent()
-                .siblings(".tab-item__content")
-                .find(".show-more"),
-            modalText = $(".tabs-modal .tabs-modal-text");
-        if (tabText.height() > 160) {
-            showMore.css({ display: "flex" });
-            modalText.append("<p>" + tabText.html() + "</p>");
-        }
-        showMore.on("click", function () {
-            $(".tabs-modal").show();
-            $("html, body").animate(
-                {
-                    scrollTop: $(".header").height() / 2
-                },
-                500
-            );
-        });
-        $(".close-tabs-modal-btn, .close-tabs-modal-ico").on("click", function () {
-            $(".tabs-modal").hide();
-        });
+    // Модалка, если текста больше чем 160px по высоте
+    var tabText = $(this)
+        .parent()
+        .siblings(".tab-item__content")
+        .find(".text p"),
+      showMore = $(this)
+        .parent()
+        .siblings(".tab-item__content")
+        .find(".show-more"),
+      modalText = $(".tabs-modal .tabs-modal-text");
+    if (tabText.height() > 160) {
+      showMore.css({ display: "flex" });
+      modalText.append("<p>" + tabText.html() + "</p>");
+    }
+    showMore.on("click", function() {
+      $(".tabs-modal").show();
+      $("html, body").animate(
+        {
+          scrollTop: $(".header").height() / 2
+        },
+        500
+      );
     });
-    // Подсветка выбранного таба на странице home page
+    $(".close-tabs-modal-btn, .close-tabs-modal-ico").on("click", function() {
+      $(".tabs-modal").hide();
+    });
+  });
+  // Подсветка выбранного таба на странице home page
     $(".tab-list.main-scroll").delegate(".tab_head_check input", "click", function () {
         $(this)
             .parent()
@@ -227,17 +228,17 @@ $(function() {
     });
 
     $(".tab-list.main-scroll").delegate(".evidence", "hover",
-        function () {
-            $(this)
-                .find(".evidence__detail")
-                .css({ display: "flex" });
-        },
-        function () {
-            $(this)
-                .find(".evidence__detail")
-                .css({ display: "none" });
-        }
-    );
+    function() {
+      $(this)
+        .find(".evidence__detail")
+        .css({ display: "flex" });
+    },
+    function() {
+      $(this)
+        .find(".evidence__detail")
+        .css({ display: "none" });
+    }
+  );
 });
 
 $(".tab-list.main-scroll").delegate(".method-item__head","change", function() {
@@ -336,4 +337,26 @@ $(" #close-recovery-js, .fancybox-container").on("click", function() {
   $(".recovery-pass-inputs .recovery-success").hide();
   $(".recovery-pass-footer-link.close").hide();
   $(".recovery-pass-inputs").removeClass("success");
+});
+
+// Работа с правой частью новостей
+$(function() {
+  var categorItem = $(".categories__list .item"),
+      tagsItem = $(".tags__list .item");
+  $(tagsItem).on("click", function() {
+    $(this).toggleClass("choosen");
+    if (categorItem.hasClass("choosen") || tagsItem.hasClass("choosen")) {
+      $("#clear-filter-btn-js").css({ cursor: "pointer" });
+    } else {
+      $("#clear-filter-btn-js").css({ cursor: "not-allowed" });
+    }
+  });
+  $(categorItem).on("click", function() {
+    $(this).toggleClass("choosen");
+    if (categorItem.hasClass("choosen") || tagsItem.hasClass("choosen")) {
+      $("#clear-filter-btn-js").css({ cursor: "pointer" });
+    } else {
+      $("#clear-filter-btn-js").css({ cursor: "not-allowed" });
+    }
+  });
 });

@@ -10,13 +10,12 @@
           <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/about') }}" target="_self">@lang('header.about')</a></li>
           <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/news') }}" target="_self">@lang('header.news')</a></li>
           <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/literature') }}" target="_self">@lang('header.literature')</a></li>
-          <li class="header__nav-li"><a class="header__nav-link" href="#" target="_self">@lang('header.faq')</a></li>
+          <li class="header__nav-li"><a class="header__nav-link" href="{{ url(app()->getLocale().'/faq') }}" target="_self">@lang('header.faq')</a></li>
         </ul>
       </nav>
       <div class="header__langs">
       @foreach (config('app.available_locales') as $locale)
-        <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), $locale) }}">{{ strtoupper($locale) }}</a><span class="header__lang-devider"></span>
-        
+        <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale, substr(url()->current(), strrpos(url()->current(), '/') + 1)]) }}">{{ strtoupper($locale) }}</a><span class="header__lang-devider"></span>        
       @endforeach
       </div>
       <div class="header__login">

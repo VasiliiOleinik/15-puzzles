@@ -13,14 +13,14 @@
               <div class="main-content">
                 <h1 class="title">Member's cases</h1>
                 <div class="post_container">
-                  @foreach($member_cases as $member_case)
-                  <div class="post"><a class="post__image" href="javascript:void(0)"> <img class="post__img" src="/{{$member_case->img}}" alt="Post img"></a><a class="post__date" href="javascript:void(0)">19.10.2019</a><a class="post__title" href="javascript:void(0)">Fight history<span class="post__arrow"></span></a>
-                    <p class="post__description">{{$member_case->description}}</p>
+                  @foreach($memberCases as $memberCase)
+                  <div class="post"><a class="post__image" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCase->id}}"> <img class="post__img" src="/{{$memberCase->img}}" alt=""></a><a class="post__date" href="javascript:void(0)">{{$memberCase->updated_at->format('d.m.Y')}}</a><a class="post__title" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCase->id}}">{{$memberCase->title}}<span class="post__arrow"></span></a>
+                    <p class="post__description">{{$memberCase->description}}</p>
                   </div> 
                   @endforeach
                 </div>
                 <div class="pagination">
-                {{$member_cases->appends(request()->except('page'))->links('vendor.pagination.15-puzzle')}}
+                {{$memberCases->appends(request()->except('page'))->links('vendor.pagination.15-puzzle')}}
                 </div>
               </div>
             </div>
@@ -46,11 +46,16 @@
               <div class="add-story">
                 <h3 class="add-story__title">Add your story</h3>
                 <form class="add-story__form" action="">
-                  <input class="headline" type="text" placeholder="Headline">
-                  <textarea class="story" placeholder="Your story"></textarea>
-                  <input class="add-tags" type="text" placeholder="Add tags. Tags must be separated by a comma.">
+                  <div class="labels">
+                    <input class="headline inp" type="text" name="headline">
+                    <label for="headline">Headline</label>
+                  </div>
+                  <div class="labels">
+                    <textarea class="story inp" name="your-story"></textarea>
+                    <label class="textarea" for="your-story">Your story</label>
+                  </div>
                   <div class="add-images">
-                    <h3 class="add-images__title">Add images</h3>
+                    <h3 class="add-images__title">Add image</h3>
                     <div class="images-container">
                       <div class="item-img">
                         <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
@@ -58,31 +63,11 @@
                           <input class="file-input" type="file" placeholder="Choose File">
                         </button>
                       </div>
-                      <div class="item-img">
-                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
-                        <button class="file-upload">         
-                          <input class="file-input" type="file" placeholder="Choose File">
-                        </button>
-                      </div>
-                      <div class="item-img">
-                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
-                        <button class="file-upload">         
-                          <input class="file-input" type="file" placeholder="Choose File">
-                        </button>
-                      </div>
-                      <div class="item-img">
-                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
-                        <button class="file-upload">         
-                          <input class="file-input" type="file" placeholder="Choose File">
-                        </button>
-                      </div>
-                      <div class="item-img">
-                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
-                        <button class="file-upload">         
-                          <input class="file-input" type="file" placeholder="Choose File">
-                        </button>
-                      </div>
                     </div>
+                  </div>
+                  <div class="labels">
+                    <input class="add-tags inp" name="add-tags" type="text">
+                    <label for="add-tags">Add tags. Tags must be separated by a comma.</label>
                   </div>
                   <div class="footer-form">
                     <label>
@@ -97,5 +82,5 @@
         </main>      
 @endsection
 @section('news-js')
-    <script src="{{ asset('js/backend/member_cases.js') }}" defer></script>
+    <script src="{{ asset('js/backend/memberCases.js') }}" defer></script>
 @endsection

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property integer $user_id
+ * @property string $title
  * @property string $description
  * @property string $content
  * @property string $img
@@ -22,7 +23,7 @@ class MemberCase extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'description', 'content', 'img', 'status', 'created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'title', 'description', 'content', 'img', 'status', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

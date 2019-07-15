@@ -16,12 +16,12 @@ class MemberCaseController extends Controller
     public function index(Request $request)
     {
         if($request->page){
-            $member_cases = MemberCase::with('user')->where('status','=','show')->paginate(4);
-            return view('member-cases.partial.member_cases', compact(['member_cases']));
+            $memberCases = MemberCase::with('user')->where('status','=','show')->paginate(4);
+            return view('member-cases.partial.member-cases', compact(['memberCases']));
         }
         else{
-            $member_cases = MemberCase::with('user')->where('status','=','show')->paginate(4);
-            return view('member-cases.member_cases',compact(['member_cases']));
+            $memberCases = MemberCase::with('user')->where('status','=','show')->paginate(4);
+            return view('member-cases.member-cases',compact(['memberCases']));
         }
     }
 
@@ -49,12 +49,12 @@ class MemberCaseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MemberCase  $memberCase
+     * @param  \App\Models\MemberCase  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(MemberCase $memberCase)
+    public function show($locale, $id)
     {
-        //
+        return view('member-cases.single.member-case', ['memberCase' => MemberCase::with('user')->find($id)]);
     }
 
     /**
