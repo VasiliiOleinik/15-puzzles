@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*     FUNCTIONS      */
     /* ------------------ */
 
-    usedTags('all');
+    usedTags('memberCases');
 
     function tagsEmpty() {
         return $("#tags").val().split(',').length == 1 && $("#tags").val().split(',') == "";

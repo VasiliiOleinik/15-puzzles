@@ -27,6 +27,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return data;
     }
 
+    function clearFilter() {
+        $('.choosen').removeClass('choosen');
+        categoriesForNewsActive = [];
+        $("#tags").tagsinput('removeAll');
+    }
+
     /* ------------------ */
     /* ------------------ */
 

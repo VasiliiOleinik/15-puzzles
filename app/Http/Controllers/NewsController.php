@@ -126,4 +126,16 @@ class NewsController extends Controller
         }
         return response($tags_names);
     }
+
+    public function tagsCloud(Request $request){
+         //категории для новостей
+/*        $cloudForNews = Cache::remember(
+            'cloudForNews',
+            now()->addDay(1),
+            function() use ($request){
+                return Tag::with($request->with)->whereIn('id',$request['tags'])->get();
+            }
+        );*/
+        return view($request->view, ['tags' => Tag::with("memberCases")->whereIn('id',$request['tags'])->get()]);
+    }
 }

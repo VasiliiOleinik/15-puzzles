@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property ArticleTag[] $articleTags
  * @property ArticleTag[] $articles
  * @property BookTag[] $books
+ * @property BookTag[] $member_cases
  */
 class Tag extends Model
 {
@@ -42,5 +43,13 @@ class Tag extends Model
     public function books()
     {
     return $this->belongsToMany('App\Models\Book\Book', 'book_tags');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function memberCases()
+    {
+    return $this->belongsToMany('App\Models\MemberCase', 'member_case_tags');
     }
 }

@@ -25,9 +25,9 @@ function usedTags(_with) {
         },
         complete: function (result) {
             //console.log(result.responseText);
-            if (result.responseText.length != 0) {
-
+            if (result.responseText.length != 0) {                
                 json = jQuery.parseJSON(result.responseText);
+                setTagsCloud( Object.keys(json), _with );
                 json_length = Object.keys(json).length;
 
                 data = formTheCorrectDataFormat(json, json_length);
@@ -35,6 +35,38 @@ function usedTags(_with) {
             }
         },
         error: function (err) {
+        }
+    });
+}
+
+function setTagsCloud(tags, _with) {
+    let view = "";
+    if (_with == "articles") {
+        view = 'news.news-right.tags-cloud';
+    }
+    if (_with == "books") {
+        view = 'literature.literature-right.tags-cloud';
+    }
+    if (_with == "memberCases") {
+        view = 'member-cases.tags-cloud';
+    }
+    $.ajax({
+        type: "GET",
+        url: "/tags_cloud",
+        data: {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            "with": _with,
+            "tags": tags,
+            "view": view,
+        },
+        complete: function (result) {
+            //console.log(result.responseText);
+            if (result.responseText.length != 0) {
+                $('.tags__list').html(result.responseText);
+            }
+        },
+        error: function (err) {
+            //console.log(err.responseText);
         }
     });
 }
@@ -74,13 +106,6 @@ function tagsInputInit(data) {
 
     tags_input.tagsinput({
     });
-}
-
-function clearFilter() {
-    $('.choosen').removeClass('choosen');
-    categoriesForBooksActive = [];
-    categoriesForNewsActive = [];
-    $("#tags").tagsinput('removeAll');
 }
 
 /* ------------------ */

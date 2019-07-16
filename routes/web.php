@@ -45,6 +45,7 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
 
 Route::resource('user', 'UserController');
 Route::get('used_tags', 'NewsController@usedTags')->name('used_tags');
+Route::get('tags_cloud', 'NewsController@tagsCloud')->name('tags_cloud');
 
 /* FILE */
 Route::get('download/{id}', 'FileController@download');

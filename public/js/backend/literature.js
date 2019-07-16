@@ -21,7 +21,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //Без этого кнопки "Где купить" будут disabled (ждем document ready и активуруем их)
     $('.show-more-info-book').attr('data-fancybox', '');
 
-    
+    function clearFilter() {
+        $('.choosen').removeClass('choosen');
+        categoriesForBooksActive = [];
+        $("#tags").tagsinput('removeAll');
+    }
 
     /* ------------------ */
     /* ------------------ */
