@@ -1,5 +1,5 @@
                   <div class="profile-labels">
-                     <!-- nickname -->                    
+                     <!-- avatar -->                    
                      <input id="img" type="hidden" name="img">                 
                     <!- - ->
                     <!-- nickname -->

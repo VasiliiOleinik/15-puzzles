@@ -108,19 +108,22 @@ class NewsController extends Controller
     //Тэги, которые использовались ($request->with должен содержать таблицу, связанную с тэгами. например 'articles')
     public function usedTags(Request $request){
 
-        $tag_with = array();
-        $tags = Tag::with($request->with)->get();
+        if($request->with == "all"){
+            $tags_names = Tag::all()->pluck('name','id')->toJson();            
+        }else
+        {
+            $tag_with = array();
+            $tags = Tag::with($request->with)->get();
 
-        //find tags which have some relations with articles
-        foreach($tags as $tag) {
+            //find tags which have some relations with articles
+            foreach($tags as $tag) {
 
-            if(count($tag[$request->with]) > 0){
-                array_push($tag_with, $tag->id);
+                if(count($tag[$request->with]) > 0){
+                    array_push($tag_with, $tag->id);
+                }
             }
+            $tags_names = Tag::with($request->with)->whereIn('id',$tag_with)->pluck('name','id')->toJson();
         }
-
-        $tags_names = Tag::with($request->with)->whereIn('id',$tag_with)->pluck('name','id')->toJson();
-
         return response($tags_names);
     }
 }

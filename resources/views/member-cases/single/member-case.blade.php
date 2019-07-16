@@ -16,8 +16,10 @@
                 <div class="main-content">
                   <h1 class="title">{{$memberCase->title}}</h1>
                   <div class="case-info"><span class="case-info-text">{{$memberCase->updated_at->format('d.m.Y')}}</span>
-                    @if($memberCase->status == "show")
+                    @if($memberCase->anonym == 1)
                     <span class="case-info-text">{{$memberCase->user->first_name}} {{$memberCase->user->last_name}}</span>
+                    @else
+                    <span class="case-info-text">User wished to remain anonymous</span>
                     @endif
                   </div>
                   <div class="case-container"><img class="case-container__img" src="/{{$memberCase->img}}" alt="">

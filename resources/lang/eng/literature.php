@@ -15,7 +15,7 @@ return [
     'title_literature' => 'Literature',
     'title_categories' => 'LITERATURE CATEGORIES',
     'title_tags_cloud' => 'LITERATURE TAGS',
-    'title_search' => 'SEARCH IN NEWS',
+    'title_search' => 'SEARCH IN LITERATURE',
     'title_subscribe' => 'TAKE LATEST NEWS FROM 15-PUZZLE',
     'clear_filter' => "Clear filter",
     'placeholder_search' => 'Search',

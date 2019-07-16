@@ -12,8 +12,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $content
  * @property string $img
  * @property string $status
+ * @property string $anonym
  * @property string $created_at
  * @property string $updated_at
+ * @property MemberCaseTag[] $tags
  * @property User $user
  */
 class MemberCase extends Model
@@ -22,7 +24,15 @@ class MemberCase extends Model
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'title', 'description', 'content', 'img', 'status', 'created_at', 'updated_at'];
+    protected $fillable = ['user_id', 'title', 'description', 'content', 'img', 'status', 'anonym', 'created_at', 'updated_at'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+    return $this->belongsToMany('App\Models\Tag', 'member_case_tags');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

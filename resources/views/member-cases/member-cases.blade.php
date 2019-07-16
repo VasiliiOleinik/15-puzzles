@@ -1,4 +1,15 @@
 @extends('layouts.app')
+@section('literature-js')
+    <!--  scripts you need to search for tags   -->
+    <script src="{{ asset('js/backend/tags search/typeahead.js') }}" defer></script>
+    <script src="{{ asset('js/backend/tags search/bootstrap-tagsinput.js') }}" defer></script>
+    <script src="{{ asset('js/backend/memberCases.js') }}" defer></script>
+@endsection
+@section('literature-css')
+    <link href="{{ asset('css/backend/tags search/bootstrap-tagsinput.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/backend/tags search/typeaheadjs.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/backend/memberCases.css') }}" rel="stylesheet">    
+@endsection
 @section('content')
         <main class="main">
           <div class="box">
@@ -42,36 +53,43 @@
                   <input class="subscribe-field" type="text" placeholder="Your Email Address">
                   <button class="subscribe-btn"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                 </form>
-              </div>
+              </div>             
               <div class="add-story">
                 <h3 class="add-story__title">Add your story</h3>
-                <form class="add-story__form" action="">
+                <form class="add-story__form"  method="get" action="{{ route('member_cases.create', app()->getLocale()) }}">
+                  @csrf
+                  <!--<input name="_method" type="hidden" value="HEAD">-->
+
                   <div class="labels">
-                    <input class="headline inp" type="text" name="headline">
+                    <input class="headline inp" type="text" name="headline" required>
                     <label for="headline">Headline</label>
                   </div>
                   <div class="labels">
-                    <textarea class="story inp" name="your-story"></textarea>
+                    <textarea class="story inp" name="your-story" required></textarea>
                     <label class="textarea" for="your-story">Your story</label>
                   </div>
                   <div class="add-images">
                     <h3 class="add-images__title">Add image</h3>
                     <div class="images-container">
                       <div class="item-img">
+                        <input id="img" type="hidden" name="img">  
                         <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">
-                          <input class="file-input" type="file" placeholder="Choose File">
+                          <input class="file-input" type="file" placeholder="Choose Image" accept="image/x-png,image/gif,image/jpeg">
                         </button>
                       </div>
                     </div>
                   </div>
-                  <div class="labels">
-                    <input class="add-tags inp" name="add-tags" type="text">
-                    <label for="add-tags">Add tags. Tags must be separated by a comma.</label>
+                  <div class="tag-search">
+                      <div class="labels" style="padding: 0; min-height:48px;">
+                          <input id="story-tags" required>  
+                          <input class="add-tags inp" type="text" name="story-tags" id="tags">
+                          <label class="place">Add your story tags.</label>
+                      </div>
                   </div>
                   <div class="footer-form">
                     <label>
-                      <input class="checkbox" name="checkbox-test" type="checkbox"><span class="checkbox-custom"></span><span class="label">Do not publish my data. Publish case anonymously</span>
+                      <input class="checkbox" name="anonym" type="checkbox"><span class="checkbox-custom"></span><span class="label">Do not publish my data. Publish case anonymously</span>
                     </label>
                     <input class="submit-form" type="submit" value="Submit for moderation">
                   </div>
@@ -80,7 +98,4 @@
             </div>
           </div>
         </main>      
-@endsection
-@section('news-js')
-    <script src="{{ asset('js/backend/memberCases.js') }}" defer></script>
 @endsection

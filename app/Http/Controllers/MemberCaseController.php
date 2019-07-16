@@ -30,9 +30,33 @@ class MemberCaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+        'headline' => ['required', 'string', 'max:191'],
+        'your-story' => ['required'],
+        'img' => ['nullable'],
+        'story-tags' => ['required'],
+        'anonym' => ['required'],
+        ]);
+
+        $tags = explode(",",$request['story-tags']);
+        $memberCase = new MemberCase;
+
+        if($request->img != null){         
+          $memberCase->img = $request['img'];
+        }        
+        $memberCase->title = $request['headline'];
+        $memberCase->content = $request['your-story'];
+        $memberCase->description = substr($memberCase->content,0,186);
+        $memberCase->status = "moderating";
+        $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+        $memberCase->save();
+        $memberCase->tags()->attach($tags);
+
+        $request->session()->flash('status-member_case', 'You have successfully created your member case.');
+
+        return redirect()->back();
     }
 
     /**
