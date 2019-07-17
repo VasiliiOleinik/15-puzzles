@@ -122,7 +122,15 @@ class NewsController extends Controller
                     array_push($tag_with, $tag->id);
                 }
             }
-            $tags_names = Tag::with($request->with)->whereIn('id',$tag_with)->pluck('name','id')->toJson();
+            if($request['with'] == "memberCases"){
+                $tags_names = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(                
+                    'memberCases', function ($query) {
+                        $query->where('status','=','show');
+                    }
+                )->pluck('name','id')->toJson();
+            }else{
+                $tags_names = Tag::with($request->with)->whereIn('id',$tag_with)->pluck('name','id')->toJson();
+            }
         }
         return response($tags_names);
     }

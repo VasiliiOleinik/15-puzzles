@@ -26,10 +26,11 @@ class MemberCaseController extends Controller
                         array_push($memberCasesId, $obj->id);
                     }
                 }          
-                $memberCases = MemberCase::with('tags')->whereIn('id', $memberCasesId)->paginate(4);        
+                $memberCases = MemberCase::with('tags')->whereIn('id', $memberCasesId)
+                                                       ->where('status','=','show')->paginate(4);        
             }
             else{                
-              $memberCases = MemberCase::with('tags')->paginate(4);              
+              $memberCases = MemberCase::with('tags')->where('status','=','show')->paginate(4);              
             }
             return view('member-cases.partial.member-cases', compact(['memberCases']));
         }
