@@ -6,8 +6,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
     /*     VARIABLES      */
     /* ------------------ */
-    let categoryAjax, tagsAjax;
-    let categoriesForBooksActive = [];
+    let categoryAjax, tagsAjax;    
     /* ------------------ */
     /* ------------------ */
 
@@ -103,19 +102,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
 
         let tagsActive = $("#tags").val().split(',');
+        //мерджим два массива тэгов (из поля "Search" и из облака)
+        if (tagsActive[0] == "" && tagsActiveCloud.length > 0) {
+            tagsActive = tagsActiveCloud;
+        } else {
+            tagsActive = tagsActive.concat(tagsActiveCloud);
+        }
 
         try {
             categoryAjax.abort();
         } catch (err) { }
+        //console.log(categoriesForBooksActive);
+        let data = setData(categoriesForNewsActive, categoriesForBooksActive, tagsActive);
 
         categoryAjax = $.ajax({
             type: "GET",
             url: "/" + locale + "/literature",
-            data: {
-                categoriesForBooksActive: categoriesForBooksActive,
-                tagsActive: tagsActive,
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-            },
+            data: data,
             complete: function (result) {
                 if (result.responseText) {
                     $('.main-content').html(result.responseText);
@@ -145,16 +148,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $('.tt-input').attr('placeholder', 'Search');
         }
 
-        var tagsActive = $("#tags").val().split(',');
+        let tagsActive = $("#tags").val().split(',');
+        //мерджим два массива тэгов (из поля "Search" и из облака)
+        if (tagsActive[0] == "" && tagsActiveCloud.length > 0) {
+            tagsActive = tagsActiveCloud;
+        } else {
+            tagsActive = tagsActive.concat(tagsActiveCloud);
+        }
 
-        news_ajax = $.ajax({
+        let data = setData(categoriesForNewsActive, categoriesForBooksActive, tagsActive);
+
+        categoryAjax = $.ajax({
             type: "GET",
             url: "/" + locale + "/literature",
-            data: {
-                "_token": $('meta[name="csrf-token"]').attr('content'),
-                categoriesForBooksActive: categoriesForBooksActive,
-                tagsActive: tagsActive,
-            },
+            data: data,
             complete: function (result) {
 
                 if (result.responseText.length != 0) {

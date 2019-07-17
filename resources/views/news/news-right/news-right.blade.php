@@ -22,7 +22,7 @@
                   <button class="subscribe-btn"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                 </form>
               </div>
-              <div class="tags">
+              <div class="tags" obj-route="news">
                 <p class="news-right__title">@lang('news.title_tags_cloud')</p>
                 <ul class="tags__list">                  
                 </ul>

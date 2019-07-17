@@ -136,6 +136,6 @@ class NewsController extends Controller
                 return Tag::with($request->with)->whereIn('id',$request['tags'])->get();
             }
         );*/
-        return view($request->view, ['tags' => Tag::with("memberCases")->whereIn('id',$request['tags'])->get()]);
+        return view($request->view, ['tags' => Tag::with( $request['with'] )->whereIn('id',$request['tags'])->get()]);
     }
 }

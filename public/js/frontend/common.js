@@ -374,7 +374,7 @@ $(" #close-recovery-js, .fancybox-container").on("click", function() {
 $(function() {
   var categorItem = $(".categories__list .item"),
     tagsItem = $(".tags__list .item");
-  $(tagsItem).on("click", function() {
+    $(".tags__list").delegate(".item", "click", function () {
     $(this).toggleClass("choosen");
     if (categorItem.hasClass("choosen") || tagsItem.hasClass("choosen")) {
       $("#clear-filter-btn-js").css({ cursor: "pointer" });

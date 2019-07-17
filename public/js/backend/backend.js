@@ -1,3 +1,12 @@
+/* ------------------------- */
+/*     GLOBAL VARIABLES      */
+/* ------------------------- */
+let tagsActiveCloud = [];
+let categoriesForNewsActive = [];
+let categoriesForBooksActive = [];
+/* ------------------ */
+/* ------------------ */
+
 /* ----------------------- */
 /*     DOCUMENT READY      */
 /* ----------------------- */
@@ -11,10 +20,67 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /* ------------------ */
 /* ------------------ */
 
+$('.tags__list').delegate('.item', 'click', function () {
+    //Тэги, которые мы вписали в поле "Search"
+    let searchTags = $("#tags").val().split(',');
+    //Тэг, по которому кликнули в облаке тэгов (добавляем его в массив выбранных тэгов из облака)
+    let tag = $(this).attr('obj-id');
+    if (!tagsActiveCloud.includes(tag)) {
+        tagsActiveCloud.push(tag);
+    } else {
+        let index = tagsActiveCloud.indexOf(tag);
+        if (index !== -1) tagsActiveCloud.splice(index, 1);
+    }
+    //мерджим эти два массива тэгов (из поля "Search" и из облака)
+    tags = tagsActiveCloud.concat(searchTags);
+    let data = setData(categoriesForNewsActive, categoriesForBooksActive, tags);
+    let route = $('.tags').attr('obj-route');
+    $.ajax({
+        type: "GET",
+        url: "/" + locale + "/" + route,
+        data: data,
+        complete: function (result) {
+            if (result.responseText.length != 0) {
+
+                result = result.responseText;
+                html = result;
+                $('.main-content').html(html);
+            }
+        },
+        error: function (err) {
+        }
+    });
+
+});
 
 /* ------------------------- */
 /*      GLOBAL FUNCTIONS     */
 /* ------------------------- */
+function setData(categoriesForNewsActive, categoriesForBooksActive, tagsActive) {
+    let data;
+    if (categoriesForNewsActive.length > 0) {
+        data = {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            categoriesForNewsActive: categoriesForNewsActive,
+            tagsActive: tagsActive,
+        };
+    } else
+        if (categoriesForBooksActive.length > 0) {
+            data = {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                categoriesForBooksActive: categoriesForBooksActive,
+                tagsActive: tagsActive,
+            };
+        }
+        else {
+            data = {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+                tagsActive: tagsActive,
+            };
+        }
+    return data;
+}
+
 function usedTags(_with) {
     $.ajax({
         type: "GET",

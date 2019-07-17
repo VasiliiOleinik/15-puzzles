@@ -25,7 +25,18 @@
                 <h1 class="title">Member's cases</h1>
                 <div class="post_container">
                   @foreach($memberCases as $memberCase)
-                  <div class="post"><a class="post__image" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCase->id}}"> <img class="post__img" src="/{{$memberCase->img}}" alt=""></a><a class="post__date" href="javascript:void(0)">{{$memberCase->updated_at->format('d.m.Y')}}</a><a class="post__title" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCase->id}}">{{$memberCase->title}}<span class="post__arrow"></span></a>
+                  <div class="post">
+                    <a class="post__image" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCase->id}}">
+                      @if( $memberCase->img==null )
+                        <img class="post__img" src="/med-history.png" alt="">
+                      @else
+                        <img class="post__img" src="/{{$memberCase->img}}" alt="">
+                      @endif                      
+                    </a>
+                    <a class="post__date" href="javascript:void(0)">{{$memberCase->updated_at->format('d.m.Y')}}</a>
+                    <a class="post__title" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCase->id}}">{{$memberCase->title}}
+                      <span class="post__arrow"></span>
+                    </a>
                     <p class="post__description">{{$memberCase->description}}</p>
                   </div> 
                   @endforeach
@@ -35,18 +46,7 @@
                 </div>
               </div>
             </div>
-            <div class="cases-right">
-              <div class="tags">
-                <h3 class="news-right__title">Tag cloud</h3>
-                <ul class="tags__list">
-                  <li class="item"><a href="#item">Oxygen metabolism change</a></li>
-                  <li class="item"><a href="#item">Cellular</a></li>
-                  <li class="item"><a href="#item">Dr. Rath protocol</a></li>
-                  <li class="item"><a href="#item">Cancer</a></li>
-                  <li class="item"><a href="#item">Nutrition</a></li>
-                  <li class="item"><a href="#item">Reactivation of immune system</a></li>
-                </ul>
-              </div>
+            <div class="cases-right">              
               <div class="subscribe">
                 <h3 class="news-right__title">Take latest news from 15-Puzzle</h3>
                 <form class="subscribe__input">
@@ -94,6 +94,11 @@
                     <input class="submit-form" type="submit" value="Submit for moderation">
                   </div>
                 </form>
+              </div>
+              <div class="tags" obj-route="member_cases">
+                <h3 class="news-right__title">Tag cloud</h3>
+                <ul class="tags__list">
+                </ul>
               </div>
             </div>
           </div>

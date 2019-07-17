@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tag;
 use App\Models\MemberCase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -15,6 +16,24 @@ class MemberCaseController extends Controller
      */
     public function index(Request $request)
     {
+         //Выбраны тэги
+        if($request->tagsActive){
+            if($request->tagsActive[0]) {
+                $memberCasesId = array();
+                $tags = Tag::with('memberCases')->whereIn('id', $request->tagsActive)->get();
+                foreach ($tags as $tag) {
+                    foreach ($tag->memberCases as $obj) {
+                        array_push($memberCasesId, $obj->id);
+                    }
+                }          
+                $memberCases = MemberCase::with('tags')->whereIn('id', $memberCasesId)->paginate(4);        
+            }
+            else{                
+              $memberCases = MemberCase::with('tags')->paginate(4);              
+            }
+            return view('member-cases.partial.member-cases', compact(['memberCases']));
+        }
+        //пагинация
         if($request->page){
             $memberCases = MemberCase::with('user')->where('status','=','show')->paginate(4);
             return view('member-cases.partial.member-cases', compact(['memberCases']));
