@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //клик на "Где купить"
     $('.main-content').delegate('.show-more-info-book', 'click', function () {
-       
+        $(this).attr('data-fancybox','');
         $('#more-info-book-modal-js').html("");
         let loop = setInterval(function () {
             if ($('.fancybox-close-small')) {
