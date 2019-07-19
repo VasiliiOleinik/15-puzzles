@@ -14,7 +14,7 @@ $factory->define(MemberCase::class, function (Faker $faker) {
         'title' => $faker->realText( rand(15,35)  ),
         'description' => substr($content,0,186),
         'content' => $content,
-        'img' => "img/post_".rand( 1,4 ).".png",
+        'img' => "/img/post_".rand( 1,4 ).".png",
         'status' => $status[rand( 0,count($status)-1 )],
         'anonym' => rand( 0, 1 ),
     ];

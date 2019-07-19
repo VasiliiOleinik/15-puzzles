@@ -18,7 +18,7 @@ class FileController extends Controller
      * @return void
      */
     public function __construct()
-    {
+    {        
         $this->middleware(['auth','verified']);
     }
 
@@ -75,7 +75,7 @@ class FileController extends Controller
      * @return redirect
      */
     public function store(Request $request)
-    {
+    {        
         $validatedData = $request->validate([
             //'upload_file' => ['mimes:docx,doc,pdf'],
             'file_name' => ['required', 'string', 'max:191'],
@@ -88,26 +88,27 @@ class FileController extends Controller
         $file_size = $request['file_size'];
         $file_path = 'files/users_id/'.Auth::id();
         $file_full_name = $file_name.".".$file_type;
-
+        
         $file_full_name =  self::checkUniqueFileName($file_path, $file_name, $file_full_name);
-        $file_name = explode('.',$file_full_name)[0];
-
+        $file_name = explode('.',$file_full_name)[0];        
         $request->file('file')->move(public_path( $file_path ), $file_full_name);
-
+        
         $file = new File;
+        
         $file->name = $file_name;
         $file->path = $file_path;
         $file->type = $file_type;
         $file->size = $file_size;
         $file->user_id =  Auth::id();
-
+        
         $file->save();
 
         $user_files = File::with('user')->where('user_id','=',Auth::id())->get();
  
         $request->session()->flash('status-file_upload', 'You have successfully upload your file.');
 
-        $request->file = null;         
+        $request->file = null;
+        
         return redirect()->back();        
     }
 

@@ -190,7 +190,7 @@ $(function() {
     .val();
 
   // Окрытие доп.информации в табах на home page
-  $(".tab-list.main-scroll").delegate(".arrow", "click", function () {
+  $(".arrow").on("click", function() {
     var isOpen = $(this).hasClass("dropdown");
 
     $(".arrow").removeClass("dropdown");
@@ -246,7 +246,7 @@ $(function() {
     });
   });
   // Подсветка выбранного таба на странице home page
-  $(".tab-list.main-scroll").delegate(".tab_head_check input", "click", function () {
+  $(".tab_head_check input").on("click", function() {
     $(this)
       .parent()
       .parent()
@@ -254,11 +254,11 @@ $(function() {
   });
 
   // Делаю фактор активным
-  $(".tab-list.main-scroll").delegate(".puzzle-15__item", "click", function () {
-        $(this).toggleClass("active");
-    });
+  $(".puzzle-15__item").on("click", function() {
+    $(this).toggleClass("active");
+  });
 
-  $(".tab-list.main-scroll").delegate(".evidence", "hover",
+  $(".evidence").hover(
     function() {
       $(this)
         .find(".evidence__detail")
@@ -272,7 +272,7 @@ $(function() {
   );
 });
 
-$(".tab-list.main-scroll").delegate(".method-item__head","change", function() {
+$(".method-item__head").on("change", function() {
   var thisTitle = $(this)
     .find(".title")
     .text();
@@ -348,14 +348,14 @@ $("#back-to-login-js").on("click", function() {
   $(".container-recovery-pass").hide();
 });
 // Успешная смена пароля
-/*$("#recovery-pass-js").on("click", function(e) {
+$("#recovery-pass-js").on("click", function(e) {
   e.preventDefault();
   $(".recovery-pass-inputs form").hide();
   $(".recovery-pass-footer-link").hide();
   $(".recovery-pass-inputs .recovery-success").show();
   $(".recovery-pass-footer-link.close").show();
   $(".recovery-pass-inputs").addClass("success");
-});*/
+});
 // Закрытие модалки
 $(" #close-recovery-js, .fancybox-container").on("click", function() {
   $(".header-login-modal").slideUp();
@@ -374,7 +374,7 @@ $(" #close-recovery-js, .fancybox-container").on("click", function() {
 $(function() {
   var categorItem = $(".categories__list .item"),
     tagsItem = $(".tags__list .item");
-    $(".tags__list").delegate(".item", "click", function () {
+  $(tagsItem).on("click", function() {
     $(this).toggleClass("choosen");
     if (categorItem.hasClass("choosen") || tagsItem.hasClass("choosen")) {
       $("#clear-filter-btn-js").css({ cursor: "pointer" });
@@ -401,10 +401,44 @@ $(function() {
     $(this).addClass("active");
   });
 
-
-  $('.search-byHistory__result .result-item').hover(function(){
-    $(this).find('.control-block').slideToggle();
-    $(this).find('.control-block').css({'display':'flex'});
+  $(".search-byHistory__result .result-item").hover(function() {
+    $(this)
+      .find(".control-block")
+      .slideToggle();
+    $(this)
+      .find(".control-block")
+      .css({ display: "flex" });
   });
 });
 
+$(function() {
+  $(
+    ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
+  ).each(function() {
+    if ($(this).val().length != "") {
+      $(this).css({
+        "box-shadow": "rgba(91, 156, 167, 0.32) 0px 1px 6px",
+        border: "1px solid rgba(91, 156, 167, .5)",
+        transition: ".1s ease-in-out"
+      });
+      $(this)
+        .siblings("label")
+        .css({
+          transition: ".1s ease-in-out",
+          top: "-7px",
+          "z-index": "5",
+          padding: "0px 10px",
+          background: "#ffff",
+          left: "15px",
+          "font-size": "10px",
+          "box-shadow": "0px 0px 3px 0px rgba(0,0,0,0.1)"
+        });
+    }
+  });
+});
+
+$(function(){
+  $('#add-note-js, #cancel-form-js').on('click', function(){
+    $('#med-history-js, #add-story-js').slideToggle();
+  });
+});

@@ -94,7 +94,7 @@ class UserController extends Controller
 
         $request->session()->flash('status-user_update', 'You have successfully updated your personal data.');
 
-        return redirect->back();
+        return redirect()->back();
     }
 
     /**

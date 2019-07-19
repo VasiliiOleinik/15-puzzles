@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use App\Models\User\User;
 
 class ResetPasswordController extends Controller
 {
@@ -21,13 +23,6 @@ class ResetPasswordController extends Controller
     use ResetsPasswords;
 
     /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = 'personal_cabinet';
-
-    /**
      * Create a new controller instance.
      *
      * @return void
@@ -37,8 +32,22 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
+    public function reset(Request $request){
+
+        $this->validate($request, [
+            'password'           => ['required', 'string', 'min:8', "regex:/^([0-9\p{Latin}]+[\ -]?)+[a-zA-Z0-9]+$/u"],
+        ]);
+
+        $user = User::where("email","=",$request->email)->first();
+        $user->password =  Hash::make($request->password);
+        $user->save();
+
+        return redirect(app()->getLocale() . '/personal_cabinet');
+    }
+
     public function redirectTo()
     {
         return app()->getLocale() . '/personal_cabinet';
     }
 }
+

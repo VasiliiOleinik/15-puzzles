@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $(document).on("change", ".file-input", function () {
             var uploadFile = $(this);
             var files = !!this.files ? this.files : [];
-            console.log(files);
+            
             if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support           
 
             var reader = new FileReader(); // instance of the FileReader

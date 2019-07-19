@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //кликнули на login submit
     $('.modal-login-btn').click(function (event) {
         event.preventDefault();
+        $('.errors').remove();
         $(this).attr("disabled", true);
         console.log('login clicked')
         let data = {
@@ -58,7 +59,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //кликнули на registration submit
     $('.modal-reg-btn').click(function (event) {
-        event.preventDefault();       
+        event.preventDefault();
+        $('.errors').remove();
         $(this).attr("disabled", true);
 
         /*let confirmPassword = false;
@@ -90,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     $('.spinner-register').remove();                    
                     if (data.responseJSON === "success") {
                         $('.fancybox-close-small').click();
-                        location.href = "/personal_cabinet";
+                        location.href = "/" + locale + "/personal_cabinet";
                     }
                     if (data.responseJSON.errorsRegister) {                        
                         $('.errors').remove();
@@ -107,6 +109,48 @@ document.addEventListener("DOMContentLoaded", function () {
                 $('.modal-reg-btn').removeAttr("disabled");
                 $('.errors').html('');
                 $('#errors-register').html('Error try again.');                
+            }
+        });
+    })
+
+    //кликнули на reset password submit
+    $('#recovery-pass-js').click(function (event) {
+        event.preventDefault();
+        $('.errors').remove();
+        $(this).attr("disabled", true);
+        console.log('reset password clicked')
+        let data = {
+            "email": $('[name=email-reset]').val(),
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+        };
+
+        $.ajax({
+            type: "post",
+            url: "/" + locale + "/password/email",
+            data: data,
+            dataType: 'json',
+            complete: function (data) {
+                $('#recovery-pass-js').removeAttr("disabled");
+                console.log(data.responseText);
+                if (data.status !== 422) {
+                    $(".recovery-pass-inputs form").hide();
+                    $(".recovery-pass-footer-link").hide();
+                    $(".recovery-pass-inputs .recovery-success").show();
+                    $(".recovery-pass-footer-link.close").show();
+                    //location.href("/" + locale + '/password/reset' + $('meta[name="csrf-token"]').attr('content'));
+                }
+            },
+            error: function (err) {
+                $('#recovery-pass-js').removeAttr("disabled");
+                if (err.status === 422) { // when status code is 422, it's a validation issue
+
+                    $('.errors').remove();
+                    // display errors on each form field
+                    $.each(err.responseJSON.errors, function (i, error) {
+                        let el = $(document).find('[name="email-reset"]');
+                        el.after($('<br><label class="errors errors-reset">' + error[0] + '</label>'));
+                    });
+                }
             }
         });
     })

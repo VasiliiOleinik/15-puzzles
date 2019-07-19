@@ -22,7 +22,7 @@
                     <span class="case-info-text">User wished to remain anonymous</span>
                     @endif
                   </div>
-                  <div class="case-container"><img class="case-container__img" src="/{{$memberCase->img}}" alt="">
+                  <div class="case-container"><img class="case-container__img" src="{{$memberCase->img}}" alt="">
                     <p class="case-container__title">
                       {{$memberCase->description}}
                     </p>

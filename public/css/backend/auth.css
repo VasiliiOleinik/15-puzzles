@@ -13,7 +13,11 @@
     margin-top: 4px;
 }
 
-.errors.nickname, .errors.email, .errors.password-register, .errors.confirm-password-register {
+.errors-reset {
+    margin-top: 60px;
+}
+
+.errors.nickname, .errors.email, .errors.password-register, .errors.confirm-password-register, .errors-reset {
     position: absolute;
 }
 

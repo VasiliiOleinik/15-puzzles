@@ -2,8 +2,16 @@
   <div class="recovery-pass-header"><span>recovery password</span></div>
   <div class="recovery-pass-inputs">
     <form action="">
-      <input name="email" type="email" placeholder="Email">
+      <input name="email-reset" type="email" placeholder="Email"
+             class="@error('email-reset') is-invalid @enderror" value="{{ old('email-reset') }}" autocomplete="email-reset"
+             autofocus>     
       <button class="recovery-pass-btn" id="recovery-pass-js">Recovery</button>
+      @error('email-reset')
+      <label for="email-reset" class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                      </label>
+      @enderror
+      <label id="errors-reset" role="alert"></label>
     </form>
     <span class="recovery-success">Password reset link sent to your email</span>
   </div>

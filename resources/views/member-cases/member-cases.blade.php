@@ -30,7 +30,7 @@
                       @if( $memberCase->img==null )
                         <img class="post__img" src="/med-history.png" alt="">
                       @else
-                        <img class="post__img" src="/{{$memberCase->img}}" alt="">
+                        <img class="post__img" src="{{$memberCase->img}}" alt="">
                       @endif                      
                     </a>
                     <a class="post__date" href="javascript:void(0)">{{$memberCase->updated_at->format('d.m.Y')}}</a>
@@ -56,10 +56,10 @@
               </div>             
               <div class="add-story">
                 <h3 class="add-story__title">Add your story</h3>
-                <form class="add-story__form"  method="get" action="{{ route('member_cases.create', app()->getLocale()) }}">
+                <form class="add-story__form"  method="post" action="{{ route('create_post', app()->getLocale()) }}">
                   @csrf
-                  <!--<input name="_method" type="hidden" value="HEAD">-->
 
+                  <input id="img" type="hidden" name="img">  
                   <div class="labels">
                     <input class="headline inp" type="text" name="headline" required>
                     <label for="headline">Headline</label>
@@ -71,11 +71,10 @@
                   <div class="add-images">
                     <h3 class="add-images__title">Add image</h3>
                     <div class="images-container">
-                      <div class="item-img">
-                        <input id="img" type="hidden" name="img">  
+                      <div class="item-img">                        
                         <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">
-                          <input class="file-input" type="file" placeholder="Choose Image" accept="image/x-png,image/gif,image/jpeg">
+                          <input class="file-input" type="file" placeholder="Choose Image" >
                         </button>
                       </div>
                     </div>

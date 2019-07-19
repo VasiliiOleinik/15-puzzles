@@ -51,6 +51,16 @@ class MemberCaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
+    {        
+        
+    }
+
+    /**
+     * Show the form for creating a new resource. method POST
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createPost(Request $request)
     {
         $validatedData = $request->validate([
         'headline' => ['required', 'string', 'max:191'],
@@ -62,8 +72,9 @@ class MemberCaseController extends Controller
 
         $tags = explode(",",$request['story-tags']);
         $memberCase = new MemberCase;
-
-        if($request->img != null){         
+        
+        if($request->img != null){
+          
           $memberCase->img = $request['img'];
         }        
         $memberCase->title = $request['headline'];
