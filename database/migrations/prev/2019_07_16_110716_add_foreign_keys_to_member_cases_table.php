@@ -15,7 +15,6 @@ class AddForeignKeysToMemberCasesTable extends Migration {
 		Schema::table('member_cases', function(Blueprint $table)
 		{
 			$table->foreign('user_id', 'FK_cases_users')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
-			\Illuminate\Support\Facades\DB::statement('ALTER TABLE member_cases ADD FULLTEXT search(title, description, content)');			
 		});
 	}
 
