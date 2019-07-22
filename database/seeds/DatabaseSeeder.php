@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesForNewsTableSeeder::class);
         $this->call(ArticlesTableSeeder::class);        
 
+        $this->call(QuestionsTableSeeder::class);    
         $this->call(CommentsTableSeeder::class);
         $this->call(MedicalHistoriesTableSeeder::class);        
 
