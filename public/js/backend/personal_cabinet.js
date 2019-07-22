@@ -11,30 +11,73 @@ document.addEventListener("DOMContentLoaded", function (event) {
             location.href = location.href.substring(0, location.href.indexOf('?'));
         } else
             $("#file-search-form").submit();
-    })
+    });
 
     //загрузка файлов
-    $('.result-item').on('dblclick', function (e) {
+    /*$('.result-item').on('dblclick', function (e) {
         let id = $(this).attr('obj-id');
         location.href = '/download/' + id
         let data = {
             "action": "download",
             "_token": $('meta[name="csrf-token"]').attr('content'),
-        };      
-    })
+        };
+    });*/
+
+    $('.download').on('click', function (e) {
+        let id = $(this).parent().parent().attr('obj-id');
+        location.href = '/download/' + id
+        let data = {
+            "action": "download",
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+        };
+    });  
+
+    $(".delete").unbind("click").click(function () {
+
+        if (confirm("Are you shure you want to delete file?")) {
+            var id = $(this).parent().parent().attr('obj-id');
+            $(this).parent().parent().remove();
+
+            $.ajax({
+                type: "DELETE",
+                url: 'personal_cabinet/' + id,// '{{ route('file.personal_cabinet.destroy','id')}}',
+                data: {
+                    "_token": $('meta[name="csrf-token"]').attr('content'),
+                },
+                complete: function (result) {
+                    //console.log(result.responseText)
+
+                },
+                error: function (result) {
+                    ;
+                }
+            });
+        } 
         
-    //при смене аватара добавляем img src в hidden input формы
-    $('.profile-img').find('.image').on('load', function () {
-        setUserAvatar();
     });
 
-    function setUserAvatar() {
+    //при смене аватара добавляем img src в hidden input формы
+    $('.item-img').find('.image').on('load', function () {
+        setMedicalHistoryAvatar('#add-story-img');
+    });
+
+    //при смене аватара добавляем img src в hidden input формы
+    $('.profile-img').find('.image').on('load', function () {
+        setUserAvatar('#img');
+    });
+
+    function setUserAvatar(selector) {
         let img = $('.profile-img').find('.image').attr('src');
-        $('#img').val(img);
+        $(selector).val(img);
+    };
+
+    function setMedicalHistoryAvatar(selector) {
+        let img = $('.item-img').find('.image').attr('src');
+        $(selector).val(img);
     };
 
     $(function () {
-        $(document).on("change", ".file-input", function () {
+        $(document).on("change", "#file", function () {
             var uploadFile = $(this);
             var files = !!this.files ? this.files : [];
             

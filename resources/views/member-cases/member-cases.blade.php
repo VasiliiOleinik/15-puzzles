@@ -28,7 +28,7 @@
                   <div class="post">
                     <a class="post__image" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCase->id}}">
                       @if( $memberCase->img==null )
-                        <img class="post__img" src="/med-history.png" alt="">
+                        <img class="post__img" src="/img/med-history.png" alt="">
                       @else
                         <img class="post__img" src="{{$memberCase->img}}" alt="">
                       @endif                      

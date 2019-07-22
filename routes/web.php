@@ -26,7 +26,7 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
 
     Route::get('/', 'MainController@index')->name('main');
     Route::resource('member_cases', 'MemberCaseController');
-    Route::post('member_cases/create_post', 'MemberCaseController@createPost')->name('create_post');//без этого не работает сохранение нового кейса с картинкой
+    Route::post('member_cases/create_post', 'MemberCaseController@createPost')->name('create_post');//без этого не работает сохранение нового кейса с картинкой    
     Route::get('factor_diagram', 'FactorDiagramController@index')->name('factor_diagram');
     Route::get('about', 'AboutController@index')->name('about');
     Route::resource('news', 'NewsController');        
@@ -61,9 +61,9 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
    Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 }); 
 
-
-    
-
+Route::resource('medical_history', 'MedicalHistoryController');
+Route::post('medical_history/create_post', 'MedicalHistoryController@createPost')->name('medical_history_create_post');//без этого не работает сохранение нового кейса с картинкой
+Route::resource('comment', 'CommentController');
 
 /* MAIN */
     Route::post('filter', 'MainController@filter')->name('filter');    

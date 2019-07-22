@@ -22,7 +22,12 @@
                     <span class="case-info-text">User wished to remain anonymous</span>
                     @endif
                   </div>
-                  <div class="case-container"><img class="case-container__img" src="{{$memberCase->img}}" alt="">
+                  <div class="case-container">
+                    @if( $memberCase->img==null )
+                      <img class="case-container__img" src="/img/med-history.png" alt="">
+                    @else
+                      <img class="case-container__img" src="{{$memberCase->img}}" alt="">
+                    @endif  
                     <p class="case-container__title">
                       {{$memberCase->description}}
                     </p>
@@ -36,12 +41,9 @@
                 <div class="sticky-right">
                   <div class="case-tags"><span class="case-info-title">Tags</span>
                     <ul class="case-tags__list">
-                      <li class="item"><a href="#item">Oxygen metabolism change</a></li>
-                      <li class="item"><a href="#item">Cellular</a></li>
-                      <li class="item"><a href="#item">Dr. Rath protocol</a></li>
-                      <li class="item"><a href="#item">Cancer</a></li>
-                      <li class="item"><a href="#item">Nutrition</a></li>
-                      <li class="item"><a href="#item">Reactivation of immune system</a></li>
+                      @foreach($memberCase->tags as $tag)
+                      <li class="item" obj-id="{{$tag->id}}"><a>{{$tag->name}}</a></li>
+                      @endforeach
                     </ul>
                   </div>
                   <div class="case-share"><span class="case-info-title">Share</span>
@@ -54,76 +56,31 @@
                       <li><a href=""><i class="fab fa-pinterest-square"></i><span>Pinterest</span></a></li>
                     </ul>
                   </div>
+                  @auth
                   <div class="case-add-comm"><span class="case-info-title">Add comment</span>
-                    <form action="">
-                      <div class="label">
+                    <form method="get" action="{{ route('comment.create') }}">
+                      <input type="hidden" name="member-case-id" value="{{ $memberCase->id }}">
+                      <div class="label">                        
                         <textarea name="add-comm" type="text"></textarea>
                         <label for="add-comm">Add comment</label>
                       </div>
                       <button class="send-comment">Send comment</button>
                     </form>
                   </div>
+                  @endauth
                   <div class="case-comm-list"><span class="case-info-title">Comments</span>
+                    @foreach($comments as $comment)
                     <div class="case-comm-item">
-                      <div class="comm-item-header"><img src="/img/comm-img1.png" alt="Danny Hebrew">
+                      <div class="comm-item-header"><img src="{{$comment->user->img}}">
                         <div class="item-header-info">
-                          <p class="comm-author">Danny Hebrew</p><span class="comm-date">10.10.1010</span>
+                          <p class="comm-author">{{$comment->user->nickname}}</p><span class="comm-date">{{$comment->updated_at->format('d.m.Y')}}</span>
                         </div>
                       </div>
                       <div class="comm-item-content">
-                        <p class="comm-item-text">Spiny basslet lemon shark wallago, sauger. Sea snail tarpon, Blobfish tadpole cod northern lampfish; Atlantic herring; redtooth triggerfish bonito snakehead bichir, &quot;Black mackerel pineconefish.&quot;</p>
+                        <p class="comm-item-text">{{$comment->content}}</p>
                       </div>
                     </div>
-                    <div class="case-comm-item">
-                      <div class="comm-item-header"><img src="/img/comm-img2.png" alt="Arthur James">
-                        <div class="item-header-info">
-                          <p class="comm-author">Arthur James</p><span class="comm-date">10.10.1010</span>
-                        </div>
-                      </div>
-                      <div class="comm-item-content">
-                        <p class="comm-item-text">Broadband dogfish pelican gulper, red snapper delta smelt loach coolie loach electric catfish bocaccio frilled shark barramundi combtooth blenny Indian mul!&quot;</p>
-                      </div>
-                    </div>
-                    <div class="case-comm-item">
-                      <div class="comm-item-header"><img src="/img/comm-img3.png" alt="Kane Whest">
-                        <div class="item-header-info">
-                          <p class="comm-author">Kane Whest</p><span class="comm-date">10.10.1010</span>
-                        </div>
-                      </div>
-                      <div class="comm-item-content">
-                        <p class="comm-item-text">Redhorse sucker worm eel kissing gourami slickhead ocean perch bigmouth buffalo anemonefish amago escolar European eel.</p>
-                      </div>
-                    </div>
-                    <div class="case-comm-item">
-                      <div class="comm-item-header"><img src="/img/comm-img1.png" alt="Darci French">
-                        <div class="item-header-info">
-                          <p class="comm-author">Darci French</p><span class="comm-date">10.10.1010</span>
-                        </div>
-                      </div>
-                      <div class="comm-item-content">
-                        <p class="comm-item-text">Temperate ocean-bass, sauger waryfish great white shark, graveldiver--bonytongue murray cod rockweed gunnel cobbler sand tilefish. Oarfish threespine stickleback panga horsefish striped bass icefish, stingfish, sleeper.&quot;</p>
-                      </div>
-                    </div>
-                    <div class="case-comm-item">
-                      <div class="comm-item-header"><img src="/img/comm-img2.png" alt="Alice Cooper">
-                        <div class="item-header-info">
-                          <p class="comm-author">Alice Cooper</p><span class="comm-date">10.10.1010</span>
-                        </div>
-                      </div>
-                      <div class="comm-item-content">
-                        <p class="comm-item-text">Ribbon sawtail fish, &quot;basslet, brown trout pineconefish king-of-the-salmon mail-cheeked fish saury whitefish climbing gourami trevally river stingray sand tiger, smoothtongue dusky grouper, bonito Rabbitfish.&quot;</p>
-                      </div>
-                    </div>
-                    <div class="case-comm-item">
-                      <div class="comm-item-header"><img src="/img/comm-img3.png" alt="Kara Celtic">
-                        <div class="item-header-info">
-                          <p class="comm-author">Kara Celtic</p><span class="comm-date">10.10.1010</span>
-                        </div>
-                      </div>
-                      <div class="comm-item-content">
-                        <p class="comm-item-text">Bramble shark pelican gulper glass knifefish frogfish zebra tilapia albacore halfmoon!</p>
-                      </div>
-                    </div>
+                    @endforeach                   
                   </div>
                 </div>
               </div>

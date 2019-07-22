@@ -11,15 +11,15 @@
             </li>
         @endif
 
-        @if($paginator->currentPage() > 2)
+        @if($paginator->currentPage() > 3)
             <li class="hidden-xs pagination__page"><a href="{{ $paginator->url(1) }}">1</a></li>
         @endif
-        @if($paginator->currentPage() > 3)
+        @if($paginator->currentPage() > 4)
             <li class="pagination__page disabled" aria-disabled="true"><span>...</span></li>
         @endif
 
         @foreach(range(1, $paginator->lastPage()) as $i)
-            @if($i >= $paginator->currentPage() - 1 && $i <= $paginator->currentPage() + 1)
+            @if($i >= $paginator->currentPage() - 2 && $i <= $paginator->currentPage() + 2)
                 @if ($i == $paginator->currentPage())
                     <li class="pagination__page active"><span>{{ $i }}</span></li>
                 @else

@@ -108,14 +108,14 @@ class NewsController extends Controller
     //Тэги, которые использовались ($request->with должен содержать таблицу, связанную с тэгами. например 'articles')
     public function usedTags(Request $request){
 
-        if($request->with == "all"){
+        if($request->all == "all"){
             $tags_names = Tag::all()->pluck('name','id')->toJson();            
         }else
         {
             $tag_with = array();
             $tags = Tag::with($request->with)->get();
 
-            //find tags which have some relations with articles
+            //find tags which have some relations with model
             foreach($tags as $tag) {
 
                 if(count($tag[$request->with]) > 0){
@@ -136,14 +136,25 @@ class NewsController extends Controller
     }
 
     public function tagsCloud(Request $request){
-         //категории для новостей
-/*        $cloudForNews = Cache::remember(
-            'cloudForNews',
-            now()->addDay(1),
-            function() use ($request){
-                return Tag::with($request->with)->whereIn('id',$request['tags'])->get();
+        //для input "add story tags" показываем все тэги
+        if($request['with'] == "memberCases"){
+            $tag_with = array();
+            $tags = Tag::with($request->with)->get();
+
+            //find tags which have some relations with model
+            foreach($tags as $tag) {
+
+                if(count($tag[$request->with]) > 0){
+                    array_push($tag_with, $tag->id);
+                }
             }
-        );*/
+            $tags_names = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(                
+                'memberCases', function ($query) {
+                    $query->where('status','=','show');
+                }
+            )->get();
+            return view($request->view, ['tags' => $tags_names]);
+        }
         return view($request->view, ['tags' => Tag::with( $request['with'] )->whereIn('id',$request['tags'])->get()]);
     }
 }

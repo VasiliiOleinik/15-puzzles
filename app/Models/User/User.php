@@ -27,6 +27,7 @@ use App\Notifications\LocaleResetPassword;
  * @property Role $role
  * @property File[] $files
  * @property MemberCase[] $memberCases
+ * @property MedicalHistory[] $medicalHistories
  */
  
 class User extends Authenticatable implements MustVerifyEmail
@@ -79,7 +80,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany('App\Models\MemberCase');
     }
-	
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function medicalHistories()
+    {
+        return $this->hasMany('App\Models\MedicalHistory');
+    }
+
 	/**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

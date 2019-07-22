@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\MemberCase;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -108,8 +109,9 @@ class MemberCaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($locale, $id)
-    {
-        return view('member-cases.single.member-case', ['memberCase' => MemberCase::with('user')->find($id)]);
+    {        
+        return view('member-cases.single.member-case', ['memberCase' => MemberCase::with('user', 'tags')->find($id),
+                                     'comments' => Comment::with('user')->where('member_case_id','=',$id)->get()]);
     }
 
     /**

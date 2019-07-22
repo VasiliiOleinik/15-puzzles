@@ -1,43 +1,39 @@
             <div class="personal-right">
-              <div class="med-history">
+              <div class="med-history" id="med-history-js">
+                @foreach($medicalHistories as $medicalHistory)
                 <div class="med-history-item">
-                  <h3 class="med-history__name">The name of my medical history</h3><img class="med-history__img" src="/img/med-history.png" alt="">
-                  <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">19.10.2019</a><a class="edit-artile" href="javascript:void(0)">Edit article</a></div>
-                  <p class="med-history__info">
-                    We take the position of looking at cancer not as a tumor that has to be removed, but ratheas a consequence of number of individual systemic imbalances in different organs leading to formation of a malignant tumor. (see "holistic approach to cancer").</p>
+                  <h3 class="med-history__name">{{$medicalHistory->title}}</h3>
+                  @if( $medicalHistory->img == null )
+                  <img class="med-history__img" src="/img/med-history.png" alt="">
+                  @else
+                  <img class="med-history__img" src="{{$medicalHistory->img}}" alt="">
+                  @endif                    
+                  <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">{{$medicalHistory->updated_at->format('d.m.Y')}}</a><a class="edit-artile" href="javascript:void(0)">Edit article</a></div>
+                  <p class="med-history__info">{{$medicalHistory->content}}</p>
                 </div>
-                <div class="med-history-item">
-                  <h3 class="med-history__name">The name of my medical history</h3><img class="med-history__img" src="/img/med-history.png" alt="">
-                  <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">19.10.2019</a><a class="edit-artile" href="javascript:void(0)">Edit article</a></div>
-                  <p class="med-history__info">
-                    We take the position of looking at cancer not as a tumor that has to be removed, but ratheas a consequence of number of individual systemic imbalances in different organs leading to formation of a malignant tumor. (see "holistic approach to cancer").</p>
-                </div>
-                <div class="pagination">
-                  <ul class="pagination__list">
-                    <li class="pagination__page prev disabled"><a href="javascript:void(0)"><img src="/img/svg/arrow.svg" alt="Prev arrow"></a></li>
-                    <li class="pagination__page active"><a href="javascript:void(0)">1</a></li>
-                    <li class="pagination__page"><a href="javascript:void(0)">2</a></li>
-                    <li class="pagination__page"><a href="javascript:void(0)">...</a></li>
-                    <li class="pagination__page"><a href="javascript:void(0)">6</a></li>
-                    <li class="pagination__page next"><a href="javascript:void(0)"><img src="/img/svg/arrow.svg" alt="Prev arrow"></a></li>
-                  </ul>
-                </div><a class="add-note" href="javascript:void(0)">Add a note</a>
+                @endforeach
+               <div class="pagination">
+                    {{$medicalHistories->appends(request()->except('page'))->links('vendor.pagination.default')}}                 
+               </div>
+               <a class="add-note" href="javascript:void(0)" id="add-note-js">Add a note</a>
               </div>
-              <div class="add-story">
-                <h3 class="add-story__title">Add your story</h3>
-                <form class="add-story__form" action="">
+              <div class="add-story" id="add-story-js">
+                <h3 class="add-story__title">Add your story</h3>                
+                <form class="add-story__form" method="post" action="{{ route('medical_history_create_post') }}">
+                @csrf
                   <div class="labels">
-                    <input class="headline inp" type="text" name="headline">
+                    <input class="headline inp" type="text" name="headline" required>
                     <label for="headline">Headline</label>
                   </div>
                   <div class="labels">
-                    <textarea class="story inp" name="your-story"></textarea>
+                    <textarea class="story inp" name="your-story" required></textarea>
                     <label class="textarea" for="your-story">Your story</label>
                   </div>
                   <div class="add-images">
                     <h3 class="add-images__title">Add image</h3>
                     <div class="images-container">
                       <div class="item-img">
+                        <input id="add-story-img" type="hidden" name="img-medical-history">  
                         <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">
                           <input class="file-input" type="file" placeholder="Choose File">
@@ -45,16 +41,42 @@
                       </div>
                     </div>
                   </div>
-                  <div class="labels">
-                    <input class="add-tags inp" name="add-tags" type="text">
-                    <label for="add-tags">Add tags. Tags must be separated by a comma.</label>
-                  </div>
                   <div class="footer-form">
-                    <label>
-                      <input class="checkbox" name="checkbox-test" type="checkbox"><span class="checkbox-custom"></span><span class="label">Do not publish my data. Publish case anonymously</span>
-                    </label>
-                    <input class="submit-form" type="submit" value="Submit for moderation">
+                    <input class="submit-form" type="submit" value="Submit note">
+                    <input class="cancel-form" type="button" value="Cancel" id="cancel-form-js">
                   </div>
                 </form>
               </div>
+              <!--
+              <div class="edit-story" id="edit-story-js">
+                <h3 class="edit-story__title">Add your story</h3>                
+                <form class="edit-story__form" method="post" action="{{ route('medical_history.edit', $user->id) }}">
+                @csrf
+                  <div class="labels">
+                    <input class="headline inp" type="text" name="headline" required>
+                    <label for="headline">Headline</label>
+                  </div>
+                  <div class="labels">
+                    <textarea class="story inp" name="your-story" required></textarea>
+                    <label class="textarea" for="your-story">Your story</label>
+                  </div>
+                  <div class="add-images">
+                    <h3 class="add-images__title">Add image</h3>
+                    <div class="images-container">
+                      <div class="item-img">
+                        <input id="add-story-img" type="hidden" name="img-medical-history">  
+                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
+                        <button class="file-upload">
+                          <input class="file-input" type="file" placeholder="Choose File">
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="footer-form">
+                    <input class="submit-form" type="submit" value="Submit note">
+                    <input class="cancel-form" type="button" value="Cancel" id="cancel-form-js">
+                  </div>
+                </form>
+              </div>
+              -->
             </div>

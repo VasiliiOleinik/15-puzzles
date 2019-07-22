@@ -64,7 +64,7 @@ class ForgotPasswordController extends Controller
         return function($token)
         {
             return new LocaleResetPassword($token);
-        }
+        };
     }
 
 }

@@ -16,11 +16,11 @@
                 <div class="search__content-items">
                 @foreach($results as $result)
                   @if($result->getTable() == "articles")
-                  <div class="search-item"><a href="{{ url(app()->getLocale().'/news') }}/{{$result->id}}"><img class="search-item-img" src="/{{$result->img }}"></a>
+                  <div class="search-item"><a href="{{ url(app()->getLocale().'/news') }}/{{$result->id}}"><img class="search-item-img" src="{{$result->img }}"></a>
                     <div class="search-item-detail"><a class="search-item-detail-date" href="{{ url(app()->getLocale().'/news') }}/{{$result->id}}">{{$result->updated_at->format('d.m.Y')}}</a><a class="search-item-detail-section" href="{{ url(app()->getLocale().'/news') }}/{{$result->id}}">news</a></div><a class="search-item-name" href="{{ url(app()->getLocale().'/news') }}/{{$result->id}}">{{$result->title }}</a>
                   </div> 
                   @elseif($result->getTable() == "member_cases")
-                  <div class="search-item"><a href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}"><img class="search-item-img" src="/{{$result->img }}"></a>
+                  <div class="search-item"><a href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}"><img class="search-item-img" src="{{$result->img }}"></a>
                     <div class="search-item-detail"><a class="search-item-detail-date" href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}">{{$result->updated_at->format('d.m.Y')}}</a><a class="search-item-detail-section" href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}">member's case</a></div><a class="search-item-name" href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}">{{$result->title }}</a>
                   </div> 
                   @endif                  

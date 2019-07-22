@@ -53,9 +53,11 @@ class FileController extends Controller
         $user_files = $user_files->get();
 
         $user = Auth::user();
+        $medicalHistories = $user->medicalHistories()->orderBy('created_at', 'DESC')->paginate(2);
         $img_width = 40;//width of file icon
 
-        return view('personal-cabinet.personal_cabinet', compact(['user_files','user','search_file', 'img_width']));
+        return view('personal-cabinet.personal_cabinet', compact(['user_files','user','medicalHistories', 'search_file',
+                                                                  'img_width']));
     }
 
     /**

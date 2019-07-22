@@ -81,13 +81,14 @@ function setData(categoriesForNewsActive, categoriesForBooksActive, tagsActive) 
     return data;
 }
 
-function usedTags(_with) {
+function usedTags(_with, all) {
     $.ajax({
         type: "GET",
         url: "/used_tags",
         data: {
             "_token": $('meta[name="csrf-token"]').attr('content'),
             "with": _with,
+            "all": all,
         },
         complete: function (result) {
             //console.log(result.responseText);
