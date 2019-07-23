@@ -66,7 +66,7 @@ class RegisterController extends Controller
            $user = $this->create($request->all());           
            Auth::login($user);
            $user->sendEmailVerificationNotification();
-           return json_encode("success");
+           return json_encode(["auth"=>"success"]);
             
         }
     }

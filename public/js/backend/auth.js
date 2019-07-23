@@ -30,12 +30,17 @@ document.addEventListener("DOMContentLoaded", function () {
             url: "/" + locale + "/login",
             data: data,
             dataType: 'json',
-            complete: function (data) {                
+            complete: function (data) {
+                console.log(data.responseText);
                 $('.modal-login-btn').removeAttr("disabled");
                 if(data.responseJSON.auth === "success")
                 {
                     $('.fancybox-close-small').click();
-                    location.href = "/" + locale + "/personal_cabinet";
+                    if (data.responseJSON.admin === "false") {
+                        location.href = "/" + locale + "/personal_cabinet";
+                    } else {
+                        location.href = "/admin";
+                    }
                 }
                 if(data.responseJSON.auth === "failed")
                 {
@@ -90,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 $('.modal-reg-btn').removeAttr("disabled");
                 if (data.responseJSON) {
                     $('.spinner-register').remove();                    
-                    if (data.responseJSON === "success") {
+                    if (data.responseJSON.auth === "success") {
                         $('.fancybox-close-small').click();
                         location.href = "/" + locale + "/personal_cabinet";
                     }

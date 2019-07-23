@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Auth;
+use App\Models\User\User;
 
 class LoginController extends Controller
 {
@@ -42,9 +43,9 @@ class LoginController extends Controller
             'password'           => 'required',
         ]);
         //dd(Auth::attempt(['nickname' => $request->login, 'password' => $request->password]));
-        if (Auth::attempt(['nickname' => $request->login, 'password' => $request->password])) {
+        if (Auth::attempt(['nickname' => $request->login, 'password' => $request->password])) {            
             // Success
-            return json_encode(array("auth"=>"success"));//redirect()->intended();
+            return json_encode(["auth"=>"success", "admin"=>json_encode(Auth::user()->isAdmin()) ]);//redirect()->intended();
         } else {
             // Go back on error (or do what you want)
             return json_encode(array('auth'=>'failed'));//redirect()->back();

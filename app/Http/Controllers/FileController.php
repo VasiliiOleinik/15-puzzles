@@ -197,7 +197,7 @@ class FileController extends Controller
             }
         }    
         closedir($dirHandle);
-    }
+    }   
 
     /**
      * Return file name

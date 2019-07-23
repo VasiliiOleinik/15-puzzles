@@ -96,4 +96,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany('App\Models\User\UserPermission');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function isAdmin()
+    {    
+        return $this->role->name == "admin";
+    }
 }
