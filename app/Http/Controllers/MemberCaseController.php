@@ -27,21 +27,21 @@ class MemberCaseController extends Controller
                         array_push($memberCasesId, $obj->id);
                     }
                 }          
-                $memberCases = MemberCase::with('tags')->whereIn('id', $memberCasesId)
-                                                       ->where('status','=','show')->paginate(4);        
+                $memberCases = MemberCase::with('tags')->whereIn('id', $memberCasesId)->where('status','=','show')
+                                                       ->orderBy('id', 'DESC')->paginate(4);        
             }
             else{                
-              $memberCases = MemberCase::with('tags')->where('status','=','show')->paginate(4);              
+              $memberCases = MemberCase::with('tags')->where('status','=','show')->orderBy('id', 'DESC')->paginate(4);              
             }
             return view('member-cases.partial.member-cases', compact(['memberCases']));
         }
         //пагинация
         if($request->page){
-            $memberCases = MemberCase::with('user')->where('status','=','show')->paginate(4);
+            $memberCases = MemberCase::with('user')->where('status','=','show')->orderBy('id', 'DESC')->paginate(4);
             return view('member-cases.partial.member-cases', compact(['memberCases']));
         }
         else{
-            $memberCases = MemberCase::with('user')->where('status','=','show')->paginate(4);
+            $memberCases = MemberCase::with('user')->where('status','=','show')->orderBy('id', 'DESC')->paginate(4);
             return view('member-cases.member-cases',compact(['memberCases']));
         }
     }
@@ -67,22 +67,24 @@ class MemberCaseController extends Controller
         'headline' => ['required', 'string', 'max:191'],
         'your-story' => ['required'],
         'img' => ['nullable'],
-        'story-tags' => ['required'],
-        'anonym' => ['required'],
+        'story-tags' => ['required'],        
         ]);
 
         $tags = explode(",",$request['story-tags']);
         $memberCase = new MemberCase;
         
-        if($request->img != null){
-          
+        if($request->img != null){          
           $memberCase->img = $request['img'];
         }        
         $memberCase->title = $request['headline'];
         $memberCase->content = $request['your-story'];
         $memberCase->description = substr($memberCase->content,0,186);
         $memberCase->status = "moderating";
-        $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+        if($request->anonim == null){
+          $memberCase->anonym = 0;
+        }else{
+          $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+        }
         $memberCase->save();
         $memberCase->tags()->attach($tags);
 
