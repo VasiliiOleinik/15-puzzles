@@ -4,7 +4,7 @@
       <div class="footer__left footer__item">
         <div class="footer__logo logo"><img src="/img/svg/logo.svg"></div>
         <ul class="footer__list">
-          <li class="footer__li"><a class="footer__link" href="#" target="_blank">@lang('footer.letter')</a></li>
+          <li class="footer__li"><a class="footer__link" href="{{ url(app()->getLocale().'/faq') }}" target="_blank">@lang('footer.letter')</a></li>
           <li class="footer__li"><a class="footer__link" href="#" target="_blank">@lang('footer.privacy')</a></li>
           <li class="footer__li"><a class="footer__link" href="#" target="_blank">@lang('footer.terms')</a></li>
         </ul>
@@ -15,9 +15,14 @@
       </div>
       <div class="footer__right footer__item">
         <h6 class="footer__h6">@lang('footer.title_subscribe')</h6>
-        <form class="footer__subscribe">
-          <input type="email" placeholder="@lang('footer.placeholder_subscribe')">
-          <button type="button">@lang('footer.button_subscribe')</button>
+        <form class="footer__subscribe" method="get" action="{{ route('subscriber.create') }}">
+          @auth
+          <input type="email" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" value="{{ Auth::user()->email }}" required>
+          @endauth
+          @guest
+          <input type="email" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" required>
+          @endguest
+          <button type="submit">@lang('footer.button_subscribe')</button>
         </form>
         <h6 class="footer__h6 evidence-title">@lang('footer.levels')</h6>
         <ul class="footer__evidence">

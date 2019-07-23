@@ -32,6 +32,7 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::resource('news', 'NewsController');        
     Route::get('literature', 'LiteratureController@index')->name('literature');
     Route::get('faq', 'FaqController@index')->name('faq');
+    Route::post('faq', 'FaqController@letter')->name('letter');
     Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet    
 
     Route::get('literature-modal', 'LiteratureController@literatureModal')->name('literature-modal');
@@ -64,6 +65,7 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
 Route::resource('medical_history', 'MedicalHistoryController');
 Route::post('medical_history/create_post', 'MedicalHistoryController@createPost')->name('medical_history_create_post');//без этого не работает сохранение нового кейса с картинкой
 Route::resource('comment', 'CommentController');
+Route::resource('subscriber', 'SubscriberController');
 
 /* MAIN */
     Route::post('filter', 'MainController@filter')->name('filter');    

@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('faq-css')
+    <link href="{{ asset('css/backend/faq.css') }}" rel="stylesheet">
+@endsection
 @section('content')
         <main class="main">
           <div class="box">
@@ -21,36 +24,39 @@
               </div>
               @endforeach             
               <div class="add-faq-letter">
-                <form action="">
+                <form method="post" action= "{{ route('letter', app()->getLocale() ) }}" >
+                  @csrf
                   <div class="add-faq-letter-row">
                     <div class="label">
                       @auth
-                      <input type="text" name="name" value="{{ $user->first_name }} {{ $user->last_name }}" required>
+                        @if($user->first_name != null || $user->last_name != null)
+                        <input type="text" name="name" value="{{ $user->first_name }} {{ $user->last_name }}" required>
+                        @else
+                        <input type="text" name="name" required>
+                        @endif
                       @endauth
                       @guest
                       <input type="text" name="name" required>
                       @endauth
                       <label for="name">Your name</label>
                     </div>
-                    <!--
                     <div class="label">
                       <input type="text" name="phone">
                       <label for="phone">Your phone</label>
-                    </div>
-                    -->
+                    </div>                    
                     <div class="label">
                       @auth
                       <input type="text" name="email" value="{{ $user->email }}" required>
                       @endauth
                       @guest
-                      <input type="text" name="email" required>
+                      <input type="text" name="email" required>                      
                       @endauth
-                      <label for="email">Your e-mail</label>
+                      <label for="email">Your e-mail<span class="required">*</span></label>                      
                     </div>
                   </div>
                   <div class="label">
-                    <textarea name="letter"></textarea>
-                    <label for="letter">Write your letter</label>
+                    <textarea name="letter" required></textarea>
+                    <label for="letter">Write your letter<span class="required">*</span></label>
                   </div>
                   <button class="add-faq-letter-send-btn">Send letter</button>
                 </form>

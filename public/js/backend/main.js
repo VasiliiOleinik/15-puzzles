@@ -12,10 +12,10 @@ let diseaseFactors;
 /* ----------------------- */
 
 document.addEventListener("DOMContentLoaded", function (event) {
-  
+
     /* ------------------ */
     /*     VARIABLES      */
-    /* ------------------ */ 
+    /* ------------------ */
 
     let modelNames = {
         0: "factor",
@@ -58,6 +58,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //тэги обновились
     startObserver('.tags__list', dataFilter, getTagsData);
+    
+    //кликаем на пазл который пришел с редиректа "about" страницы
+    syncCheckedElements('puzzle', getUrlParameter('factor'), "factor");
+    //очищаем от get параметра url
+    window.history.replaceState("object or string", "Title", "/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1).split("?")[0]);
 
     //удаление тэга с панели тэгов
     $('.tags__list').delegate('.tag-remove','click',function(){
@@ -126,6 +131,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*     FUNCTIONS      */
     /* ------------------ */
 
+    function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+    };
+
     function getTagsData() {
         let factor = [], disease = [], protocol = [];
         $(".tag-item").each(function () {
@@ -162,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     /* ------------------ */
     /* ------------------ */    
-  
+    
 });
 /* ------------------ */
 /* ------------------ */
@@ -174,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /* ------------------ */
 
 function checkActiveTab() {
-    result = undefined;
+    result = 0;
     $.each($('.r-tabs-tab'), function (index, id) {
         if ($(this).hasClass('r-tabs-state-active')) {
             result = index;

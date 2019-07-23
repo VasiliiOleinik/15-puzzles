@@ -49,9 +49,14 @@
             <div class="cases-right">              
               <div class="subscribe">
                 <h3 class="news-right__title">Take latest news from 15-Puzzle</h3>
-                <form class="subscribe__input">
-                  <input class="subscribe-field" type="text" placeholder="Your Email Address">
-                  <button class="subscribe-btn"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
+                <form class="subscribe__input" method="get" action="{{ route('subscriber.create') }}">
+                  @auth
+                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="Your Email Address" value="{{ Auth::user()->email }}" required>
+                  @endauth
+                  @guest
+                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="Your Email Address" required>
+                  @endguest
+                  <button class="subscribe-btn" type="submit"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                 </form>
               </div>             
               <div class="add-story">

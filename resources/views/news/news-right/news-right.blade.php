@@ -17,8 +17,13 @@
               </div>              
               <div class="subscribe">
                 <p class="news-right__title">@lang('news.title_subscribe')</p>
-                <form class="subscribe__input">
-                  <input class="subscribe-field" type="text" placeholder="@lang('news.placeholder_subscribe')">
+                <form class="subscribe__input" method="get" action="{{ route('subscriber.create') }}">
+                  @auth
+                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('news.placeholder_subscribe')" value="{{ Auth::user()->email }}" required>
+                  @endauth
+                  @guest
+                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('news.placeholder_subscribe')" required>
+                  @endguest
                   <button class="subscribe-btn"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                 </form>
               </div>

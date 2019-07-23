@@ -12,4 +12,5 @@
 @yield('main-css')
 @yield('news-css')
 @yield('literature-css')
+@yield('faq-css')
 @yield('personal_cabinet-css')
