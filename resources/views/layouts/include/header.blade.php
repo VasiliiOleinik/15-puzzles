@@ -1,7 +1,7 @@
 <header class="header">
   <div class="box">
     <div class="header__body">
-      <div class="header__logo logo"><img src="/img/svg/logo.svg"></div>
+      <div class="header__logo logo"><img src="{{ Illuminate\Support\Facades\Config::get('puzzles.logo') }}"></div>
       <nav class="header__nav">
         <ul class="header__nav-list">
           <li class="header__nav-li"><a class="header__nav-link" href="{{ url('/', app()->getLocale() )}}" target="_self">@lang('header.main')</a></li>

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\LetterToEditor;
+use Illuminate\Support\Facades\Config;
 
 class FaqController extends Controller
 {
@@ -34,8 +35,7 @@ class FaqController extends Controller
      */
     public function letter(Request $request)
     {        
-        Mail::to( User::where('nickname','=','admin')->first() )->send(new LetterToEditor($request));
-        //dd($request->all());
+        Mail::to( Config::get('puzzles.admin_email') )->send(new LetterToEditor($request));
         return redirect()->back();
     }
 }

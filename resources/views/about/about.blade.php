@@ -3,7 +3,7 @@
         <main class="main">
           <div class="box about">
             <div class="main__left">
-              <div class="title-container"><img src="/img/about_bg.jpg" alt="About BG">
+              <div class="title-container"><img src="{{ Illuminate\Support\Facades\Config::get('puzzles.about_img') }}" alt="About BG">
                 <h2 class="main__left-title">@lang('about.title_about')<span class="title-line"></span><span class="title-text">@lang('about.title_text_about')</span></h2>
               </div>
               <div class="main__left-subtitle">@lang('about.subtitle_about')</div>
@@ -13,8 +13,7 @@
               <div class="main__video">
                 <div class="main__video-overlay"></div>
                 <video poster="/img/Video.png">
-                  <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
-                  <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg">
+                  <source src="{{ Illuminate\Support\Facades\Config::get('puzzles.video_url') }}" type="video/mp4">
                 </video>
               </div>
               <div class="puzzle-15">

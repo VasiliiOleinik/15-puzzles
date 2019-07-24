@@ -26,14 +26,14 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Main Video Url
+    | Video Url
     |--------------------------------------------------------------------------
     |
-    | Set main video url
+    | Set video url
     |
     */
 
-    'main_video_url' => "http://techslides.com/demos/sample-videos/small.mp4",
+    'video_url' => "http://techslides.com/demos/sample-videos/small.mp4",
 
     /*
     |--------------------------------------------------------------------------

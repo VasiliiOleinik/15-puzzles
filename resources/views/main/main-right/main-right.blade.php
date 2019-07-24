@@ -2,8 +2,7 @@
   <div class="main__video">
     <div class="main__video-overlay"><!--<img class="main__video-logo" src="img/svg/logo.svg">--></div>
     <video poster="img/Video.png">
-      <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
-      <source src="http://techslides.com/demos/sample-videos/small.ogv" type="video/ogg">
+      <source src="{{ Illuminate\Support\Facades\Config::get('puzzles.video_url') }}" type="video/mp4">
     </video>
   </div>
   @include('main.main-right.puzzle-15')
