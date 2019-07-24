@@ -48,12 +48,12 @@
                   </div>
                   <div class="case-share"><span class="case-info-title">Share</span>
                     <ul class="case-share-links">
-                      <li><a href=""><i class="fab fa-linkedin-in"></i><span>Linkedin</span></a></li>
-                      <li><a href=""><i class="fab fa-facebook-square"></i><span>Facebook</span></a></li>
-                      <li><a href=""><i class="fab fa-instagram"></i><span>Instagram</span></a></li>
-                      <li><a href=""><i class="fab fa-twitter-square "></i><span>Twitter</span></a></li>
-                      <li><a href=""><i class="fab fa-telegram"></i><span>Telegram</span></a></li>
-                      <li><a href=""><i class="fab fa-pinterest-square"></i><span>Pinterest</span></a></li>
+                      <li><a href="{{Share::load(url()->current(), $memberCase->title)->linkedin()}}" target="_blank"><i class="fab fa-linkedin-in"></i><span>Linkedin</span></a></li>
+                      <li><a href="{{Share::load(url()->current(), $memberCase->title)->facebook()}}" target="_blank"><i class="fab fa-facebook-square"></i><span>Facebook</span></a></li>
+                      <!--<li><a href="" target="_blank"><i class="fab fa-instagram"></i><span>Instagram</span></a></li>-->
+                      <li><a href="{{Share::load(url()->current(), $memberCase->title)->twitter()}}" target="_blank"><i class="fab fa-twitter-square "></i><span>Twitter</span></a></li>
+                      <li><a href="https://telegram.me/share/url?url={{url()->current()}}&text='{{$memberCase->title}}'" target="_blank"><i class="fab fa-telegram"></i><span>Telegram</span></a></li>
+                      <li><a href="{{Share::load(url()->current(), $memberCase->title)->pinterest()}}" target="_blank"><i class="fab fa-pinterest-square"></i><span>Pinterest</span></a></li>
                     </ul>
                   </div>
                   @auth

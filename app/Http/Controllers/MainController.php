@@ -48,7 +48,7 @@ class MainController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request)
-    {
+    {        
         $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
         $factors = Cache::remember('factor', now()->addDay(1), function(){
                 return Factor::with('type')->get();

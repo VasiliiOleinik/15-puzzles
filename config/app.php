@@ -171,6 +171,7 @@ return [
          * Package Service Providers...
          */
 		Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
+        Chencha\Share\ShareServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -229,7 +230,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Share' => Chencha\Share\ShareFacade::class,
     ],
 
 ];

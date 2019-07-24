@@ -58,11 +58,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //тэги обновились
     startObserver('.tags__list', dataFilter, getTagsData);
-    
-    //кликаем на пазл который пришел с редиректа "about" страницы
-    syncCheckedElements('puzzle', getUrlParameter('factor'), "factor");
-    //очищаем от get параметра url
-    window.history.replaceState("object or string", "Title", "/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1).split("?")[0]);
+
+    //если был редирект со страницы "about" с указанием фактора
+    if(getUrlParameter('factor')) {
+        //кликаем на пазл который пришел с редиректа "about" страницы
+        syncCheckedElements('puzzle', getUrlParameter('factor'), "factor");
+        //очищаем от get параметра url
+        window.history.replaceState("object or string", "Title", "/" + window.location.href.substring(window.location.href.lastIndexOf('/') + 1).split("?")[0]);
+    }
 
     //удаление тэга с панели тэгов
     $('.tags__list').delegate('.tag-remove','click',function(){
