@@ -7,7 +7,9 @@ use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
 use AdminColumn;
+use AdminColumnFilter;
 use AdminDisplay;
+use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use SleepingOwl\Admin\Contracts\Initializable;
@@ -61,10 +63,14 @@ class Users extends Section implements Initializable
     /**
      * @return DisplayInterface
      */
-    public function onDisplay()
+    /*public function onDisplay()
     {
-        return AdminDisplay::table()/*->with('users')*/
+        
+        $display = AdminDisplay::table()
             ->setHtmlAttribute('class', 'table-primary')
+            ->setFilters(
+                AdminDisplayFilter::field('nickname')->setTitle('логин [:value]')
+            )            
             ->setColumns(
                 AdminColumn::text('id', '#')->setWidth('30px'),
                 AdminColumn::link('nickname', 'логин')->setWidth('200px'),
@@ -73,7 +79,59 @@ class Users extends Section implements Initializable
                 AdminColumn::text('last_name', 'отчество'),
                 AdminColumn::text('email', 'почта'),
                 AdminColumn::text('birthday', 'дата рождения'),                
-            )->paginate(20);       
+            )            
+            ->paginate(20);
+            
+        return $display->setView(view('sleeping_owl.display.table'));
+    }*/
+
+    /**
+     * @return DisplayInterface
+     */
+    public function onDisplay()
+    {
+        $display = AdminDisplay::datatablesAsync();
+        $display
+            //->with(['roles'])
+            ->setColumns(
+                AdminColumn::link('nickname')->setLabel('логин'),
+                AdminColumn::text('first_name')->setLabel('имя'),
+                AdminColumn::text('middle_name')->setLabel('фамилия'),
+                AdminColumn::text('last_name')->setLabel('отчество'),
+                AdminColumn::text('email')->setLabel('почта'),
+                AdminColumn::text('birthday')->setLabel('дата рождения'),
+                AdminColumn::image('img')->thumbnail('original'),
+            );
+        $display
+            //поля поиска
+            ->setColumnFilters(
+            [   
+                AdminColumnFilter::text()
+                    ->setPlaceholder('Введите логин')
+                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                AdminColumnFilter::text()
+                    ->setPlaceholder('Введите имя')
+                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                AdminColumnFilter::text()
+                    ->setPlaceholder('Введите фамилию')
+                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                AdminColumnFilter::text()
+                    ->setPlaceholder('Введите отчество')
+                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                AdminColumnFilter::text()
+                    ->setPlaceholder('Введите почту')
+                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                // Поиск по диапазону дат
+                AdminColumnFilter::range()->setFrom(
+                    AdminColumnFilter::date()->setPlaceholder('From Date')->setFormat('d.m.Y')
+                )->setTo(
+                    AdminColumnFilter::date()->setPlaceholder('To Date')->setFormat('d.m.Y')
+                ),
+            ]
+            );
+        $display->getColumnFilters()->setPlacement('table.header');
+        
+        return $display;
     }
 
     /**
@@ -83,19 +141,24 @@ class Users extends Section implements Initializable
      */
     public function onEdit($id)
     {
+        $avatar = '<img src="'.$this->model::find($id)->img.'" alt="Smiley face" width="100%">';
+        //dd($this->model::find($id)->toJson());
         // поле var - нельзя редактировать, ибо нефиг системообразующий код редактировать
-        return AdminForm::panel()->addBody([
+        return AdminForm::panel()->addBody([            
             AdminFormElement::text('nickname', 'логин')->required(),
             AdminFormElement::text('first_name', 'имя'),
             AdminFormElement::text('middle_name', 'фамилия'),
             AdminFormElement::text('last_name', 'отчество'),
+            AdminFormElement::custom()
+                    ->setDisplay(function($instance) use($avatar) {
+                        return $avatar;
+                    }),
             AdminFormElement::text('email', 'почта')->required(),
             AdminFormElement::text('birthday', 'дата рождения'),
             //AdminFormElement::wysiwyg('test', 'Text'),
             AdminFormElement::text('id', 'ID')->setReadonly(1),
-            AdminFormElement::text('created_at')->setLabel('Создано')->setReadonly(1),
-
-        ]);
+            AdminFormElement::text('created_at')->setLabel('Создано')->setReadonly(1),                        
+        ]); 
     }
 
     /**
