@@ -100,7 +100,6 @@ class Users extends Section implements Initializable
                 AdminColumn::text('last_name')->setLabel('отчество'),
                 AdminColumn::text('email')->setLabel('почта'),
                 AdminColumn::text('birthday')->setLabel('дата рождения'),
-                AdminColumn::image('img')->thumbnail('original'),
             );
         $display
             //поля поиска
