@@ -34,6 +34,19 @@ return [
         'url'   => route('admin.information'),
     ],
 
+    [
+        'title' => 'Permissions',
+        'icon' => 'fa fa-group',
+        'pages' => [
+            (new Page(\App\Models\User\User::class))
+                ->setIcon('fa fa-user')
+                ->setPriority(0),
+            (new Page(\App\Models\Role\Role::class))
+                ->setIcon('fa fa-group')
+                ->setPriority(100)
+        ]
+    ],
+
     // Examples
     // [
     //    'title' => 'Content',
