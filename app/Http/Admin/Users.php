@@ -99,7 +99,7 @@ class Users extends Section implements Initializable
                 AdminColumn::text('middle_name')->setLabel('фамилия'),
                 AdminColumn::text('last_name')->setLabel('отчество'),
                 AdminColumn::text('email')->setLabel('почта'),
-                AdminColumn::text('birthday')->setLabel('дата рождения'),
+                AdminColumn::text('birthday')->setLabel('дата рождения'),                
             );
         $display
             //поля поиска
@@ -140,7 +140,7 @@ class Users extends Section implements Initializable
      */
     public function onEdit($id)
     {
-        $avatar = '<img src="'.$this->model::find($id)->img.'" alt="Smiley face" width="100%">';
+        $avatar = '<img src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';
         //dd($this->model::find($id)->toJson());
         // поле var - нельзя редактировать, ибо нефиг системообразующий код редактировать
         return AdminForm::panel()->addBody([            

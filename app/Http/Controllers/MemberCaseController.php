@@ -94,6 +94,44 @@ class MemberCaseController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource. method POST
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePost(Request $request)
+    {
+        dd($request->all());
+        $validatedData = $request->validate([
+        'headline' => ['required', 'string', 'max:191'],
+        'your-story' => ['required'],
+        'img' => ['nullable'],
+        'story-tags' => ['required'],        
+        ]);
+
+        $tags = explode(",",$request['story-tags']);
+        $memberCase = new MemberCase;
+        
+        if($request->img != null){          
+          $memberCase->img = $request['img'];
+        }        
+        $memberCase->title = $request['headline'];
+        $memberCase->content = $request['your-story'];
+        $memberCase->description = substr($memberCase->content,0,186);
+        $memberCase->status = "moderating";
+        if($request->anonim == null){
+          $memberCase->anonym = 0;
+        }else{
+          $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+        }
+        $memberCase->save();
+        $memberCase->tags()->attach($tags);
+
+        $request->session()->flash('status-member_case', 'You have successfully created your member case.');
+
+        return redirect()->back();
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

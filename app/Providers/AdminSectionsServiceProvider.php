@@ -13,6 +13,8 @@ class AdminSectionsServiceProvider extends ServiceProvider
     protected $sections = [
         //\App\User::class => 'App\Http\Sections\Users',        
         \App\Models\User\User::class => 'App\Http\Admin\Users',
+        \App\Models\MemberCase::class => 'App\Http\Admin\MemberCases',
+        \App\Models\Comment::class => 'App\Http\Admin\Comments',
         \App\Models\Role\Role::class => 'App\Http\Admin\Roles',
     ];
 
