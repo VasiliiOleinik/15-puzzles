@@ -73,7 +73,7 @@ class Comments extends Section implements Initializable
                 AdminColumn::link('content')->setLabel('комментарий'),
                 AdminColumn::text('created_at')->setLabel('создано'),
                 AdminColumn::relatedLink('memberCase.title', 'история болезни', 'id'),                
-                AdminColumn::relatedLink('user.nickname', 'пользователь', 'id'),
+                AdminColumn::relatedLink('user.nickname', 'пользователь', 'id')
             )
              ->setFilters(
                 AdminDisplayFilter::field('user_id')->setTitle('id пользователя [:value]')

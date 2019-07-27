@@ -74,7 +74,7 @@ class MemberCases extends Section implements Initializable
                 AdminColumn::text('status')->setLabel('статус'),
                 AdminColumnEditable::checkbox('anonym')->setLabel('анонимная публикация'),
                 AdminColumn::text('created_at')->setLabel('создано'),
-                AdminColumn::relatedLink('user.nickname', 'пользователь', 'id'),
+                AdminColumn::relatedLink('user.nickname', 'пользователь', 'id')
             )
              ->setFilters(
                 AdminDisplayFilter::field('user_id')->setTitle('id пользователя [:value]')
