@@ -15,6 +15,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\User\User::class => 'App\Http\Admin\Users',
         \App\Models\MemberCase::class => 'App\Http\Admin\MemberCases',
         \App\Models\Comment::class => 'App\Http\Admin\Comments',
+        \App\Models\Factor\Factor::class => 'App\Http\Admin\Factors',
         \App\Models\Role\Role::class => 'App\Http\Admin\Roles',
     ];
 
