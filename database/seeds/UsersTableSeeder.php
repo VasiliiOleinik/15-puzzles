@@ -19,5 +19,8 @@ class UsersTableSeeder extends Seeder
         DB::table('users')
                 ->where('id', 1)
                 ->update(['nickname' => 'admin', 'email' => 'admin@gmail.com', 'role_id' => 2]);
+        DB::table('users')
+                ->where('id', 2)
+                ->update(['nickname' => 'user', 'email' => 'user@gmail.com', 'role_id' => 1]);
     }
 }
