@@ -41,8 +41,8 @@
                 <div class="sticky-right">
                   <div class="case-tags"><span class="case-info-title">Tags</span>
                     <ul class="case-tags__list">
-                      @foreach($memberCase->tags as $tag)
-                      <li class="item" obj-id="{{$tag->id}}"><a>{{$tag->name}}</a></li>
+                      @foreach($tags as $tag)
+                      <li class="item" obj-id="{{$tag->tag_id}}"><a>{{$tag->name}}</a></li>
                       @endforeach
                     </ul>
                   </div>

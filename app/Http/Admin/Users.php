@@ -125,7 +125,7 @@ class Users extends Section implements Initializable
                     AdminColumnFilter::date()->setPlaceholder('From Date')->setFormat('d.m.Y')
                 )->setTo(
                     AdminColumnFilter::date()->setPlaceholder('To Date')->setFormat('d.m.Y')
-                ),
+                )
             ]
             );
         $display->getColumnFilters()->setPlacement('table.header');
@@ -156,7 +156,7 @@ class Users extends Section implements Initializable
             AdminFormElement::text('birthday', 'дата рождения'),
             //AdminFormElement::wysiwyg('test', 'Text'),
             AdminFormElement::text('id', 'ID')->setReadonly(1),
-            AdminFormElement::text('created_at')->setLabel('Создано')->setReadonly(1),                        
+            AdminFormElement::text('created_at')->setLabel('Создано')->setReadonly(1)                       
         ]); 
     }
 
@@ -173,7 +173,7 @@ class Users extends Section implements Initializable
             AdminFormElement::text('middle_name', 'фамилия'),
             AdminFormElement::text('last_name', 'отчество'),
             AdminFormElement::text('email', 'почта')->required(),
-            AdminFormElement::text('birthday', 'дата рождения'),
+            AdminFormElement::text('birthday', 'дата рождения')
 
         ]);
     }

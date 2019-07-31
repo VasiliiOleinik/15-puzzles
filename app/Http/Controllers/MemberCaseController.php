@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\TagLanguage;
 use App\Models\MemberCase;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -149,9 +150,12 @@ class MemberCaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($locale, $id)
-    {        
+    {
+        $tags = MemberCase::with('tags')->find($id)->tags()->get()->pluck('id');
+        $tagLanguages = TagLanguage::whereIn('tag_id',$tags)->get();
         return view('member-cases.single.member-case', ['memberCase' => MemberCase::with('user', 'tags')->find($id),
-                                     'comments' => Comment::with('user')->where('member_case_id','=',$id)->get()]);
+                                     'comments' => Comment::with('user')->where('member_case_id','=',$id)->get(),
+                                     'tags' => $tagLanguages]);
     }
 
     /**

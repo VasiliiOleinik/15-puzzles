@@ -94,7 +94,7 @@ class Comments extends Section implements Initializable
                     ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),           
                 AdminColumnFilter::text()
                     ->setPlaceholder('Введите логин юзера')
-                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS)
             ]
             );
         $display->getColumnFilters()->setPlacement('table.header');
@@ -111,7 +111,7 @@ class Comments extends Section implements Initializable
     {        
         $form = AdminForm::panel()->addBody([
             AdminFormElement::textarea('content')->setLabel('комментарий')->required(),
-            AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1),            
+            AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1)           
         ]);
         /*
         if (!is_null($id)) { // Если есть ID

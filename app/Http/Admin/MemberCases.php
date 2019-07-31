@@ -98,7 +98,7 @@ class MemberCases extends Section implements Initializable
                 ),
                 AdminColumnFilter::text()
                     ->setPlaceholder('Введите логин юзера')
-                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS)
             ]
             );
         $display->getColumnFilters()->setPlacement('table.header');
@@ -124,10 +124,10 @@ class MemberCases extends Section implements Initializable
                 ->setDisplay(function($instance) use($image) {
                     return $image;
                 }),
-            AdminFormElement::hidden('img')->setLabel('картинка')->required(),
+            AdminFormElement::hidden('img')->setLabel('картинка'),
             AdminFormElement::view('sleeping-owl.member-cases.test'),
             AdminFormElement::textarea('content', 'история болезни'),
-            AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1),            
+            AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1)       
         ]); 
     }
 
@@ -146,14 +146,14 @@ class MemberCases extends Section implements Initializable
                 ->setDisplay(function($instance) use($image) {
                     return $image;
                 }),
-            AdminFormElement::hidden('img')->setLabel('картинка')->required(),
+            AdminFormElement::hidden('img')->setLabel('картинка'),
             AdminFormElement::view('sleeping-owl.member-cases.test'),  
             AdminFormElement::select('status', 'статус')->setOptions(['show' => 'show', 'hide' => 'hide', 'moderating' => 'moderating'])
                                               ->setDefaultValue('moderating'),
             AdminFormElement::select('user_id', 'пользователь')->setModelForOptions(\App\Models\User\User::class)->setDisplay('nickname')
                                               ->setDefaultValue('1'),
             AdminFormElement::checkbox('anonym')->setLabel('анонимная публикация'),
-            AdminFormElement::textarea('content', 'история болезни'),
+            AdminFormElement::textarea('content', 'история болезни')
         ]); 
     }
 

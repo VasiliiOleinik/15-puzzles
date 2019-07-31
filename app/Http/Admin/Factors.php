@@ -73,7 +73,7 @@ class Factors extends Section implements Initializable
             ->setColumns(
                 AdminColumn::link('name')->setLabel('Название фактора'),
                 AdminColumn::text('content')->setLabel('Описание Фактора'),
-                AdminColumn::text('type.name')->setLabel('Тип фактора'),
+                AdminColumn::text('type.name')->setLabel('Тип фактора')
                 //AdminColumn::relatedLink('memberCase.title', 'история болезни', 'id'),                
                 //AdminColumn::relatedLink('user.nickname', 'пользователь', 'id'),
             );  
@@ -111,7 +111,7 @@ class Factors extends Section implements Initializable
             AdminFormElement::multiselect('diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\Disease::class)->setDisplay('name'),
             AdminFormElement::multiselect('protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\Protocol::class)->setDisplay('name'),
             AdminFormElement::multiselect('remedies', 'Лекарства')->setModelForOptions(\App\Models\Remedy::class)->setDisplay('name'),
-            AdminFormElement::multiselect('markers', 'Анализы')->setModelForOptions(\App\Models\Marker\Marker::class)->setDisplay('name'),
+            AdminFormElement::multiselect('markers', 'Анализы')->setModelForOptions(\App\Models\Marker\Marker::class)->setDisplay('name')
         ]);
 
         return $form;
@@ -132,7 +132,7 @@ class Factors extends Section implements Initializable
             AdminFormElement::multiselect('diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\Disease::class)->setDisplay('name'),
             AdminFormElement::multiselect('protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\Protocol::class)->setDisplay('name'),
             AdminFormElement::multiselect('remedies', 'Лекарства')->setModelForOptions(\App\Models\Remedy::class)->setDisplay('name'),
-            AdminFormElement::multiselect('markers', 'Анализы')->setModelForOptions(\App\Models\Marker\Marker::class)->setDisplay('name'),
+            AdminFormElement::multiselect('markers', 'Анализы')->setModelForOptions(\App\Models\Marker\Marker::class)->setDisplay('name')
         ]);
 
         return $form;

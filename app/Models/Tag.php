@@ -16,6 +16,14 @@ class Tag extends Model
     public $timestamps = false;
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function localization()
+    {
+        return $this->hasMany('App\Models\TagLanguage');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function articleTags()

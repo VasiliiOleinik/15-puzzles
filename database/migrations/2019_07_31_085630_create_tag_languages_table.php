@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFactorsTable extends Migration {
+class CreateTagLanguagesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,12 @@ class CreateFactorsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('factors', function(Blueprint $table)
+		Schema::create('tag_languages', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('language', 10)->default('eng');
+			$table->integer('tag_id')->unsigned()->default(1)->index('FK_tag_languages_tags');
 			$table->string('name', 50)->default('--');
-			$table->text('content', 65535);
-			$table->integer('type_id')->unsigned()->default(1)->index('FK_factors_types');
-			$table->string('img', 191)->nullable();
 		});
 	}
 
@@ -30,7 +29,7 @@ class CreateFactorsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('factors');
+		Schema::drop('tag_languages');
 	}
 
 }
