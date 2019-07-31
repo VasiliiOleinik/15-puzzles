@@ -19,7 +19,7 @@ class AboutController extends Controller
             'factor_'.app()->getLocale(),
             now()->addDay(1),
             function(){
-                return FactorLanguage::with('type')->get();
+                return FactorLanguage::with('factor','type')->get();
             }
         );
         return view('about.about', compact(['factors']));

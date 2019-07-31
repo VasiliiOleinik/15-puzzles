@@ -55,7 +55,7 @@ class MainController extends Controller
                 return Factor::with('type')->get();
         });*/
         $factors = Cache::remember('factor_'.app()->getLocale(), now()->addDay(1), function(){
-                return FactorLanguage::with('type')->get();
+                return FactorLanguage::with('factor','type')->get();
         });
         $diseases = Cache::remember('disease_'.app()->getLocale(), now()->addDay(1), function(){
                 return Disease::all();
