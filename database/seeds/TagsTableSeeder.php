@@ -55,12 +55,12 @@ class TagsTableSeeder extends Seeder
                 factory(TagLanguage::class, 1)->create([
                     'language' => "eng",
                     'tag_id' => Tag::count(),
-                    'name' => $model::withoutGlobalScopes()->where('language','=','eng')->first()->name,
+                    'name' => $model::withoutGlobalScopes()->where('language','=','eng')->get()[Tag::count()-1]->name,
                 ]);
                 factory(TagLanguage::class, 1)->create([                    
                     'language' => "ru",
                     'tag_id' => Tag::count(),
-                    'name' =>  $model::withoutGlobalScopes()->where('language','=','ru')->first()->name,
+                    'name' =>  $model::withoutGlobalScopes()->where('language','=','ru')->get()[Tag::count()-1]->name,
                 ]);
             }
         }
