@@ -26,11 +26,11 @@ class TagLanguage extends Model
      *
      * @return void
      */
-    /*protected static function boot()
+    protected static function boot()
     {
         parent::boot();
         static::addGlobalScope(new LanguageScope);
-    }*/
+    }
 
     /**
      * @var array

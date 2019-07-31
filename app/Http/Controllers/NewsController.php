@@ -127,14 +127,14 @@ class NewsController extends Controller
             }
             if($request['with'] == "memberCases"){
                 //$tags_names = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(
-                $tags_names = TagLanguage::whereIn('tag_id',$tag_with)->setLocale()->whereHas(                
+                $tags_names = TagLanguage::whereIn('tag_id',$tag_with)->whereHas(                
                     'memberCases', function ($query) {
                         $query->where('status','=','show');
                     }
                 )->pluck('name','tag_id')->toJson();
             }else{
                 //$tags_names = Tag::with($request->with)->whereIn('id',$tag_with)->pluck('name','id')->toJson();
-                $tags_names = TagLanguage::whereIn('tag_id',$tag_with)->setLocale()
+                $tags_names = TagLanguage::whereIn('tag_id',$tag_with)
                                          ->pluck('name','tag_id')->toJson();
             }
         }
@@ -164,8 +164,8 @@ class NewsController extends Controller
                     $query->where('status','=','show');
                 }
             )->get()->pluck('id');
-            return view($request->view, ['tags' => TagLanguage::whereIn('tag_id',$tags_id)->setLocale()->get()]);
+            return view($request->view, ['tags' => TagLanguage::whereIn('tag_id',$tags_id)->get()]);
         }
-        return view($request->view, ['tags' => TagLanguage::whereIn('tag_id',$request['tags'])->setLocale()->get()]);
+        return view($request->view, ['tags' => TagLanguage::whereIn('tag_id',$request['tags'])->get()]);
     }
 }
