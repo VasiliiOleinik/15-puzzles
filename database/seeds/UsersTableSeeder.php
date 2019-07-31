@@ -18,6 +18,6 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')
                 ->where('id', 1)
-                ->update(['nickname' => 'admin', 'email' => 'admin@gmail.com']);
+                ->update(['nickname' => 'admin', 'email' => 'admin@gmail.com', 'role_id' => 2]);
     }
 }
