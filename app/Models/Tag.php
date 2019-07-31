@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $name
  * @property ArticleTag[] $articleTags
  * @property ArticleTag[] $articles
  * @property BookTag[] $books
@@ -15,11 +14,6 @@ use Illuminate\Database\Eloquent\Model;
 class Tag extends Model
 {
     public $timestamps = false;
-
-    /**
-     * @var array
-     */
-    protected $fillable = ['name'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

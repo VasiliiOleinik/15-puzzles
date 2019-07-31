@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property FactorMarker[] $markers
  */
 class Factor extends Model
-{
+{   
 	public $timestamps = false;
 	
     /**

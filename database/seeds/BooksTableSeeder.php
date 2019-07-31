@@ -26,7 +26,7 @@ class BooksTableSeeder extends Seeder
         Book::all()->each(function ($book) use ($tags) { 
             $book->tags()->sync(
                 $tags->random(
-                    rand(6,  25))->pluck('id')->toArray()
+                    rand(6,  22))->pluck('id')->toArray()
                 
             ); 
         });

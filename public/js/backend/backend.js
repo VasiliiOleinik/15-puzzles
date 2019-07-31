@@ -84,14 +84,14 @@ function setData(categoriesForNewsActive, categoriesForBooksActive, tagsActive) 
 function usedTags(_with, all) {
     $.ajax({
         type: "GET",
-        url: "/used_tags",
+        url: "/" + locale + "/used_tags",
         data: {
             "_token": $('meta[name="csrf-token"]').attr('content'),
             "with": _with,
             "all": all,
         },
         complete: function (result) {
-            //console.log(result.responseText);
+            console.log(result.responseText);
             if (result.responseText.length != 0) {                
                 json = jQuery.parseJSON(result.responseText);
                 setTagsCloud( Object.keys(json), _with );
@@ -119,7 +119,7 @@ function setTagsCloud(tags, _with) {
     }
     $.ajax({
         type: "GET",
-        url: "/tags_cloud",
+        url: "/" + locale + "/tags_cloud",
         data: {
             "_token": $('meta[name="csrf-token"]').attr('content'),
             "with": _with,

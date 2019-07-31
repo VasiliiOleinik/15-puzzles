@@ -7,7 +7,6 @@ use Faker\Generator as Faker;
 
 
 $factory->define(Factor::class, function (Faker $faker) {
-    return [
-        'content' => $faker->realText(800),    
+    return [   
     ];
 });

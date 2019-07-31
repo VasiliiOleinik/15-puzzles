@@ -2,9 +2,9 @@
       <div class="tab-item">
         <div class="tab-item__head">
           <label class="tab_head_check">
-            <input class="checkbox" type="checkbox" obj-id="{{$factor->id}}" obj-type="factor"><span
+            <input class="checkbox" type="checkbox" obj-id="{{$factor->factor_id}}" obj-type="factor"><span
                     class="checkbox-custom"></span>
-            <p class="title">@lang('main.tabs_title_factors') #{{$factor->id}}: {{$factor->name}}</p>
+            <p class="title">@lang('main.tabs_title_factors') #{{$factor->factor_id}}: {{$factor->name}}</p>
           </label>
           <div class="arrow"><img src="img/svg/dropdown-ico.svg" alt=""></div>
         </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tag;
+use App\Models\TagLanguage;
 use App\Models\Article\Article;
 use App\Models\Category\CategoryForNews;
 use Illuminate\Http\Request;
@@ -16,7 +17,9 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {        
+    {
+        //dd(TagLanguage::where('language','=', app()->getLocale() )->get()->pluck('name'));
+        
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews',
@@ -108,8 +111,8 @@ class NewsController extends Controller
     //Тэги, которые использовались ($request->with должен содержать таблицу, связанную с тэгами. например 'articles')
     public function usedTags(Request $request){
 
-        if($request->all == "all"){
-            $tags_names = Tag::all()->pluck('name','id')->toJson();            
+        if($request->all == "all"){            
+            $tags_names = TagLanguage::where('language','=', app()->getLocale() )->get()->pluck('name','tag_id')->toJson();            
         }else
         {
             $tag_with = array();
@@ -123,13 +126,16 @@ class NewsController extends Controller
                 }
             }
             if($request['with'] == "memberCases"){
-                $tags_names = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(                
+                //$tags_names = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(
+                $tags_names = TagLanguage::whereIn('tag_id',$tag_with)->setLocale()->whereHas(                
                     'memberCases', function ($query) {
                         $query->where('status','=','show');
                     }
-                )->pluck('name','id')->toJson();
+                )->pluck('name','tag_id')->toJson();
             }else{
-                $tags_names = Tag::with($request->with)->whereIn('id',$tag_with)->pluck('name','id')->toJson();
+                //$tags_names = Tag::with($request->with)->whereIn('id',$tag_with)->pluck('name','id')->toJson();
+                $tags_names = TagLanguage::whereIn('tag_id',$tag_with)->setLocale()
+                                         ->pluck('name','tag_id')->toJson();
             }
         }
         return response($tags_names);
@@ -148,13 +154,18 @@ class NewsController extends Controller
                     array_push($tag_with, $tag->id);
                 }
             }
-            $tags_names = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(                
+            /*$tags_names = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(                
                 'memberCases', function ($query) {
                     $query->where('status','=','show');
                 }
-            )->get();
-            return view($request->view, ['tags' => $tags_names]);
+            )->get();*/
+            $tags_id = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(                
+                'memberCases', function ($query) {
+                    $query->where('status','=','show');
+                }
+            )->get()->pluck('id');
+            return view($request->view, ['tags' => TagLanguage::whereIn('tag_id',$tags_id)->setLocale()->get()]);
         }
-        return view($request->view, ['tags' => Tag::with( $request['with'] )->whereIn('id',$request['tags'])->get()]);
+        return view($request->view, ['tags' => TagLanguage::whereIn('tag_id',$request['tags'])->setLocale()->get()]);
     }
 }

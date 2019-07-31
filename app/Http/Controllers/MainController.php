@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User\User;
 use App\Models\Permission;
 use App\Models\Factor\Factor;
+use App\Models\Factor\FactorLanguage;
 use App\Models\Factor\FactorRemedy;
 use App\Models\Disease\Disease;
 use App\Models\Protocol\Protocol;
@@ -50,25 +51,28 @@ class MainController extends Controller
     public function index(Request $request)
     {        
         $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
-        $factors = Cache::remember('factor', now()->addDay(1), function(){
+        /*$factors = Cache::remember('factor', now()->addDay(1), function(){
                 return Factor::with('type')->get();
+        });*/
+        $factors = Cache::remember('factor_'.app()->getLocale(), now()->addDay(1), function(){
+                return FactorLanguage::with('type')->get();
         });
-        $diseases = Cache::remember('disease', now()->addDay(1), function(){
+        $diseases = Cache::remember('disease_'.app()->getLocale(), now()->addDay(1), function(){
                 return Disease::all();
         });
-        $protocols = Cache::remember('protocol', now()->addDay(1), function(){
+        $protocols = Cache::remember('protocol_'.app()->getLocale(), now()->addDay(1), function(){
                 return Protocol::with('evidence')->get();
         });
-        $remedies = Cache::remember('remedy', now()->addDay(1), function(){
+        $remedies = Cache::remember('remedy_'.app()->getLocale(), now()->addDay(1), function(){
                 return Remedy::all();
         });
-        $markers = Cache::remember('marker', now()->addDay(1), function(){
+        $markers = Cache::remember('marker_'.app()->getLocale(), now()->addDay(1), function(){
                 return Marker::with('methods')->get();
         });
-        $methods = Cache::remember('methods', now()->addDay(1), function(){
+        $methods = Cache::remember('methods_'.app()->getLocale(), now()->addDay(1), function(){
                 return Method::all();
         });
-        $evidences = Cache::remember('evidences', now()->addDay(1), function(){
+        $evidences = Cache::remember('evidences_'.app()->getLocale(), now()->addDay(1), function(){
                 return Evidence::all();
         });
 
@@ -94,11 +98,11 @@ class MainController extends Controller
             $table = $this->getModelNameLowercase($model);
             //если фильтр не задан => берем значения таблиц из кэша
             if(!$request['factor'] && !$request['disease'] && !$request['protocol']){
-                $modelResults = Cache::get($table);
+                $modelResults = Cache::get($table.'_'.app()->getLocale());
                 $json[$table] = $modelResults;
             }else {
 
-                $resultStartArray = Cache::get($table)->pluck('id')->toArray();
+                $resultStartArray = Cache::get($table.'_'.app()->getLocale())->pluck('id')->toArray();
                 $withArray = ['factor', 'disease', 'protocol'];
 
                 //фильтр по таблице не задан => ищем
