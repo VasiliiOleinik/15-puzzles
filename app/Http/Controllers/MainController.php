@@ -143,10 +143,10 @@ class MainController extends Controller
         if($request['disease']){     
             return ([
                     "models" => $json,
-                    "diseaseFactors" => Disease::with('factors')
+                    /*"diseaseFactors" => Disease::with('factors')
                                                 ->find($request['disease'][0])
                                                 ->factors()->get()
-                                                ->pluck('id')->toArray()
+                                                ->pluck('id')->toArray()*/
                     ]);
         }else
         {
