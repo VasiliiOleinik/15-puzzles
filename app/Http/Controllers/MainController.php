@@ -8,6 +8,7 @@ use App\Models\Factor\Factor;
 use App\Models\Factor\FactorLanguage;
 use App\Models\Factor\FactorRemedy;
 use App\Models\Disease\Disease;
+use App\Models\Disease\DiseaseLanguage;
 use App\Models\Protocol\Protocol;
 use App\Models\Remedy;
 use App\Models\Method;
@@ -57,8 +58,11 @@ class MainController extends Controller
         $factors = Cache::remember('factor_'.app()->getLocale(), now()->addDay(1), function(){
                 return FactorLanguage::with('factor','type')->get();
         });
-        $diseases = Cache::remember('disease_'.app()->getLocale(), now()->addDay(1), function(){
+        /*$diseases = Cache::remember('disease_'.app()->getLocale(), now()->addDay(1), function(){
                 return Disease::all();
+        });*/
+        $diseases = Cache::remember('disease_'.app()->getLocale(), now()->addDay(1), function(){
+                return DiseaseLanguage::with('disease')->get();
         });
         $protocols = Cache::remember('protocol_'.app()->getLocale(), now()->addDay(1), function(){
                 return Protocol::with('evidence')->get();
