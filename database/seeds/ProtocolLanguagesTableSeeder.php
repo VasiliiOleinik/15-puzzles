@@ -14,6 +14,7 @@ class ProtocolLanguagesTableSeeder extends Seeder
      */
     public function run()
     {
+        $tableShort = 'protocol';
         $table = 'protocol_languages';
         DB::update("ALTER TABLE ".$table." AUTO_INCREMENT = 0;");
 
@@ -28,8 +29,7 @@ class ProtocolLanguagesTableSeeder extends Seeder
         for($i = Protocol::count() + 1; $i < Protocol::count()*2 + 1; $i++){
             DB::table($table)
                 ->where('id', $i)
-                ->update( ['protocol_id' => $i - Protocol::count(), 'evidence_id' => Protocol::find($i - Protocol::count())->evidence_id] );
-        }
-         
+                ->update( [$tableShort.'_id' => $i - Protocol::count(), 'evidence_id' => Protocol::find($i - Protocol::count())->evidence_id] );
+        }         
     }
 }

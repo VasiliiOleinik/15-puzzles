@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProtocolsTableSeeder::class);
         $this->call(ProtocolLanguagesTableSeeder::class);
         $this->call(RemediesTableSeeder::class);
+        $this->call(RemedyLanguagesTableSeeder::class);
         $this->call(MarkersTableSeeder::class);
         
 
