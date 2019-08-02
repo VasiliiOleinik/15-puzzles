@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RemediesTableSeeder::class);
         $this->call(RemedyLanguagesTableSeeder::class);
         $this->call(MarkersTableSeeder::class);
+        $this->call(MarkerLanguagesTableSeeder::class);
         
 
         $this->call(TagsTableSeeder::class);

@@ -9,6 +9,8 @@ use Faker\Factory as Factory;
 
 $factory->define(RemedyLanguage::class, function (Faker $faker) {
 
+    $tableShort = 'remedy';
+
     // Read medicine File
     $jsonString = file_get_contents(base_path('public/json/medicine.json'));
     $medicine = json_decode($jsonString, true);
@@ -20,17 +22,17 @@ $factory->define(RemedyLanguage::class, function (Faker $faker) {
         $locale = "eng";
         $name = $medicine["drugs"][ rand( 0, 999) ];
         $content = $faker->realText(600);
-        $remedyId = remedyLanguage::count() + 1;
+        $tableId = remedyLanguage::count() + 1;
     }else{
         $locale = "ru";
         $name = $medicine["drugsRussian"][ rand( 0, 100) ];
-        $content = $faker->realText(600);//$russian["text"][ rand( 0, 21) ];
-        $remedyId = 1;
+        $content = $russian["text"][ rand( 0, 21) ];
+        $tableId = 1;
     }
 
     return [
         'language' => $locale,
-        'remedy_id' => $remedyId,
+        $tableShort.'_id' => $tableId,
         'name' => $name,
         'content' => $content,        
     ];

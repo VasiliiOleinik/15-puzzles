@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
@@ -8,16 +8,29 @@ use Faker\Generator as Faker;
 use Faker\Factory as Factory;
 
 $factory->define(MarkerLanguage::class, function (Faker $faker) {
-    if( MarkerLanguage::count() < Marker::count() ){
+
+    $tableShort = 'marker';
+
+    // Read russian text File
+    $jsonString = file_get_contents(base_path('public/json/russian.json'));
+    $russian = json_decode($jsonString, true);
+
+    if( Config::get('app.faker_locale') == "en_US" ){
         $locale = "eng";
-        $faker = Factory::create('en_EN');
-    }else{       
+        $name = str_replace( ".", "", $faker->word )." test";
+        $content = $faker->realText(600);
+        $tableId = markerLanguage::count() + 1;
+    }else{
         $locale = "ru";
-        $faker = Factory::create('ru_RU');
+        $name = str_replace( ".", "", $faker->word )." анализ";
+        $content = $russian["text"][ rand( 0, 21) ];
+        $tableId = 1;
     }
 
     return [
         'language' => $locale,
-        'content' => $faker->realText(800),
+        $tableShort.'_id' => $tableId,
+        'name' => $name,
+        'content' => $content,        
     ];
 });
