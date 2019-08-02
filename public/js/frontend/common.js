@@ -441,9 +441,13 @@ $(function(){
   $('#edit-article-js').on('click', function(){
     $('#med-history-js, #add-story-js').slideToggle();
     $('#add-story-js').find('.add-story__title').text('Edit note');
+	$('.add-story__form').attr('method','get');
+	let id = $(this).parent().attr('obj-id');
+	$('.add-story__form').attr('action','/' + locale + '/medical_history.edit/' + id);
   });
   $('#add-note-js, #cancel-form-js').on('click', function(){
     $('#med-history-js, #add-story-js').slideToggle();
     $('#add-story-js').find('.add-story__title').text('Add your story');
+	$('.add-story__form').attr('method','post');
   });
 });

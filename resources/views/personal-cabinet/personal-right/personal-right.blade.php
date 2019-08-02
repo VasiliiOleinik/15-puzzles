@@ -9,17 +9,11 @@
                   <img class="med-history__img" src="{{$medicalHistory->img}}" alt="">
                   @endif
                   <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">{{$medicalHistory->updated_at->format('d.m.Y')}}</a>
-                    <div class="med-history__settings-right">
+                    <div class="med-history__settings-right" obj-id="{{$medicalHistory->id}}">
                       <a class="edit-artile" id="edit-article-js" href="javascript:void(0)">Edit article</a>
                       <a class="delete-artile" id="delete-article-js" href="javascript:void(0)">Delete article</a>
                     </div>
                   </div>
-                  <!--
-                  <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">{{$medicalHistory->updated_at->format('d.m.Y')}}</a>
-                    <a class="edit-artile" id="edit-article-js" href="javascript:void(0)">Edit article</a>
-                    <a class="delete-artile" id="delete-article-js" href="javascript:void(0)">Delete article</a>
-                  </div>
-                  -->
                   <p class="med-history__info">{{$medicalHistory->content}}</p>
                 </div>
                 @endforeach
