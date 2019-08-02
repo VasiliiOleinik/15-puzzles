@@ -65,38 +65,18 @@ class MainController extends Controller
     public function index(Request $request)
     {        
         $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
-        /*$factors = Cache::remember('factor', now()->addDay(1), function(){
-                return Factor::with('type')->get();
-        });*/
         $factors = Cache::remember('factor_'.app()->getLocale(), now()->addDay(1), function(){
                 return FactorLanguage::with('factor','type')->get();
         });
-        /*$diseases = Cache::remember('disease_'.app()->getLocale(), now()->addDay(1), function(){
-                return Disease::all();
-        });*/
         $diseases = Cache::remember('disease_'.app()->getLocale(), now()->addDay(1), function(){
                 return DiseaseLanguage::with('disease')->get();
         });
-        /*$protocols = Cache::remember('protocol_'.app()->getLocale(), now()->addDay(1), function(){
-                return Protocol::with('evidence')->get();
-        });*/
         $protocols = Cache::remember('protocol_'.app()->getLocale(), now()->addDay(1), function(){
                 return ProtocolLanguage::with('protocol','evidence')->get();
         });
-        //dd($this->modelFactor."Language");
-        //dd($protocols->where('protocol_id','=', 1)->protocol );
-        //dd($protocols->first()->protocol->url);
-        //dd(Cache::get('protocol_'.app()->getLocale())->pluck('protocol_id')->toArray());
-        /*$remedies = Cache::remember('remedy_'.app()->getLocale(), now()->addDay(1), function(){
-                return Remedy::all();
-        });*/
         $remedies = Cache::remember('remedy_'.app()->getLocale(), now()->addDay(1), function(){
                 return RemedyLanguage::with('remedy')->get();
         });
-        /*
-        $markers = Cache::remember('marker_'.app()->getLocale(), now()->addDay(1), function(){
-                return Marker::with('methods')->get();
-        });*/
         $markers = Cache::remember('marker_'.app()->getLocale(), now()->addDay(1), function(){
                 return MarkerLanguage::with('marker')->get();
         });
@@ -131,15 +111,8 @@ class MainController extends Controller
             if(!$request['factor'] && !$request['disease'] && !$request['protocol']){
                 $modelResults = Cache::get($table.'_'.$request['locale']);
                 $json[$table] = $modelResults;
-            }else {
-
-                //if($table == "factor" || $table == "disease" || $table == "protocol" || $table == "remedy") {
-                    $resultStartArray = Cache::get($table.'_'.$request['locale'])->pluck($table.'_id')->toArray();
-                    //$resultStartArray = FactorLanguage::all()->pluck('factor_id')->toArray();
-                /*}
-                else{
-                    $resultStartArray = Cache::get($table.'_'.$request['locale'])->pluck('id')->toArray();
-                }*/
+            }else {                
+                $resultStartArray = Cache::get($table.'_'.$request['locale'])->pluck($table.'_id')->toArray();                  
                 $withArray = ['factor', 'disease', 'protocol'];
 
                 //фильтр по таблице не задан => ищем
@@ -158,7 +131,6 @@ class MainController extends Controller
                 } else {
                     $resultStartArray = $request[$table];
                 }
-
                 $json[$table] = $resultStartArray;
             }
         }
