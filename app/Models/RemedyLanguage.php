@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Scopes\LanguageScope;
 
 /**
  * @property int $id
@@ -15,6 +16,17 @@ use Illuminate\Database\Eloquent\Model;
 class RemedyLanguage extends Model
 {
     public $timestamps = false;
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new LanguageScope);
+    }
 
     /**
      * @var array

@@ -12,8 +12,10 @@ use App\Models\Disease\DiseaseLanguage;
 use App\Models\Protocol\Protocol;
 use App\Models\Protocol\ProtocolLanguage;
 use App\Models\Remedy;
+use App\Models\RemedyLanguage;
 use App\Models\Method;
 use App\Models\Marker\Marker;
+use App\Models\Marker\MarkerLanguage;
 use App\Models\Article\Article;
 use App\Models\Evidence;
 use Illuminate\Support\Facades\Cache;
@@ -85,8 +87,11 @@ class MainController extends Controller
         //dd($protocols->where('protocol_id','=', 1)->protocol );
         //dd($protocols->first()->protocol->url);
         //dd(Cache::get('protocol_'.app()->getLocale())->pluck('protocol_id')->toArray());
-        $remedies = Cache::remember('remedy_'.app()->getLocale(), now()->addDay(1), function(){
+        /*$remedies = Cache::remember('remedy_'.app()->getLocale(), now()->addDay(1), function(){
                 return Remedy::all();
+        });*/
+        $remedies = Cache::remember('remedy_'.app()->getLocale(), now()->addDay(1), function(){
+                return RemedyLanguage::with('remedy')->get();
         });
         $markers = Cache::remember('marker_'.app()->getLocale(), now()->addDay(1), function(){
                 return Marker::with('methods')->get();
@@ -124,7 +129,7 @@ class MainController extends Controller
                 $json[$table] = $modelResults;
             }else {
 
-                if($table == "factor" || $table == "disease" || $table == "protocol") {
+                if($table == "factor" || $table == "disease" || $table == "protocol" || $table == "remedy") {
                     $resultStartArray = Cache::get($table.'_'.$request['locale'])->pluck($table.'_id')->toArray();
                     //$resultStartArray = FactorLanguage::all()->pluck('factor_id')->toArray();
                 }
@@ -192,7 +197,7 @@ class MainController extends Controller
             return json_encode(['views' => $views,  'models' => $result['models']/*, 'diseaseFactors' => $diseaseFactors*/]);
         }else
         {            
-            $models = [$this->modelFactorLanguage, $this->modelDiseaseLanguage, $this->modelProtocolLanguage, $this->modelRemedy, $this->modelMarker];
+            $models = [$this->modelFactorLanguage, $this->modelDiseaseLanguage, $this->modelProtocolLanguage, $this->modelRemedyLanguage, $this->modelMarker];
             foreach ($models as $model) {// example: 'App\\Models\\Protocol\\Protocol'
                 $modelName = $this->getModelNameLowercaseWithoutLanguage($model);// example: 'protocol'
 
@@ -208,7 +213,7 @@ class MainController extends Controller
                 }else
                 if($modelName == "remedy"){
                     $modelName = 'remedie';
-                    ${'remedies'} = $model::withoutGlobalScopes()->whereIn('id', $result['models']['remedy'])->get();    
+                    ${'remedies'} = $model::withoutGlobalScopes()->where('language','=',$request['locale'])->with("remedy")->whereIn('remedy_id', $result['models']['remedy'])->get();    
                 }
                 else
                 if($modelName == "marker"){
