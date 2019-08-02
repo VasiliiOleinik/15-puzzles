@@ -8,9 +8,7 @@ use App\Models\Factor\Factor;
 use App\Models\Factor\FactorLanguage;
 use App\Models\Factor\FactorRemedy;
 use App\Models\Disease\Disease;
-use App\Models\Disease\DiseaseLanguage;
 use App\Models\Protocol\Protocol;
-use App\Models\Protocol\ProtocolLanguage;
 use App\Models\Remedy;
 use App\Models\Method;
 use App\Models\Marker\Marker;
@@ -32,7 +30,7 @@ class MainController extends Controller
     */
     public $modelFactor = "App\\Models\\Factor\\Factor";
     public $modelDisease = "App\\Models\\Disease\\Disease";
-    public $modelProtocol = "App\\Models\\Protocol\\Protocol";
+    public $modelProtocol = "App\\Models\\Disease\\Disease";
     public $modelRemedy = "App\\Models\\Remedy";
     public $modelMarker = "App\\Models\\Marker\\Marker";
 
@@ -59,18 +57,12 @@ class MainController extends Controller
         $factors = Cache::remember('factor_'.app()->getLocale(), now()->addDay(1), function(){
                 return FactorLanguage::with('factor','type')->get();
         });
-        /*$diseases = Cache::remember('disease_'.app()->getLocale(), now()->addDay(1), function(){
-                return Disease::all();
-        });*/
         $diseases = Cache::remember('disease_'.app()->getLocale(), now()->addDay(1), function(){
-                return DiseaseLanguage::with('disease')->get();
+                return Disease::all();
         });
         $protocols = Cache::remember('protocol_'.app()->getLocale(), now()->addDay(1), function(){
                 return Protocol::with('evidence')->get();
         });
-        /*$protocols = Cache::remember('protocol_'.app()->getLocale(), now()->addDay(1), function(){
-                return ProtocolLanguage::with('protocol','evidence')->get();
-        });*/
         $remedies = Cache::remember('remedy_'.app()->getLocale(), now()->addDay(1), function(){
                 return Remedy::all();
         });
@@ -106,16 +98,14 @@ class MainController extends Controller
             $table = $this->getModelNameLowercase($model);
             //если фильтр не задан => берем значения таблиц из кэша
             if(!$request['factor'] && !$request['disease'] && !$request['protocol']){
-                $modelResults = Cache::get($table.'_'.$request['locale']);
+                $modelResults = Cache::get($table.'_'.app()->getLocale());
                 $json[$table] = $modelResults;
             }else {
 
-                if($table == "factor" || $table == "disease") {
-                    $resultStartArray = Cache::get($table.'_'.$request['locale'])->pluck($table.'_id')->toArray();
-                    //$resultStartArray = FactorLanguage::all()->pluck('factor_id')->toArray();
-                }else{
-                    $resultStartArray = Cache::get($table.'_'.$request['locale'])->pluck('id')->toArray();
-                }
+                if($table == "protocol"){
+                    $resultStartArray = $model::all()->pluck('id')->toArray()
+                }else
+                $resultStartArray = Cache::get($table.'_'.app()->getLocale())->pluck('id')->toArray();
                 $withArray = ['factor', 'disease', 'protocol'];
 
                 //фильтр по таблице не задан => ищем
@@ -152,10 +142,10 @@ class MainController extends Controller
         if($request['disease']){     
             return ([
                     "models" => $json,
-                    /*"diseaseFactors" => Disease::with('factors')
+                    "diseaseFactors" => Disease::with('factors')
                                                 ->find($request['disease'][0])
                                                 ->factors()->get()
-                                                ->pluck('id')->toArray()*/
+                                                ->pluck('id')->toArray()
                     ]);
         }else
         {

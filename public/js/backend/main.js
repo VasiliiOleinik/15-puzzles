@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     startObserver('.tags__list', dataFilter, getTagsData);
 
     //если был редирект со страницы "about" с указанием фактора
-    if(getUrlParameter('factor')) {
+    if (getUrlParameter('factor')) {
         //кликаем на пазл который пришел с редиректа "about" страницы
         syncCheckedElements('puzzle', getUrlParameter('factor'), "factor");
         //очищаем от get параметра url
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     //удаление тэга с панели тэгов
-    $('.tags__list').delegate('.tag-remove','click',function(){
+    $('.tags__list').delegate('.tag-remove', 'click', function () {
         removeTag($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
         checkCheckbox($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
         checkPuzzle($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     $('#tabListMarkers').html(tab5);
                 } else {
                     //console.log(data.activeTab)
-                    refreshTabsCounts(response.responseJSON.models);                    
+                    refreshTabsCounts(response.responseJSON.models);
                     if (data.activeTab != 0)
                         $('#tabListFactors').html(response.responseJSON.views.factor);
                     if (data.activeTab != 1)
@@ -117,8 +117,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     if (data.activeTab != 3)
                         $('#tabListRemedies').html(response.responseJSON.views.remedy);
                     if (data.activeTab != 4)
-                        $('#tabListMarkers').html(response.responseJSON.views.marker);                        
-                }                
+                        $('#tabListMarkers').html(response.responseJSON.views.marker);
+                }
             },
             error: function (err) {
             }
@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
 
-  
+
     /* ------------------ */
     /*     FUNCTIONS      */
     /* ------------------ */
@@ -170,12 +170,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
             "disease": disease,
             "protocol": protocol,
             "activeTab": activeTab,
+            "locale": locale,
             "_token": $('meta[name="csrf-token"]').attr('content'),
-        };        
+        };
         return data;
     }
 
-    
+
     function refreshTabsCounts(models) {
         let length = Object.keys(modelNames).length;
         for (let i = 0; i < length; i++) {
@@ -184,8 +185,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
 
     /* ------------------ */
-    /* ------------------ */    
-    
+    /* ------------------ */
+
 });
 /* ------------------ */
 /* ------------------ */
@@ -285,7 +286,7 @@ function addTagToTagsList(objId, objName, objType) {
         } else {
             html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + objName + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
         }
-            $('.tags__list').append(html);
+        $('.tags__list').append(html);
 
     }
 }
