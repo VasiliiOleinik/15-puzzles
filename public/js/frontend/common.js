@@ -438,7 +438,12 @@ $(function() {
 });
 
 $(function(){
+  $('#edit-article-js').on('click', function(){
+    $('#med-history-js, #add-story-js').slideToggle();
+    $('#add-story-js').find('.add-story__title').text('Edit note');
+  });
   $('#add-note-js, #cancel-form-js').on('click', function(){
     $('#med-history-js, #add-story-js').slideToggle();
+    $('#add-story-js').find('.add-story__title').text('Add your story');
   });
 });

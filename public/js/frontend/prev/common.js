@@ -1,11 +1,10 @@
-$(document).ready(function () {
-
+$(document).ready(function() {
   // preloader();//Fade preloader when page loaded
   setCategoryPosition(); // Позиционирование названия групп в секции puzzle-15
   var maintabsProps = {
     startCollapsed: "accordion"
   };
-  tabsInit($("#mainTabs"), maintabsProps); //Инит табов на главной
+  tabsInit($("#mainTabs, #faqTabs"), maintabsProps); //Инит табов на главной
   playVideo();
   $(".tooltip").tooltipster({
     side: "bottom",
@@ -118,16 +117,48 @@ $(function() {
   });
 
   // Скрываю label когда input активен (personal page)
-  $(".profile-labels .label input").on("click", function() {
+  $(
+    ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
+  ).on("click", function() {
+    $(this).css({
+      "box-shadow": "rgba(91, 156, 167, 0.32) 0px 1px 6px",
+      border: "1px solid rgba(91, 156, 167, .5)",
+      transition: ".1s ease-in-out"
+    });
     $(this)
       .siblings("label")
-      .hide(100);
+      .css({
+        transition: ".1s ease-in-out",
+        top: "-7px",
+        "z-index": "5",
+        padding: "0px 10px",
+        background: "#ffff",
+        left: "15px",
+        "font-size": "10px",
+        "box-shadow": "0px 0px 3px 0px rgba(0,0,0,0.1)"
+      });
   });
-  $(".profile-labels .label input").on("blur", function() {
+  $(
+    ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
+  ).on("blur", function() {
     if ($(this).val().length == "") {
+      $(this).css({
+        "box-shadow": "none",
+        border: "1px solid #d6dbde",
+        transition: ".1s ease-in-out"
+      });
       $(this)
         .siblings("label")
-        .show(100);
+        .css({
+          transition: ".1s ease-in-out",
+          top: "15px",
+          "z-index": "1",
+          padding: "0px",
+          background: "transparent",
+          left: "30px",
+          "font-size": "15px",
+          "box-shadow": "none"
+        });
     }
   });
 
@@ -215,19 +246,19 @@ $(function() {
     });
   });
   // Подсветка выбранного таба на странице home page
-    $(".tab-list.main-scroll").delegate(".tab_head_check input", "click", function () {
-        $(this)
-            .parent()
-            .parent()
-            .toggleClass("checked-tab");
-    });
+  $(".tab-list.main-scroll").delegate(".tab_head_check input", "click", function () {
+    $(this)
+      .parent()
+      .parent()
+      .toggleClass("checked-tab");
+  });
 
-    // Делаю фактор активным
-    $(".tab-list.main-scroll").delegate(".puzzle-15__item", "click", function () {
-        $(this).toggleClass("active");
-    });
+  // Делаю фактор активным
+  $(".tab-list.main-scroll").delegate(".puzzle-15__item", "click", function () {
+    $(this).toggleClass("active");
+  });
 
-    $(".tab-list.main-scroll").delegate(".evidence", "hover",
+  $(".tab-list.main-scroll").delegate(".evidence", "hover",
     function() {
       $(this)
         .find(".evidence__detail")
@@ -342,8 +373,8 @@ $(" #close-recovery-js, .fancybox-container").on("click", function() {
 // Работа с правой частью новостей
 $(function() {
   var categorItem = $(".categories__list .item"),
-      tagsItem = $(".tags__list .item");
-  $(tagsItem).on("click", function() {
+    tagsItem = $(".tags__list .item");
+  $(".tags__list").delegate(".item","click", function() {
     $(this).toggleClass("choosen");
     if (categorItem.hasClass("choosen") || tagsItem.hasClass("choosen")) {
       $("#clear-filter-btn-js").css({ cursor: "pointer" });
@@ -358,5 +389,56 @@ $(function() {
     } else {
       $("#clear-filter-btn-js").css({ cursor: "not-allowed" });
     }
+  });
+});
+
+$(function() {
+  $(".faq__tabs-nav-item")
+    .first()
+    .addClass("active");
+  $(".faq__tabs-nav-item").on("click", function() {
+    $(".faq__tabs-nav-item").removeClass("active");
+    $(this).addClass("active");
+  });
+
+  $(".search-byHistory__result .result-item").hover(function() {
+    $(this)
+      .find(".control-block")
+      .slideToggle();
+    $(this)
+      .find(".control-block")
+      .css({ display: "flex" });
+  });
+});
+
+$(function() {
+  $(
+    ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
+  ).each(function() {
+    if ($(this).val().length != "") {
+      $(this).css({
+        "box-shadow": "rgba(91, 156, 167, 0.32) 0px 1px 6px",
+        border: "1px solid rgba(91, 156, 167, .5)",
+        transition: ".1s ease-in-out"
+      });
+      $(this)
+        .siblings("label")
+        .css({
+          transition: ".1s ease-in-out",
+          top: "-7px",
+          "z-index": "5",
+          padding: "0px 10px",
+          background: "#ffff",
+          left: "15px",
+          "font-size": "10px",
+          "box-shadow": "0px 0px 3px 0px rgba(0,0,0,0.1)"
+        });
+    }
+  });
+});
+
+$(function(){
+  $('#add-note-js, #cancel-form-js').on('click', function(){
+    $('#med-history-js, #add-story-js').slideToggle();
   });
 });
