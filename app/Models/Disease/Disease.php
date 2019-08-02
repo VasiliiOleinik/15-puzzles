@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
- * @property string $name
- * @property string $content
- * @property string $img
  * @property DiseaseMarker[] $diseaseMarkers
  * @property DiseaseProtocol[] $diseaseProtocols
  * @property DiseaseRemedy[] $diseaseRemedies
@@ -21,7 +18,7 @@ class Disease extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'content', 'img'];
+    protected $fillable = [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

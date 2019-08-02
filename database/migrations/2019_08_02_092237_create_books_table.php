@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateDiseasesTable extends Migration {
+class CreateBooksTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,12 +12,13 @@ class CreateDiseasesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('diseases', function(Blueprint $table)
+		Schema::create('books', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 50)->default('--');
-			$table->text('content', 65535);
-			$table->string('img', 191)->nullable();
+			$table->string('title', 191)->nullable();
+			$table->string('author', 80)->nullable();
+			$table->string('description', 191)->nullable();
+			$table->longText('img')->nullable();
 		});
 	}
 
@@ -29,7 +30,7 @@ class CreateDiseasesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('diseases');
+		Schema::drop('books');
 	}
 
 }

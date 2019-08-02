@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property int $type_id
- * @property string $name
- * @property string $content
  * @property string $img
  * @property Type $type
  * @property FactorDisease[] $factorDiseases
@@ -27,7 +25,7 @@ class Factor extends Model
     /**
      * @var array
      */
-    protected $fillable = ['type_id', 'name', 'content', 'img'];
+    protected $fillable = ['type_id', 'img'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

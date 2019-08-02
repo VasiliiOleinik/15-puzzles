@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @property int $id
  * @property int $evidence_id
- * @property string $name
- * @property string $content
  * @property Evidence $evidence
  * @property DiseaseProtocol[] $diseaseProtocols
  * @property FactorProtocol[] $factorProtocols
@@ -22,7 +20,7 @@ class Protocol extends Model
     /**
      * @var array
      */
-    protected $fillable = ['evidence_id', 'name', 'content', 'url'];
+    protected $fillable = ['evidence_id', 'url'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

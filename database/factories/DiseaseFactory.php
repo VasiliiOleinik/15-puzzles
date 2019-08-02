@@ -7,6 +7,5 @@ use Faker\Generator as Faker;
 
 $factory->define(Disease::class, function (Faker $faker) {
     return [
-        'content' => $faker->realText(400),  
     ];
 });

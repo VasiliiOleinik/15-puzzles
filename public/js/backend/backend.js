@@ -91,7 +91,7 @@ function usedTags(_with, all) {
             "all": all,
         },
         complete: function (result) {
-            console.log(result.responseText);
+            //console.log(result.responseText);
             if (result.responseText.length != 0) {                
                 json = jQuery.parseJSON(result.responseText);
                 setTagsCloud( Object.keys(json), _with );

@@ -16,8 +16,7 @@ class CreateFactorsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('type_id')->unsigned()->default(1)->index('FK_factors_factors');
-			$table->string('img', 191)->nullable();
-			$table->string('name', 50)->nullable();
+			$table->longText('img')->nullable();
 		});
 	}
 

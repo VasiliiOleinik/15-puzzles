@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateMedicalHistoriesTable extends Migration {
+class CreateRemedyLanguagesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,13 @@ class CreateMedicalHistoriesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('medical_histories', function(Blueprint $table)
+		Schema::create('remedy_languages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title', 191)->nullable();
+			$table->string('language', 10)->default('eng');
+			$table->integer('remedy_id')->unsigned()->default(1)->index('FK_remedy_languages_remedies');
+			$table->string('name', 50)->nullable();
 			$table->text('content', 65535)->nullable();
-			$table->text('img')->nullable();
-			$table->bigInteger('user_id')->unsigned()->default(1)->index('FK_medical_histories_users');
-			$table->timestamps();
 		});
 	}
 
@@ -31,7 +30,7 @@ class CreateMedicalHistoriesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('medical_histories');
+		Schema::drop('remedy_languages');
 	}
 
 }

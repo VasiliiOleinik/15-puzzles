@@ -27,7 +27,9 @@ class DatabaseSeeder extends Seeder
         $this->call(FactorsTableSeeder::class);
         $this->call(FactorLanguagesTableSeeder::class);
         $this->call(DiseasesTableSeeder::class);
+        $this->call(DiseaseLanguagesTableSeeder::class);
         $this->call(ProtocolsTableSeeder::class);
+        $this->call(ProtocolLanguagesTableSeeder::class);
         $this->call(RemediesTableSeeder::class);
         $this->call(MarkersTableSeeder::class);
         

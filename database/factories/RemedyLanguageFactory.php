@@ -2,13 +2,13 @@
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Models\Factor\Factor;
-use App\Models\Factor\FactorLanguage;
+use App\Models\Marker\Marker;
+use App\Models\RemedyLanguage;
 use Faker\Generator as Faker;
 use Faker\Factory as Factory;
 
-$factory->define(FactorLanguage::class, function () {
-    if( FactorLanguage::count() < Factor::count() ){
+$factory->define(RemedyLanguage::class, function (Faker $faker) {
+    if( RemedyLanguage::count() < Remedy::count() ){
         $locale = "eng";
         $faker = Factory::create('en_EN');
     }else{       
