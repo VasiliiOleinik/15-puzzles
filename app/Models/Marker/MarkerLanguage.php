@@ -3,6 +3,7 @@
 namespace App\Models\Marker;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Scopes\LanguageScope;
 
 /**
  * @property int $id
@@ -15,7 +16,18 @@ use Illuminate\Database\Eloquent\Model;
 class MarkerLanguage extends Model
 {
     public $timestamps = false;
-    
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new LanguageScope);
+    }
+
     /**
      * @var array
      */
