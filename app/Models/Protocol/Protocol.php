@@ -22,7 +22,7 @@ class Protocol extends Model
     /**
      * @var array
      */
-    protected $fillable = ['evidence_id', 'name', 'content'];
+    protected $fillable = ['evidence_id', 'name', 'content', 'url'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
