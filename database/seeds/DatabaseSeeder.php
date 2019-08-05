@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EvidencesTableSeeder::class);        
 
         $this->call(MethodsTableSeeder::class);
+        $this->call(MethodLanguagesTableSeeder::class);
 
         $this->call(FactorsTableSeeder::class);
         $this->call(FactorLanguagesTableSeeder::class);

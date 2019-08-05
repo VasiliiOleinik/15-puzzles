@@ -1,15 +1,13 @@
-﻿<?php
+<?php
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
-use App\Models\Marker\Marker;
-use App\Models\Marker\MarkerLanguage;
+use App\Models\Method;
+use App\Models\MethodLanguage;
 use Faker\Generator as Faker;
-use Faker\Factory as Factory;
 
-$factory->define(MarkerLanguage::class, function (Faker $faker) {
-
-    $tableShort = 'marker';
+$factory->define(MethodLanguage::class, function (Faker $faker) {
+    $tableShort = 'method';
 
     // Read russian text File
     $jsonString = file_get_contents(base_path('public/json/russian.json'));
@@ -17,12 +15,12 @@ $factory->define(MarkerLanguage::class, function (Faker $faker) {
 
     if( Config::get('app.faker_locale') == "en_US" ){
         $locale = "eng";
-        $name = str_replace( ".", "", $faker->word )." test";
+        $name = str_replace( ".", "", $faker->word )." method";
         $content = $faker->realText(600);
-        $tableId = MarkerLanguage::count() + 1;
+        $tableId = MethodLanguage::count() + 1;
     }else{
         $locale = "ru";
-        $name = str_replace( ".", "", $faker->word )." анализ";
+        $name = str_replace( ".", "", $faker->word )." метод";
         $content = $russian["text"][ rand( 0, 21) ];
         $tableId = 1;
     }

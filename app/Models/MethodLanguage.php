@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Models\Marker;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\LanguageScope;
 
 /**
  * @property int $id
- * @property int $marker_id
+ * @property int $method_id
  * @property string $language
  * @property string $name
  * @property string $content
- * @property Marker $marker
+ * @property Method $method
  */
-class MarkerLanguage extends Model
+class MethodLanguage extends Model
 {
     public $timestamps = false;
 
@@ -31,21 +31,13 @@ class MarkerLanguage extends Model
     /**
      * @var array
      */
-    protected $fillable = ['marker_id', 'method_id', 'language', 'name', 'content'];
+    protected $fillable = ['method_id', 'language', 'name', 'content'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function marker()
+    public function method()
     {
-        return $this->belongsTo('App\Models\Marker\Marker');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function methods()
-    {
-        return $this->belongsToMany('App\Models\Method', 'marker_language_methods', 'marker_language_id', 'method_id');
+        return $this->belongsTo('App\Models\Method');
     }
 }

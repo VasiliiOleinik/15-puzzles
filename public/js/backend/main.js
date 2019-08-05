@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             data: data,
             dataType: 'json',
             complete: function (response) {
-                //console.log(response.responseText);                
+                console.log(response.responseJSON.views.marker);                
                 if (data.factor.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
                     refreshTabsCounts(response.responseJSON.models);
                     $('#tabListFactors').html(tab1);

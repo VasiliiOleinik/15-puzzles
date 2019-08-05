@@ -26,4 +26,12 @@ class Method extends Model
     {
         return $this->hasMany('App\Models\Marker\MarkerMethod');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function methodLanguage()
+    {
+        return $this->HasMany('App\Models\MethodLanguage');
+    }
 }

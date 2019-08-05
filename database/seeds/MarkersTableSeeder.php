@@ -33,6 +33,14 @@ class MarkersTableSeeder extends Seeder
             ); 
         });
 
+        /*$c1 = DB::table('marker_methods')->select("SELECT * from table")
+
+        foreach($c1 as $record){
+
+            DB::table('marker_methods')>insert(get_object_vars($record))
+
+        }*/
+
         $markers = Marker::all();
         $diseases = Disease::with('factors')->get();
         $skip = [];
