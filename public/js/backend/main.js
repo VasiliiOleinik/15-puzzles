@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             data: data,
             dataType: 'json',
             complete: function (response) {
-                //console.log(response.responseText);                
+                //console.log(response.responseJSON.views);                
                 if (data.factor.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
                     refreshTabsCounts(response.responseJSON.models);
                     $('#tabListFactors').html(tab1);
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     if (data.activeTab != 2)
                         $('#tabListProtocols').html(response.responseJSON.views.protocol);
                     if (data.activeTab != 3)
-                        $('#tabListRemedies').html(response.responseJSON.views.remedy);
+                        $('#tabListRemedies').html(response.responseJSON.views.remedie);
                     if (data.activeTab != 4)
                         $('#tabListMarkers').html(response.responseJSON.views.marker);
                 }

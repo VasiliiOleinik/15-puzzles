@@ -202,7 +202,7 @@ class MainController extends Controller
                 }else
                 if($modelName == "remedy"){
                     $modelName = 'remedie';
-                    ${'remedies'} = $model::withoutGlobalScopes()->where('language','=',$request['locale'])->with("remedy")->whereIn('remedy_id', $result['models']['remedy'])->get();    
+                    ${'remedies'} = $model::withoutGlobalScopes()->where('language','=',$request['locale'])->with("remedy")->whereIn('remedy_id', $result['models']['remedy'])->get();
                 }
                 else
                 if($modelName == "marker"){
