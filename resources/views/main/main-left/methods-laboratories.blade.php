@@ -1,5 +1,5 @@
 <div class="methods-laboratories">
-  <h3 class="methods-laboratories__title">@lang('title_methods')</h3><span class="methods-laboratories__intruction">@lang('subtitle_methods')</span>
+  <h3 class="methods-laboratories__title">@lang('main.title_methods')</h3><span class="methods-laboratories__intruction">@lang('main.subtitle_methods')</span>
   <div class="methods-laboratories__inputs">
     <div class="methods-select" id="select-method" name="method"><span class="current-value" data-value="">@lang('main.select_methods')</span>
       <ul class="methods-select-list">
