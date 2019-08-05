@@ -36,19 +36,19 @@ class MarkerLanguagesTableSeeder extends Seeder
                 ->update( [$tableShort.'_id' => $i - Marker::count()] );
         }
 
-        $methods = MethodLanguage::withoutGlobalScopes()->get();
+        $methods = MethodLanguage::withoutGlobalScopes()->get();        
         // Populate the pivot table
-        MarkerLanguage::withoutGlobalScopes()->where('id','<',Marker::count() + 1)->each(function ($marker) use ($methods) {
-        //MarkerLanguage::withoutGlobalScopes()->get()->each(function ($marker) use ($methods) { 
-            $marker->methods()->where('language','=','eng')->attach(
-                $methods->random(
+        MarkerLanguage::withoutGlobalScopes()->where('id','<',Marker::count() + 1)->each(function ($marker) use ($methods) {       
+            $marker->methods()->attach(
+                $methods->where('language','=','eng')->random(
                     rand(1,  4 ))->pluck('id')->toArray()
                 
             );
         });
-        MarkerLanguage::withoutGlobalScopes()->where('id','>',Marker::count())->each(function ($marker) use ($methods) { 
-            $marker->methods()->where('language','=','ru')->attach(
-                $methods->random(
+        $count = 1;
+        MarkerLanguage::withoutGlobalScopes()->where('id','>',Marker::count())->each(function ($marker) use ($methods, $count) { 
+            $marker->methods()->attach(
+                $methods->where('language','=','ru')->random(
                     rand(1,  4 ))->pluck('id')->toArray()
                 
             );

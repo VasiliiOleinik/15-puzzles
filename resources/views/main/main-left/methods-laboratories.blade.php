@@ -4,7 +4,7 @@
     <div class="methods-select" id="select-method" name="method"><span class="current-value" data-value="">@lang('main.select_methods')</span>
       <ul class="methods-select-list">
         @foreach($methods as $method)
-        <li data-value="{{$method->name}}">{{$method->name}}</li>
+        <li data-value="{{$method->method->name}}">{{$method->name}}</li>
         @endforeach
       </ul>
     </div>

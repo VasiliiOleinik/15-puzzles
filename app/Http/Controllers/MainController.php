@@ -14,6 +14,7 @@ use App\Models\Protocol\ProtocolLanguage;
 use App\Models\Remedy;
 use App\Models\RemedyLanguage;
 use App\Models\Method;
+use App\Models\MethodLanguage;
 use App\Models\Marker\Marker;
 use App\Models\Marker\MarkerLanguage;
 use App\Models\Article\Article;
@@ -84,7 +85,7 @@ class MainController extends Controller
                 return MarkerLanguage::with('marker', 'methods')->get();
         });
         $methods = Cache::remember('methods_'.app()->getLocale(), now()->addDay(1), function(){
-                return Method::with('methodLanguage')->get();
+                return MethodLanguage::with('method')->get();
         });
         $evidences = Cache::remember('evidences_'.app()->getLocale(), now()->addDay(1), function(){
                 return Evidence::all();
