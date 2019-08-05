@@ -80,14 +80,19 @@ class MainController extends Controller
         $markers = Cache::remember('marker_'.app()->getLocale(), now()->addDay(1), function(){
                 return MarkerLanguage::with('marker', 'methods')->get();
         });
+        $markerMethods = Cache::remember('markerMethod_'.app()->getLocale(), now()->addDay(1), function(){
+                return MarkerLanguage::with('marker', 'methods')->get();
+        });
         $methods = Cache::remember('methods_'.app()->getLocale(), now()->addDay(1), function(){
                 return Method::with('methodLanguage')->get();
         });
         $evidences = Cache::remember('evidences_'.app()->getLocale(), now()->addDay(1), function(){
                 return Evidence::all();
         });
-        /*dd($markers[0]->methods()->get());
-        foreach($markers as $marker){
+        //dd(Cache::get('markerMethod_'.app()->getLocale())[0]->methods );
+        //dd($markerMethods[4]->methods);
+        //dd($markers[1]->methods()->get());
+        /*foreach($markers as $marker){
             foreach($marker->methods as $method){
                 dd($method);
             }
@@ -95,7 +100,7 @@ class MainController extends Controller
         //dd( $factors[0]->factor()->get() );
         //dd( Method::with('methodLanguage')->find(1)->methodLanguage()->get() );
         $data = [
-            'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods',
+            'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods', 'markerMethods',
             'newsLatest'
         ];
         return view('main.main', compact($data));
@@ -200,10 +205,14 @@ class MainController extends Controller
                 }
                 else
                 if($modelName == "marker"){
-                    ${$modelName.'s'} = $model::withoutGlobalScopes()->where('language','=',$request['locale'])->with($modelName, "methods")->whereIn($modelName.'_id', $result['models'][$modelName])->get();    
+                    ${$modelName.'s'} = $model::withoutGlobalScopes()->where('language','=',$request['locale'])->with($modelName, 'methods')->whereIn($modelName.'_id', $result['models'][$modelName])->get();
                 }
-               
-                $view[ $modelName ] = view('main.main-left.main-tabs.'.$modelName.'s', [ $modelName.'s' => ${$modelName.'s'} ] );
+                
+                if($modelName != "marker"){
+                    $view[ $modelName ] = view('main.main-left.main-tabs.'.$modelName.'s', [ $modelName.'s' => ${$modelName.'s'} ]);
+                }else{
+                    $view[ $modelName ] = view('main.main-left.main-tabs.'.$modelName.'s', [ $modelName.'s' => ${$modelName.'s'}, 'markerMethods' =>  Cache::get('markerMethod_'.$request['locale'] ) ] );
+                }
                 $views[ $modelName ] = (string)$view[ $modelName ] ;
             }
         }

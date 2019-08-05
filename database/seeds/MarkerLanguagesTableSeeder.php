@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Method;
+use App\Models\MethodLanguage;
 use App\Models\Marker\Marker;
 use App\Models\Marker\MarkerLanguage;
 use Illuminate\Support\Facades\Config;
@@ -17,8 +17,8 @@ class MarkerLanguagesTableSeeder extends Seeder
     {        
         $tableShort = 'marker';
         $table = 'marker_languages';
-        DB::table('marker_language_methods')->delete();
-        DB::update("ALTER TABLE marker_language_methods AUTO_INCREMENT = 0;");
+        DB::table('marker_language_method_languages')->delete();
+        DB::update("ALTER TABLE marker_language_method_languages AUTO_INCREMENT = 0;");
         DB::table('marker_languages')->delete();        
         DB::update("ALTER TABLE ".$table." AUTO_INCREMENT = 0;");
 
@@ -36,23 +36,22 @@ class MarkerLanguagesTableSeeder extends Seeder
                 ->update( [$tableShort.'_id' => $i - Marker::count()] );
         }
 
-        $methods = Method::all();
+        $methods = MethodLanguage::withoutGlobalScopes()->get();
         // Populate the pivot table
-        //MarkerLanguage::where('id','<',Marker::count() + 1)->each(function ($marker) use ($methods) {
-        MarkerLanguage::withoutGlobalScopes()->get()->each(function ($marker) use ($methods) { 
-            $marker->methods()->attach(
+        MarkerLanguage::withoutGlobalScopes()->where('id','<',Marker::count() + 1)->each(function ($marker) use ($methods) {
+        //MarkerLanguage::withoutGlobalScopes()->get()->each(function ($marker) use ($methods) { 
+            $marker->methods()->where('language','=','eng')->attach(
                 $methods->random(
                     rand(1,  4 ))->pluck('id')->toArray()
                 
             );
         });
-        /*MarkerLanguage::where('id','>',Marker::count())->each(function ($marker) use ($methods) { 
-            $marker->methods()->attach(
-                //MarkerLanguage::find($marker->id - $count)->methods;
+        MarkerLanguage::withoutGlobalScopes()->where('id','>',Marker::count())->each(function ($marker) use ($methods) { 
+            $marker->methods()->where('language','=','ru')->attach(
                 $methods->random(
                     rand(1,  4 ))->pluck('id')->toArray()
                 
-            ); 
-        });*/
+            );
+        });
     }
 }

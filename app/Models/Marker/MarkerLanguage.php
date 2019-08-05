@@ -46,6 +46,6 @@ class MarkerLanguage extends Model
      */
     public function methods()
     {
-        return $this->belongsToMany('App\Models\Method', 'marker_language_methods', 'marker_language_id', 'method_id');
+        return $this->belongsToMany('App\Models\MethodLanguage', 'marker_language_method_languages', 'marker_language_id', 'method_language_id');
     }
 }
