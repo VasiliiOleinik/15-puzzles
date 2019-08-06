@@ -19,9 +19,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     
 
     function clearFilter() {
+        //tagsActiveCloud = [];
         $('.choosen').removeClass('choosen');
         categoriesForNewsActive = [];
         $("#tags").tagsinput('removeAll');
+        clearTagsActiveCloud();
     }
 
     /* ------------------ */

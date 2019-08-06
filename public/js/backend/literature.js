@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $('.choosen').removeClass('choosen');
         categoriesForBooksActive = [];
         $("#tags").tagsinput('removeAll');
+        clearTagsActiveCloud();
     }
 
     /* ------------------ */

@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /* ------------------ */
 /* ------------------ */
 
-$('.tags__list').delegate('.item', 'click', function () {
+$('.tags__list').delegate('.item', 'click', 'change', function () {
     //Тэги, которые мы вписали в поле "Search"
     let searchTags = $("#tags").val().split(',');
     //Тэг, по которому кликнули в облаке тэгов (добавляем его в массив выбранных тэгов из облака)
@@ -172,6 +172,27 @@ function tagsInputInit(data) {
     });
 
     tags_input.tagsinput({
+    });
+}
+
+function clearTagsActiveCloud() {
+    tagsActiveCloud = [];
+    let data = setData(categoriesForNewsActive, categoriesForBooksActive, [""]);
+    let route = $('.tags').attr('obj-route');
+    $.ajax({
+        type: "GET",
+        url: "/" + locale + "/" + route,
+        data: data,
+        complete: function (result) {
+            if (result.responseText.length != 0) {
+
+                result = result.responseText;
+                html = result;
+                $('.main-content').html(html);
+            }
+        },
+        error: function (err) {
+        }
     });
 }
 
