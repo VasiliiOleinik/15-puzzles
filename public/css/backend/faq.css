@@ -2,3 +2,7 @@
     color: #f76577;
     padding-left: 5px;
 }
+
+.faq-right .faq__tabs .faq__tabs-nav .faq__tabs-nav-item {
+     height: 100px;
+}

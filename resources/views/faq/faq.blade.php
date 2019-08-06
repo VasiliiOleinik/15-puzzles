@@ -14,10 +14,10 @@
                 </ul>
               </div>
               @foreach($questions as $question)
-              <div id="faq-{{ $question->id }}">
+              <div id="faq-{{ $question->question_id }}">
                 <div class="tab-faq-list">
                   <div class="tab-faq-item">
-                    <h4 class="tab-faq-title">{{ $question->title }}</h4>
+                    <h4 class="tab-faq-title">{{ $question->name }}</h4>
                     <p class="tab-faq-text">{{ $question->content }}</p>
                   </div>
                 </div>
@@ -65,16 +65,10 @@
             <div class="faq-right">               
               <div class="faq__tabs" id="faqTabs">
                 <ul class="faq__tabs-nav">
-                  <li class="faq__tabs-nav-item"><a href="#faq-1">Question 1</a></li>
-                  <li class="faq__tabs-nav-item"><a href="#faq-2">Question 2</a></li>
-                  <li class="faq__tabs-nav-item"><a href="#faq-3">Question 3</a></li>
-                  <li class="faq__tabs-nav-item"><a href="#faq-4">Question 4</a></li>
-                  <li class="faq__tabs-nav-item"><a href="#faq-5">Question 5</a></li>
-                  <li class="faq__tabs-nav-item"><a href="#faq-6">Question 6</a></li>
-                  <li class="faq__tabs-nav-item"><a href="#faq-7">Question 7</a></li>
-                  <li class="faq__tabs-nav-item"><a href="#faq-8">Question 8</a></li>
-                  <li class="faq__tabs-nav-item"><a href="#faq-9">Question 8</a></li>
-                  <li class="faq__tabs-nav-item"><a href="#faq-10">Question 10</a></li>
+                  @foreach($questions as $question)
+                  <li class="faq__tabs-nav-item"><a href="#faq-{{$question->question_id}}">{{$question->name}}</a></li>
+                  @endforeach
+                 
                 </ul>
               </div>
             </div>

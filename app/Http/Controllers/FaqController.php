@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Question;
+use App\Models\QuestionLanguage;
 use App\Models\User\User;
 use Illuminate\Support\Facades\Cache;
 use Auth;
@@ -20,8 +21,8 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $questions = Cache::remember('question', now()->addDay(1), function(){
-                return Question::all();
+        $questions = Cache::remember('question_'.app()->getLocale(), now()->addDay(1), function(){
+                return QuestionLanguage::with('question')->get();
         });
         $user = Auth::user();
         return view('faq.faq', compact(['questions', 'user']));
