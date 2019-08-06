@@ -3,6 +3,7 @@
 namespace App\Models\Category;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Scopes\LanguageScope;
 
 /**
  * @property int $id
@@ -13,6 +14,19 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CategoryForNewsLanguage extends Model
 {
+    public $timestamps = false;
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new LanguageScope);
+    }
+
     /**
      * @var array
      */
@@ -23,6 +37,6 @@ class CategoryForNewsLanguage extends Model
      */
     public function categoriesForNews()
     {
-        return $this->belongsTo('App\Models\Category\CategoriesForNews', 'category_for_news_id');
+        return $this->belongsTo('App\Models\Category\CategoryForNews', 'category_for_news_id');
     }
 }

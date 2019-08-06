@@ -7,6 +7,7 @@ use App\Models\TagLanguage;
 use App\Models\Article\Article;
 use App\Models\Article\ArticleLanguage;
 use App\Models\Category\CategoryForNews;
+use App\Models\Category\CategoryForNewsLanguage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -23,10 +24,10 @@ class NewsController extends Controller
         
         //категории для новостей
         $categoriesForNews = Cache::remember(
-            'categoryForNews',
+            'categoryForNews_'.app()->getLocale(),
             now()->addDay(1),
             function(){
-                return CategoryForNews::with('articles')->get();
+                return CategoryForNewsLanguage::with('categoriesForNews')->get();
             }
         );
         //Выбраны тэги
@@ -68,19 +69,19 @@ class NewsController extends Controller
 
             //если не выбраны ни категории, ни тэги => отображаем все статьи
             if( count($collection) > 0){
-                $articles = ArticleLanguage::whereIn('article_id',$collection)->paginate(4);
+                $articles = ArticleLanguage::with('article')->whereIn('article_id',$collection)->paginate(4);
             }else{
-                $articles = ArticleLanguage::paginate(4);
+                $articles = ArticleLanguage::with('article')->paginate(4);
             }       
             return view('news.news-left.main-content', compact(['articles']));
         }
         //пагинация
         if($request->page){
-            $articles = ArticleLanguage::paginate(4);
+            $articles = ArticleLanguage::with('article')->paginate(4);
             return view('news.news-left.main-content', compact(['articles']));
         }
         else{
-            $articles = ArticleLanguage::paginate(4);
+            $articles = ArticleLanguage::with('article')->paginate(4);
             return view('news.news', compact(['articles','categoriesForNews']));
         }
     }
@@ -95,10 +96,10 @@ class NewsController extends Controller
     {
         //категории для новостей
         $categoriesForNews = Cache::remember(
-            'categoryForNews',
+            'categoryForNews_'.app()->getLocale(),
             now()->addDay(1),
             function(){
-                return CategoryForNews::with('articles')->get();
+                return CategoryForNewsLanguage::with('categoriesForNews')->get();
             }
         );
         return view('news.news-single', ['article' => ArticleLanguage::where("article_id",'=',$id)->first(),'categoriesForNews' => $categoriesForNews]);

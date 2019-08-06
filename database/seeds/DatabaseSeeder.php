@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TagsTableSeeder::class);
         $this->call(MemberCasesTableSeeder::class);
         $this->call(CategoriesForNewsTableSeeder::class);
+        $this->call(CategoryForNewsLanguagesTableSeeder::class);
         $this->call(ArticlesTableSeeder::class);
         $this->call(ArticleLanguagesTableSeeder::class);
 
