@@ -1,7 +1,7 @@
 <header class="header">
   <div class="box">
     <div class="header__body">
-      <div class="header__logo logo"><img src="{{ Illuminate\Support\Facades\Config::get('puzzles.logo') }}"></div>
+      <div class="header__logo logo"><a href="{{ url('/', app()->getLocale() )}}"> <img src="{{ Illuminate\Support\Facades\Config::get('puzzles.logo') }}"></div>
       <nav class="header__nav">
         <ul class="header__nav-list">
           <li class="header__nav-li"><a class="header__nav-link" href="{{ url('/', app()->getLocale() )}}" target="_self">@lang('header.main')</a></li>
@@ -14,11 +14,20 @@
         </ul>
       </nav>
       <div class="header__langs">
+      @php
+        $localeCount = 0;
+      @endphp
       @foreach (config('app.available_locales') as $locale)
+        @php
+            $localeCount ++;
+        @endphp
         @if(ctype_digit(substr(url()->current(), strrpos(url()->current(), '/') + 1)) && (int) substr(url()->current(), strrpos(url()->current(), '/') + 1) > 0 || strpos(url()->current(), csrf_token()) !== false)
-        <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale, substr(url()->current(), strrpos(url()->current(), '/') + 1)]) }}">{{ strtoupper($locale) }}</a><span class="header__lang-devider"></span>
-        @else
-        <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale]) }}">{{ strtoupper($locale) }}</a><span class="header__lang-devider"></span>
+          <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale, substr(url()->current(), strrpos(url()->current(), '/') + 1)]) }}">{{ strtoupper($locale) }}</a>
+        @else        
+          <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale]) }}">{{ strtoupper($locale) }}</a>
+        @endif
+        @if( $localeCount < count( config('app.available_locales') ) )
+          <span class="header__lang-devider"></span>        
         @endif
       @endforeach
       </div>
