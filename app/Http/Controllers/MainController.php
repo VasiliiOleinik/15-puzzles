@@ -18,6 +18,7 @@ use App\Models\MethodLanguage;
 use App\Models\Marker\Marker;
 use App\Models\Marker\MarkerLanguage;
 use App\Models\Article\Article;
+use App\Models\Article\ArticleLanguage;
 use App\Models\Evidence;
 use Illuminate\Support\Facades\Cache;
 use Auth;
@@ -64,8 +65,11 @@ class MainController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request)
-    {        
-        $newsLatest = Article::orderBy('updated_at','desc')->paginate(3);
+    {                
+        $newsLatest = Cache::remember('newsLatest_'.app()->getLocale(), now()->addDay(1), function(){
+                $latest = Article::orderBy('updated_at','desc')->pluck('id');
+                return ArticleLanguage::with('article')->whereIn('article_id',$latest)->paginate(3);
+        });        
         $factors = Cache::remember('factor_'.app()->getLocale(), now()->addDay(1), function(){
                 return FactorLanguage::with('factor','type')->get();
         });
