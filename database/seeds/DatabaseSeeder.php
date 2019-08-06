@@ -50,6 +50,7 @@ class DatabaseSeeder extends Seeder
         $this->call(MedicalHistoriesTableSeeder::class);        
 
         $this->call(CategoriesForBooksTableSeeder::class);
+        $this->call(CategoryForBooksLanguagesTableSeeder::class);
         $this->call(BooksTableSeeder::class);
         $this->call(BookLanguagesTableSeeder::class);
         $this->call(LinksForBooksTableSeeder::class);

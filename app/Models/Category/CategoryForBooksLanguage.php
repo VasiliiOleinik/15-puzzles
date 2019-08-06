@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CategoryForBooksLanguage extends Model
 {
+    public $timestamps = false;
+
     /**
      * @var array
      */
