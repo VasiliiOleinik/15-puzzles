@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Book\Book;
+use App\Models\Book\BookLanguage;
 use App\Models\Category\CategoryForBooks;
+use App\Models\Category\CategoryForBooksLanguage;
 use App\Models\Book\LinkForBooks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -20,10 +22,10 @@ class LiteratureController extends Controller
     {
         //категории для новостей
         $categoriesForBooks = Cache::remember(
-            'categoryForBooks',
+            'categoryForBooks_'.app()->getLocale(),
             now()->addDay(1),
             function(){
-                return CategoryForBooks::with('books')->get();
+                return CategoryForBooksLanguage::with('categoriesForBook')->get();
             }
         );        
         //Выбраны тэги
@@ -65,19 +67,19 @@ class LiteratureController extends Controller
 
             //если не выбраны ни категории, ни тэги => отображаем все статьи
             if( count($collection) > 0){
-                $books = Book::whereIn('id',$collection)->paginate(4);
+                $books = BookLanguage::with('book')->whereIn('book_id',$collection)->paginate(4);
             }else{
-                $books = Book::paginate(4);
+                $books = BookLanguage::with('book')->paginate(4);
             }       
             return view('literature.literature-left.main-content', compact(['books']));
         }
         //пагинация
         if($request->page){
-            $books = Book::paginate(4);
+            $books = BookLanguage::with('book')->paginate(4);
             return view('literature.literature-left.main-content', compact(['books']));
         }        
         else{
-            $books = Book::paginate(4);
+            $books = BookLanguage::with('book')->paginate(4);
             return view('literature.literature', compact(['books','categoriesForBooks']));
         }
     }

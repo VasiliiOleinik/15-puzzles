@@ -3,6 +3,7 @@
 namespace App\Models\Category;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Scopes\LanguageScope;
 
 /**
  * @property int $id
@@ -16,6 +17,17 @@ class CategoryForBooksLanguage extends Model
     public $timestamps = false;
 
     /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope(new LanguageScope);
+    }
+
+    /**
      * @var array
      */
     protected $fillable = ['category_for_books_id', 'language', 'name'];
@@ -25,6 +37,6 @@ class CategoryForBooksLanguage extends Model
      */
     public function categoriesForBook()
     {
-        return $this->belongsTo('App\Models\Category\CategoriesForBook', 'category_for_books_id');
+        return $this->belongsTo('App\Models\Category\CategoryForBooks', 'category_for_books_id');
     }
 }
