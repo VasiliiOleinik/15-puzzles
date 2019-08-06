@@ -45,7 +45,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ArticlesTableSeeder::class);
         $this->call(ArticleLanguagesTableSeeder::class);
 
-        $this->call(QuestionsTableSeeder::class);    
+        $this->call(QuestionsTableSeeder::class);
+        $this->call(QuestionLanguagesTableSeeder::class);        
         $this->call(CommentsTableSeeder::class);
         $this->call(MedicalHistoriesTableSeeder::class);        
 
