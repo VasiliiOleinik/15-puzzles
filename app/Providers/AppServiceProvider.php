@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Factor\Factor;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,7 +27,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
+        /*Factor::saving(function ($factor) {
+            //if ( ! $factor->isValid()) {
+                //return false;
+                return dd($factor);
+            //}
+        });*/
     }
 
     

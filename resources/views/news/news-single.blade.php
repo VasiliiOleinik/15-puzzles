@@ -26,11 +26,11 @@
               <div class="main-content">
                 <h1 class="title">{{$article->title}}</h1>
                 <div class="post_container">
-                  <div class="post news-full"><img class="post__img" src="{{$article->img}}" alt="Post img">
+                  <div class="post news-full"><img class="post__img" src="{{$article->article->img}}" alt="Post img">
                     <span class="post__description">
                       {{$article->content}}
                     </span>
-                    <div class="post__footer"><a class="post__date" href="javascript:void(0)">{{$article->updated_at->format('d.m.Y')}}</a><a class="post__author" href="javascript:void(0)">Ryan B. Corcoran, M.D., Ph.D., and Bruce A. Chabner, M.D.</a></div>
+                    <div class="post__footer"><a class="post__date" href="javascript:void(0)">{{$article->article->updated_at->format('d.m.Y')}}</a><a class="post__author" href="javascript:void(0)">Ryan B. Corcoran, M.D., Ph.D., and Bruce A. Chabner, M.D.</a></div>
                   </div>
                 </div>
               </div>

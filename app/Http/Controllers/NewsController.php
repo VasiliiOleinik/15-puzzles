@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Models\TagLanguage;
 use App\Models\Article\Article;
+use App\Models\Article\ArticleLanguage;
 use App\Models\Category\CategoryForNews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -67,19 +68,19 @@ class NewsController extends Controller
 
             //если не выбраны ни категории, ни тэги => отображаем все статьи
             if( count($collection) > 0){
-                $articles = Article::whereIn('id',$collection)->paginate(4);
+                $articles = ArticleLanguage::whereIn('article_id',$collection)->paginate(4);
             }else{
-                $articles = Article::paginate(4);
+                $articles = ArticleLanguage::paginate(4);
             }       
             return view('news.news-left.main-content', compact(['articles']));
         }
         //пагинация
         if($request->page){
-            $articles = Article::paginate(4);
+            $articles = ArticleLanguage::paginate(4);
             return view('news.news-left.main-content', compact(['articles']));
         }
         else{
-            $articles = Article::paginate(4);
+            $articles = ArticleLanguage::paginate(4);
             return view('news.news', compact(['articles','categoriesForNews']));
         }
     }
@@ -100,7 +101,7 @@ class NewsController extends Controller
                 return CategoryForNews::with('articles')->get();
             }
         );
-        return view('news.news-single', ['article' => Article::find($id),'categoriesForNews' => $categoriesForNews]);
+        return view('news.news-single', ['article' => ArticleLanguage::where("article_id",'=',$id)->first(),'categoriesForNews' => $categoriesForNews]);
     }
 
     /**

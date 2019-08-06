@@ -90,6 +90,7 @@ class MainController extends Controller
         $evidences = Cache::remember('evidences_'.app()->getLocale(), now()->addDay(1), function(){
                 return Evidence::all();
         });
+        //dd(Factor::with('factorLanguages')->first()->factorLanguages);
         //dd(Cache::get('markerMethod_'.app()->getLocale())[0]->methods );
         //dd($markerMethods[4]->methods);
         //dd($markers[1]->methods()->get());

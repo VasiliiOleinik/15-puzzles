@@ -15,6 +15,7 @@ use AdminForm;
 use AdminFormElement;
 use SleepingOwl\Admin\Contracts\Initializable;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class Factors
@@ -71,8 +72,8 @@ class Factors extends Section implements Initializable
         $display
             ->with(['type'])
             ->setColumns(
-                AdminColumn::link('name')->setLabel('Название фактора'),
-                AdminColumn::text('content')->setLabel('Описание Фактора'),
+                AdminColumn::link('factorLanguages.name')->setLabel('Название фактора'),
+                AdminColumn::text('factorLanguages.content')->setLabel('Описание Фактора'),
                 AdminColumn::text('type.name')->setLabel('Тип фактора')
                 //AdminColumn::relatedLink('memberCase.title', 'история болезни', 'id'),                
                 //AdminColumn::relatedLink('user.nickname', 'пользователь', 'id'),
@@ -103,13 +104,15 @@ class Factors extends Section implements Initializable
     public function onEdit($id)
     {
         Artisan::call('cache:clear');
-        $form = AdminForm::panel()->addBody([
-            AdminFormElement::text('name')->setLabel('Название фактора')->required(),
+        Config::set('app.locale', 'ru');
+
+        $form = AdminForm::panel()->addBody([           
+            AdminFormElement::text('factorLanguages')->setLabel('Название фактора')->required(),
             AdminFormElement::textarea('content')->setLabel('Описание фатора')->required(),
             AdminFormElement::select('type_id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
                                               ->setDefaultValue('1'),
             AdminFormElement::multiselect('diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\Disease::class)->setDisplay('name'),
-            AdminFormElement::multiselect('protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\Protocol::class)->setDisplay('name'),
+            AdminFormElement::multiselect('protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
             AdminFormElement::multiselect('remedies', 'Лекарства')->setModelForOptions(\App\Models\Remedy::class)->setDisplay('name'),
             AdminFormElement::multiselect('markers', 'Анализы')->setModelForOptions(\App\Models\Marker\Marker::class)->setDisplay('name')
         ]);
@@ -125,12 +128,12 @@ class Factors extends Section implements Initializable
         
         Artisan::call('cache:clear');
         $form = AdminForm::panel()->addBody([
-            AdminFormElement::text('name')->setLabel('Название фактора')->required(),
-            AdminFormElement::textarea('content')->setLabel('Описание фатора')->required(),
+            //AdminFormElement::text('name')->setLabel('Название фактора')->required(),
+            //AdminFormElement::textarea('content')->setLabel('Описание фатора')->required(),
             AdminFormElement::select('type_id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
                                               ->setDefaultValue('1'),
             AdminFormElement::multiselect('diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\Disease::class)->setDisplay('name'),
-            AdminFormElement::multiselect('protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\Protocol::class)->setDisplay('name'),
+            AdminFormElement::multiselect('protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
             AdminFormElement::multiselect('remedies', 'Лекарства')->setModelForOptions(\App\Models\Remedy::class)->setDisplay('name'),
             AdminFormElement::multiselect('markers', 'Анализы')->setModelForOptions(\App\Models\Marker\Marker::class)->setDisplay('name')
         ]);

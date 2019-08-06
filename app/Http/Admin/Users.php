@@ -13,6 +13,7 @@ use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use SleepingOwl\Admin\Contracts\Initializable;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class Users
@@ -140,6 +141,7 @@ class Users extends Section implements Initializable
      */
     public function onEdit($id)
     {
+        Config::set('app.locale', 'en');
         $avatar = '<img src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';
         //dd($this->model::find($id)->toJson());
         // поле var - нельзя редактировать, ибо нефиг системообразующий код редактировать
@@ -155,6 +157,8 @@ class Users extends Section implements Initializable
             AdminFormElement::text('email', 'почта')->required(),
             AdminFormElement::text('birthday', 'дата рождения'),
             //AdminFormElement::wysiwyg('test', 'Text'),
+            AdminFormElement::ckeditor('middle_name', 'Комментарий автора', 'simplemde')
+                ->setFilteredValueToField('text_html'),
             AdminFormElement::text('id', 'ID')->setReadonly(1),
             AdminFormElement::text('created_at')->setLabel('Создано')->setReadonly(1)                       
         ]); 
