@@ -22,7 +22,7 @@
                 </ul>
               </div>
               <div class="main-content">
-                <h1 class="title">Member's cases</h1>
+                <h1 class="title">@lang('member_cases.title_member_cases')</h1>
                 <div class="post_container">
                   @foreach($memberCases as $memberCase)
                   <div class="post">
