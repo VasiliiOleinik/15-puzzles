@@ -25,7 +25,7 @@ class Factor extends Model
     /**
      * @var array
      */
-    protected $fillable = ['type_id', 'img'];
+    protected $fillable = ['type_id', 'img'];   
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -97,5 +97,21 @@ class Factor extends Model
     public function markers()
     {
     return $this->belongsToMany('App\Models\Marker\Marker', 'factor_markers');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function factorLanguages()
+    {
+        return $this->hasMany('App\Models\Factor\FactorLanguage');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function factorLanguage()
+    {
+        return $this->hasOne('App\Models\Factor\FactorLanguage');
     }
 }

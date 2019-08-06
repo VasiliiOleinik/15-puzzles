@@ -93,4 +93,12 @@ class Protocol extends Model
     {
     return $this->belongsToMany('App\Models\Marker\Marker', 'protocol_markers');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function protocolLanguages()
+    {
+        return $this->hasMany('App\Models\Protocol\protocolLanguage');
+    }
 }
