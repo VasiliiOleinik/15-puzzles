@@ -15,6 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class MemberCaseLanguage extends Model
 {
+    public $timestamps = false;
+
     /**
      * @var array
      */

@@ -18,17 +18,17 @@ $factory->define(ArticleLanguage::class, function (Faker $faker) {
         $locale = "eng";        
         $content = $faker->realText(600);
         $tableId = ArticleLanguage::count() + 1;
-        $name = $faker->realText( rand(15,35) );//Protocol::find($protocol_id)->name;
+        $title = $faker->realText( rand(15,35) );//Protocol::find($protocol_id)->name;
     }else{
         $locale = "ru";
-        $name = $russian["title"][ rand( 0, 21) ]; //$faker->realText(30);
+        $title = $russian["title"][ rand( 0, 21) ]; //$faker->realText(30);
         $content = $russian["text"][ rand( 0, 21) ];        
         $tableId = ArticleLanguage::count() + 1 - Article::count();
     }
 
     return [
         'language' => $locale,
-        'title' => $name,
+        'title' => $title,
         'content' => $content, 
         'description' => iconv_substr($content,0,100 , "UTF-8"),
         $tableShort.'_id' => $tableId,
