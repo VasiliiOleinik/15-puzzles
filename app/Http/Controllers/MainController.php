@@ -71,7 +71,7 @@ class MainController extends Controller
                 return ArticleLanguage::with('article')->whereIn('article_id',$latest)->paginate(3);
         });        
         $factors = Cache::remember('factor_'.app()->getLocale(), now()->addDay(1), function(){
-                return FactorLanguage::with('factor','type')->get();
+                return FactorLanguage::with('factor','type', 'factor.type')->get();
         });
         $diseases = Cache::remember('disease_'.app()->getLocale(), now()->addDay(1), function(){
                 return DiseaseLanguage::with('disease')->get();
@@ -94,7 +94,7 @@ class MainController extends Controller
         $evidences = Cache::remember('evidences_'.app()->getLocale(), now()->addDay(1), function(){
                 return Evidence::all();
         });
-        //dd(Factor::with('factorLanguages')->first()->factorLanguages);
+        //dd(FactorLanguage::with('factor.type'));
         //dd(Cache::get('markerMethod_'.app()->getLocale())[0]->methods );
         //dd($markerMethods[4]->methods);
         //dd($markers[1]->methods()->get());

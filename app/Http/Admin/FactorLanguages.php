@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Config;
 class FactorLanguages extends Section implements Initializable
 {
     /**
-     * @var \App\Models\fundamentalSetting
+     * @var \App\Mgit odels\fundamentalSetting
      */
     protected $model = '\App\Models\Factor\FactorLanguage';
 
@@ -82,18 +82,19 @@ class FactorLanguages extends Section implements Initializable
             AdminFormElement::custom()
                 ->setDisplay(function($instance) use($buttonLocales) {
                     return $buttonLocales;
-                }), 
+                })
         ]);
 
         $display = AdminDisplay::datatablesAsync();
         $display
             ->with(['factor'])
             ->setColumns(
+                AdminColumn::text('id')->setLabel('id'),
                 AdminColumnEditable::text('name')->setLabel('Название фактора'),
                 AdminColumnEditable::textarea('content')->setLabel('Описание Фактора')->setWidth(8000),
-                //AdminColumnEditable::text('factor.type.name')->setLabel('тип'),
-                AdminColumnEditable::select('type_id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
-                                              ->setDefaultValue('1'),   
+                AdminColumn::text('factor.type.name')->setLabel('тип')
+                //AdminColumnEditable::select('factor.type.id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
+                    //->setDefaultValue('1')
             );
         return $display->setView(view('sleeping-owl.display.table', compact('buttonLocales')));
         return $display;
@@ -112,14 +113,14 @@ class FactorLanguages extends Section implements Initializable
 
         $form = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setLabel('Название фактора')->setReadonly(1),
-            /*AdminFormElement::textarea('content')->setLabel('Описание фатора')->required()->setReadonly(1),
+            //AdminFormElement::textarea('content')->setLabel('Описание фатора')->required()->setReadonly(1),
             AdminFormElement::select('factor.type_id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
-                                              ->setDefaultValue('1'),*/
+                                              ->setDefaultValue('1'),
                                               
             AdminFormElement::multiselect('factor.diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\DiseaseLanguage::class)->setDisplay('name'),
             AdminFormElement::multiselect('factor.protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('factor.remedies', 'Лекарства')->setModelForOptions(\App\Models\Remedy::class)->setDisplay('name'),
-            AdminFormElement::multiselect('factor.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\Marker::class)->setDisplay('name')
+            AdminFormElement::multiselect('factor.remedies', 'Лекарства')->setModelForOptions(\App\Models\RemedyLanguage::class)->setDisplay('name'),
+            AdminFormElement::multiselect('factor.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\MarkerLanguage::class)->setDisplay('name')
         ]);
         return $form;
     }
@@ -139,11 +140,11 @@ class FactorLanguages extends Section implements Initializable
                     return $scripts;
                 }),
             AdminFormElement::text('name')->setName('nameEng')->setLabel('Название фактора')->required(),
-            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Описание фатора')->required(),            
+            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Описание фатора')->required()
         ]);
         $formRu = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название фактора')->required(),
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание фатора')->required(),            
+            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание фатора')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([           
             AdminFormElement::select('factor.type_id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
@@ -157,7 +158,7 @@ class FactorLanguages extends Section implements Initializable
             AdminFormElement::hidden('nameEng'),
             AdminFormElement::hidden('contentEng'),
             AdminFormElement::hidden('nameRu'),
-            AdminFormElement::hidden('contentRu'),
+            AdminFormElement::hidden('contentRu')
         ]);
 
         $tabs = AdminDisplay::tabbed();

@@ -8,7 +8,7 @@
   @foreach($factors as $factor)
 
     <div class="puzzle-15__item-outer" obj-id="{{$factor->factor_id}}">
-      <div class="puzzle-15__item {{$factor->type->name}}"><img class="factors-check"
+      <div class="puzzle-15__item {{$factor->factor->type->name}}"><img class="factors-check"
                                                                     src="img/svg/factors-check.svg" alt=""><img
                 src="{{$factor->factor->img}}">
         <h6 class="puzzle-15__item-title">{{$factor->name}}</h6>
