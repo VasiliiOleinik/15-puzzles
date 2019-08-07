@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\factor\Factor;
-use App\Models\factor\FactorLanguage;
+use App\Models\Factor\Factor;
+use App\Models\Factor\FactorLanguage;
 
 class FactorsController extends Controller
 {
@@ -23,8 +23,8 @@ class FactorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {        
+    public function create($id, Request $request)
+    {
         $validatedData = $request->validate([
         'nameEng' => ['required', 'string', 'max:191'],
         'nameRu' => ['required', 'string', 'max:191'],       
@@ -38,8 +38,8 @@ class FactorsController extends Controller
         $factor = new Factor;
         //находим наивысшее значение id и ставим больше на 1
         $factor->id = Factor::orderBy('id', 'desc')->first()->id + 1;
-        $factor->type_id = $request->factor['type_id'];
-
+        $factor->type_id = 2;
+        //dd(\App\Models\Type::count());
         $factor->save();
 
         if(array_key_exists("diseases", $request->factor)){
@@ -59,13 +59,13 @@ class FactorsController extends Controller
         $factorLanguageEng->name = $request['nameEng'];
         $factorLanguageEng->content = $request['contentEng'];
         $factorLanguageEng->factor_id = $factor->id;
-        $factorLanguageEng->type_id = $factor->type_id;
+        //$factorLanguageEng->type_id = $factor->type_id;
 
         $factorLanguageRu->language = "ru";
         $factorLanguageRu->name = $request['nameRu'];
         $factorLanguageRu->content = $request['contentRu'];
         $factorLanguageRu->factor_id = $factor->id;
-        $factorLanguageRu->type_id = $factor->type_id;
+        //$factorLanguageRu->type_id = $factor->type_id;
         
         $factorLanguageEng->save();
         $factorLanguageRu->save();
@@ -126,7 +126,6 @@ class FactorsController extends Controller
      */
     public function destroy($id)
     {
-        FactorLanguage::withoutGlobalScopes()->where('factor_id','=',$id)->delete();
         Factor::find($id)->delete();
         return redirect()->back();
     }

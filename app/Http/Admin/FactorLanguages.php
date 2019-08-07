@@ -130,6 +130,7 @@ class FactorLanguages extends Section implements Initializable
      */
     public function onCreate()
     {
+        Config::set('app.locale', 'eng');
         //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
         //(заполняются hidden поля на вкладке связей)
         $scripts = "<script src='/js/backend/factorLanguages.js')></script>";        
