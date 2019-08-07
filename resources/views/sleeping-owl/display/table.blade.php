@@ -7,7 +7,7 @@
 	<br />
 @endif
 
-sdfsdf
+{!! $buttonLocales !!}
 
 @yield('before.panel')
 

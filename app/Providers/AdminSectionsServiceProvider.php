@@ -16,8 +16,12 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\MemberCase::class => 'App\Http\Admin\MemberCases',
         \App\Models\Comment::class => 'App\Http\Admin\Comments',
         \App\Models\Factor\Factor::class => 'App\Http\Admin\Factors',
+        \App\Models\Factor\FactorLanguage::class => 'App\Http\Admin\FactorLanguages',
+        //\App\Models\Disease\Disease::class => 'App\Http\Admin\Diseases',
         \App\Models\Role\Role::class => 'App\Http\Admin\Roles',
     ];
+
+    //protected $router->get('/factorLanguages/create', ['as' => 'admin.factorLanguages.create', 'uses' => '\App\Http\Controllers\MainController@index']);
 
     /**
      * Register sections.
