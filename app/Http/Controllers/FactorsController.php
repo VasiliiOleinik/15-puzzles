@@ -78,6 +78,8 @@ class FactorsController extends Controller
         $factorLanguageEng->save();
         $factorLanguageRu->save();
 
+        Artisan::call('cache:clear');
+
         return Redirect::to('/admin/factorLanguages/');
     }
 
