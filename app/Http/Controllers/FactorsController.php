@@ -78,7 +78,9 @@ class FactorsController extends Controller
         $factorLanguageEng->save();
         $factorLanguageRu->save();
 
-        Artisan::call('cache:clear');
+        //Artisan::call('cache:clear');
+        Cache::forget('factor_eng');
+        Cache::forget('factor_ru');
 
         return Redirect::to('/admin/factorLanguages/');
     }
@@ -173,6 +175,8 @@ class FactorsController extends Controller
         $id = FactorLanguage::find($id)->factor_id;
         Factor::find($id)->delete();
         //Artisan::call('cache:clear');
+        Cache::forget('factor_eng');
+        Cache::forget('factor_ru');
         return Redirect::to('/admin/factorLanguages/');
     }
 
