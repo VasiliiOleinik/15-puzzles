@@ -4,6 +4,7 @@ namespace App\Models\Factor;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\LanguageScope;
+use Illuminate\Support\Facades\Config;
 
 /**
  * @property int $id
@@ -36,6 +37,8 @@ class FactorLanguage extends Model
     protected static function boot()
     {
         parent::boot();
+        /*if(Config::get('app.locale') == "eng")
+        dd()*/
         static::addGlobalScope(new LanguageScope);
     }
 

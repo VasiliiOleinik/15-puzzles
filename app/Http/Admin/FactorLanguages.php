@@ -6,6 +6,8 @@ use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
+use App\Models\Factor\Factor;
+
 use AdminColumn;
 use AdminColumnEditable;
 use AdminColumnFilter;
@@ -35,15 +37,15 @@ class FactorLanguages extends Section implements Initializable
      * Initialize class.
      */
     public function initialize()
-    {        
+    {
         // Добавление пункта меню и счетчика кол-ва записей в разделе
         $this->addToNavigation($priority = 500, function() {
-            return $this->model::count();
+            return \App\Models\Factor\Factor::count();
         });
 
-        $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {
-            //...
+        $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {            
         });
+
     }
 
    /**
@@ -56,7 +58,7 @@ class FactorLanguages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $title = 'Факторы lang';
+    protected $title = 'Факторы';
 
     /**
      * @var string
@@ -68,36 +70,20 @@ class FactorLanguages extends Section implements Initializable
      */
     public function onDisplay()
     {       
-        Config::set('app.locale', 'eng');
-
-        //Кнопки изменения локалей
-        $buttonLocales = "<input type='button' class='btn btn-primary' value='ENG' obj-locale='eng' style='margin-bottom: 10px;'>
-                          <input type='button' class='btn btn-primary mb-5' value='RU' obj-locale='ru' style='margin-bottom: 10px;'>";
-
-        /*$tabs = AdminDisplay::tabbed();
-        $tabs->appendTab(, 'Фактор eng');
-        $tabs->appendTab(, 'Фактор ru');*/
-
-        $form = AdminForm::panel()->addBody([
-            AdminFormElement::custom()
-                ->setDisplay(function($instance) use($buttonLocales) {
-                    return $buttonLocales;
-                })
-        ]);
-
         $display = AdminDisplay::datatablesAsync();
         $display
             ->with(['factor'])
+            ->setApply(function ($query) {
+                $query->withoutGlobalScopes();
+            })
             ->setColumns(
-                AdminColumn::text('id')->setLabel('id'),
+                AdminColumn::text('factor_id')->setLabel('factor id'),
                 AdminColumnEditable::text('name')->setLabel('Название фактора'),
                 AdminColumnEditable::textarea('content')->setLabel('Описание Фактора')->setWidth(8000),
-                AdminColumn::text('factor.type.name')->setLabel('тип')
-                //AdminColumnEditable::select('factor.type.id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
-                    //->setDefaultValue('1')
+                AdminColumn::text('factor.type.name', '' ,'factor.type.id')->setLabel('тип')
             );
-        return $display->setView(view('sleeping-owl.display.table', compact('buttonLocales')));
-        return $display;
+
+        return $display->setView(view('sleeping-owl.display.table'));
     }
 
     /**
@@ -107,16 +93,23 @@ class FactorLanguages extends Section implements Initializable
      */
     public function onEdit($id)
     {
-        //$this->model::withoutGlobalScopes()->get();
-        Artisan::call('cache:clear');
         Config::set('app.locale', 'eng');
+
+        $imageSrc = Factor::find( $this->model::find($id)->factor_id )->img;
+        $image = '<img id="img-admin" src="'.$imageSrc.'" width="30%" style="max-width: 400px;">';                     
 
         $form = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setLabel('Название фактора')->setReadonly(1),
             //AdminFormElement::textarea('content')->setLabel('Описание фатора')->required()->setReadonly(1),
             AdminFormElement::select('factor.type_id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
                                               ->setDefaultValue('1'),
-                                              
+            AdminFormElement::custom()
+                ->setDisplay(function($instance) use($image) {
+                    return $image;
+                }),
+            AdminFormElement::hidden('img')->setLabel('картинка'),
+            AdminFormElement::view('sleeping-owl.input-type-file'),  
+                
             AdminFormElement::multiselect('factor.diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\DiseaseLanguage::class)->setDisplay('name'),
             AdminFormElement::multiselect('factor.protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
             AdminFormElement::multiselect('factor.remedies', 'Лекарства')->setModelForOptions(\App\Models\RemedyLanguage::class)->setDisplay('name'),
@@ -131,6 +124,8 @@ class FactorLanguages extends Section implements Initializable
     public function onCreate()
     {
         Config::set('app.locale', 'eng');
+        $image = '<img id="img-admin" width="30%" style="max-width: 400px;">';               
+
         //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
         //(заполняются hidden поля на вкладке связей)
         $scripts = "<script src='/js/backend/factorLanguages.js')></script>";        
@@ -147,7 +142,14 @@ class FactorLanguages extends Section implements Initializable
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название фактора')->required(),
             AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание фатора')->required()
         ]);
-        $formRelations = AdminForm::panel()->addBody([           
+        $formRelations = AdminForm::panel()->addBody([
+            AdminFormElement::custom()
+                ->setDisplay(function($instance) use($image) {
+                    return $image;
+                }),
+            AdminFormElement::hidden('img')->setLabel('картинка'),
+            AdminFormElement::view('sleeping-owl.input-type-file'),
+
             AdminFormElement::select('factor.type_id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
                                               ->setDefaultValue('1')->required(),
                                               
@@ -184,5 +186,17 @@ class FactorLanguages extends Section implements Initializable
     public function onRestore($id)
     {
         // remove if unused
+    }
+
+    //заголовок для создания записи
+    public function getCreateTitle()
+    {
+        return 'Создание фактора';
+    }
+
+    // иконка для пункта меню - шестеренка
+    public function getIcon()
+    {
+        return 'fa fa-retweet';
     }
 }

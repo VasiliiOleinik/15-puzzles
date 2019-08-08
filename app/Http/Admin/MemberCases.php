@@ -113,7 +113,7 @@ class MemberCases extends Section implements Initializable
      */
     public function onEdit($id)
     {
-        $image = '<img id="img-member-case" src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';
+        $image = '<img id="img-admin" src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';
         //dd($this->model::find($id)->toJson());
         // поле var - нельзя редактировать, ибо нефиг системообразующий код редактировать
         return AdminForm::panel()->addBody([
@@ -136,7 +136,7 @@ class MemberCases extends Section implements Initializable
      */
     public function onCreate()
     {
-        $image = '<img id="img-member-case" src="" width="100%" style="max-width: 800px;">';
+        $image = '<img id="img-admin" src="" width="100%" style="max-width: 800px;">';
         //$hidden = false;
         //dd($this->model::find($id)->toJson());
         // поле var - нельзя редактировать, ибо нефиг системообразующий код редактировать
@@ -171,5 +171,17 @@ class MemberCases extends Section implements Initializable
     public function onRestore($id)
     {
         // remove if unused
+    }
+
+    //заголовок для создания записи
+    public function getCreateTitle()
+    {
+        return 'Создание истории болезни';
+    }
+
+    // иконка для пункта меню - шестеренка
+    public function getIcon()
+    {
+        return 'fa fa-address-card';
     }
 }

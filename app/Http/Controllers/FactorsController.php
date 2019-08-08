@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Factor\Factor;
 use App\Models\Factor\FactorLanguage;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Cookie;
 
 class FactorsController extends Controller
 {
@@ -31,7 +35,7 @@ class FactorsController extends Controller
         'nameRu' => ['required', 'string', 'max:191'],       
         'contentEng' => ['required', 'max:64000'],
         'contentRu' => ['required', 'max:64000'],      
-        //'img' => ['nullable'],       
+        'img' => ['nullable'],       
         ]);
 
         $factorLanguageEng = new FactorLanguage;
@@ -39,6 +43,9 @@ class FactorsController extends Controller
         $factor = new Factor;
         //находим наивысшее значение id и ставим больше на 1
         $factor->id = Factor::orderBy('id', 'desc')->first()->id + 1;
+        if($request->img != null){          
+          $factor->img = $request['img'];
+        } 
         $factor->type_id = $request->factor['type_id'];
         //dd(\App\Models\Type::count());
         $factor->save();
@@ -107,6 +114,9 @@ class FactorsController extends Controller
         //dd($request->all());
         $id = FactorLanguage::find($id)->factor_id;
         $factor = Factor::find($id);
+        if($request->img != null){          
+          $factor->img = $request['img'];
+        } 
         $factor->type_id = $request->factor['type_id'];
         $factor->save();
 
@@ -122,6 +132,9 @@ class FactorsController extends Controller
         if(array_key_exists("markers", $request->factor)){
             $factor->markers()->attach($request->factor['markers']);
         }
+
+        Cache::forget('factor_eng');
+        Cache::forget('factor_ru');
 
         if( $request->has("next_action") ){
             if($request['next_action'] == "save_and_continue"){
@@ -157,6 +170,16 @@ class FactorsController extends Controller
     {
         $id = FactorLanguage::find($id)->factor_id;
         Factor::find($id)->delete();
+        //Artisan::call('cache:clear');
         return Redirect::to('/admin/factorLanguages/');
+    }
+
+    public function setFactorsLanguage($locale)
+    {
+        Cookie::queue(Cookie::make('locale', $locale, 999));
+       // dd(request()->cookie());
+        Config::set('app.locale', request()->cookie());
+        //dd( Config::get('app.locale') );
+        return Redirect::to('/admin/factorLanguages//?locale='.$locale);
     }
 }

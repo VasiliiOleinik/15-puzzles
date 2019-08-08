@@ -151,4 +151,16 @@ class Comments extends Section implements Initializable
     {
         // remove if unused
     }
+
+    //заголовок для создания записи
+    public function getCreateTitle()
+    {
+        return 'Создание комментария';
+    }
+
+    // иконка для пункта меню - шестеренка
+    public function getIcon()
+    {
+        return 'fa fa-comments';
+    }
 }

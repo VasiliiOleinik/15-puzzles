@@ -33,7 +33,7 @@ class Users extends Section implements Initializable
      * Initialize class.
      */
     public function initialize()
-    {
+    {        
         // Добавление пункта меню и счетчика кол-ва записей в разделе
         $this->addToNavigation($priority = 500, function() {
             return \App\Models\User\User::count();
@@ -90,7 +90,7 @@ class Users extends Section implements Initializable
      * @return DisplayInterface
      */
     public function onDisplay()
-    {
+    {        
         $display = AdminDisplay::datatablesAsync();
         $display
             //->with(['roles'])
@@ -141,24 +141,23 @@ class Users extends Section implements Initializable
      */
     public function onEdit($id)
     {
-        Config::set('app.locale', 'en');
-        $avatar = '<img src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';
-        //dd($this->model::find($id)->toJson());
-        // поле var - нельзя редактировать, ибо нефиг системообразующий код редактировать
+
+        $image =  '<img id="img-admin" src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';        
         return AdminForm::panel()->addBody([            
             AdminFormElement::text('nickname', 'логин')->required(),
             AdminFormElement::text('first_name', 'имя'),
             AdminFormElement::text('middle_name', 'фамилия'),
             AdminFormElement::text('last_name', 'отчество'),
+
             AdminFormElement::custom()
-                    ->setDisplay(function($instance) use($avatar) {
-                        return $avatar;
+                    ->setDisplay(function($instance) use($image) {
+                        return $image;
                     }),
+            AdminFormElement::hidden('img')->setLabel('картинка'),
+            AdminFormElement::view('sleeping-owl.input-type-file'),
+
             AdminFormElement::text('email', 'почта')->required(),
             AdminFormElement::text('birthday', 'дата рождения'),
-            //AdminFormElement::wysiwyg('test', 'Text'),
-            AdminFormElement::ckeditor('middle_name', 'Комментарий автора', 'simplemde')
-                ->setFilteredValueToField('text_html'),
             AdminFormElement::text('id', 'ID')->setReadonly(1),
             AdminFormElement::text('created_at')->setLabel('Создано')->setReadonly(1)                       
         ]); 
@@ -169,13 +168,20 @@ class Users extends Section implements Initializable
      */
     public function onCreate()
     {
-        //return $this->onEdit(null);
-        // а вот создать var можно. Один раз и навсегда
+        $image =  '<img id="img-admin" width="100%" style="max-width: 800px;">';        
         return AdminForm::panel()->addBody([
             AdminFormElement::text('nickname', 'логин')->required(),
             AdminFormElement::text('first_name', 'имя'),
             AdminFormElement::text('middle_name', 'фамилия'),
             AdminFormElement::text('last_name', 'отчество'),
+
+            AdminFormElement::custom()
+                    ->setDisplay(function($instance) use($image) {
+                        return $image;
+                    }),
+            AdminFormElement::hidden('img')->setLabel('картинка'),
+            AdminFormElement::view('sleeping-owl.input-type-file'),
+
             AdminFormElement::text('email', 'почта')->required(),
             AdminFormElement::text('birthday', 'дата рождения')
 
@@ -207,6 +213,6 @@ class Users extends Section implements Initializable
     // иконка для пункта меню - шестеренка
     public function getIcon()
     {
-        return 'fa fa-gear';
+        return 'fa fa-user';
     }
 }

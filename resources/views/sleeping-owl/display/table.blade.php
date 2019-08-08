@@ -7,8 +7,6 @@
 	<br />
 @endif
 
-{!! $buttonLocales !!}
-
 @yield('before.panel')
 
 <div class="panel panel-default {!! $panel_class !!}">
@@ -36,3 +34,17 @@
 </div>
 
 @yield('after.panel')
+<script>    
+    document.addEventListener('DOMContentLoaded', function () {
+    let count = 0;
+    let timerId = setInterval(function(){
+        if($('tr.even').length > 0){
+            $('tr.even').find('.text-right').remove();
+            count++;
+        }
+        if(count>100){
+            clearInterval(timerId)
+        }
+    }, 1);                                     
+    }, false);
+</script>
