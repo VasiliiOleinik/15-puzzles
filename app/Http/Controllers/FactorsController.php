@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Factor\Factor;
 use App\Models\Factor\FactorLanguage;
+use Illuminate\Support\Facades\Redirect;
 
 class FactorsController extends Controller
 {
@@ -23,7 +24,7 @@ class FactorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id, Request $request)
+    public function create(Request $request)
     {
         $validatedData = $request->validate([
         'nameEng' => ['required', 'string', 'max:191'],
@@ -38,7 +39,7 @@ class FactorsController extends Controller
         $factor = new Factor;
         //находим наивысшее значение id и ставим больше на 1
         $factor->id = Factor::orderBy('id', 'desc')->first()->id + 1;
-        $factor->type_id = 2;
+        $factor->type_id = $request->factor['type_id'];
         //dd(\App\Models\Type::count());
         $factor->save();
 
@@ -70,7 +71,7 @@ class FactorsController extends Controller
         $factorLanguageEng->save();
         $factorLanguageRu->save();
 
-        return redirect()->back();
+        return Redirect::to('/admin/factorLanguages/');
     }
 
     /**
@@ -101,9 +102,37 @@ class FactorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        //
+        //dd($request->all());
+        $id = FactorLanguage::find($id)->factor_id;
+        $factor = Factor::find($id);
+        $factor->type_id = $request->factor['type_id'];
+        $factor->save();
+
+        if(array_key_exists("diseases", $request->factor)){
+            $factor->diseases()->attach($request->factor['diseases']);
+        }
+        if(array_key_exists("protocols", $request->factor)){
+        $factor->protocols()->attach($request->factor['protocols']);
+        }
+        if(array_key_exists("remedies", $request->factor)){
+            $factor->remedies()->attach($request->factor['remedies']);
+        }
+        if(array_key_exists("markers", $request->factor)){
+            $factor->markers()->attach($request->factor['markers']);
+        }
+
+        if( $request->has("next_action") ){
+            if($request['next_action'] == "save_and_continue"){
+                return redirect()->back();
+            }
+            if($request['next_action'] == "save_and_create"){
+                return redirect()->route('admin.model.create',['adminModel' => 'factorLanguages']);
+            }
+        }
+
+        return Redirect::to('/admin/factorLanguages/');
     }
 
     /**
@@ -126,7 +155,8 @@ class FactorsController extends Controller
      */
     public function destroy($id)
     {
+        $id = FactorLanguage::find($id)->factor_id;
         Factor::find($id)->delete();
-        return redirect()->back();
+        return Redirect::to('/admin/factorLanguages/');
     }
 }
