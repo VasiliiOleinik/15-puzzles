@@ -14,7 +14,7 @@ class AddForeignKeysToFactorsTable extends Migration {
 	{
 		Schema::table('factors', function(Blueprint $table)
 		{
-			$table->foreign('type_id', 'FK_factors_factors')->references('id')->on('factors')->onUpdate('CASCADE')->onDelete('CASCADE');
+			$table->foreign('type_id', 'FK_factors_types')->references('id')->on('types')->onUpdate('CASCADE')->onDelete('CASCADE');
 		});
 	}
 
@@ -28,7 +28,7 @@ class AddForeignKeysToFactorsTable extends Migration {
 	{
 		Schema::table('factors', function(Blueprint $table)
 		{
-			$table->dropForeign('FK_factors_factors');
+			$table->dropForeign('FK_factors_types');
 		});
 	}
 
