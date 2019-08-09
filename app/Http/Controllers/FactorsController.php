@@ -127,7 +127,7 @@ class FactorsController extends Controller
             $factor->diseases()->sync($request->factor['diseases']);
         }
         if(array_key_exists("protocols", $request->factor)){
-        $factor->protocols()->sync($request->factor['protocols']);
+            $factor->protocols()->sync($request->factor['protocols']);
         }
         if(array_key_exists("remedies", $request->factor)){
             $factor->remedies()->sync($request->factor['remedies']);
@@ -177,14 +177,5 @@ class FactorsController extends Controller
         Cache::forget('factor_eng');
         Cache::forget('factor_ru');
         return Redirect::to('/admin/factorLanguages/');
-    }
-
-    public function setFactorsLanguage($locale)
-    {
-        Cookie::queue(Cookie::make('locale', $locale, 999));
-       // dd(request()->cookie());
-        Config::set('app.locale', request()->cookie());
-        //dd( Config::get('app.locale') );
-        return Redirect::to('/admin/factorLanguages//?locale='.$locale);
     }
 }
