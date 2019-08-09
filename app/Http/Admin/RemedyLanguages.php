@@ -6,7 +6,7 @@ use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
-use App\Models\Remedy\Remedy;
+use App\Models\Remedy;
 
 use AdminColumn;
 use AdminColumnEditable;
@@ -40,7 +40,7 @@ class RemedyLanguages extends Section implements Initializable
     {
         // Добавление пункта меню и счетчика кол-ва записей в разделе
         $this->addToNavigation($priority = 500, function() {
-            return \App\Models\Remedy::count();
+            return Remedy::count();
         });
 
         $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {            
@@ -76,7 +76,8 @@ class RemedyLanguages extends Section implements Initializable
             ->setColumns(
                 AdminColumn::text('remedy_id')->setLabel('remedy id'),
                 AdminColumnEditable::text('name')->setLabel('Название лекарства'),
-                AdminColumnEditable::textarea('content')->setLabel('Описание лекарства')
+                AdminColumnEditable::textarea('content')->setLabel('Описание лекарства'),
+                AdminColumn::text('remedy.url')->setLabel('Ссылка на лекарство')
             );
 
         return $display->setView(view('sleeping-owl.display.table'));
@@ -88,7 +89,12 @@ class RemedyLanguages extends Section implements Initializable
      * @return FormInterface
      */
     public function onEdit($id)
-    {
+    {        
+        $form = AdminForm::panel()->addBody([
+            AdminFormElement::text('name')->setLabel('Название лекарства')->setReadonly(1), 
+            AdminFormElement::text('remedy.url')->setLabel('Ссылка на лекарство'),           
+        ]);
+        return $form;
     }
 
     /**
@@ -115,7 +121,9 @@ class RemedyLanguages extends Section implements Initializable
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название лекарства')->required(),
             AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание лекарства')->required()
         ]);
-        $formRelations = AdminForm::panel()->addBody([                                                       
+        $formRelations = AdminForm::panel()->addBody([
+            AdminFormElement::text('url')->setLabel('Ссылка на лекарство'),   
+
             AdminFormElement::hidden('nameEng'),
             AdminFormElement::hidden('contentEng'),
             AdminFormElement::hidden('nameRu'),
@@ -125,7 +133,7 @@ class RemedyLanguages extends Section implements Initializable
         $tabs = AdminDisplay::tabbed();
         $tabs->appendTab($formEng, 'Лекарство eng');
         $tabs->appendTab($formRu, 'Лекарство ru');
-        $tabs->appendTab($formRelations, 'Лекарство связи');
+        $tabs->appendTab($formRelations, 'Другое');
         
         return $tabs;
     }
@@ -155,6 +163,6 @@ class RemedyLanguages extends Section implements Initializable
     // иконка для пункта меню - шестеренка
     public function getIcon()
     {
-        return 'fa fa-syringe';
+        return 'fa fa-stumbleupon-circle';
     }
 }

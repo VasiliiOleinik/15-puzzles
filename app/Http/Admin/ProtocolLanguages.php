@@ -79,8 +79,10 @@ class ProtocolLanguages extends Section implements Initializable
             ->setColumns(
                 AdminColumn::text('protocol_id')->setLabel('protocol id'),
                 AdminColumnEditable::text('name')->setLabel('Название протокола'),
+                AdminColumnEditable::textarea('subtitle')->setLabel('Заголовок описания протокола'),
                 AdminColumnEditable::textarea('content')->setLabel('Описание протокола'),
-                AdminColumn::text('protocol.evidence.name', '' ,'factor.evidence.id')->setLabel('степень доказанности')
+                AdminColumn::text('protocol.evidence.name', '' ,'factor.evidence.id')->setLabel('степень доказанности'),
+                AdminColumn::text('protocol.url')->setLabel('Ссылка на протокол')
             );
 
         return $display->setView(view('sleeping-owl.display.table'));
@@ -99,6 +101,7 @@ class ProtocolLanguages extends Section implements Initializable
 
         $form = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setLabel('Название протокола')->setReadonly(1),
+            AdminFormElement::text('protocol.url')->setLabel('Ссылка на протокол'),  
             //AdminFormElement::textarea('content')->setLabel('Описание фатора')->required()->setReadonly(1),
             AdminFormElement::select('protocol.evidence_id', 'Степень доказанности')->setModelForOptions(\App\Models\Evidence::class)
                                               ->setDisplay('name')
@@ -129,11 +132,14 @@ class ProtocolLanguages extends Section implements Initializable
                     return $scripts;
                 }),
             AdminFormElement::text('name')->setName('nameEng')->setLabel('Название протокола')->required(),
-            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Описание протокола')->required()
+            AdminFormElement::text('subtitle')->setName('subtitleEng')->setLabel('Заголовок описания протокола')->required(),
+            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Описание протокола')->required()            
         ]);
         $formRu = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название протокола')->required(),
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание протокола')->required()
+            AdminFormElement::text('subtitle')->setName('subtitleRu')->setLabel('Заголовок описания протокола')->required(),
+            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание протокола')->required(),
+            AdminFormElement::text('protocol.url')->setLabel('Ссылка на протокол')
         ]);
         $formRelations = AdminForm::panel()->addBody([
             AdminFormElement::select('protocol.evidence_id', 'Степень доказанности')->setModelForOptions(\App\Models\Evidence::class)
@@ -146,8 +152,10 @@ class ProtocolLanguages extends Section implements Initializable
             AdminFormElement::multiselect('protocol.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\MarkerLanguage::class)->setDisplay('name'),
 
             AdminFormElement::hidden('nameEng'),
+            AdminFormElement::hidden('subtitleEng'),
             AdminFormElement::hidden('contentEng'),
             AdminFormElement::hidden('nameRu'),
+            AdminFormElement::hidden('subtitleRu'),
             AdminFormElement::hidden('contentRu')
         ]);
 
@@ -173,5 +181,11 @@ class ProtocolLanguages extends Section implements Initializable
     public function onRestore($id)
     {
         // remove if unused
+    }
+
+    // иконка для пункта меню - шестеренка
+    public function getIcon()
+    {
+        return 'fa fa-file';
     }
 }

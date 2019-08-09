@@ -44,8 +44,9 @@ class ProtocolsController extends Controller
         $protocol = new Protocol;
         //находим наивысшее значение id и ставим больше на 1
         $protocol->id = Protocol::orderBy('id', 'desc')->first()->id + 1;
-
+        
         $protocol->evidence_id = $request->protocol['evidence_id'];
+        $protocol->url = $request->protocol['url'];  
         $protocol->save();
 
         if(array_key_exists("factors", $request->protocol)){
@@ -117,6 +118,7 @@ class ProtocolsController extends Controller
         $id = ProtocolLanguage::find($id)->protocol_id;
         $protocol = Protocol::find($id);
         $protocol->evidence_id = $request->protocol['evidence_id'];
+        $protocol->url = $request->protocol['url'];  
         $protocol->save();
 
         if(array_key_exists("factors", $request->protocol)){

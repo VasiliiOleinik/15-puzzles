@@ -15,8 +15,8 @@ class CreateMarkersTable extends Migration {
 		Schema::create('markers', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 50)->default('--');
-			$table->text('content', 65535);
+			$table->string('name', 50)->nullable();;
+			$table->text('content', 65535)->nullable();
 			$table->string('subtitle', 191)->nullable();
 		});
 	}
