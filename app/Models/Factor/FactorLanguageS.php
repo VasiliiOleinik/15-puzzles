@@ -3,7 +3,6 @@
 namespace App\Models\Factor;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Scopes\LanguageScope;
 use Illuminate\Support\Facades\Config;
 
 /**
@@ -20,24 +19,13 @@ use Illuminate\Support\Facades\Config;
  * @property FactorRemedy[] $remedies
  * @property FactorMarker[] $markers
  */
-class FactorLanguage extends Model
+class FactorLanguageS extends Model
 {
     public $timestamps = false;
 
     public function scopeSetLocale($query)
     {
         return $query->where('language', app()->getLocale() );
-    }
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();        
-        static::addGlobalScope(new LanguageScope());        
     }
 
     /**

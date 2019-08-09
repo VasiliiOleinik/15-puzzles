@@ -6,7 +6,7 @@ use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
-use App\Models\Factor\Factor;
+use App\Models\Disease\Disease;
 
 use AdminColumn;
 use AdminColumnEditable;
@@ -18,21 +18,20 @@ use AdminFormElement;
 use SleepingOwl\Admin\Contracts\Initializable;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Cache;
 
 /**
- * Class FactorLanguages
+ * Class DiseaseLanguages
  *
- * @property \App\Models\Factor\FactorLanguage $model
+ * @property \App\Models\Disease\DiseaseLanguage $model
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class FactorLanguages extends Section implements Initializable
+class DiseaseLanguages extends Section implements Initializable
 {
     /**
      * @var \App\Mgit odels\fundamentalSetting
      */
-    protected $model = '\App\Models\Factor\FactorLanguage';
+    protected $model = '\App\Models\Disease\DiseaseLanguage';
 
     /**
      * Initialize class.
@@ -41,7 +40,7 @@ class FactorLanguages extends Section implements Initializable
     {
         // Добавление пункта меню и счетчика кол-ва записей в разделе
         $this->addToNavigation($priority = 500, function() {
-            return \App\Models\Factor\Factor::count();
+            return \App\Models\Disease\Disease::count();
         });
 
         $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {            
@@ -64,26 +63,23 @@ class FactorLanguages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias = 'factorLanguages';
+    protected $alias = 'diseaseLanguages';
 
     /**
      * @return DisplayInterface
      */
     public function onDisplay()
-    {
-        Cache::forget('factor_eng');
-        Cache::forget('factor_ru');
+    {       
         $display = AdminDisplay::datatablesAsync();
         $display
-            ->with(['factor'])
+            ->with(['disease'])
             ->setApply(function ($query) {
                 $query->withoutGlobalScopes();
             })
             ->setColumns(
-                AdminColumn::text('factor_id')->setLabel('factor id'),
+                AdminColumn::text('disease_id')->setLabel('disease id'),
                 AdminColumnEditable::text('name')->setLabel('Название фактора'),
-                AdminColumnEditable::textarea('content')->setLabel('Описание Фактора'),
-                AdminColumn::text('factor.type.name', '' ,'factor.type.id')->setLabel('тип')
+                AdminColumnEditable::textarea('content')->setLabel('Описание Фактора')->setWidth(8000),
             );
 
         return $display->setView(view('sleeping-owl.display.table'));
@@ -103,20 +99,11 @@ class FactorLanguages extends Section implements Initializable
 
         $form = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setLabel('Название фактора')->setReadonly(1),
-            //AdminFormElement::textarea('content')->setLabel('Описание фатора')->required()->setReadonly(1),
-            AdminFormElement::select('factor.type_id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
-                                              ->setDefaultValue('1'),
-            AdminFormElement::custom()
-                ->setDisplay(function($instance) use($image) {
-                    return $image;
-                }),
-            AdminFormElement::hidden('img')->setLabel('картинка'),
-            AdminFormElement::view('sleeping-owl.input-type-file'),  
                 
-            AdminFormElement::multiselect('factor.diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\DiseaseLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('factor.protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('factor.remedies', 'Лекарства')->setModelForOptions(\App\Models\RemedyLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('factor.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\MarkerLanguage::class)->setDisplay('name')
+            AdminFormElement::multiselect('disease.factors', 'Болезни')->setModelForOptions(\App\Models\Disease\FactorLanguage::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.remedies', 'Лекарства')->setModelForOptions(\App\Models\RemedyLanguage::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\MarkerLanguage::class)->setDisplay('name')
         ]);
         return $form;
     }
@@ -126,8 +113,7 @@ class FactorLanguages extends Section implements Initializable
      */
     public function onCreate()
     {
-        Config::set('app.locale', 'eng');
-        $image = '<img id="img-admin" width="30%" style="max-width: 400px;">';               
+        Config::set('app.locale', 'eng');            
 
         //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
         //(заполняются hidden поля на вкладке связей)
@@ -145,17 +131,7 @@ class FactorLanguages extends Section implements Initializable
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название фактора')->required(),
             AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание фатора')->required()
         ]);
-        $formRelations = AdminForm::panel()->addBody([
-            AdminFormElement::custom()
-                ->setDisplay(function($instance) use($image) {
-                    return $image;
-                }),
-            AdminFormElement::hidden('img')->setLabel('картинка'),
-            AdminFormElement::view('sleeping-owl.input-type-file'),
-
-            AdminFormElement::select('factor.type_id', 'Тип фактора')->setModelForOptions(\App\Models\Type::class)->setDisplay('name')
-                                              ->setDefaultValue('1')->required(),
-                                              
+        $formRelations = AdminForm::panel()->addBody([                                           
             AdminFormElement::multiselect('factor.diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\DiseaseLanguage::class)->setDisplay('name'),
             AdminFormElement::multiselect('factor.protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
             AdminFormElement::multiselect('factor.remedies', 'Лекарства')->setModelForOptions(\App\Models\Remedy::class)->setDisplay('name'),

@@ -16,7 +16,20 @@ class LanguageScope implements Scope
      * @return void
      */
     public function apply(Builder $builder, Model $model)
+    {        
+        if ( $this->notInDashboard() ){            
+            $builder->where($model->getTable() . '.language', app()->getLocale());
+        }
+    }
+    
+    /**
+     * @return bool
+     */
+    public static function notInDashboard()
     {
-        $builder->where($model->getTable() . '.language', app()->getLocale());
+        if (strpos(url()->current(), '/admin/') !== false) {
+          return false;
+        }
+        return true;
     }
 }
