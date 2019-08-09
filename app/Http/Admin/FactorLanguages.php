@@ -139,11 +139,11 @@ class FactorLanguages extends Section implements Initializable
                     return $scripts;
                 }),
             AdminFormElement::text('name')->setName('nameEng')->setLabel('Название фактора')->required(),
-            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Описание фатора')->required()
+            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Описание фактора')->required()
         ]);
         $formRu = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название фактора')->required(),
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание фатора')->required()
+            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание фактора')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([
             AdminFormElement::custom()

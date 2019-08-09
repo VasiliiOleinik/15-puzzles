@@ -27,8 +27,15 @@ class LanguageScope implements Scope
      */
     public static function notInDashboard()
     {
-        if (strpos(url()->current(), '/admin/') !== false) {
-          return false;
+        //мы в админке на странице create (исключение)
+        if (strpos(url()->current(), '/admin') !== false) {
+            if (strpos(url()->current(), '/create') !== false) {
+                return true;
+            }
+        }
+        //мы в админке
+        if (strpos(url()->current(), '/admin') !== false) {
+            return false;
         }
         return true;
     }

@@ -58,7 +58,7 @@ class DiseaseLanguages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $title = 'Факторы';
+    protected $title = 'Болезни';
 
     /**
      * @var string
@@ -78,8 +78,8 @@ class DiseaseLanguages extends Section implements Initializable
             })
             ->setColumns(
                 AdminColumn::text('disease_id')->setLabel('disease id'),
-                AdminColumnEditable::text('name')->setLabel('Название фактора'),
-                AdminColumnEditable::textarea('content')->setLabel('Описание Фактора')->setWidth(8000),
+                AdminColumnEditable::text('name')->setLabel('Название болезни'),
+                AdminColumnEditable::textarea('content')->setLabel('Описание болезни')
             );
 
         return $display->setView(view('sleeping-owl.display.table'));
@@ -92,15 +92,12 @@ class DiseaseLanguages extends Section implements Initializable
      */
     public function onEdit($id)
     {
-        Config::set('app.locale', 'eng');
-
-        $imageSrc = Factor::find( $this->model::find($id)->factor_id )->img;
-        $image = '<img id="img-admin" src="'.$imageSrc.'" width="30%" style="max-width: 400px;">';                     
+        Config::set('app.locale', 'eng');                 
 
         $form = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setLabel('Название фактора')->setReadonly(1),
                 
-            AdminFormElement::multiselect('disease.factors', 'Болезни')->setModelForOptions(\App\Models\Disease\FactorLanguage::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.factors', 'Факторы')->setModelForOptions(\App\Models\Factor\FactorLanguage::class)->setDisplay('name'),
             AdminFormElement::multiselect('disease.protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
             AdminFormElement::multiselect('disease.remedies', 'Лекарства')->setModelForOptions(\App\Models\RemedyLanguage::class)->setDisplay('name'),
             AdminFormElement::multiselect('disease.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\MarkerLanguage::class)->setDisplay('name')
@@ -119,23 +116,24 @@ class DiseaseLanguages extends Section implements Initializable
         //(заполняются hidden поля на вкладке связей)
         $scripts = "<script src='/js/backend/factorLanguages.js')></script>";        
 
-        $formEng = AdminForm::panel()->addBody([
+        $formEng = AdminForm::panel()
+            ->addBody([
             AdminFormElement::custom()
                 ->setDisplay(function($instance) use($scripts) {
                     return $scripts;
                 }),
-            AdminFormElement::text('name')->setName('nameEng')->setLabel('Название фактора')->required(),
-            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Описание фатора')->required()
+            AdminFormElement::text('name')->setName('nameEng')->setLabel('Название болезни')->required(),
+            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Описание болезни')->required()
         ]);
         $formRu = AdminForm::panel()->addBody([           
-            AdminFormElement::text('name')->setName('nameRu')->setLabel('Название фактора')->required(),
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание фатора')->required()
+            AdminFormElement::text('name')->setName('nameRu')->setLabel('Название болезни')->required(),
+            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание болезни')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([                                           
-            AdminFormElement::multiselect('factor.diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\DiseaseLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('factor.protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('factor.remedies', 'Лекарства')->setModelForOptions(\App\Models\Remedy::class)->setDisplay('name'),
-            AdminFormElement::multiselect('factor.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\Marker::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.factors', 'Факторы')->setModelForOptions(\App\Models\Factor\FactorLanguage::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.remedies', 'Лекарства')->setModelForOptions(\App\Models\RemedyLanguage::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\MarkerLanguage::class)->setDisplay('name'),
 
             AdminFormElement::hidden('nameEng'),
             AdminFormElement::hidden('contentEng'),
@@ -144,9 +142,9 @@ class DiseaseLanguages extends Section implements Initializable
         ]);
 
         $tabs = AdminDisplay::tabbed();
-        $tabs->appendTab($formEng, 'Фактор eng');
-        $tabs->appendTab($formRu, 'Фактор ru');
-        $tabs->appendTab($formRelations, 'Фактор связи');
+        $tabs->appendTab($formEng, 'Болезнь eng');
+        $tabs->appendTab($formRu, 'Болезнь ru');
+        $tabs->appendTab($formRelations, 'Болезнь связи');
         
         return $tabs;
     }
@@ -170,12 +168,12 @@ class DiseaseLanguages extends Section implements Initializable
     //заголовок для создания записи
     public function getCreateTitle()
     {
-        return 'Создание фактора';
+        return 'Создание болезни';
     }
 
     // иконка для пункта меню - шестеренка
     public function getIcon()
     {
-        return 'fa fa-retweet';
+        return 'fa fa-stethoscope';
     }
 }

@@ -115,7 +115,6 @@ class FactorsController extends Controller
      */
     public function edit($id, Request $request)
     {
-        //dd($request->all());
         $id = FactorLanguage::find($id)->factor_id;
         $factor = Factor::find($id);
         if($request->img != null){          
@@ -125,16 +124,16 @@ class FactorsController extends Controller
         $factor->save();
 
         if(array_key_exists("diseases", $request->factor)){
-            $factor->diseases()->attach($request->factor['diseases']);
+            $factor->diseases()->sync($request->factor['diseases']);
         }
         if(array_key_exists("protocols", $request->factor)){
-        $factor->protocols()->attach($request->factor['protocols']);
+        $factor->protocols()->sync($request->factor['protocols']);
         }
         if(array_key_exists("remedies", $request->factor)){
-            $factor->remedies()->attach($request->factor['remedies']);
+            $factor->remedies()->sync($request->factor['remedies']);
         }
         if(array_key_exists("markers", $request->factor)){
-            $factor->markers()->attach($request->factor['markers']);
+            $factor->markers()->sync($request->factor['markers']);
         }
 
         Cache::forget('factor_eng');

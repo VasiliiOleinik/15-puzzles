@@ -16,7 +16,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\MemberCase::class => 'App\Http\Admin\MemberCases',
         \App\Models\Comment::class => 'App\Http\Admin\Comments',
         \App\Models\Factor\FactorLanguage::class => 'App\Http\Admin\FactorLanguages',
-        //\App\Models\Disease\Disease::class => 'App\Http\Admin\Diseases',
+        \App\Models\Disease\DiseaseLanguage::class => 'App\Http\Admin\DiseaseLanguages',
         //\App\Models\Role\Role::class => 'App\Http\Admin\Roles',
     ];
 
