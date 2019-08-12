@@ -32,6 +32,9 @@ class LanguageScope implements Scope
             if (strpos(url()->current(), '/create') !== false) {
                 return true;
             }
+            if (strpos(url()->current(), '/edit') !== false) {
+                return true;
+            }
         }
         //мы в админке
         if (strpos(url()->current(), '/admin') !== false) {

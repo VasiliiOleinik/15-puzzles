@@ -36,7 +36,8 @@ class ProtocolsController extends Controller
         'nameEng' => ['required', 'string', 'max:191'],
         'nameRu' => ['required', 'string', 'max:191'],       
         'contentEng' => ['required', 'max:64000'],
-        'contentRu' => ['required', 'max:64000'],           
+        'contentRu' => ['required', 'max:64000'],
+        'url' => ['nullable'],
         ]);
 
         $protocolLanguageEng = new ProtocolLanguage;
@@ -46,22 +47,12 @@ class ProtocolsController extends Controller
         $protocol->id = Protocol::orderBy('id', 'desc')->first()->id + 1;
         
         $protocol->evidence_id = $request->protocol['evidence_id'];
-        $protocol->url = $request->protocol['url'];  
+        if($request->url != null){   
+            $protocol->url = $request->protocol['url'];
+        }
         $protocol->save();
 
-        if(array_key_exists("factors", $request->protocol)){
-            $protocol->factors()->sync($request->protocol['factors']);
-            Protocol::factors()->sync($request->protocol['factors']);
-        }
-        if(array_key_exists("diseases", $request->protocol)){
-            $protocol->diseases()->sync($request->protocol['diseases']);
-        }
-        if(array_key_exists("remedies", $request->protocol)){
-            $protocol->remedies()->sync($request->protocol['remedies']);
-        }
-        if(array_key_exists("markers", $request->protocol)){
-            $protocol->markers()->sync($request->protocol['markers']);
-        }
+        $this->setRelations($protocol->id, $protocol, $request);
 
         $protocolLanguageEng->language = "eng";
         $protocolLanguageEng->name = $request['nameEng'];
@@ -121,18 +112,7 @@ class ProtocolsController extends Controller
         $protocol->url = $request->protocol['url'];  
         $protocol->save();
 
-        if(array_key_exists("factors", $request->protocol)){
-            $protocol->factors()->sync($request->protocol['factors']);
-        }
-        if(array_key_exists("diseases", $request->protocol)){
-            $protocol->diseases()->sync($request->protocol['diseases']);
-        }
-        if(array_key_exists("remedies", $request->protocol)){
-            $protocol->remedies()->sync($request->protocol['remedies']);
-        }
-        if(array_key_exists("markers", $request->protocol)){
-            $protocol->markers()->sync($request->protocol['markers']);
-        }
+        $this->setRelations($id, $protocol, $request);
 
         Cache::forget('protocol_eng');
         Cache::forget('protocol_ru');
@@ -174,5 +154,81 @@ class ProtocolsController extends Controller
         Cache::forget('protocol_eng');
         Cache::forget('protocol_ru');
         return Redirect::to('/admin/protocolLanguages/');
+    }
+
+    /**
+     * Set model relations
+     *
+     * @param  int  $id, Protocol $model, Request $request
+     */
+    public function setRelations($id, $model, $request){
+        //связи
+        if(array_key_exists("factors", $request->protocol)){
+            $model->factors()->sync($request->protocol['factors']);
+            $factors = Factor::with('protocols')->whereIn('id',$request->protocol['factors'])->get();
+            foreach($factors as $factor){
+                $factor->protocols()->sync($id);
+                if(array_key_exists("diseases", $request->protocol)){
+                    $factor->diseases()->sync($request->protocol['diseases']);
+                }
+                if(array_key_exists("remedies", $request->protocol)){
+                    $factor->remedies()->sync($request->protocol['remedies']);
+                }
+                if(array_key_exists("markers", $request->protocol)){
+                    $factor->markers()->sync($request->protocol['markers']);
+                }
+            }
+        }else{
+            $model->factors()->sync([]);
+        }
+        if(array_key_exists("diseases", $request->protocol)){
+            $model->diseases()->sync($request->protocol['diseases']);
+            $diseases = Disease::with('protocols')->whereIn('id',$request->protocol['diseases'])->get();
+            foreach($diseases as $disease){
+                $disease->protocols()->sync($id);
+                if(array_key_exists("factors", $request->protocol)){
+                    $disease->factors()->sync($request->protocol['factors']);
+                }
+                if(array_key_exists("remedies", $request->protocol)){
+                    $disease->remedies()->sync($request->protocol['remedies']);
+                }
+                if(array_key_exists("markers", $request->protocol)){
+                    $disease->markers()->sync($request->protocol['markers']);
+                }
+            }
+        }
+        else{
+            $model->diseases()->sync([]);
+        }
+        if(array_key_exists("remedies", $request->protocol)){
+            $model->remedies()->sync($request->protocol['remedies']);
+            $remedies = Remedy::with('protocols')->whereIn('id',$request->protocol['remedies'])->get();
+            foreach($remedies as $remedy){
+                $remedy->protocols()->sync($id);
+                if(array_key_exists("factors", $request->protocol)){
+                    $remedy->factors()->sync($request->protocol['factors']);
+                }
+                if(array_key_exists("diseases", $request->protocol)){
+                    $remedy->diseases()->sync($request->protocol['diseases']);
+                }
+            }
+        }else{
+            $model->remedies()->sync([]);
+        }
+        if(array_key_exists("markers", $request->protocol)){
+            $model->markers()->sync($request->protocol['markers']);
+            $markers = Marker::with('protocols')->whereIn('id',$request->protocol['markers'])->get();
+            foreach($markers as $marker){
+                $marker->protocols()->sync($id);
+                if(array_key_exists("factors", $request->protocol)){
+                    $marker->factors()->sync($request->protocol['factors']);
+                }
+                if(array_key_exists("diseases", $request->protocol)){
+                    $marker->diseases()->sync($request->protocol['diseases']);
+                }
+            }
+        }else{
+            $model->markers()->sync([]);
+        }
     }
 }

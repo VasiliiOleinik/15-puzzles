@@ -94,17 +94,7 @@ class MainController extends Controller
         $evidences = Cache::remember('evidences_'.app()->getLocale(), now()->addDay(1), function(){
                 return Evidence::all();
         });
-        //dd(FactorLanguage::with('factor.type'));
-        //dd(Cache::get('markerMethod_'.app()->getLocale())[0]->methods );
-        //dd($markerMethods[4]->methods);
-        //dd($markers[1]->methods()->get());
-        /*foreach($markers as $marker){
-            foreach($marker->methods as $method){
-                dd($method);
-            }
-        }*/
-        //dd( $factors[0]->factor()->get() );
-        //dd( Method::with('methodLanguage')->find(1)->methodLanguage()->get() );
+
         $data = [
             'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods', 'markerMethods',
             'newsLatest'

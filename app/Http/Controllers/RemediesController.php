@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Remedy;
+use App\Models\Factor\Factor;
+use App\Models\Disease\Disease;
+use App\Models\Protocol\Protocol;
+use App\Models\Marker\Marker;
 use App\Models\RemedyLanguage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Artisan;

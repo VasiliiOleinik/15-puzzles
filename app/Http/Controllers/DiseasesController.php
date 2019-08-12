@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Disease\Disease;
 use App\Models\Disease\DiseaseLanguage;
+use App\Models\Factor\Factor;
+use App\Models\Protocol\Protocol;
+use App\Models\Remedy;
+use App\Models\Marker\Marker;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
@@ -54,7 +58,9 @@ class DiseasesController extends Controller
         if(array_key_exists("markers", $request->disease)){
             $disease->markers()->sync($request->disease['markers']);
         }
-        
+
+        $this->setRelations($disease->id, $disease, $request);
+
         $diseaseLanguageEng->language = "eng";
         $diseaseLanguageEng->name = $request['nameEng'];
         $diseaseLanguageEng->content = $request['contentEng'];
@@ -121,6 +127,8 @@ class DiseasesController extends Controller
             $disease->markers()->sync($request->disease['markers']);
         }
 
+        $this->setRelations($id, $disease, $request);
+
         Cache::forget('disease_eng');
         Cache::forget('disease_ru');
 
@@ -162,5 +170,81 @@ class DiseasesController extends Controller
         Cache::forget('disease_eng');
         Cache::forget('disease_ru');
         return Redirect::to('/admin/diseaseLanguages/');
+    }
+
+    /**
+     * Set model relations
+     *
+     * @param  int  $id, Disease $model, Request $request
+     */
+    public function setRelations($id, $model, $request){
+        //связи
+        if(array_key_exists("factors", $request->disease)){
+            $model->factors()->sync($request->disease['factors']);
+            $factors = Factor::with('diseases')->whereIn('id',$request->disease['factors'])->get();
+            foreach($factors as $factor){
+                $factor->diseases()->sync($id);
+                if(array_key_exists("protocols", $request->disease)){
+                    $factor->protocols()->sync($request->disease['protocols']);
+                }
+                if(array_key_exists("remedies", $request->disease)){
+                    $factor->remedies()->sync($request->disease['remedies']);
+                }
+                if(array_key_exists("markers", $request->disease)){
+                    $factor->markers()->sync($request->disease['markers']);
+                }
+            }
+        }else{
+            $model->factors()->sync([]);
+        }
+        if(array_key_exists("protocols", $request->disease)){
+            $model->protocols()->sync($request->disease['protocols']);
+            $protocols = Protocol::with('diseases')->whereIn('id',$request->disease['protocols'])->get();
+            foreach($protocols as $protocol){
+                $protocol->diseases()->sync($id);
+                if(array_key_exists("factors", $request->disease)){
+                    $protocol->factors()->sync($request->disease['factors']);
+                }
+                if(array_key_exists("remedies", $request->disease)){
+                    $protocol->remedies()->sync($request->disease['remedies']);
+                }
+                if(array_key_exists("markers", $request->disease)){
+                    $protocol->markers()->sync($request->disease['markers']);
+                }
+            }
+        }
+        else{
+            $model->protocols()->sync([]);
+        }
+        if(array_key_exists("remedies", $request->disease)){
+            $model->remedies()->sync($request->disease['remedies']);
+            $remedies = Remedy::with('diseases')->whereIn('id',$request->disease['remedies'])->get();
+            foreach($remedies as $remedy){
+                $remedy->diseases()->sync($id);
+                if(array_key_exists("factors", $request->disease)){
+                    $remedy->factors()->sync($request->disease['factors']);
+                }
+                if(array_key_exists("protocols", $request->disease)){
+                    $remedy->protocols()->sync($request->disease['protocols']);
+                }
+            }
+        }else{
+            $model->remedies()->sync([]);
+        }
+        if(array_key_exists("markers", $request->disease)){
+            $model->markers()->sync($request->disease['markers']);
+            $markers = Marker::with('diseases')->whereIn('id',$request->disease['markers'])->get();
+            foreach($markers as $marker){
+                $marker->diseases()->sync($id);
+                if(array_key_exists("factors", $request->disease)){
+                    $marker->factors()->sync($request->disease['factors']);
+                }
+                if(array_key_exists("protocols", $request->disease)){
+                    $marker->protocols()->sync($request->disease['protocols']);
+                }
+            }
+        }else{
+            $model->markers()->sync([]);
+        }
     }
 }
