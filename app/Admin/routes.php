@@ -10,8 +10,8 @@ Route::post('/users', ['as' => 'admin.users', function () {
 	return AdminSection::view($content, 'Dashboard');
 }]);
 
-Route::get('/config','App\Http\Controllers\ConfigController@index')->name('admin.config');
-Route::post('/config/link', 'App\Http\Controllers\ConfigController@link')->name('admin.config.link');
+Route::get('/options','App\Http\Controllers\OptionsController@index')->name('admin.options');
+Route::post('/options/post', 'App\Http\Controllers\OptionsController@post')->name('admin.options.post');
 
 Route::group([ 'middleware' => 'debugbarDisable' ], function() {
     Route::get('/pages/main','App\Http\Controllers\PagesController@main')->name('admin.pages.main');

@@ -50,7 +50,7 @@ return [
     [
         'title' => 'Настройки',
         'icon'  => 'fa fa-cog',
-        'url'   => url('/admin/config'),
+        'url'   => url('/admin/options'),
     ],
 
      [
@@ -64,9 +64,11 @@ return [
                 'url'   => url('/admin/pages/main'),
             ],
             [
+                'model'    => \App\Models\MemberCase\MemberCase::class,
                 'title' => 'Истории болезней',
                 'icon'  => 'fa fa-address-card',
-                'url'   => url('/admin/pages/member-cases'),
+                //'url'   => url('/admin/pages/member-cases'),
+                'url'   => url('/admin/member-cases'),                
             ],
             [
                 'title' => 'Диаграмма факторов',

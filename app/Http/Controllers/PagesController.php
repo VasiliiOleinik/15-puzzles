@@ -10,41 +10,69 @@ use Illuminate\Support\Facades\Redirect;
 class PagesController extends Controller
 {
     public function main(Request $request)
-    {              
-       $logo = config('puzzles.logo');
-
-       $titleRu = config('puzzles.title_ru');       
-       $titleEng = config('puzzles.title_eng');
-
-       $h1Ru = config('puzzles.h1_ru');
-       $h1Eng = config('puzzles.h1_eng');
-
-       $descriptionRu = config('puzzles.description_ru');
-       $descriptionEng = config('puzzles.description_eng');
-
-       $puzzlesDescriptionRu = config('puzzles.puzzles_description_ru');
-       $puzzlesDescriptionEng = config('puzzles.puzzles_description_eng');
-
-       $linkVideo = config('puzzles.video_url');
-
-       $content = view('sleeping-owl.pages.main',compact(['logo', 'titleRu', 'h1Ru', 'titleEng', 'h1Eng',
-                                                          'descriptionRu', 'descriptionEng', 'puzzlesDescriptionRu',
-                                                          'puzzlesDescriptionEng', 'linkVideo']));
+    {
+       $content = view('sleeping-owl.pages.main');
 	   return AdminSection::view($content, 'Страницы: главная');
     }
 
-     public function post(Request $request)
+    public function memberCases(Request $request)
     {              
-       $fileName = 'puzzles';
-       $this->rewriteConfig($fileName, 'logo' , $request->logo);
-       $this->rewriteConfig($fileName, 'title_ru' , $request->titleRu);
-       $this->rewriteConfig($fileName, 'title_eng' , $request->titleEng);
-       $this->rewriteConfig($fileName, 'h1_ru' , $request->h1Ru);
-       $this->rewriteConfig($fileName, 'h1_eng' , $request->h1Eng);
-       $this->rewriteConfig($fileName, 'description_ru' , $request->descriptionRu);
-       $this->rewriteConfig($fileName, 'description_eng' , $request->descriptionEng);
-       $this->rewriteConfig($fileName, 'puzzles_description_ru' , $request->puzzlesDescriptionRu);
-       $this->rewriteConfig($fileName, 'puzzles_description_eng' , $request->puzzlesDescriptionEng);
+       $content = view('sleeping-owl.pages.member-cases');
+	   return AdminSection::view($content, 'Страницы: истории болезней');
+    }
+
+    public function factorDiagram(Request $request)
+    {              
+       $content = view('sleeping-owl.pages.factor-diagram');
+	   return AdminSection::view($content, 'Страницы: диаграмма факторов');
+    }
+
+    public function about(Request $request)
+    {
+       $content = view('sleeping-owl.pages.about');
+	   return AdminSection::view($content, 'Страницы: о нас');
+    }
+
+    public function news(Request $request)
+    {              
+       $content = view('sleeping-owl.pages.news');
+	   return AdminSection::view($content, 'Страницы: новости');
+    }
+
+    public function literature(Request $request)
+    {              
+       $content = view('sleeping-owl.pages.literature');
+	   return AdminSection::view($content, 'Страницы: литература');
+    }
+
+    public function faq(Request $request)
+    {              
+       $content = view('sleeping-owl.pages.faq');
+	   return AdminSection::view($content, 'Страницы: faq');
+    }
+
+    public function post(Request $request)
+    {
+       if($request->page == "main"){
+           $this->rewriteConfig($request->page, 'logo' , $request->logo);
+           $this->rewriteConfig($request->page, 'title_ru' , $request->titleRu);
+           $this->rewriteConfig($request->page, 'title_eng' , $request->titleEng);
+           $this->rewriteConfig($request->page, 'h1_ru' , $request->h1Ru);
+           $this->rewriteConfig($request->page, 'h1_eng' , $request->h1Eng);
+           $this->rewriteConfig($request->page, 'description_ru' , $request->descriptionRu);
+           $this->rewriteConfig($request->page, 'description_eng' , $request->descriptionEng);
+           $this->rewriteConfig($request->page, 'puzzles_description_ru' , $request->puzzlesDescriptionRu);
+           $this->rewriteConfig($request->page, 'puzzles_description_eng' , $request->puzzlesDescriptionEng);
+           $this->rewriteConfig($request->page, 'link_video' , $request->linkVideo);
+       }
+       if($request->page == "about"){
+           $this->rewriteConfig($request->page, 'img' , $request->img);
+           $this->rewriteConfig($request->page, 'description_ru' , $request->descriptionRu);
+           $this->rewriteConfig($request->page, 'description_eng' , $request->descriptionEng);
+           $this->rewriteConfig($request->page, 'puzzles_description_ru' , $request->puzzlesDescriptionRu);
+           $this->rewriteConfig($request->page, 'puzzles_description_eng' , $request->puzzlesDescriptionEng);
+       }
+
 
        return Redirect::back();
     }
@@ -52,7 +80,7 @@ class PagesController extends Controller
     public function rewriteConfig($fileName, $variableName, $variableValue)
     {
        config([$fileName.'.'.$variableName => $variableValue]);
-       $fp = fopen(base_path() .'/config/'.$fileName.'.php' , 'w');
+       $fp = fopen(base_path() .'/config/puzzles/'.$fileName.'.php' , 'w');
        fwrite($fp, '<?php return ' . var_export(config($fileName), true) . ';');
        fclose($fp);
     }

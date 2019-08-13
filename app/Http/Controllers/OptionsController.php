@@ -7,7 +7,7 @@ use AdminSection;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 
-class ConfigController extends Controller
+class OptionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,22 +16,19 @@ class ConfigController extends Controller
      */
     public function index()
     {
-       $adminEmail =  config('puzzles.admin_email');
-       $privacyPolicy =  config('puzzles.privacy_policy');
-       $termsOfService =  config('puzzles.terms_of_service');
-
-       $content = view('sleeping-owl.config.index',compact(['adminEmail', 'privacyPolicy', 'termsOfService']));
+       $content = view('sleeping-owl.options.options');
 	   return AdminSection::view($content, 'Настройки');
     }
 
-    public function link(Request $request)
+    public function post(Request $request)
     {              
-       $fileName = 'puzzles';
+       $fileName = 'puzzles.options';
        $this->rewriteConfig($fileName, 'admin_email' , $request->adminEmail);
+       $this->rewriteConfig($fileName, 'logo' , $request->logo);
        $this->rewriteConfig($fileName, 'privacy_policy' , $request->privacyPolicy);
        $this->rewriteConfig($fileName, 'terms_of_service' , $request->termsOfService);
 
-       return Redirect::to('/admin/config');
+       return Redirect::back();
     }
 
     public function rewriteConfig($fileName, $variableName, $variableValue)
