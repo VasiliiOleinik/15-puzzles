@@ -22,7 +22,7 @@ class OptionsController extends Controller
 
     public function post(Request $request)
     {              
-       $fileName = 'puzzles.options';
+       $fileName = 'options';
        $this->rewriteConfig($fileName, 'admin_email' , $request->adminEmail);
        $this->rewriteConfig($fileName, 'logo' , $request->logo);
        $this->rewriteConfig($fileName, 'privacy_policy' , $request->privacyPolicy);
@@ -34,7 +34,7 @@ class OptionsController extends Controller
     public function rewriteConfig($fileName, $variableName, $variableValue)
     {
        config([$fileName.'.'.$variableName => $variableValue]);
-       $fp = fopen(base_path() .'/config/'.$fileName.'.php' , 'w');
+       $fp = fopen(base_path() .'/config/puzzles/'.$fileName.'.php' , 'w');
        fwrite($fp, '<?php return ' . var_export(config($fileName), true) . ';');
        fclose($fp);
     }
