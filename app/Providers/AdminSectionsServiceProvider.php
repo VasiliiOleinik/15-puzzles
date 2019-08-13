@@ -15,11 +15,14 @@ class AdminSectionsServiceProvider extends ServiceProvider
         //\App\Models\User\User::class => 'App\Http\Admin\Users',
         \App\Models\MemberCase::class => 'App\Http\Admin\MemberCases',
         \App\Models\Comment::class => 'App\Http\Admin\Comments',
+
         \App\Models\Factor\FactorLanguage::class => 'App\Http\Admin\FactorLanguages',
         \App\Models\Disease\DiseaseLanguage::class => 'App\Http\Admin\DiseaseLanguages',
         \App\Models\Protocol\ProtocolLanguage::class => 'App\Http\Admin\ProtocolLanguages',
         \App\Models\RemedyLanguage::class => 'App\Http\Admin\RemedyLanguages',
         \App\Models\Marker\MarkerLanguage::class => 'App\Http\Admin\MarkerLanguages',
+
+        \App\Models\Article\ArticleLanguage::class => 'App\Http\Admin\ArticleLanguages',
         //\App\Models\Role\Role::class => 'App\Http\Admin\Roles',
     ];
 

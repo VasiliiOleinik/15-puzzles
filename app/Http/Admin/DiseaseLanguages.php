@@ -73,9 +73,6 @@ class DiseaseLanguages extends Section implements Initializable
         $display = AdminDisplay::datatablesAsync();
         $display
             ->with(['disease'])
-            ->setApply(function ($query) {
-                $query->withoutGlobalScopes();
-            })
             ->setColumns(
                 AdminColumn::text('disease_id')->setLabel('disease id'),
                 AdminColumnEditable::text('name')->setLabel('Название болезни'),

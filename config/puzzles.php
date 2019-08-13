@@ -1,71 +1,16 @@
-<?php
-
-return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Admin Email
-    |--------------------------------------------------------------------------
-    |
-    | Email where will be sent letters
-    |
-    */
-
-    'admin_email' => "admin@test.com",
-
-    /*
-    |--------------------------------------------------------------------------
-    | Logo 
-    |--------------------------------------------------------------------------
-    |
-    | Path to site logo
-    |
-    */
-
-    'logo' => "/img/svg/logo.svg",
-
-    /*
-    |--------------------------------------------------------------------------
-    | Video Url
-    |--------------------------------------------------------------------------
-    |
-    | Set video url
-    |
-    */
-
-    'video_url' => "http://techslides.com/demos/sample-videos/small.mp4",
-
-    /*
-    |--------------------------------------------------------------------------
-    | Privacy Policy
-    |--------------------------------------------------------------------------
-    |
-    | Text of privacy policy
-    |
-    */
-
-    'privacy_policy' => "some privacy policy text",
-
-    /*
-    |--------------------------------------------------------------------------
-    | Terms Of Service
-    |--------------------------------------------------------------------------
-    |
-    | Text of terms of service
-    |
-    */
-
-    'terms_of_service' => "some terms of service text",
-
-    /*
-    |--------------------------------------------------------------------------
-    | About Image
-    |--------------------------------------------------------------------------
-    |
-    | Image of about page
-    |
-    */
-
-    'about_img' => "/img/about_bg.jpg",
-
-];
+<?php return array (
+  'admin_email' => 'admin@test.com',
+  'logo' => '/img/svg/logo.svg',
+  'title_ru' => 'Русское название страницы main',
+  'title_eng' => 'English title of the main page',
+  'h1_ru' => 'Русский h1 страницы main',
+  'h1_eng' => 'English h1 of the main page',
+  'description_ru' => 'Описание на главной странице',
+  'description_eng' => 'Description of the main page',
+  'puzzles_description_ru' => 'Описание под пазлами на главной странице',
+  'puzzles_description_eng' => 'Under puzzles description of the main page',
+  'video_url' => 'dfgdfgf',
+  'privacy_policy' => 'some privacy policy text',
+  'terms_of_service' => 'some terms of service text',
+  'about_img' => '/img/about_bg.jpg',
+);

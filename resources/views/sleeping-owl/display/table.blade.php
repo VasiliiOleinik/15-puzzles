@@ -40,11 +40,14 @@
     let timerId = setInterval(function(){
         if($('tr.even').length > 0){
             $('tr.even').find('.text-right').remove();
+            let url = $('tr.even').find('.text-right').find('a')
+            let urlSplit = url.split('/');
+            let id = urlSplit[urlSplit.length-2];
             count++;
         }
-        if(count>100){
+        /*if(count>100){
             clearInterval(timerId)
-        }
-    }, 1);                                     
+        }*/
+    }, 500);                                     
     }, false);
 </script>

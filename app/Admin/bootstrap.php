@@ -33,6 +33,10 @@ Route::delete('/admin/markerLanguages/{id}/delete', 'App\Http\Controllers\Marker
 Route::post('/admin/markerLanguages/{id}/edit', 'App\Http\Controllers\MarkersController@edit');
 /* ---- */
 
+/* CONFIG.APP */
+//Route::get('/admin/config', 'App\Http\Controllers\ConfigController@index')->name('admin.config');;
+/* ---- */
+
 //Route::post('/admin/factorLanguages/{locale}/setFactorsLanguage', 'App\Http\Controllers\FactorsController@setFactorsLanguage');
 //Route::delete('/admin/factorLanguages/{id}/edi', 'App\Http\Controllers\FactorsController@destroy');
 //Route::delete('/admin/factorLanguages/{id}/destroy', 'App\Http\Controllers\FactorsController@destroy');
