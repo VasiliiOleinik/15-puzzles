@@ -1,4 +1,5 @@
-<script src="https://cdn.ckeditor.com/ckeditor5/12.3.1/classic/ckeditor.js"></script>
+@extends('sleeping-owl.pages.layout')
+@section('content')
 <form action="/admin/pages/post" method="post">
     @csrf
     <div class="form-group">
@@ -34,37 +35,5 @@
     </div>
     <button type="submit" class="btn btn-info">Accept</button>
 </form>
+@endsection
 
-<script type="text/javascript">
-    ClassicEditor
-        .create( document.querySelector( '#descriptionRu' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-     ClassicEditor
-        .create( document.querySelector( '#descriptionEng' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-     ClassicEditor
-        .create( document.querySelector( '#puzzlesDescriptionRu' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-     ClassicEditor
-        .create( document.querySelector( '#puzzlesDescriptionEng' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-    document.addEventListener("DOMContentLoaded", function(event) { 
-        $("[role=textbox]").each(function(index){
-            $(this).attr('name',$('textarea').eq(index).attr('id'));
-        });
-
-        $("body").on('DOMSubtreeModified', "[role=textbox]", function() {
-            let name = $(this).attr('name');
-            $('input[name='+name+']').attr('value',$(this).html())
-        });
-        
-    });
-</script> 

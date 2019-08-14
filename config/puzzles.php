@@ -1,16 +1,32 @@
 <?php return array (
+  'about' => 
+  array (
+    'about_description_ru' => 'Описание на about странице',
+    'about_description_eng' => 'Description of the about page',
+    'about_puzzles_description_ru' => 'Описание под пазлами на about странице',
+    'about_puzzles_description_eng' => 'Under puzzles description of the about page',
+    'about_img' => '/img/about_bg.jpg',
+  ),
+  'main' => 
+  array (
+    'title_ru' => NULL,
+    'title_eng' => NULL,
+    'h1_ru' => NULL,
+    'h1_eng' => NULL,
+    'description_ru' => NULL,
+    'description_eng' => NULL,
+    'puzzles_description_ru' => NULL,
+    'puzzles_description_eng' => NULL,
+  ),
+  'options' => 
+  array (
+    'admin_email' => 'admin@test.com',
+    'logo' => 'sdfdsf',
+    'privacy_policy' => 'some privacy policy text',
+    'terms_of_service' => 'some terms of service text',
+  ),
   'admin_email' => 'admin@test.com',
-  'logo' => '/img/svg/logo.svg',
-  'title_ru' => 'Русское название страницы main',
-  'title_eng' => 'English title of the main page',
-  'h1_ru' => 'Русский h1 страницы main',
-  'h1_eng' => 'English h1 of the main page',
-  'description_ru' => 'Описание на главной странице',
-  'description_eng' => 'Description of the main page',
-  'puzzles_description_ru' => 'Описание под пазлами на главной странице',
-  'puzzles_description_eng' => 'Under puzzles description of the main page',
-  'video_url' => 'dfgdfgf',
   'privacy_policy' => 'some privacy policy text',
   'terms_of_service' => 'some terms of service text',
-  'about_img' => '/img/about_bg.jpg',
+  'logo' => 'sdf',
 );

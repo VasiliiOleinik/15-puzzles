@@ -54,6 +54,7 @@ class PagesController extends Controller
     public function post(Request $request)
     {
        if($request->page == "main"){
+           //dd($request->all());
            $this->rewriteConfig($request->page, 'logo' , $request->logo);
            $this->rewriteConfig($request->page, 'title_ru' , $request->titleRu);
            $this->rewriteConfig($request->page, 'title_eng' , $request->titleEng);

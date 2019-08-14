@@ -14,6 +14,7 @@ use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
 use SleepingOwl\Admin\Contracts\Initializable;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Class MemberCases
@@ -74,7 +75,7 @@ class MemberCases extends Section implements Initializable
                 AdminColumn::text('status')->setLabel('статус'),          
                 AdminColumnEditable::checkbox('anonym')->setLabel('анонимная публикация'),
                 AdminColumn::text('created_at')->setLabel('создано'),
-                AdminColumn::relatedLink('user.nickname', 'пользователь', 'id')
+                AdminColumn::relatedLink('user.nickname', 'пользователь')
             )
              ->setFilters(
                 AdminDisplayFilter::field('user_id')->setTitle('id пользователя [:value]')
@@ -112,10 +113,8 @@ class MemberCases extends Section implements Initializable
      * @return FormInterface
      */
     public function onEdit($id)
-    {
+    {        
         $image = '<img id="img-admin" src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';
-        //dd($this->model::find($id)->toJson());
-        // поле var - нельзя редактировать, ибо нефиг системообразующий код редактировать
         return AdminForm::panel()->addBody([
             AdminFormElement::text('title')->setLabel('заголовок')->required(),
             AdminFormElement::select('status', 'статус')->setOptions(['show' => 'show', 'hide' => 'hide', 'moderating' => 'moderating']),
@@ -137,9 +136,6 @@ class MemberCases extends Section implements Initializable
     public function onCreate()
     {
         $image = '<img id="img-admin" src="" width="100%" style="max-width: 800px;">';
-        //$hidden = false;
-        //dd($this->model::find($id)->toJson());
-        // поле var - нельзя редактировать, ибо нефиг системообразующий код редактировать
         return AdminForm::panel()->addBody([
             AdminFormElement::text('title')->setLabel('заголовок')->required(),
             AdminFormElement::custom()

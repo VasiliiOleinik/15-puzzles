@@ -1,3 +1,5 @@
+@extends('sleeping-owl.pages.layout')
+@section('content')
 <form action="/admin/pages/post" method="post">
     @csrf
     <div class="form-group">
@@ -18,3 +20,4 @@
     </div>
     <button type="submit" class="btn btn-info">Accept</button>
 </form>
+@endsection
