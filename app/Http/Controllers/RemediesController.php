@@ -44,7 +44,8 @@ class RemediesController extends Controller
         $remedy = new Remedy;
         //находим наивысшее значение id и ставим больше на 1
         $remedy->id = Remedy::orderBy('id', 'desc')->first()->id + 1;
-        $remedy->url = $request->remedy['url'];        
+        $remedy->url = $request->remedy['url'];
+        $remedy->name = $request['nameEng'];
         $remedy->save();
         
         $remedyLanguageEng->language = "eng";

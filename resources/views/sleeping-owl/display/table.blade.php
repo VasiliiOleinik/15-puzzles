@@ -41,7 +41,6 @@
             $('tr[role=row]').each(function(index){
                 if(index != 0){
                     let lang =  $(this).find('td').eq( $(this).find('td').length - 2 ).find('.row-text').html().trim();
-                    console.log(lang)
                     if(lang != 'eng'){
                         $(this).find('.text-right').remove();
                     }

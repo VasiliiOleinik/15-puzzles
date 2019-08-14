@@ -47,10 +47,11 @@ class FactorsController extends Controller
         $factor = new Factor;
         //находим наивысшее значение id и ставим больше на 1
         $factor->id = Factor::orderBy('id', 'desc')->first()->id + 1;
+        $factor->name = $request['nameEng'];
         if($request->img != null){          
           $factor->img = $request['img'];
         } 
-        $factor->type_id = $request->factor['type_id'];
+        $factor->type_id = $request->factor['type_id'];        
         $factor->save();
 
         setRelations($factor->id, $factor, $request);

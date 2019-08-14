@@ -40,6 +40,7 @@ class MarkersController extends Controller
         $marker = new Marker;
         //находим наивысшее значение id и ставим больше на 1
         $marker->id = Marker::orderBy('id', 'desc')->first()->id + 1;
+        $marker->name = $request['nameEng'];
         $marker->save();
         
         $markerLanguageEng->language = "eng";

@@ -15,6 +15,7 @@ class CreateDiseasesTable extends Migration {
 		Schema::create('diseases', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('name', 50)->nullable();
 		});
 	}
 

@@ -15,6 +15,7 @@ class CreateProtocolsTable extends Migration {
 		Schema::create('protocols', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->string('name', 50)->nullable();
 			$table->integer('evidence_id')->unsigned()->default(1)->index('FK_protocols_evidences');
 			$table->string('url', 191)->nullable();
 		});

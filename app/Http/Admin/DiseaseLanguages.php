@@ -95,10 +95,10 @@ class DiseaseLanguages extends Section implements Initializable
         $form = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setLabel('Название фактора')->setReadonly(1),
                 
-            AdminFormElement::multiselect('disease.factors', 'Факторы')->setModelForOptions(\App\Models\Factor\FactorLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('disease.protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\ProtocolLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('disease.remedies', 'Лекарства')->setModelForOptions(\App\Models\RemedyLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('disease.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\MarkerLanguage::class)->setDisplay('name')
+            AdminFormElement::multiselect('disease.factors', 'Факторы')->setModelForOptions(\App\Models\Factor\Factor::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.protocols', 'Протоколы')->setModelForOptions(\App\Models\Protocol\Protocol::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.remedies', 'Лекарства')->setModelForOptions(\App\Models\Remedy::class)->setDisplay('name'),
+            AdminFormElement::multiselect('disease.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\Marker::class)->setDisplay('name')
         ]);
         return $form;
     }

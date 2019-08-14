@@ -35,7 +35,12 @@ class MarkerLanguagesTableSeeder extends Seeder
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - Marker::count()] );
         }
-
+        //делаем одинаковыми имена
+        foreach(Marker::all() as $marker){
+            $marker->name = MarkerLanguage::where('marker_id','=',$marker->id)
+                                          ->where('language','=','eng')->first()->name;
+            $marker->save();
+        }
         $methods = MethodLanguage::withoutGlobalScopes()->get();        
         // Populate the pivot table
         MarkerLanguage::withoutGlobalScopes()->where('id','<',Marker::count() + 1)->each(function ($marker) use ($methods) {       

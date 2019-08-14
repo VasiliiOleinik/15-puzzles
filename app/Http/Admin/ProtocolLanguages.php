@@ -108,10 +108,10 @@ class ProtocolLanguages extends Section implements Initializable
                                               ->setDisplay('name')
                                               ->setDefaultValue('1'), 
                 
-            AdminFormElement::multiselect('protocol.factors', 'Факторы')->setModelForOptions(\App\Models\Factor\FactorLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('protocol.diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\DiseaseLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('protocol.remedies', 'Лекарства')->setModelForOptions(\App\Models\RemedyLanguage::class)->setDisplay('name'),
-            AdminFormElement::multiselect('protocol.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\MarkerLanguage::class)->setDisplay('name')
+            AdminFormElement::multiselect('protocol.factors', 'Факторы')->setModelForOptions(\App\Models\Factor\Factor::class)->setDisplay('name'),
+            AdminFormElement::multiselect('protocol.diseases', 'Болезни')->setModelForOptions(\App\Models\Disease\Disease::class)->setDisplay('name'),
+            AdminFormElement::multiselect('protocol.remedies', 'Лекарства')->setModelForOptions(\App\Models\Remedy::class)->setDisplay('name'),
+            AdminFormElement::multiselect('protocol.markers', 'Анализы')->setModelForOptions(\App\Models\Marker\Marker::class)->setDisplay('name')
         ]);
         return $form;
     }

@@ -44,6 +44,7 @@ class DiseasesController extends Controller
         $disease = new Disease;
         //находим наивысшее значение id и ставим больше на 1
         $disease->id = Disease::orderBy('id', 'desc')->first()->id + 1;
+        $disease->name = $request['nameEng'];
         $disease->save();
 
         if(array_key_exists("factors", $request->disease)){

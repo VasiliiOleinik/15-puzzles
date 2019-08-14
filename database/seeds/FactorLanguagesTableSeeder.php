@@ -76,5 +76,11 @@ class FactorLanguagesTableSeeder extends Seeder
                 ->where('id', $i + 1)
                 ->update($data[$i]);
         }
+        //делаем одинаковыми имена
+        foreach(Factor::all() as $factor){
+            $factor->name = FactorLanguage::where('factor_id','=',$factor->id)
+                                          ->where('language','=','eng')->first()->name;
+            $factor->save();
+        }
     }
 }
