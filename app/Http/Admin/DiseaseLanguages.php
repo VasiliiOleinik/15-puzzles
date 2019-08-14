@@ -76,7 +76,8 @@ class DiseaseLanguages extends Section implements Initializable
             ->setColumns(
                 AdminColumn::text('disease_id')->setLabel('disease id'),
                 AdminColumnEditable::text('name')->setLabel('Название болезни'),
-                AdminColumnEditable::textarea('content')->setLabel('Описание болезни')
+                AdminColumnEditable::textarea('content')->setLabel('Описание болезни'),
+                AdminColumn::text('language')->setLabel('Язык')
             );
 
         return $display->setView(view('sleeping-owl.display.table'));

@@ -82,7 +82,8 @@ class ProtocolLanguages extends Section implements Initializable
                 AdminColumnEditable::textarea('subtitle')->setLabel('Заголовок описания протокола'),
                 AdminColumnEditable::textarea('content')->setLabel('Описание протокола'),
                 AdminColumn::text('protocol.evidence.name', '' ,'factor.evidence.id')->setLabel('степень доказанности'),
-                AdminColumn::text('protocol.url')->setLabel('Ссылка на протокол')
+                AdminColumn::text('protocol.url')->setLabel('Ссылка на протокол'),
+                AdminColumn::text('language')->setLabel('Язык')
             );
 
         return $display->setView(view('sleeping-owl.display.table'));

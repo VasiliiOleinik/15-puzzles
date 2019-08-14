@@ -77,7 +77,8 @@ class RemedyLanguages extends Section implements Initializable
                 AdminColumn::text('remedy_id')->setLabel('remedy id'),
                 AdminColumnEditable::text('name')->setLabel('Название лекарства'),
                 AdminColumnEditable::textarea('content')->setLabel('Описание лекарства'),
-                AdminColumn::text('remedy.url')->setLabel('Ссылка на лекарство')
+                AdminColumn::text('remedy.url')->setLabel('Ссылка на лекарство'),
+                AdminColumn::text('language')->setLabel('Язык')
             );
 
         return $display->setView(view('sleeping-owl.display.table'));
