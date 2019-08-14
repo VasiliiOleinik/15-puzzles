@@ -3,7 +3,7 @@
 <head>
   @include('layouts.include.meta')
   @include('layouts.include.css')
-  <title>15-puzzle</title>
+  <title>{{ config('puzzles.main.title_'.app()->getLocale()) }}</title>
 </head>
 <body>
 <div class="content-wrapper" id="contentWrapper">

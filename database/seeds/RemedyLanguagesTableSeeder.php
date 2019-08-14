@@ -31,5 +31,11 @@ class RemedyLanguagesTableSeeder extends Seeder
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - Remedy::count()] );
         }
+        //делаем одинаковыми имена
+        foreach(Remedy::all() as $remedy){
+            $remedy->name = RemedyLanguage::where('remedy_id','=',$remedy->id)
+                                          ->where('language','=','eng')->first()->name;
+            $remedy->save();
+        }
     }
 }

@@ -22,7 +22,7 @@ use SleepingOwl\Admin\Navigation\Page;
 // AdminSection::addMenuPage(\App\User::class)
 
 return [
-    [
+   /* [
         'title' => 'Dashboard',
         'icon'  => 'fa fa-dashboard',
         'url'   => route('admin.dashboard'),
@@ -45,7 +45,59 @@ return [
                 ->setIcon('fa fa-group')
                 ->setPriority(100)
         ]
+    ],*/
+
+    [
+        'title' => 'Настройки',
+        'icon'  => 'fa fa-cog',
+        'url'   => url('/admin/options'),
     ],
+
+     [
+        'title' => 'Страницы',
+        'icon'  => 'fa fa-book',
+        'url'   => url('/admin/pages'),
+        'pages' => [
+            [
+                'title' => 'Главная',
+                'icon'  => 'fa fa-home',
+                'url'   => url('/admin/pages/main'),
+            ],
+            [
+                'model'    => \App\Models\MemberCase\MemberCase::class,
+                'title' => 'Истории болезней',
+                'icon'  => 'fa fa-address-card',
+                //'url'   => url('/admin/pages/member-cases'),
+                'url'   => url('/admin/member-cases'),                
+            ],
+            [
+                'title' => 'Диаграмма факторов',
+                'icon'  => 'fa fa-retweet',
+                'url'   => url('/admin/pages/factor-diagram'),
+            ],
+            [
+                'title' => 'О нас',
+                'icon'  => 'fa fa-id-card',
+                'url'   => url('/admin/pages/about'),
+            ],
+            [
+                'title' => 'Новости',
+                'icon'  => 'fa fa-comment',
+                'url'   => url('/admin/news'),
+            ],
+            [
+                'title' => 'Литература',
+                'icon'  => 'fa fa-graduation-cap',
+                'url'   => url('/admin/pages/literature'),
+            ],
+            [
+                'title' => 'FAQ',
+                'icon'  => 'fa fa-question',
+                'url'   => url('/admin/pages/faq'),
+            ],
+        ]
+    ],
+   
 
     // Examples
     // [
@@ -66,11 +118,7 @@ return [
     //
     //        // or
     //
-    //        new Page([
-    //            'title'    => 'News',
-    //            'priority' => 200,
-    //            'model'    => \App\News::class
-    //        ]),
+    //        
     //
     //        // or
     //        (new Page(/* ... */))->setPages(function (Page $page) {

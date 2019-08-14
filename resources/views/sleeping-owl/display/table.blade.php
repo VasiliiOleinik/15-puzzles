@@ -7,8 +7,6 @@
 	<br />
 @endif
 
-{!! $buttonLocales !!}
-
 @yield('before.panel')
 
 <div class="panel panel-default {!! $panel_class !!}">
@@ -36,3 +34,18 @@
 </div>
 
 @yield('after.panel')
+<script>    
+    document.addEventListener('DOMContentLoaded', function () {
+        let timerId = setInterval(function(){
+            //оставляем только корректный edit id 
+            $('tr[role=row]').each(function(index){
+                if(index != 0){
+                    let lang =  $(this).find('td').eq( $(this).find('td').length - 2 ).find('.row-text').html().trim();
+                    if(lang != 'eng'){
+                        $(this).find('.text-right').remove();
+                    }
+                }
+            });
+        }, 50);                                    
+    }, false);
+</script>

@@ -30,6 +30,12 @@ class ProtocolLanguagesTableSeeder extends Seeder
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - Protocol::count(), 'evidence_id' => Protocol::find($i - Protocol::count())->evidence_id] );
-        }         
+        }
+        //делаем одинаковыми имена
+        foreach(Protocol::all() as $protocol){
+            $protocol->name = ProtocolLanguage::where('protocol_id','=',$protocol->id)
+                                          ->where('language','=','eng')->first()->name;
+            $protocol->save();
+        }
     }
 }
