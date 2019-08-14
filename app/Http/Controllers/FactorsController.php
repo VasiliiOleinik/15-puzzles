@@ -99,7 +99,7 @@ class FactorsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $id, Request $request
      * @return \Illuminate\Http\Response
      */
     public function edit($id, Request $request)

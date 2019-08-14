@@ -33,6 +33,12 @@ Route::delete('/admin/markerLanguages/{id}/delete', 'App\Http\Controllers\Marker
 Route::post('/admin/markerLanguages/{id}/edit', 'App\Http\Controllers\MarkersController@edit');
 /* ---- */
 
+/* NEWS */
+Route::post('/admin/news/create', 'App\Http\Controllers\NewsController@create');
+Route::delete('/admin/news/{id}/delete', 'App\Http\Controllers\NewsController@destroy');
+Route::post('/admin/news/{id}/edit', 'App\Http\Controllers\NewsController@edit');
+/* ---- */
+
 /* CONFIG.APP */
 //Route::get('/admin/config', 'App\Http\Controllers\ConfigController@index')->name('admin.config');;
 /* ---- */

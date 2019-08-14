@@ -36,18 +36,17 @@
 @yield('after.panel')
 <script>    
     document.addEventListener('DOMContentLoaded', function () {
-    let count = 0;
-    let timerId = setInterval(function(){
-        if($('tr.even').length > 0){
-            $('tr.even').find('.text-right').remove();
-            let url = $('tr.even').find('.text-right').find('a')
-            let urlSplit = url.split('/');
-            let id = urlSplit[urlSplit.length-2];
-            count++;
-        }
-        /*if(count>100){
-            clearInterval(timerId)
-        }*/
-    }, 500);                                     
+        let timerId = setInterval(function(){
+            //оставляем только корректный edit id 
+            $('tr[role=row]').each(function(index){
+                if(index != 0){
+                    let lang =  $(this).find('td').eq(4).find('.row-text').html().trim();
+                    console.log(lang)
+                    if(lang != 'eng'){
+                        $(this).find('.text-right').remove();
+                    }
+                }
+            });
+        }, 50);                                    
     }, false);
 </script>

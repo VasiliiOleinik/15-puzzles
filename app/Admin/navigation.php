@@ -83,7 +83,7 @@ return [
             [
                 'title' => 'Новости',
                 'icon'  => 'fa fa-comment',
-                'url'   => url('/admin/pages/news'),
+                'url'   => url('/admin/news'),
             ],
             [
                 'title' => 'Литература',

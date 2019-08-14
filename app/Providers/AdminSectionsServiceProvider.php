@@ -22,7 +22,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\RemedyLanguage::class => 'App\Http\Admin\RemedyLanguages',
         \App\Models\Marker\MarkerLanguage::class => 'App\Http\Admin\MarkerLanguages',
 
-        //\App\Models\Article\ArticleLanguage::class => 'App\Http\Admin\ArticleLanguages',
+        \App\Models\Article\ArticleLanguage::class => 'App\Http\Admin\ArticleLanguages',
         //\App\Models\Role\Role::class => 'App\Http\Admin\Roles',
     ];
 

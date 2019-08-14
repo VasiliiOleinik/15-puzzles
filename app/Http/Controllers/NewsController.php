@@ -10,6 +10,7 @@ use App\Models\Category\CategoryForNews;
 use App\Models\Category\CategoryForNewsLanguage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redirect;
 
 class NewsController extends Controller
 {
@@ -69,19 +70,20 @@ class NewsController extends Controller
 
             //если не выбраны ни категории, ни тэги => отображаем все статьи
             if( count($collection) > 0){
-                $articles = ArticleLanguage::with('article')->whereIn('article_id',$collection)->paginate(4);
+                $articles = ArticleLanguage::with('article')->whereIn('article_id',$collection)
+                                                            ->orderBy('article_id', 'DESC')->paginate(4);
             }else{
-                $articles = ArticleLanguage::with('article')->paginate(4);
+                $articles = ArticleLanguage::with('article')->orderBy('article_id', 'DESC')->paginate(4);
             }       
             return view('news.news-left.main-content', compact(['articles']));
         }
         //пагинация
         if($request->page){
-            $articles = ArticleLanguage::with('article')->paginate(4);
+            $articles = ArticleLanguage::with('article')->orderBy('article_id', 'DESC')->paginate(4);
             return view('news.news-left.main-content', compact(['articles']));
         }
         else{
-            $articles = ArticleLanguage::with('article')->paginate(4);
+            $articles = ArticleLanguage::with('article')->orderBy('article_id', 'DESC')->paginate(4);
             return view('news.news', compact(['articles','categoriesForNews']));
         }
     }
@@ -169,5 +171,93 @@ class NewsController extends Controller
             return view($request->view, ['tags' => TagLanguage::whereIn('tag_id',$tags_id)->get()]);
         }
         return view($request->view, ['tags' => TagLanguage::whereIn('tag_id',$request['tags'])->get()]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        
+        $validatedData = $request->validate([
+        'titleEng' => ['required', 'string', 'max:191'],
+        'titleRu' => ['required', 'string', 'max:191'],
+        'descriptionEng' => ['required', 'max:64000'],
+        'descriptionRu' => ['required', 'max:64000'],  
+        'contentEng' => ['required', 'max:64000'],
+        'contentRu' => ['required', 'max:64000'],      
+        'img' => ['nullable'],       
+        ]);
+        
+        $articleLanguageEng = new ArticleLanguage;
+        $articleLanguageRu = new ArticleLanguage;
+        $article = new Article;
+        //находим наивысшее значение id и ставим больше на 1
+        $article->id = Article::orderBy('id', 'desc')->first()->id + 1;
+        if($request->img != null){          
+          $article->img = $request['img'];
+        } 
+        $article->save();
+
+        $articleLanguageEng->language = "eng";
+        $articleLanguageEng->title = $request['titleEng'];
+        $articleLanguageEng->description = $request['descriptionEng'];
+        $articleLanguageEng->content = $request['contentEng'];
+        $articleLanguageEng->article_id = $article->id;
+
+        $articleLanguageRu->language = "ru";
+        $articleLanguageRu->title = $request['titleRu'];
+        $articleLanguageRu->description = $request['descriptionRu'];
+        $articleLanguageRu->content = $request['contentRu'];
+        $articleLanguageRu->article_id = $article->id;
+        
+        $articleLanguageEng->save();
+        $articleLanguageRu->save();
+
+        return Redirect::to('/admin/news/');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id, Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id, Request $request)
+    {
+        $id = ArticleLanguage::find($id)->article_id;
+        $article = Article::find($id);
+        if($request->img != null){          
+          $article->img = $request['img'];
+        }
+
+        $article->save();
+
+        if( $request->has("next_action") ){
+            if($request['next_action'] == "save_and_continue"){
+                return redirect()->back();
+            }
+            if($request['next_action'] == "save_and_create"){
+                return redirect()->route('admin.model.create',['adminModel' => 'news']);
+            }
+        }
+
+        return Redirect::to('/admin/news/');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $id = ArticleLanguage::find($id)->article_id;
+        Article::find($id)->delete();
+        return Redirect::to('/admin/news/');
     }
 }
