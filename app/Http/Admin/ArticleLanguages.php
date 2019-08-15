@@ -70,6 +70,9 @@ class ArticleLanguages extends Section implements Initializable
         $display = AdminDisplay::datatablesAsync();
         $display
             ->with(['article'])
+            ->setApply(function($query) {
+                $query->orderBy('id', 'desc');
+            })
             ->setColumns(
                 AdminColumn::text('article_id')->setLabel('article id'),
                 AdminColumnEditable::text('title')->setLabel('Название статьи'),

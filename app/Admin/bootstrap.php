@@ -51,6 +51,12 @@ Route::delete('/admin/faq/{id}/delete', 'App\Http\Controllers\FaqController@dest
 Route::post('/admin/faq/{id}/edit', 'App\Http\Controllers\FaqController@edit');
 /* ---- */
 
+/* METHODS */
+Route::post('/admin/methods/create', 'App\Http\Controllers\MethodsController@create');
+Route::delete('/admin/methods/{id}/delete', 'App\Http\Controllers\MethodsController@destroy');
+Route::post('/admin/methods/{id}/edit', 'App\Http\Controllers\MethodsController@edit');
+/* ---- */
+
 /* CONFIG.APP */
 //Route::get('/admin/config', 'App\Http\Controllers\ConfigController@index')->name('admin.config');;
 /* ---- */

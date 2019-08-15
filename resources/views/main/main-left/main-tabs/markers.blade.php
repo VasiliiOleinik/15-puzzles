@@ -8,15 +8,15 @@
           <h3 class="content-markers-title">@lang('main.subtitle_markers')</h3>
           <span class="methods">@lang('main.methods')</span>
           <div class="method-list">
-          @foreach($markerMethods[$marker->marker_id-1]->methods as $method)
+          @foreach($markerMethods[$marker->marker_id-1]->marker->methods as $method)
               <div class="method-item">
                 <label class="method-item__head">
                   <input class="checkbox" type="radio" name="method"><span class="checkbox-custom"></span>
-                  <p class="title">{{$method->name}}</p>
+                  <p class="title">{{$method->methodLanguage->first()->name}}</p>
                 </label>
                 <div class="method-item__content">
                   <div class="text markers">
-                    <p>{{$method->content}}</p>
+                    <p>{{$method->methodLanguage->first()->content}}</p>
                   </div>
                 </div>
               </div>

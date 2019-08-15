@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Question;
-use App\Models\QuestionLanguage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use App\Models\Method;
+use App\Models\MethodLanguage;
 use Illuminate\Support\Facades\Redirect;
 
-class QuestionsController extends Controller
+class MethodsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,38 +23,39 @@ class QuestionsController extends Controller
      * Show the form for creating a new resource.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Support\Facades\Redirect;
+     * @return \Illuminate\Support\Facades\Redirect
      */
     public function create(Request $request)
     {
         $validatedData = $request->validate([
-        'titleEng' => ['required', 'string', 'max:191'],
-        'titleRu' => ['required', 'string', 'max:191'],
+        'nameEng' => ['required', 'string', 'max:191'],
+        'nameRu' => ['required', 'string', 'max:191'],
         'contentEng' => ['required', 'max:64000'],
-        'contentRu' => ['required', 'max:64000'],            
+        'contentRu' => ['required', 'max:64000'],          
         ]);
         
-        $questionLanguageEng = new QuestionLanguage;
-        $questionLanguageRu = new QuestionLanguage;
-        $question = new Question;
+        $methodLanguageEng = new MethodLanguage;
+        $methodLanguageRu = new MethodLanguage;
+        $method = new Method;
         //находим наивысшее значение id и ставим больше на 1
-        $question->id = Question::orderBy('id', 'desc')->first()->id + 1;
-        $question->save();
+        $method->id = Method::orderBy('id', 'desc')->first()->id + 1;
+        $method->name = $request['nameEng'];
+        $method->save();
 
-        $questionLanguageEng->language = "eng";
-        $questionLanguageEng->name = $request['titleEng'];
-        $questionLanguageEng->content = $request['contentEng'];
-        $questionLanguageEng->question_id = $question->id;
+        $methodLanguageEng->language = "eng";
+        $methodLanguageEng->name = $request['nameEng'];
+        $methodLanguageEng->content = $request['contentEng'];
+        $methodLanguageEng->method_id = $method->id;
 
-        $questionLanguageRu->language = "ru";
-        $questionLanguageRu->name = $request['titleRu'];
-        $questionLanguageRu->content = $request['contentRu'];
-        $questionLanguageRu->question_id = $question->id;
+        $methodLanguageRu->language = "ru";
+        $methodLanguageRu->name = $request['nameRu'];
+        $methodLanguageRu->content = $request['contentRu'];
+        $methodLanguageRu->method_id = $method->id;
         
-        $questionLanguageEng->save();
-        $questionLanguageRu->save();
+        $methodLanguageEng->save();
+        $methodLanguageRu->save();
 
-        return Redirect::to('/admin/faq/');
+        return Redirect::to('/admin/methods/');
     }
 
     /**
@@ -107,12 +107,12 @@ class QuestionsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Support\Facades\Redirect
      */
     public function destroy($id)
     {
-        $id = QuestionLanguage::find($id)->question_id;
-        Question::find($id)->delete();
-        return Redirect::to('/admin/faq/');
+        $id = MethodLanguage::find($id)->method_id;
+        Method::find($id)->delete();
+        return Redirect::to('/admin/methods/');
     }
 }

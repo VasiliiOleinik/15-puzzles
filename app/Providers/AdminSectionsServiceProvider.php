@@ -26,6 +26,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Book\BookLanguage::class => 'App\Http\Admin\BookLanguages',
         \App\Models\QuestionLanguage::class => 'App\Http\Admin\QuestionLanguages',
         \App\Models\Book\LinkForBooks::class => 'App\Http\Admin\LinkForBooks',
+        \App\Models\MethodLanguage::class => 'App\Http\Admin\MethodLanguages',
         //\App\Models\Role\Role::class => 'App\Http\Admin\Roles',
     ];
 

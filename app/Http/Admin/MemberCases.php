@@ -77,7 +77,11 @@ class MemberCases extends Section implements Initializable
                 AdminColumn::text('created_at')->setLabel('создано'),
                 AdminColumn::relatedLink('user.nickname', 'пользователь')
             )
-             ->setFilters(
+            ->setApply(function($query) {
+                $query->orderBy('created_at', 'desc');
+            })
+            //->setApply(function($query) { $query->orderBy('created_at', 'desc') })
+            ->setFilters(
                 AdminDisplayFilter::field('user_id')->setTitle('id пользователя [:value]')
             );   
         $display

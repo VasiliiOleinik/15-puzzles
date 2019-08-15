@@ -3,7 +3,7 @@
         <div class="tab-item__head">
           <label class="tab_head_check">
             <input class="checkbox" type="checkbox" obj-id="{{$protocol->protocol_id}}" obj-type="protocol"><span class="checkbox-custom"></span>
-            <p class="title">{{$protocol->name}}<span class="evidence {{$protocol->evidence->name}}"><span
+            <p class="title">{{$protocol->name}}<span class="evidence {{$protocol->protocol->evidence->name}}"><span
                         class="evidence__detail">Level of evidence:<span
                           class="evidence__level proven">proven</span></span></span></p>
           </label>

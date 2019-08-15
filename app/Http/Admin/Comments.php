@@ -69,6 +69,9 @@ class Comments extends Section implements Initializable
         $display = AdminDisplay::datatablesAsync();
         $display
             //->with(['roles'])
+            ->setApply(function($query) {
+                $query->orderBy('created_at', 'desc');
+            })
             ->setColumns(
                 AdminColumnEditable::text('content')->setLabel('комментарий'),
                 AdminColumn::text('created_at')->setLabel('создано'),

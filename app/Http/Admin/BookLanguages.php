@@ -70,6 +70,9 @@ class BookLanguages extends Section implements Initializable
         $display = AdminDisplay::datatablesAsync();
         $display
             ->with(['book'])
+            ->setApply(function($query) {
+                $query->orderBy('book_id', 'desc');
+            })
             ->setColumns(
                 AdminColumn::text('book_id')->setLabel('book_id'),
                 AdminColumnEditable::text('title')->setLabel('Название книги'),
