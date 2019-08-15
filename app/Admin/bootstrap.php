@@ -4,33 +4,33 @@
 //    ->css('extend', public_path('packages/sleepingowl/default/css/extend.css'));
 
 /* FACTORS */
-Route::post('/admin/factorLanguages/create', 'App\Http\Controllers\FactorsController@create');
-Route::delete('/admin/factorLanguages/{id}/delete', 'App\Http\Controllers\FactorsController@destroy');
-Route::post('/admin/factorLanguages/{id}/edit', 'App\Http\Controllers\FactorsController@edit');
+Route::post('/admin/factors/create', 'App\Http\Controllers\FactorsController@create');
+Route::delete('/admin/factors/{id}/delete', 'App\Http\Controllers\FactorsController@destroy');
+Route::post('/admin/factors/{id}/edit', 'App\Http\Controllers\FactorsController@edit');
 /* ---- */
 
 /* DISEASES */
-Route::post('/admin/diseaseLanguages/create', 'App\Http\Controllers\DiseasesController@create');
-Route::delete('/admin/diseaseLanguages/{id}/delete', 'App\Http\Controllers\DiseasesController@destroy');
-Route::post('/admin/diseaseLanguages/{id}/edit', 'App\Http\Controllers\DiseasesController@edit');
+Route::post('/admin/diseases/create', 'App\Http\Controllers\DiseasesController@create');
+Route::delete('/admin/diseases/{id}/delete', 'App\Http\Controllers\DiseasesController@destroy');
+Route::post('/admin/diseases/{id}/edit', 'App\Http\Controllers\DiseasesController@edit');
 /* ---- */
 
 /* PROTOCOLS */
-Route::post('/admin/protocolLanguages/create', 'App\Http\Controllers\ProtocolsController@create');
-Route::delete('/admin/protocolLanguages/{id}/delete', 'App\Http\Controllers\ProtocolsController@destroy');
-Route::post('/admin/protocolLanguages/{id}/edit', 'App\Http\Controllers\ProtocolsController@edit');
+Route::post('/admin/protocols/create', 'App\Http\Controllers\ProtocolsController@create');
+Route::delete('/admin/protocols/{id}/delete', 'App\Http\Controllers\ProtocolsController@destroy');
+Route::post('/admin/protocols/{id}/edit', 'App\Http\Controllers\ProtocolsController@edit');
 /* ---- */
 
 /* REMEDIES */
-Route::post('/admin/remedyLanguages/create', 'App\Http\Controllers\RemediesController@create');
-Route::delete('/admin/remedyLanguages/{id}/delete', 'App\Http\Controllers\RemediesController@destroy');
-Route::post('/admin/remedyLanguages/{id}/edit', 'App\Http\Controllers\RemediesController@edit');
+Route::post('/admin/remedies/create', 'App\Http\Controllers\RemediesController@create');
+Route::delete('/admin/remedies/{id}/delete', 'App\Http\Controllers\RemediesController@destroy');
+Route::post('/admin/remedies/{id}/edit', 'App\Http\Controllers\RemediesController@edit');
 /* ---- */
 
 /* MARKERS */
-Route::post('/admin/markerLanguages/create', 'App\Http\Controllers\MarkersController@create');
-Route::delete('/admin/markerLanguages/{id}/delete', 'App\Http\Controllers\MarkersController@destroy');
-Route::post('/admin/markerLanguages/{id}/edit', 'App\Http\Controllers\MarkersController@edit');
+Route::post('/admin/markers/create', 'App\Http\Controllers\MarkersController@create');
+Route::delete('/admin/markers/{id}/delete', 'App\Http\Controllers\MarkersController@destroy');
+Route::post('/admin/markers/{id}/edit', 'App\Http\Controllers\MarkersController@edit');
 /* ---- */
 
 /* NEWS */

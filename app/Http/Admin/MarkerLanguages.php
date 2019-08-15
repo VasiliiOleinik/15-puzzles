@@ -90,6 +90,9 @@ class MarkerLanguages extends Section implements Initializable
      */
     public function onEdit($id)
     {
+        return AdminForm::panel()->addBody([
+            AdminFormElement::multiselect('marker.methods', 'Методы лечения')->setModelForOptions(\App\Models\Method::class)->setDisplay('name')
+        ]);
     }
 
     /**
@@ -116,7 +119,8 @@ class MarkerLanguages extends Section implements Initializable
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название анализа')->required(),
             AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание анализа')->required()
         ]);
-        $formRelations = AdminForm::panel()->addBody([                                                       
+        $formRelations = AdminForm::panel()->addBody([
+            AdminFormElement::multiselect('marker.methods', 'Методы лечения')->setModelForOptions(\App\Models\Method::class)->setDisplay('name'),
             AdminFormElement::hidden('nameEng'),
             AdminFormElement::hidden('contentEng'),
             AdminFormElement::hidden('nameRu'),

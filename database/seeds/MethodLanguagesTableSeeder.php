@@ -30,6 +30,12 @@ class MethodLanguagesTableSeeder extends Seeder
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - Method::count()] );
-        }  
+        }
+        //делаем одинаковыми имена
+        foreach(Method::all() as $method){
+            $method->name = MethodLanguage::where('method_id','=',$method->id)
+                                          ->where('language','=','eng')->first()->name;
+            $method->save();
+        }
     }
 }
