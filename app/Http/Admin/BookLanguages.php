@@ -133,7 +133,8 @@ class BookLanguages extends Section
                     return $image;
                 }),
             AdminFormElement::hidden('img')->setLabel('картинка'),
-            AdminFormElement::view('sleeping-owl.input-type-file'),            
+            AdminFormElement::view('sleeping-owl.input-type-file'),
+            AdminFormElement::multiselect('book.linksForBooks', 'Магазины где продается эта книга')->setModelForOptions(\App\Models\Book\LinkForBooks::class)->setDisplay('title'),
 
             AdminFormElement::hidden('titleEng'),
             AdminFormElement::hidden('descriptionEng'),

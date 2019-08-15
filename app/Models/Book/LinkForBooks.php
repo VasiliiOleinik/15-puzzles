@@ -23,7 +23,7 @@ class LinkForBooks extends Model
     /**
      * @var array
      */
-    protected $fillable = ['url'];
+    protected $fillable = ['title, url'];
 
 
     /**

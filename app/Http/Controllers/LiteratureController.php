@@ -128,8 +128,11 @@ class LiteratureController extends Controller
         $book->id = Book::orderBy('id', 'desc')->first()->id + 1;
         if($request->img != null){          
           $book->img = $request['img'];
-        } 
+        }        
         $book->save();
+        if(array_key_exists("linksForBooks", $request->book)){
+            $book->linksForBooks()->sync( $request->book['linksForBooks'] );
+        }
 
         $bookLanguageEng->language = "eng";
         $bookLanguageEng->title = $request['titleEng'];
@@ -161,9 +164,11 @@ class LiteratureController extends Controller
         $book = Book::find($id);
         if($request->img != null){          
           $book->img = $request['img'];
-        }
-
+        }        
         $book->save();
+        if(array_key_exists("linksForBooks", $request->book)){
+            $book->linksForBooks()->sync( $request->book['linksForBooks'] );
+        }
 
         if( $request->has("next_action") ){
             if($request['next_action'] == "save_and_continue"){
