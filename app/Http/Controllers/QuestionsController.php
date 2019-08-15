@@ -2,43 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\QuestionLanguage;
-use App\Models\User\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Auth;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\LetterToEditor;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
 
-class FaqController extends Controller
+class QuestionsController extends Controller
 {
     /**
-     * Show the application dashboard.
+     * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $questions = Cache::remember('question_'.app()->getLocale(), now()->addDay(1), function(){
-                return QuestionLanguage::with('question')->get();
-        });
-        $user = Auth::user();
-        return view('faq.faq', compact(['questions', 'user']));
-    }
-
-    /**
-     * Sends letter to editor.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return redirect
-     */
-    public function letter(Request $request)
-    {        
-        Mail::to( Config::get('puzzles.admin_email') )->send(new LetterToEditor($request));
-        return redirect()->back();
+        //
     }
 
     /**
@@ -76,10 +55,52 @@ class FaqController extends Controller
         $questionLanguageEng->save();
         $questionLanguageRu->save();
 
-        Cache::forget('question_eng');
-        Cache::forget('question_ru');
-
         return Redirect::to('/admin/faq/');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
     }
 
     /**
@@ -92,8 +113,6 @@ class FaqController extends Controller
     {
         $id = QuestionLanguage::find($id)->question_id;
         Question::find($id)->delete();
-        Cache::forget('question_eng');
-        Cache::forget('question_ru');
         return Redirect::to('/admin/faq/');
     }
 }

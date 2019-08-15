@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Config;
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class BookLanguages extends Section
+class BookLanguages extends Section implements Initializable
 {
     protected $model = '\App\Models\Book\BookLanguage';
 

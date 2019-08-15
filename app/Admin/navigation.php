@@ -92,7 +92,7 @@ return [
             [
                 'title' => 'FAQ',
                 'icon'  => 'fa fa-question',
-                'url'   => url('/admin/pages/faq'),
+                'url'   => url('/admin/faq'),
             ],
         ]
     ],
