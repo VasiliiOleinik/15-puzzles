@@ -64,7 +64,6 @@ return [
                 'url'   => url('/admin/pages/main'),
             ],
             [
-                'model'    => \App\Models\MemberCase\MemberCase::class,
                 'title' => 'Истории болезней',
                 'icon'  => 'fa fa-address-card',
                 //'url'   => url('/admin/pages/member-cases'),
@@ -88,7 +87,7 @@ return [
             [
                 'title' => 'Литература',
                 'icon'  => 'fa fa-graduation-cap',
-                'url'   => url('/admin/pages/literature'),
+                'url'   => url('/admin/literature'),
             ],
             [
                 'title' => 'FAQ',

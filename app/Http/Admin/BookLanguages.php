@@ -6,7 +6,7 @@ use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
-use App\Models\Article\Article;
+use App\Models\Book\Book;
 
 use AdminColumn;
 use AdminColumnEditable;
@@ -20,15 +20,15 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Config;
 
 /**
- * Class ArticleLanguages
+ * Class BookLanguages
  *
- * @property \App\Models\Article\ArticleLanguage $model
+ * @property \App\Models\Book\BookLanguage $model
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class ArticleLanguages extends Section implements Initializable
+class BookLanguages extends Section
 {
-    protected $model = '\App\Models\Article\ArtileLanguage';
+    protected $model = '\App\Models\Book\BookLanguage';
 
     /**
      * Initialize class.
@@ -37,7 +37,7 @@ class ArticleLanguages extends Section implements Initializable
     {
         /*// Добавление пункта меню и счетчика кол-ва записей в разделе
         $this->addToNavigation($priority = 500, function() {
-            return Article::count();
+            return Book::count();
         });
 
         $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {            
@@ -55,26 +55,26 @@ class ArticleLanguages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $title = 'Статьи';
+    protected $title = 'Литература';
 
     /**
      * @var string
      */
-    protected $alias = 'news';
+    protected $alias = 'literature';
 
     /**
      * @return DisplayInterface
      */
     public function onDisplay()
-    {        
+    {
         $display = AdminDisplay::datatablesAsync();
         $display
-            ->with(['article'])
+            ->with(['book'])
             ->setColumns(
-                AdminColumn::text('article_id')->setLabel('article id'),
-                AdminColumnEditable::text('title')->setLabel('Название статьи'),
-                AdminColumnEditable::textarea('description')->setLabel('Краткое описание статьи'),                
-                AdminColumnEditable::textarea('content')->setLabel('Полное описание статьи'),
+                AdminColumn::text('book_id')->setLabel('book_id'),
+                AdminColumnEditable::text('title')->setLabel('Название книги'),
+                AdminColumnEditable::textarea('description')->setLabel('Краткое описание книги'),                
+                AdminColumnEditable::text('author')->setLabel('Автор книги'),
                 AdminColumn::text('language')->setLabel('Язык')
             );
 
@@ -88,17 +88,16 @@ class ArticleLanguages extends Section implements Initializable
      */
     public function onEdit($id)
     {
-        $imageSrc = Article::find( $this->model::find($id)->article_id )->img;
-        $image = '<img id="img-admin" src="'.$imageSrc.'" width="100%" style="max-width: 800px;">';
+        $imageSrc = Book::find( $this->model::find($id)->book_id )->img;
+        $image = '<img id="img-admin" src="'.$imageSrc.'" width="100%" style="max-width: 350px;">';
         return AdminForm::panel()->addBody([
-            AdminFormElement::text('title')->setLabel('Название статьи')->setReadonly(1),
+            AdminFormElement::text('title')->setLabel('Название книги')->setReadonly(1),
             AdminFormElement::custom()
                 ->setDisplay(function($instance) use($image) {
                     return $image;
                 }),
             AdminFormElement::hidden('img')->setLabel('Картинка'),
-            AdminFormElement::view('sleeping-owl.input-type-file'),
-            AdminFormElement::text('article.created_at')->setLabel('Создано')->setReadonly(1)       
+            AdminFormElement::view('sleeping-owl.input-type-file')
         ]); 
     }
 
@@ -108,25 +107,25 @@ class ArticleLanguages extends Section implements Initializable
     public function onCreate()
     {
         Config::set('app.locale', 'eng');
-        $image = '<img id="img-admin" width="30%" style="max-width: 400px;">';               
+        $image = '<img id="img-admin" width="30%" style="max-width: 350px;">';               
 
         //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
         //(заполняются hidden поля на вкладке связей)
-        $scripts = "<script src='/js/backend/admin-news.js')></script>";        
+        $scripts = "<script src='/js/backend/admin-books.js')></script>";        
 
         $formEng = AdminForm::panel()->addBody([
             AdminFormElement::custom()
                 ->setDisplay(function($instance) use($scripts) {
                     return $scripts;
                 }),
-            AdminFormElement::text('title')->setName('titleEng')->setLabel('Название новости')->required(),
-            AdminFormElement::textarea('description')->setName('descriptionEng')->setLabel('Краткое описание новости')->required(),
-            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Полное описание новости')->required()
+            AdminFormElement::text('title')->setName('titleEng')->setLabel('Название книги')->required(),
+            AdminFormElement::textarea('description')->setName('descriptionEng')->setLabel('Краткое описание книги')->required(),
+            AdminFormElement::textarea('author')->setName('authorEng')->setLabel('Автор книги')->required()
         ]);
         $formRu = AdminForm::panel()->addBody([           
-            AdminFormElement::text('title')->setName('titleRu')->setLabel('Название новости')->required(),
-            AdminFormElement::textarea('description')->setName('descriptionRu')->setLabel('Краткое описание новости')->required(),
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Полное описание новости')->required()
+            AdminFormElement::text('title')->setName('titleRu')->setLabel('Название книги')->required(),
+            AdminFormElement::textarea('description')->setName('descriptionRu')->setLabel('Краткое описание книги')->required(),
+            AdminFormElement::textarea('content')->setName('authorRu')->setLabel('Автор книги')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([
             AdminFormElement::custom()
@@ -138,16 +137,16 @@ class ArticleLanguages extends Section implements Initializable
 
             AdminFormElement::hidden('titleEng'),
             AdminFormElement::hidden('descriptionEng'),
-            AdminFormElement::hidden('contentEng'),
+            AdminFormElement::hidden('authorEng'),
             AdminFormElement::hidden('titleRu'),
             AdminFormElement::hidden('descriptionRu'),
-            AdminFormElement::hidden('contentRu')
+            AdminFormElement::hidden('authorRu')
         ]);
 
         $tabs = AdminDisplay::tabbed();
-        $tabs->appendTab($formEng, 'Новость eng');
-        $tabs->appendTab($formRu, 'Новость ru');
-        $tabs->appendTab($formRelations, 'Новость другое');
+        $tabs->appendTab($formEng, 'Книга eng');
+        $tabs->appendTab($formRu, 'Книга ru');
+        $tabs->appendTab($formRelations, 'Книга другое');
         
         return $tabs;
     }

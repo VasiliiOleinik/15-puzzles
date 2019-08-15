@@ -12,6 +12,6 @@ $factory->define(Book::class, function (Faker $faker) {
         'title' => $faker->realText( rand(40,50)  ),
         'author' => $faker->name($gender),
         'description' => $faker->realText( rand(160,190) ),     
-        'img' => "img/books/book".rand( 1,4 ).".jpg",
+        'img' => "/img/books/book".rand( 1,4 ).".jpg",
     ];
 });

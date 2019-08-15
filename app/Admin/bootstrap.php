@@ -39,6 +39,12 @@ Route::delete('/admin/news/{id}/delete', 'App\Http\Controllers\NewsController@de
 Route::post('/admin/news/{id}/edit', 'App\Http\Controllers\NewsController@edit');
 /* ---- */
 
+/* LITERATURE */
+Route::post('/admin/literature/create', 'App\Http\Controllers\LiteratureController@create');
+Route::delete('/admin/literature/{id}/delete', 'App\Http\Controllers\LiteratureController@destroy');
+Route::post('/admin/literature/{id}/edit', 'App\Http\Controllers\LiteratureController@edit');
+/* ---- */
+
 /* CONFIG.APP */
 //Route::get('/admin/config', 'App\Http\Controllers\ConfigController@index')->name('admin.config');;
 /* ---- */

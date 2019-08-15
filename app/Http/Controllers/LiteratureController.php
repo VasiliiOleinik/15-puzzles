@@ -10,6 +10,7 @@ use App\Models\Category\CategoryForBooksLanguage;
 use App\Models\Book\LinkForBooks;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redirect;
 
 class LiteratureController extends Controller
 {
@@ -67,19 +68,20 @@ class LiteratureController extends Controller
 
             //если не выбраны ни категории, ни тэги => отображаем все статьи
             if( count($collection) > 0){
-                $books = BookLanguage::with('book')->whereIn('book_id',$collection)->paginate(4);
+                $books = BookLanguage::with('book')->whereIn('book_id',$collection)
+                                                   ->orderBy('book_id', 'DESC')->paginate(4);
             }else{
-                $books = BookLanguage::with('book')->paginate(4);
+                $books = BookLanguage::with('book')->orderBy('book_id', 'DESC')->paginate(4);
             }       
             return view('literature.literature-left.main-content', compact(['books']));
         }
         //пагинация
         if($request->page){
-            $books = BookLanguage::with('book')->paginate(4);
+            $books = BookLanguage::with('book')->orderBy('book_id', 'DESC')->paginate(4);
             return view('literature.literature-left.main-content', compact(['books']));
         }        
         else{
-            $books = BookLanguage::with('book')->paginate(4);
+            $books = BookLanguage::with('book')->orderBy('book_id', 'DESC')->paginate(4);
             return view('literature.literature', compact(['books','categoriesForBooks']));
         }
     }
@@ -98,5 +100,93 @@ class LiteratureController extends Controller
         return view('literature.literature-left.modal', ['title' => $request->title, 'author' => $request->author,
                                               'description' => $request->description, 'img' => $request->img,
                                               'links' => $links]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function create(Request $request)
+    {
+        //dd($request->all());
+        $validatedData = $request->validate([
+        'titleEng' => ['required', 'string', 'max:191'],
+        'titleRu' => ['required', 'string', 'max:191'],
+        'descriptionEng' => ['required', 'max:64000'],
+        'descriptionRu' => ['required', 'max:64000'],  
+        'authorEng' => ['required', 'max:191'],
+        'authorRu' => ['required', 'max:191'],      
+        'img' => ['nullable'],       
+        ]);
+        
+        $bookLanguageEng = new BookLanguage;
+        $bookLanguageRu = new BookLanguage;
+        $book = new Book;
+        //находим наивысшее значение id и ставим больше на 1
+        $book->id = Book::orderBy('id', 'desc')->first()->id + 1;
+        if($request->img != null){          
+          $book->img = $request['img'];
+        } 
+        $book->save();
+
+        $bookLanguageEng->language = "eng";
+        $bookLanguageEng->title = $request['titleEng'];
+        $bookLanguageEng->description = $request['descriptionEng'];
+        $bookLanguageEng->author = $request['authorEng'];
+        $bookLanguageEng->book_id = $book->id;
+
+        $bookLanguageRu->language = "ru";
+        $bookLanguageRu->title = $request['titleRu'];
+        $bookLanguageRu->description = $request['descriptionRu'];
+        $bookLanguageRu->author = $request['authorRu'];
+        $bookLanguageRu->book_id = $book->id;
+        
+        $bookLanguageEng->save();
+        $bookLanguageRu->save();
+
+        return Redirect::to('/admin/literature/');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id, Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id, Request $request)
+    {
+        $id = BookLanguage::find($id)->book_id;
+        $book = Book::find($id);
+        if($request->img != null){          
+          $book->img = $request['img'];
+        }
+
+        $book->save();
+
+        if( $request->has("next_action") ){
+            if($request['next_action'] == "save_and_continue"){
+                return redirect()->back();
+            }
+            if($request['next_action'] == "save_and_create"){
+                return redirect()->route('admin.model.create',['adminModel' => 'literature']);
+            }
+        }
+
+        return Redirect::to('/admin/literature/');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $id = BookLanguage::find($id)->book_id;
+        Book::find($id)->delete();
+        return Redirect::to('/admin/literature/');
     }
 }
