@@ -64,7 +64,7 @@ class ProtocolLanguages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias = 'protocolLanguages';
+    protected $alias = 'protocols';
 
     /**
      * @return DisplayInterface

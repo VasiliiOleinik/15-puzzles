@@ -63,7 +63,7 @@ class RemedyLanguages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias = 'remedyLanguages';
+    protected $alias = 'remedies';
 
     /**
      * @return DisplayInterface

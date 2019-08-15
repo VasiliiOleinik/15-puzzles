@@ -63,7 +63,7 @@ class DiseaseLanguages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias = 'diseaseLanguages';
+    protected $alias = 'diseases';
 
     /**
      * @return DisplayInterface

@@ -63,7 +63,7 @@ class MarkerLanguages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias = 'markerLanguages';
+    protected $alias = 'markers';
 
     /**
      * @return DisplayInterface

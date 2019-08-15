@@ -64,7 +64,7 @@ class FactorLanguages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $alias = 'factorLanguages';
+    protected $alias = 'factors';
 
     /**
      * @return DisplayInterface
