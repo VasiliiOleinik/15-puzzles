@@ -70,7 +70,7 @@ class Comments extends Section implements Initializable
         $display
             //->with(['roles'])
             ->setColumns(
-                AdminColumn::link('content')->setLabel('комментарий'),
+                AdminColumnEditable::text('content')->setLabel('комментарий'),
                 AdminColumn::text('created_at')->setLabel('создано'),
                 AdminColumn::relatedLink('memberCase.title', 'история болезни', 'id'),                
                 AdminColumn::relatedLink('user.nickname', 'пользователь', 'id')
