@@ -5,10 +5,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
-/*use Carbon\Carbon;
+use Carbon\Carbon;
 use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Support\Facades\URL;*/
+use Illuminate\Support\Facades\URL;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -31,15 +32,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        /*VerifyEmail::toMailUsing(function ($notifiable) {
-            $verifyUrl = URL::temporarySignedRoute(
-                'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
-            );
+        //Если мы на странице подтверждения почты, то вставляем кастомное письмо
+        if (\Request::is('email*')) {
+            VerifyEmail::toMailUsing(function ($notifiable) {
+                $verifyUrl = URL::temporarySignedRoute(
+                    'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
+                );
 
-            return (new MailMessage)
-                ->subject('Welcome!')
-                ->markdown('vendor.notifications.email', ['url' => $verifyUrl]);
-        });*/
+                return (new MailMessage)
+                    ->subject(__('app.name').' - '.__('verify.subject'))
+                    ->markdown('vendor.notifications.emails', ['actionUrl' => $verifyUrl]);
+            });
+        }
     }
 
     

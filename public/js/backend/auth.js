@@ -122,9 +122,11 @@ document.addEventListener("DOMContentLoaded", function () {
     //кликнули на reset password submit
     $('#recovery-pass-js').click(function (event) {
         event.preventDefault();
+        //очищаем поле ошибок
         $('.errors').remove();
+        //отключаем кнопку submit чтобы нельзя было спамить ей
         $(this).attr("disabled", true);
-        console.log('reset password clicked')
+        //console.log('reset password clicked')
         let data = {
             "email": $('[name=email-reset]').val(),
             "_token": $('meta[name="csrf-token"]').attr('content'),
@@ -135,10 +137,21 @@ document.addEventListener("DOMContentLoaded", function () {
             url: "/" + locale + "/password/email",
             data: data,
             dataType: 'json',
-            complete: function (data) {
-                $('#recovery-pass-js').removeAttr("disabled");
-                console.log(data.responseText);
+            complete: function (data) {                                
+                //console.log(data.responseText);
+                //Проверка на то, существует ли указанный email
+                if (data.responseJSON.message == "Invalid user") {
+                    let el = $(document).find('[name="email-reset"]');
+                    let error = 'The specified email is not registered.';
+                    if (locale == 'ru') {
+                        error = 'Указанный email не зарегистрирован.'
+                    }
+                    el.after($('<br><label class="errors errors-reset">' + error + '</label>'));
+                    $('#recovery-pass-js').removeAttr("disabled");
+                } else
+                //показываем ошибки
                 if (data.status !== 422) {
+                    $('#recovery-pass-js').removeAttr("disabled");
                     $(".recovery-pass-inputs form").hide();
                     $(".recovery-pass-footer-link").hide();
                     $(".recovery-pass-inputs .recovery-success").show();

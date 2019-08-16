@@ -3,7 +3,7 @@
     @lang('app.greetings')
 
     @component('mail::button', ['url' => $actionUrl])
-        @lang('app.button_title')
+        @lang('app.link_title')
     @endcomponent
 
     @lang('app.regards'), @lang('app.name')

@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Config;
 
 class LocaleResetPassword extends Notification
 {
@@ -41,12 +42,10 @@ class LocaleResetPassword extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->subject(Lang::getFromJson('Reset Password Notification'))
-            ->line(Lang::getFromJson('You are receiving this email because we received a password reset request for your account.'))
-            ->action(Lang::getFromJson('Reset Password'), url(config('app.url').route('password.reset', ['locale' => app()->getLocale(), 'token' => csrf_token(), 'email' => $notifiable->getEmailForPasswordReset()], false)))
-            ->line(Lang::getFromJson('This password reset link will expire in :count minutes.', ['count' => config('auth.passwords.users.expire')]))
-            ->line(Lang::getFromJson('If you did not request a password reset, no further action is required.'));
+        return (new MailMessage)        
+            ->subject(__('app.name')." - ".__('reset.subject'))
+            ->action(__('reset.link_title'), url(config('app.url').route('password.reset', ['locale' => app()->getLocale(), 'token' => csrf_token(), 'email' => $notifiable->getEmailForPasswordReset()], false)))
+            ->markdown('vendor.notifications.reset');
     }
 
     /**

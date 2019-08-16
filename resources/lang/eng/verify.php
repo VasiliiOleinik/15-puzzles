@@ -12,6 +12,7 @@ return [
     |
     */
 
+    'subject' => 'Verify Email Address',
     'title' => 'Verify Your Email Address',
     'message' => 'Before proceeding, please check your email for a verification link. If you did not receive the email,',
     'link_title' => 'click here to request another.',

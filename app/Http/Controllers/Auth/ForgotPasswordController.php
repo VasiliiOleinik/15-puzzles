@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use App\Notifications\LocaleResetPassword;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Notifications\Messages\MailMessage;
 
 class ForgotPasswordController extends Controller
 {
@@ -34,6 +36,7 @@ class ForgotPasswordController extends Controller
 
      public function sendResetLinkEmail(Request $request)
     {
+        //dd($request->all() );
         $this->validate($request, ['email' => 'required|email']);
 
         // We will send the password reset link to this user. Once we have attempted
@@ -66,5 +69,5 @@ class ForgotPasswordController extends Controller
             return new LocaleResetPassword($token);
         };
     }
-
+    
 }
