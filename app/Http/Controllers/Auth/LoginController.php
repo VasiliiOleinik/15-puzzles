@@ -44,7 +44,7 @@ class LoginController extends Controller
         ]);
         //dd(Auth::attempt(['nickname' => $request->login, 'password' => $request->password]));
         if (Auth::attempt(['nickname' => $request->login, 'password' => $request->password])) {            
-            // Success
+            // Success            
             return json_encode(["auth"=>"success", "admin"=>json_encode(Auth::user()->isAdmin()) ]);//redirect()->intended();
         } else {
             // Go back on error (or do what you want)
