@@ -16,5 +16,6 @@ return [
     'title' => 'Verify Your Email Address',
     'message' => 'Before proceeding, please check your email for a verification link. If you did not receive the email,',
     'link_title' => 'click here to request another.',
+    'button_title' => 'Verify Email',
     'notification' => 'A fresh verification link has been sent to your email address.',
 ];

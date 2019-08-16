@@ -31,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
+    {        
         //Если мы на странице подтверждения почты, то вставляем кастомное письмо
         if (\Request::is('email*')) {
             VerifyEmail::toMailUsing(function ($notifiable) {

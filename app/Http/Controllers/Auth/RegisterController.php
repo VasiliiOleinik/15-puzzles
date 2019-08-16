@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Auth;
+use Carbon\Carbon;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\URL;
 
 class RegisterController extends Controller
 {
@@ -65,6 +69,15 @@ class RegisterController extends Controller
         else{
            $user = $this->create($request->all());           
            Auth::login($user);
+           VerifyEmail::toMailUsing(function ($notifiable) {
+                $verifyUrl = URL::temporarySignedRoute(
+                    'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
+                );
+
+                return (new MailMessage)
+                    ->subject(__('app.name').' - '.__('verify.subject'))
+                    ->markdown('vendor.notifications.emails', ['actionUrl' => $verifyUrl]);
+            });
            $user->sendEmailVerificationNotification();
            return json_encode(["auth"=>"success"]);
             
