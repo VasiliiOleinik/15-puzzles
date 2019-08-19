@@ -438,7 +438,7 @@ $(function() {
 });
 
 $(function(){
-  $('#edit-article-js').on('click', function(){
+    $('.edit-artile').on('click', function(){
     $('#med-history-js, #add-story-js').slideToggle();
     $('#add-story-js').find('.add-story__title').text('Edit note');
 	$('.add-story__form').attr('method','get');

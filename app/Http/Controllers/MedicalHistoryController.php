@@ -23,8 +23,7 @@ class MedicalHistoryController extends Controller
 
         $medicalHistory = new MedicalHistory;
         
-        if($request['img-medical-history'] != null){
-          
+        if($request['img-medical-history'] != null){          
           $medicalHistory->img = $request['img-medical-history'];
         }
         //dd($medicalHistory);

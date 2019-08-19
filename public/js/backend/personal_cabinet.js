@@ -1,5 +1,15 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
+    //при нажатии на edit article заполняем поля формы
+    $('.edit-artile').on('click', function () {
+        let title = $(this).parent().parent().parent().find('.med-history__name').html();
+        let content = $(this).parent().parent().parent().find('.med-history__info').html();
+        let img = $(this).parent().parent().parent().find('.med-history__img').attr('src');
+        $('.add-story__form').find('.headline.inp').val(title);
+        $('.add-story__form').find('.story.inp').val(content);
+        $('.add-story__form').find('.image').attr('src',img);
+    })
+
     //если поля поиска Search by analysis history пусты, то очищаем url от get параметров
     $(".search-btn, .search-byName").on("click", function (e) {
         e.preventDefault();
