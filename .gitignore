@@ -5,6 +5,7 @@
 /vendor
 /public/files
 /.vs
+.history
 /.idea
 .env
 .phpunit.result.cache

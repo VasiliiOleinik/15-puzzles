@@ -131,7 +131,7 @@ $(function() {
   // Скрываю label когда input активен (personal page)
   $(
     ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
-  ).on("click", function() {
+  ).on("focus", function() {
     $(this).css({
       "box-shadow": "rgba(91, 156, 167, 0.32) 0px 1px 6px",
       border: "1px solid rgba(91, 156, 167, .5)",

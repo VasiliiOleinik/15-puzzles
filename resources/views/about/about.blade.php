@@ -37,18 +37,12 @@
               </div>                  
               <div class="main__right-note">{!! config('puzzles.about.puzzles_description_'.app()->getLocale()) !!}</div>
               <ul class="main__books">
-                <li><img src="/img/svg/book.svg">Detoxifying for cancer (by dr. George Andonevris)
-                </li>
-                <li><img src="/img/svg/book.svg">Using bioresonance for cancer (by dr. George Andonevris)
-                </li>
-                <li><img src="/img/svg/book.svg">Spiritual and psychoemotional causes of cancer (by dr. George Andonevris)
-                </li>
-                <li><img src="/img/svg/book.svg">Holistic model of cancer (by dr. George Andonevris)
-                </li>
-                <li><img src="/img/svg/book.svg">Be healthy (by dr. Pokrywka)
-                </li>
-                <li><img src="/img/svg/book.svg">Antioxidant curing of cancer (by dr. Garbuzov)
-                </li>
+                <li><a href=""><img src="/img/svg/book.svg">Detoxifying for cancer (by dr. George Andonevris)</a></li>
+                <li><a href=""><img src="/img/svg/book.svg">Using bioresonance for cancer (by dr. George Andonevris)</a></li>
+                <li><a href=""><img src="/img/svg/book.svg">Spiritual and psychoemotional causes of cancer (by dr. George Andonevris)</a></li>
+                <li><a href=""><img src="/img/svg/book.svg">Holistic model of cancer (by dr. George Andonevris)</a></li>
+                <li><a href=""><img src="/img/svg/book.svg">Be healthy (by dr. Pokrywka)</a></li>
+                <li><a href=""><img src="/img/svg/book.svg">Antioxidant curing of cancer (by dr. Garbuzov)</a></li>
               </ul><a class="arrow-link" href="#" target="_blank">@lang('about.button_literature')</a>
             </div>
           </div>

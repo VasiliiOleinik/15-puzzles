@@ -30,10 +30,26 @@
 	background: transparent;
 	padding: 0px;
 }
-.news-right .tags__list .item{
+.news-right .tags__list .item,
+.cases-right .tags__list .item{
 	cursor: pointer;
 }
 .breadcrumbs__list{
 	flex-direction: initial;
 	flex-wrap: wrap;
+}
+.header__nav-link.active {
+    color: #434354;
+}
+.header__nav-link.active::after {
+    content: '';
+    width: 100%;
+    position: absolute;
+    height: 3px;
+    background-color: #599ba7;
+    left: 0;
+    bottom: -25px;
+}
+.labels label span{
+	color: red;
 }
