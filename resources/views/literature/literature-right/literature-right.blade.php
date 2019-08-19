@@ -17,7 +17,7 @@
               </div>
               <div class="subscribe">
                 <p class="news-right__title">@lang('literature.title_subscribe')</p>
-                <form class="subscribe__input" method="get" action="{{ route('subscriber.create') }}">
+                <form class="subscribe__input" method="get" action="{{ route('subscriber.create', app()->getLocale()) }}">
                   @auth
                   <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')" value="{{ Auth::user()->email }}" required>
                   @endauth

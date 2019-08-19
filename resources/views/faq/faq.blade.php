@@ -30,13 +30,13 @@
                     <div class="label">
                       @auth
                         @if($user->first_name != null || $user->last_name != null)
-                        <input type="text" name="name" value="{{ $user->first_name }} {{ $user->last_name }}" required>
+                        <input type="text" name="name" value="{{ $user->first_name }} {{ $user->last_name }}">
                         @else
-                        <input type="text" name="name" required>
+                        <input type="text" name="name">
                         @endif
                       @endauth
                       @guest
-                      <input type="text" name="name" required>
+                      <input type="text" name="name">
                       @endauth
                       <label for="name">Your name</label>
                     </div>

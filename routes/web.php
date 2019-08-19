@@ -62,6 +62,8 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
     Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+    Route::resource('subscriber', 'SubscriberController');
 });
 
 // Email Verification Routes...
@@ -73,7 +75,7 @@ Route::delete('medical_history/{id}', 'MedicalHistoryController@destroy');
 Route::post('medical_history/create_post', 'MedicalHistoryController@createPost')->name('medical_history_create_post');//без этого не работает сохранение новой мед истории с картинкой
 Route::post('medical_history/update_post/{id}', 'MedicalHistoryController@updatePost')->name('medical_history_update_post');//без этого не работает сохранение мед истории с картинкой
 Route::resource('comment', 'CommentController');
-Route::resource('subscriber', 'SubscriberController');
+
 
 /* MAIN */
     Route::post('filter', 'MainController@filter')->name('filter');    

@@ -37,7 +37,7 @@ class FaqController extends Controller
      */
     public function letter(Request $request)
     {        
-        Mail::to( Config::get('puzzles.admin_email') )->send(new LetterToEditor($request));
+        Mail::to( config('puzzles.options.admin_email') )->send(new LetterToEditor($request));
         return redirect()->back();
     }
 

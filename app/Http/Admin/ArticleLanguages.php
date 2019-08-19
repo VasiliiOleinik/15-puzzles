@@ -71,7 +71,7 @@ class ArticleLanguages extends Section implements Initializable
         $display
             ->with(['article'])
             ->setApply(function($query) {
-                $query->orderBy('id', 'desc');
+                $query->orderBy('article_id', 'desc');
             })
             ->setColumns(
                 AdminColumn::text('article_id')->setLabel('article id'),

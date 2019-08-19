@@ -11,6 +11,9 @@ use App\Models\Category\CategoryForNewsLanguage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\LetterToSubscriber;
+use App\Models\Subscriber;
 
 class NewsController extends Controller
 {
@@ -20,9 +23,7 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        //dd(TagLanguage::where('language','=', app()->getLocale() )->get()->pluck('name'));
-        
+    {    
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews_'.app()->getLocale(),
@@ -184,8 +185,8 @@ class NewsController extends Controller
         $validatedData = $request->validate([
         'titleEng' => ['required', 'string', 'max:191'],
         'titleRu' => ['required', 'string', 'max:191'],
-        'descriptionEng' => ['required', 'max:64000'],
-        'descriptionRu' => ['required', 'max:64000'],  
+        'descriptionEng' => ['required', 'max:191'],
+        'descriptionRu' => ['required', 'max:191'],  
         'contentEng' => ['required', 'max:64000'],
         'contentRu' => ['required', 'max:64000'],      
         'img' => ['nullable'],       
@@ -216,6 +217,21 @@ class NewsController extends Controller
         $articleLanguageEng->save();
         $articleLanguageRu->save();
 
+        Cache::forget('newsLatest_eng');
+        Cache::forget('newsLatest_ru');
+        $newsLatest = Cache::remember('newsLatest_'.app()->getLocale(), now()->addDay(1), function(){
+                $latest = Article::orderBy('id','desc')->paginate(3)->pluck('id');
+                return ArticleLanguage::with('article')->whereIn('article_id',$latest)
+                                                       ->orderBy('article_id','desc')->paginate(3);
+        });
+        //рассылка подписчикам новой новости
+        /*$subscribers = Subscriber::all();
+        foreach($subscribers as $subscriber){
+            Mail::to($subscriber->email)
+            ->queue(new LetterToSubscriber(Cache::get('newsLatest_'.$subscriber->language)
+                                                    ->take(1)));
+        }*/
+                                                    
         return Redirect::to('/admin/news/');
     }
 
@@ -235,6 +251,9 @@ class NewsController extends Controller
 
         $article->save();
 
+        Cache::forget('newsLatest_eng');
+        Cache::forget('newsLatest_ru');
+
         if( $request->has("next_action") ){
             if($request['next_action'] == "save_and_continue"){
                 return redirect()->back();
@@ -242,7 +261,7 @@ class NewsController extends Controller
             if($request['next_action'] == "save_and_create"){
                 return redirect()->route('admin.model.create',['adminModel' => 'news']);
             }
-        }
+        }        
 
         return Redirect::to('/admin/news/');
     }
@@ -257,6 +276,8 @@ class NewsController extends Controller
     {
         $id = ArticleLanguage::find($id)->article_id;
         Article::find($id)->delete();
+        Cache::forget('newsLatest_eng');
+        Cache::forget('newsLatest_ru');
         return Redirect::to('/admin/news/');
     }
 }

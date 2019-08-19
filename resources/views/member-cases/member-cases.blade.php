@@ -49,7 +49,7 @@
             <div class="cases-right">              
               <div class="subscribe">
                 <h3 class="news-right__title">Take latest news from 15-Puzzle</h3>
-                <form class="subscribe__input" method="get" action="{{ route('subscriber.create') }}">
+                <form class="subscribe__input" method="get" action="{{ route('subscriber.create', app()->getLocale()) }}">
                   @auth
                   <input class="subscribe-field" type="email" name="email-subscribe" placeholder="Your Email Address" value="{{ Auth::user()->email }}" required>
                   @endauth
@@ -58,7 +58,8 @@
                   @endguest
                   <button class="subscribe-btn" type="submit"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                 </form>
-              </div>             
+              </div>
+              @auth
               <div class="add-story">
                 <h3 class="add-story__title">Add your story</h3>
                 <form class="add-story__form"  method="post" action="{{ route('create_post', app()->getLocale()) }}">
@@ -99,6 +100,7 @@
                   </div>
                 </form>
               </div>
+              @endauth
               <div class="tags" obj-route="member_cases">
                 <h3 class="news-right__title">Tag cloud</h3>
                 <ul class="tags__list">

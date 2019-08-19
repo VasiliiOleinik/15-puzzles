@@ -15,7 +15,7 @@
       </div>
       <div class="footer__right footer__item">
         <h6 class="footer__h6">@lang('footer.title_subscribe')</h6>
-        <form class="footer__subscribe" method="get" action="{{ route('subscriber.create') }}">
+        <form class="footer__subscribe" method="get" action="{{ route('subscriber.create', app()->getLocale()) }}">
           @auth
           <input type="email" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" value="{{ Auth::user()->email }}" required>
           @endauth
