@@ -1,0 +1,12 @@
+.main__books li a{
+	display: flex;
+	align-items: center;
+}
+.main__books li a:hover,
+.main .home-news__item .news-detail .news-name:hover{
+	color: #599ba7;
+	transition: .3s;
+}
+.main__books{
+	margin-bottom: 40px;
+}

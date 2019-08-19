@@ -1,0 +1,31 @@
+.main__books li a{
+	display: flex;
+	align-items: center;
+}
+.main__books li a:hover,
+.main .home-news__item .news-detail .news-name:hover{
+	color: #599ba7;
+	transition: .3s;
+}
+.main__books{
+	margin-bottom: 40px;
+}
+.main .home-news__item .news-image,
+.news-left .main-content .post_container .post img,
+.news-left .main-content .post_container .post__img{
+	object-fit: cover;
+}
+.news-right .categories__list .item:hover a{
+	color: #ffffff;
+	transition: .3s;
+}
+.news-right .categories__list .item:hover{
+	-webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+    background-color: #599ba7
+}
+.news-right .search{
+	background: transparent;
+	padding: 0px;
+}

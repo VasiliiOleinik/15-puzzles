@@ -41,10 +41,10 @@ function setCategoryPosition() {
     } else {
         maxStep = height;
     }
+    
   });
   var step = maxStep,
     position = step;
-  $(".puzzle-15__item-outer").css({'height':maxStep});
   $(".puzzle-15__category").each(function(index, item) {
     $(item).css({
       top: position + "px"

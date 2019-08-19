@@ -33,18 +33,12 @@ function tabsInit(item, props) {
 function setCategoryPosition() {
   var maxStep;
   $(".puzzle-15__item-outer").each(function(index, item){
-    var height = $(item).outerHeight();
     if(index > 0){
-        if(height > maxStep){
-          maxStep = height;
-        }
-    } else {
-        maxStep = height;
+      $(item).outerHeight() > maxStep ? maxStep = 
     }
   });
-  var step = maxStep,
+  var step = $(".puzzle-15__item-outer").height(),
     position = step;
-  $(".puzzle-15__item-outer").css({'height':maxStep});
   $(".puzzle-15__category").each(function(index, item) {
     $(item).css({
       top: position + "px"
