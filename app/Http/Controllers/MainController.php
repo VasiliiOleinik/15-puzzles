@@ -67,8 +67,9 @@ class MainController extends Controller
     public function index(Request $request)
     {                
         $newsLatest = Cache::remember('newsLatest_'.app()->getLocale(), now()->addDay(1), function(){
-                $latest = Article::orderBy('updated_at','desc')->pluck('id');
-                return ArticleLanguage::with('article')->whereIn('article_id',$latest)->paginate(3);
+                $latest = Article::orderBy('id','desc')->paginate(3)->pluck('id');
+                return ArticleLanguage::with('article')->whereIn('article_id',$latest)
+                                                       ->orderBy('article_id','desc')->paginate(3);
         });        
         $factors = Cache::remember('factor_'.app()->getLocale(), now()->addDay(1), function(){
                 return FactorLanguage::with('factor.type')->get();
