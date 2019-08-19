@@ -69,7 +69,7 @@ Route::get('email/verify', 'Auth\VerificationController@show')->name('verificati
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');  
 
-Route::resource('medical_history', 'MedicalHistoryController');
+Route::delete('medical_history/{id}', 'MedicalHistoryController@destroy');
 Route::post('medical_history/create_post', 'MedicalHistoryController@createPost')->name('medical_history_create_post');//без этого не работает сохранение новой мед истории с картинкой
 Route::post('medical_history/update_post/{id}', 'MedicalHistoryController@updatePost')->name('medical_history_update_post');//без этого не работает сохранение мед истории с картинкой
 Route::resource('comment', 'CommentController');

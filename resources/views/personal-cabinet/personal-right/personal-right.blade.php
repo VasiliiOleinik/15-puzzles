@@ -51,37 +51,5 @@
                     <input class="cancel-form" type="button" value="Cancel" id="cancel-form-js">
                   </div>
                 </form>
-              </div>
-              <!--
-              <div class="edit-story" id="edit-story-js">
-                <h3 class="edit-story__title">Add your story</h3>                
-                <form class="edit-story__form" method="post" action="{{ route('medical_history.edit', $user->id) }}">
-                @csrf
-                  <div class="labels">
-                    <input class="headline inp" type="text" name="headline" required>
-                    <label for="headline">Headline</label>
-                  </div>
-                  <div class="labels">
-                    <textarea class="story inp" name="your-story" required></textarea>
-                    <label class="textarea" for="your-story">Your story</label>
-                  </div>
-                  <div class="add-images">
-                    <h3 class="add-images__title">Add image</h3>
-                    <div class="images-container">
-                      <div class="item-img">
-                        <input id="add-story-img" type="hidden" name="img-medical-history">  
-                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
-                        <button class="file-upload">
-                          <input class="file-input" type="file" placeholder="Choose File">
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="footer-form">
-                    <input class="submit-form" type="submit" value="Submit note">
-                    <input class="cancel-form" type="button" value="Cancel" id="cancel-form-js">
-                  </div>
-                </form>
-              </div>
-              -->
+              </div>              
             </div>

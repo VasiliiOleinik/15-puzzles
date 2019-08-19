@@ -40,8 +40,8 @@ class MedicalHistoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MemberCase  $memberCase
-     * @return \Illuminate\Http\Response
+     * @param  Request $request, integer $id
+     * @return redirect()->back()
      */
     public function updatePost(Request $request, $id)
     {
@@ -64,5 +64,17 @@ class MedicalHistoryController extends Controller
         $request->session()->flash('status-member_case', 'You have successfully created your medical history.');
 
         return redirect()->back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  Request $request, integer $id
+     * @return redirect()->back()
+     */
+    public function destroy(Request $request, $id)
+    {
+        $medicalHistory = MedicalHistory::findOrFail($id);
+        $medicalHistory->delete();
     }
 }

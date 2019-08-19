@@ -10,6 +10,24 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $('.add-story__form').find('.image').attr('src',img);
     })
 
+    $(".delete-artile").unbind("click").click(function () {
+        var id = $(this).parent().attr('obj-id');
+        $(this).parent().parent().parent().remove();
+        $.ajax({
+            type: "DELETE",
+            url: '/medical_history/' + id,// '{{ route('file.personal_cabinet.destroy','id')}}',
+            data: {
+                "_token": $('meta[name="csrf-token"]').attr('content'),
+            },
+            complete: function (result) {                
+                //console.log(result.responseText)
+            },
+            error: function (result) {
+            }
+        });
+
+    });
+
     //если поля поиска Search by analysis history пусты, то очищаем url от get параметров
     $(".search-btn, .search-byName").on("click", function (e) {
         e.preventDefault();
@@ -62,8 +80,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     ;
                 }
             });
-        } 
-        
+        }         
     });
 
     //при смене аватара добавляем img src в hidden input формы
