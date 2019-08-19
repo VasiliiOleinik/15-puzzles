@@ -7,24 +7,26 @@
                 <div class="search__top">
                   <div class="label">
                     <input class="search__input" name="q" type="text" value="{{ $query }}">
-                    <label for="q">Enter your request here</label>
+                    <label for="q">@lang('search.placeholder_search')</label>
                   </div>
-                  <button class="search__btn">Search</button>
+                  <button class="search__btn">@lang('search.title_search')</button>
                 </div>
               </form>
-              <div class="search__content"><span class="search-result-info">По вашему запросу найдено {{$results->count()}} элементов:</span>
+              <div class="search__content"><span class="search-result-info">@lang('search.title_result_before_count') {{$count}} @lang('search.title_result_after_count')</span>
                 <div class="search__content-items">
-                @foreach($results as $result)
-                  @if($result->getTable() == "articles")
-                  <div class="search-item"><a href="{{ url(app()->getLocale().'/news') }}/{{$result->id}}"><img class="search-item-img" src="{{$result->img }}"></a>
-                    <div class="search-item-detail"><a class="search-item-detail-date" href="{{ url(app()->getLocale().'/news') }}/{{$result->id}}">{{$result->updated_at->format('d.m.Y')}}</a><a class="search-item-detail-section" href="{{ url(app()->getLocale().'/news') }}/{{$result->id}}">news</a></div><a class="search-item-name" href="{{ url(app()->getLocale().'/news') }}/{{$result->id}}">{{$result->title }}</a>
-                  </div> 
-                  @elseif($result->getTable() == "member_cases")
-                  <div class="search-item"><a href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}"><img class="search-item-img" src="{{$result->img }}"></a>
-                    <div class="search-item-detail"><a class="search-item-detail-date" href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}">{{$result->updated_at->format('d.m.Y')}}</a><a class="search-item-detail-section" href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}">member's case</a></div><a class="search-item-name" href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}">{{$result->title }}</a>
-                  </div> 
-                  @endif                  
-                @endforeach                  
+                @foreach($results as $collection)
+                  @foreach($collection as $result)
+                    @if($result->getTable() == "article_languages")
+                    <div class="search-item"><a href="{{ url(app()->getLocale().'/news') }}/{{$result->article_id}}"><img class="search-item-img" src="{{$result->article->img }}"></a>
+                      <div class="search-item-detail"><a class="search-item-detail-date" href="{{ url(app()->getLocale().'/news') }}/{{$result->article_id}}">{{$result->article->updated_at->format('d.m.Y')}}</a><a class="search-item-detail-section" href="{{ url(app()->getLocale().'/news') }}/{{$result->article_id}}">@lang('search.label_news')</a></div><a class="search-item-name" href="{{ url(app()->getLocale().'/news') }}/{{$result->article_id}}">{{$result->title }}</a>
+                    </div> 
+                    @elseif($result->getTable() == "member_cases")
+                    <div class="search-item"><a href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}"><img class="search-item-img" src="{{$result->img }}"></a>
+                      <div class="search-item-detail"><a class="search-item-detail-date" href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}">{{$result->updated_at->format('d.m.Y')}}</a><a class="search-item-detail-section" href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}">@lang('search.label_member_cases')</a></div><a class="search-item-name" href="{{ url(app()->getLocale().'/member_cases') }}/{{$result->id}}">{{$result->title }}</a>
+                    </div> 
+                    @endif                  
+                  @endforeach
+                @endforeach 
                 </div>
               </div>
             </div>
