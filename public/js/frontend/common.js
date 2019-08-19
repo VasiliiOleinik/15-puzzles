@@ -441,9 +441,9 @@ $(function(){
     $('.edit-artile').on('click', function(){
     $('#med-history-js, #add-story-js').slideToggle();
     $('#add-story-js').find('.add-story__title').text('Edit note');
-	$('.add-story__form').attr('method','get');
+	$('.add-story__form').attr('method','post');
 	let id = $(this).parent().attr('obj-id');
-	$('.add-story__form').attr('action','/' + locale + '/medical_history.edit/' + id);
+	$('.add-story__form').attr('action','/medical_history/update_post/' + id);
   });
   $('#add-note-js, #cancel-form-js').on('click', function(){
     $('#med-history-js, #add-story-js').slideToggle();

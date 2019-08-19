@@ -43,8 +43,26 @@ class MedicalHistoryController extends Controller
      * @param  \App\Models\MemberCase  $memberCase
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function updatePost(Request $request, $id)
     {
-        dd($id);
+        $validatedData = $request->validate([
+        'headline' => ['required', 'string', 'max:191'],
+        'your-story' => ['required'],
+        'img-medical-history' => ['nullable'],
+        ]);
+
+        $medicalHistory = MedicalHistory::find($id);
+        
+        if($request['img-medical-history'] != null){          
+          $medicalHistory->img = $request['img-medical-history'];
+        }
+        $medicalHistory->title = $request['headline'];
+        $medicalHistory->content = $request['your-story'];
+        $medicalHistory->user_id = Auth::user()->id;
+        $medicalHistory->save();
+
+        $request->session()->flash('status-member_case', 'You have successfully created your medical history.');
+
+        return redirect()->back();
     }
 }
