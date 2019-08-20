@@ -57,12 +57,10 @@ Route::delete('/admin/methods/{id}/delete', 'App\Http\Controllers\MethodsControl
 Route::post('/admin/methods/{id}/edit', 'App\Http\Controllers\MethodsController@edit');
 /* ---- */
 
-/* CONFIG.APP */
-//Route::get('/admin/config', 'App\Http\Controllers\ConfigController@index')->name('admin.config');;
+/* TAGS */
+Route::post('/admin/tags/create', 'App\Http\Controllers\TagsController@create');
+Route::delete('/admin/tags/{id}/delete', 'App\Http\Controllers\TagsController@destroy');
+Route::post('/admin/tags/{id}/edit', 'App\Http\Controllers\TagsController@edit');
 /* ---- */
 
-//Route::post('/admin/factorLanguages/{locale}/setFactorsLanguage', 'App\Http\Controllers\FactorsController@setFactorsLanguage');
-//Route::delete('/admin/factorLanguages/{id}/edi', 'App\Http\Controllers\FactorsController@destroy');
-//Route::delete('/admin/factorLanguages/{id}/destroy', 'App\Http\Controllers\FactorsController@destroy');
 
-//Route::get('/admin/factorLanguages/create');

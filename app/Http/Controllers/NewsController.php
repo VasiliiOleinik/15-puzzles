@@ -180,7 +180,7 @@ class NewsController extends Controller
      * Show the form for creating a new resource.
      *
      * @param  Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Support\Facades\Redirect
      */
     public function create(Request $request)
     {        
@@ -252,7 +252,7 @@ class NewsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id, Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Support\Facades\Redirect
      */
     public function edit($id, Request $request)
     {
