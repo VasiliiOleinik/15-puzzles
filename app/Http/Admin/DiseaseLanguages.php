@@ -38,14 +38,13 @@ class DiseaseLanguages extends Section implements Initializable
      */
     public function initialize()
     {
-        // Добавление пункта меню и счетчика кол-ва записей в разделе
+        /*// Добавление пункта меню и счетчика кол-ва записей в разделе
         $this->addToNavigation($priority = 500, function() {
             return \App\Models\Disease\Disease::count();
         });
 
         $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {            
-        });
-
+        });*/
     }
 
    /**

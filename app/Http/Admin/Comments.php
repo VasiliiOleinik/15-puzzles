@@ -35,13 +35,13 @@ class Comments extends Section implements Initializable
     public function initialize()
     {
         // Добавление пункта меню и счетчика кол-ва записей в разделе
-        $this->addToNavigation($priority = 500, function() {
+        /*$this->addToNavigation($priority = 500, function() {
             return $this->model::count();
         });
 
         $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {
             //...
-        });
+        });*/
     }
 
     /**

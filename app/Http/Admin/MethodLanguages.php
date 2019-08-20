@@ -35,14 +35,13 @@ class MethodLanguages extends Section implements Initializable
      */
     public function initialize()
     {
-        // Добавление пункта меню и счетчика кол-ва записей в разделе
+        /*// Добавление пункта меню и счетчика кол-ва записей в разделе
         $this->addToNavigation($priority = 500, function() {
             return Method::count();
         });
 
         $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {            
-        });
-
+        });*/
     }
 
    /**
@@ -117,7 +116,7 @@ class MethodLanguages extends Section implements Initializable
         
         return $tabs;
     }
-
+    
     /**
      * @return void
      */
@@ -132,5 +131,17 @@ class MethodLanguages extends Section implements Initializable
     public function onRestore($id)
     {
         // remove if unused
+    }
+
+    //заголовок для создания записи
+    public function getCreateTitle()
+    {
+        return 'Создание пользователя';
+    }
+
+    // иконка для пункта меню - шестеренка
+    public function getIcon()
+    {
+        return 'fa fa-compass';
     }
 }

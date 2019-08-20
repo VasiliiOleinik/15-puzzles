@@ -10,9 +10,9 @@ class AdminSectionsServiceProvider extends ServiceProvider
     /**
      * @var array
      */
-    protected $sections = [
-        //\App\User::class => 'App\Http\Sections\Users',        
+    protected $sections = [     
         \App\Models\User\User::class => 'App\Http\Admin\Users',
+        \App\Models\Role\Role::class => 'App\Http\Admin\Roles',
         \App\Models\MemberCase::class => 'App\Http\Admin\MemberCases',
         \App\Models\Comment::class => 'App\Http\Admin\Comments',
 
@@ -26,8 +26,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Book\BookLanguage::class => 'App\Http\Admin\BookLanguages',
         \App\Models\QuestionLanguage::class => 'App\Http\Admin\QuestionLanguages',
         \App\Models\Book\LinkForBooks::class => 'App\Http\Admin\LinkForBooks',
-        \App\Models\MethodLanguage::class => 'App\Http\Admin\MethodLanguages',
-        //\App\Models\Role\Role::class => 'App\Http\Admin\Roles',
+        \App\Models\MethodLanguage::class => 'App\Http\Admin\MethodLanguages',        
     ];
 
     //protected $router->get('/factorLanguages/create', ['as' => 'admin.factorLanguages.create', 'uses' => '\App\Http\Controllers\MainController@index']);

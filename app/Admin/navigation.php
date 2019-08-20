@@ -53,7 +53,7 @@ return [
         'url'   => url('/admin/options'),
     ],
 
-     [
+    [
         'title' => 'Страницы',
         'icon'  => 'fa fa-book',
         'url'   => url('/admin/pages'),
@@ -66,8 +66,8 @@ return [
             [
                 'title' => 'Истории болезней',
                 'icon'  => 'fa fa-address-card',
-                //'url'   => url('/admin/pages/member-cases'),
-                'url'   => url('/admin/member-cases'),                
+                'url'   => url('/admin/member-cases'),
+                'badge' => \App\Models\MemberCase::count(),
             ],
             [
                 'title' => 'Диаграмма факторов',
@@ -83,17 +83,103 @@ return [
                 'title' => 'Новости',
                 'icon'  => 'fa fa-comment',
                 'url'   => url('/admin/news'),
+                'badge' => \App\Models\Article\Article::count(),
             ],
             [
                 'title' => 'Литература',
                 'icon'  => 'fa fa-graduation-cap',
                 'url'   => url('/admin/literature'),
+                'badge' => \App\Models\Book\Book::count(),
             ],
             [
                 'title' => 'FAQ',
                 'icon'  => 'fa fa-question',
                 'url'   => url('/admin/faq'),
+                'badge' => \App\Models\Question::count(),
             ],
+        ]
+    ],
+
+    [
+        'title' => 'Пользователи',
+        'icon'  => 'fa fa-male',
+        'url'   => url('/admin/pages'),
+        'pages' => [
+            [
+                'title' => 'Пользователи',
+                'icon'  => 'fa fa-user',
+                'url'   => url('/admin/users'),
+                'badge' => \App\Models\User\User::count(),
+            ],
+            [
+                'title' => 'Роли',
+                'icon'  => 'fa fa-user-circle',
+                'url'   => url('/admin/roles'),
+                'badge' => \App\Models\Role\Role::count(),
+            ],
+            [
+                'title' => 'Комментарии',
+                'icon'  => 'fa fa-comments',
+                'url'   => url('/admin/comments'),
+                'badge' => \App\Models\Comment::count(),
+            ],           
+        ]
+    ],
+
+    [
+        'title' => 'Пазл',
+        'icon'  => 'fa fa-puzzle-piece',
+        'url'   => url('/admin/pages'),
+        'pages' => [
+            [
+                'title' => 'Факторы',
+                'icon'  => 'fa fa-retweet',
+                'url'   => url('/admin/factors'),
+                'badge' => \App\Models\Factor\Factor::count(),
+            ],
+            [
+                'title' => 'Болезни',
+                'icon'  => 'fa fa-stethoscope',
+                'url'   => url('/admin/diseases'),
+                'badge' => \App\Models\Disease\Disease::count(),
+            ],
+            [
+                'title' => 'Протоколы',
+                'icon'  => 'fa fa-file',
+                'url'   => url('/admin/protocols'),
+                'badge' => \App\Models\Protocol\Protocol::count(),
+            ],
+            [
+                'title' => 'Лекарства',
+                'icon'  => 'fa fa-stumbleupon-circle',
+                'url'   => url('/admin/remedies'),
+                'badge' => \App\Models\Remedy::count(),
+            ],
+            [
+                'title' => 'Анализы',
+                'icon'  => 'fa fa-flask',
+                'url'   => url('/admin/pages'),
+                'pages' => [
+                    [
+                        'title' => 'Анализы',
+                        'icon'  => 'fa fa-thermometer',
+                        'url'   => url('/admin/markers'),
+                        'badge' => \App\Models\Marker\Marker::count(),
+                    ],
+                    [
+                        'title' => 'Методы лечения',
+                        'icon'  => 'fa fa-compass',
+                        'url'   => url('/admin/methods'),
+                        'badge' => \App\Models\Method::count(),
+                    ],
+                    [
+                        'title' => 'Ссылки на магазин',
+                        'icon'  => 'fa fa-shopping-cart',
+                        'url'   => url('/admin/shops'),
+                        'badge' => \App\Models\Book\LinkForBooks::count(),
+                    ],
+                ],
+            ],   
         ]
     ],
    

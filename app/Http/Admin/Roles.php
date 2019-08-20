@@ -6,6 +6,17 @@ use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
+use AdminColumn;
+use AdminColumnEditable;
+use AdminColumnFilter;
+use AdminDisplay;
+use AdminDisplayFilter;
+use AdminForm;
+use AdminFormElement;
+use SleepingOwl\Admin\Contracts\Initializable;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Validation\Rule; //import Rule class
+
 /**
  * Class Roles
  *
@@ -13,8 +24,28 @@ use SleepingOwl\Admin\Section;
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class Roles extends Section
+class Roles extends Section implements Initializable
 {
+    /**
+     * @var \App\Models\fundamentalSetting
+     */
+    protected $model = '\App\Models\Role\Role';
+
+    /**
+     * Initialize class.
+     */
+    public function initialize()
+    {        
+        // Добавление пункта меню и счетчика кол-ва записей в разделе
+        /*$this->addToNavigation($priority = 500, function() {
+            return \App\Models\Role\Role::count();
+        });
+
+        $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {
+            //...
+        });*/
+    }
+
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
      *
@@ -25,19 +56,24 @@ class Roles extends Section
     /**
      * @var string
      */
-    protected $title;
+    protected $title = 'Роли';
 
     /**
      * @var string
      */
-    protected $alias;
+    protected $alias = 'roles';
 
     /**
      * @return DisplayInterface
      */
     public function onDisplay()
     {
-        // remove if unused
+        return AdminDisplay::datatablesAsync()        
+            ->setColumns(
+                AdminColumn::link('id')->setLabel('id'),
+                AdminColumn::link('name')->setLabel('роль'),
+            );
+
     }
 
     /**
@@ -47,7 +83,10 @@ class Roles extends Section
      */
     public function onEdit($id)
     {
-        // remove if unused
+        $rules = ['string', 'max:191', Rule::unique('roles')->ignore($id)];
+        return AdminForm::panel()->addBody([            
+            AdminFormElement::text('name', 'роль')->setValidationRules($rules)->required(),
+        ]); 
     }
 
     /**
@@ -73,4 +112,11 @@ class Roles extends Section
     {
         // remove if unused
     }
+
+    // иконка для пункта меню - шестеренка
+    public function getIcon()
+    {
+        return 'fa fa-user-circle';
+    }
 }
+
