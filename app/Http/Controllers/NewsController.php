@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\LetterToSubscriber;
 use App\Models\Subscriber;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Config;
 
 class NewsController extends Controller
 {
@@ -219,10 +221,21 @@ class NewsController extends Controller
 
         Cache::forget('newsLatest_eng');
         Cache::forget('newsLatest_ru');
-        $newsLatest = Cache::remember('newsLatest_'.app()->getLocale(), now()->addDay(1), function(){
+        Cache::remember('newsLatest_eng', now()->addDay(1), function(){
                 $latest = Article::orderBy('id','desc')->paginate(3)->pluck('id');
-                return ArticleLanguage::with('article')->whereIn('article_id',$latest)
-                                                       ->orderBy('article_id','desc')->paginate(3);
+                return ArticleLanguage::withoutGlobalScopes()
+                                      ->with('article')
+                                      ->where('language','=','eng')
+                                      ->whereIn('article_id',$latest)
+                                      ->orderBy('article_id','desc')->paginate(3);
+        });
+        Cache::remember('newsLatest_ru', now()->addDay(1), function(){
+                $latest = Article::orderBy('id','desc')->paginate(3)->pluck('id');
+                return ArticleLanguage::withoutGlobalScopes()
+                                      ->with('article')
+                                      ->where('language','=','ru')
+                                      ->whereIn('article_id',$latest)
+                                      ->orderBy('article_id','desc')->paginate(3);
         });
         //рассылка подписчикам новой новости
         /*$subscribers = Subscriber::all();
