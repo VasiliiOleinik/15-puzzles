@@ -7,6 +7,7 @@ use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
 use AdminColumn;
+use AdminColumnEditable;
 use AdminColumnFilter;
 use AdminDisplay;
 use AdminDisplayFilter;
@@ -95,10 +96,10 @@ class Users extends Section implements Initializable
         $display
             //->with(['roles'])
             ->setColumns(
-                AdminColumn::link('nickname')->setLabel('логин'),
-                AdminColumn::text('first_name')->setLabel('имя'),
-                AdminColumn::text('middle_name')->setLabel('фамилия'),
-                AdminColumn::text('last_name')->setLabel('отчество'),
+                AdminColumnEditable::text('nickname')->setLabel('логин'),
+                AdminColumnEditable::text('first_name')->setLabel('имя'),
+                AdminColumnEditable::text('middle_name')->setLabel('фамилия'),
+                AdminColumnEditable::text('last_name')->setLabel('отчество'),
                 AdminColumn::text('email')->setLabel('почта'),
                 AdminColumn::text('birthday')->setLabel('дата рождения')
             );
