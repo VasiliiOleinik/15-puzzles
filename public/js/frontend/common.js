@@ -32,19 +32,19 @@ function tabsInit(item, props) {
 
 function setCategoryPosition() {
   var maxStep;
-  $(".puzzle-15__item-outer").each(function(index, item){
+  $(".puzzle-15__item-outer").each(function(index, item) {
     var height = $(item).outerHeight();
-    if(index > 0){
-        if(height > maxStep){
-          maxStep = height;
-        }
-    } else {
+    if (index > 0) {
+      if (height > maxStep) {
         maxStep = height;
+      }
+    } else {
+      maxStep = height;
     }
   });
   var step = maxStep,
     position = step;
-  $(".puzzle-15__item-outer").css({'height':maxStep});
+  $(".puzzle-15__item-outer").css({ height: maxStep });
   $(".puzzle-15__category").each(function(index, item) {
     $(item).css({
       top: position + "px"
@@ -202,7 +202,7 @@ $(function() {
     .val();
 
   // Окрытие доп.информации в табах на home page
-  $(".tab-list.main-scroll").delegate(".arrow", "click", function () {
+  $(".tab-list.main-scroll").delegate(".arrow", "click", function() {
     var isOpen = $(this).hasClass("dropdown");
 
     $(".arrow").removeClass("dropdown");
@@ -258,19 +258,25 @@ $(function() {
     });
   });
   // Подсветка выбранного таба на странице home page
-  $(".tab-list.main-scroll").delegate(".tab_head_check input", "click", function () {
-    $(this)
-      .parent()
-      .parent()
-      .toggleClass("checked-tab");
-  });
+  $(".tab-list.main-scroll").delegate(
+    ".tab_head_check input",
+    "click",
+    function() {
+      $(this)
+        .parent()
+        .parent()
+        .toggleClass("checked-tab");
+    }
+  );
 
   // Делаю фактор активным
-  $(".tab-list.main-scroll").delegate(".puzzle-15__item", "click", function () {
+  $(".tab-list.main-scroll").delegate(".puzzle-15__item", "click", function() {
     $(this).toggleClass("active");
   });
 
-  $(".tab-list.main-scroll").delegate(".evidence", "hover",
+  $(".tab-list.main-scroll").delegate(
+    ".evidence",
+    "hover",
     function() {
       $(this)
         .find(".evidence__detail")
@@ -284,7 +290,7 @@ $(function() {
   );
 });
 
-$(".tab-list.main-scroll").delegate(".method-item__head","change", function() {
+$(".tab-list.main-scroll").delegate(".method-item__head", "change", function() {
   var thisTitle = $(this)
     .find(".title")
     .text();
@@ -386,7 +392,7 @@ $(" #close-recovery-js, .fancybox-container").on("click", function() {
 $(function() {
   var categorItem = $(".categories__list .item"),
     tagsItem = $(".tags__list .item");
-  $(".tags__list").delegate(".item","click", function() {
+  $(".tags__list").delegate(".item", "click", function() {
     $(this).toggleClass("choosen");
     if (categorItem.hasClass("choosen") || tagsItem.hasClass("choosen")) {
       $("#clear-filter-btn-js").css({ cursor: "pointer" });
@@ -449,17 +455,32 @@ $(function() {
   });
 });
 
-$(function(){
-    $('.edit-artile').on('click', function(){
-    $('#med-history-js, #add-story-js').slideToggle();
-    $('#add-story-js').find('.add-story__title').text('Edit note');
-	$('.add-story__form').attr('method','post');
-	let id = $(this).parent().attr('obj-id');
-	$('.add-story__form').attr('action','/medical_history/update_post/' + id);
+$(function() {
+  $(".edit-artile").on("click", function() {
+    $("#med-history-js, #add-story-js").slideToggle();
+    $("#add-story-js")
+      .find(".add-story__title")
+      .text("Edit note");
+    $(".add-story__form").attr("method", "post");
+    let id = $(this)
+      .parent()
+      .attr("obj-id");
+    $(".add-story__form").attr("action", "/medical_history/update_post/" + id);
   });
-  $('#add-note-js, #cancel-form-js').on('click', function(){
-    $('#med-history-js, #add-story-js').slideToggle();
-    $('#add-story-js').find('.add-story__title').text('Add your story');
-	$('.add-story__form').attr('method','post');
+  $("#add-note-js, #cancel-form-js").on("click", function() {
+    $("#med-history-js, #add-story-js").slideToggle();
+    $("#add-story-js")
+      .find(".add-story__title")
+      .text("Add your story");
+    $(".add-story__form").attr("method", "post");
   });
+  
+  // Перевод страницы
+  if($('html')[0].lang === 'ru'){
+    $('body').removeAttr('id');
+    $('body').attr('id','russian');
+  } else {
+    $('body').removeAttr('id');
+    $('body').attr('id','english');
+  }
 });

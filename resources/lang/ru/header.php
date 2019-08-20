@@ -22,7 +22,8 @@ return [
     'eng' => 'АНГ',
     'ru' => 'РУС',
     'login' => 'ЛОГИН',
-    'logout' => 'ВЫЙТИ',
+    'logout' => 'Выйти',
+    'personal' => 'Личный кабинет',
     'placeholder_search' => 'Поиск',
 
 ];
