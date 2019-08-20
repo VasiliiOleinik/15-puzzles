@@ -98,15 +98,15 @@ class TagLanguages extends Section implements Initializable
                 ->setDisplay(function($instance) use($scripts) {
                     return $scripts;
                 }),
-            AdminFormElement::text('name')->setName('nameEng')->setLabel('Название тэга')->required(),
+            AdminFormElement::text('name')->setName('nameEng')->setLabel('Название тэга')->required()
         ]);
         $formRu = AdminForm::panel()->addBody([           
-            AdminFormElement::text('name')->setName('nameRu')->setLabel('Название тэга')->required(),
+            AdminFormElement::text('name')->setName('nameRu')->setLabel('Название тэга')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([         
 
             AdminFormElement::hidden('nameEng'),
-            AdminFormElement::hidden('nameRu'),
+            AdminFormElement::hidden('nameRu')
         ]);
 
         $tabs = AdminDisplay::tabbed();

@@ -204,7 +204,7 @@ class Users extends Section implements Initializable
             AdminFormElement::view('sleeping-owl.input-type-file'),
 
             AdminFormElement::text('email', 'почта')->setValidationRules($rulesEmail)->required(),
-            AdminFormElement::text('birthday', 'дата рождения')->setValidationRules($rulesBirthday),
+            AdminFormElement::text('birthday', 'дата рождения')->setValidationRules($rulesBirthday)
 
         ]);
     }

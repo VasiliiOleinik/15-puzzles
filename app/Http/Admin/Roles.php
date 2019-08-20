@@ -71,7 +71,7 @@ class Roles extends Section implements Initializable
         return AdminDisplay::datatablesAsync()        
             ->setColumns(
                 AdminColumn::link('id')->setLabel('id'),
-                AdminColumn::link('name')->setLabel('роль'),
+                AdminColumn::link('name')->setLabel('роль')
             );
 
     }
@@ -85,7 +85,7 @@ class Roles extends Section implements Initializable
     {
         $rules = ['string', 'max:191', Rule::unique('roles')->ignore($id)];
         return AdminForm::panel()->addBody([            
-            AdminFormElement::text('name', 'роль')->setValidationRules($rules)->required(),
+            AdminFormElement::text('name', 'роль')->setValidationRules($rules)->required()
         ]); 
     }
 
