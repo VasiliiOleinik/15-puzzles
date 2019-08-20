@@ -91,9 +91,15 @@ class ArticleLanguages extends Section implements Initializable
      */
     public function onEdit($id)
     {
+        $ckeditor = view('sleeping-owl.pages.layout'); 
+
         $imageSrc = Article::find( $this->model::find($id)->article_id )->img;
         $image = '<img id="img-admin" src="'.$imageSrc.'" width="100%" style="max-width: 800px;">';
         return AdminForm::panel()->addBody([
+            /*AdminFormElement::custom()
+                ->setDisplay(function($instance) use($ckeditor) {
+                    return $ckeditor;
+                }),*/
             AdminFormElement::text('title')->setLabel('Название статьи')->setReadonly(1),
             AdminFormElement::custom()
                 ->setDisplay(function($instance) use($image) {
@@ -101,6 +107,7 @@ class ArticleLanguages extends Section implements Initializable
                 }),
             AdminFormElement::hidden('img')->setLabel('Картинка'),
             AdminFormElement::view('sleeping-owl.input-type-file'),
+            AdminFormElement::textarea('content')->setLabel('Полное описание новости')->required(),
             AdminFormElement::text('article.created_at')->setLabel('Создано')->setReadonly(1)       
         ]); 
     }
@@ -110,7 +117,6 @@ class ArticleLanguages extends Section implements Initializable
      */
     public function onCreate()
     {
-        Config::set('app.locale', 'eng');
         $image = '<img id="img-admin" width="30%" style="max-width: 400px;">';               
 
         //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
