@@ -15,6 +15,7 @@ use AdminForm;
 use AdminFormElement;
 use SleepingOwl\Admin\Contracts\Initializable;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Validation\Rule; //import Rule class
 
 /**
  * Class Users
@@ -94,19 +95,25 @@ class Users extends Section implements Initializable
     {        
         $display = AdminDisplay::datatablesAsync();
         $display
-            //->with(['roles'])
+            ->with(['role'])
             ->setColumns(
-                AdminColumnEditable::text('nickname')->setLabel('логин'),
+                AdminColumn::link('id')->setLabel('id'),
+                AdminColumn::link('nickname')->setLabel('логин'),
+                AdminColumn::text('role.name')->setLabel('роль'),
                 AdminColumnEditable::text('first_name')->setLabel('имя'),
                 AdminColumnEditable::text('middle_name')->setLabel('фамилия'),
                 AdminColumnEditable::text('last_name')->setLabel('отчество'),
                 AdminColumn::text('email')->setLabel('почта'),
                 AdminColumn::text('birthday')->setLabel('дата рождения')
-            );
+            )
+            ->setApply(function($query) {
+                $query->orderBy('id', 'desc');
+            });
         $display
             //поля поиска
             ->setColumnFilters(
-            [   
+            [
+                null,
                 AdminColumnFilter::text()
                     ->setPlaceholder('Введите логин')
                     ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
@@ -142,13 +149,19 @@ class Users extends Section implements Initializable
      */
     public function onEdit($id)
     {
+        $rulesNickname = ['required', 'string', 'max:191', Rule::unique('users')->ignore($id)];
+        $rulesName = ['nullable','string', 'max:191'];
+        $rulesEmail = ['required', 'string', 'email', 'max:191', Rule::unique('users')->ignore($id)];
+        $rulesBirthday = ['nullable|date_format:d.m.Y|before:today'];
 
         $image =  '<img id="img-admin" src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';        
         return AdminForm::panel()->addBody([            
-            AdminFormElement::text('nickname', 'логин')->required(),
-            AdminFormElement::text('first_name', 'имя'),
-            AdminFormElement::text('middle_name', 'фамилия'),
-            AdminFormElement::text('last_name', 'отчество'),
+            AdminFormElement::text('nickname', 'логин')->setValidationRules($rulesNickname)->required(),
+            AdminFormElement::select('role_id', 'Роль')->setModelForOptions(\App\Models\Role\Role::class)->setDisplay('name')
+                                              ->setDefaultValue('1')->required(),
+            AdminFormElement::text('first_name', 'имя')->setValidationRules($rulesName),
+            AdminFormElement::text('middle_name', 'фамилия')->setValidationRules($rulesName),
+            AdminFormElement::text('last_name', 'отчество')->setValidationRules($rulesName),
 
             AdminFormElement::custom()
                     ->setDisplay(function($instance) use($image) {
@@ -157,8 +170,8 @@ class Users extends Section implements Initializable
             AdminFormElement::hidden('img')->setLabel('картинка'),
             AdminFormElement::view('sleeping-owl.input-type-file'),
 
-            AdminFormElement::text('email', 'почта')->required(),
-            AdminFormElement::text('birthday', 'дата рождения'),
+            AdminFormElement::text('email', 'почта')->setValidationRules($rulesEmail)->required(),
+            AdminFormElement::text('birthday', 'дата рождения')->setValidationRules($rulesBirthday),
             AdminFormElement::text('id', 'ID')->setReadonly(1),
             AdminFormElement::text('created_at')->setLabel('Создано')->setReadonly(1)                       
         ]); 
@@ -169,12 +182,19 @@ class Users extends Section implements Initializable
      */
     public function onCreate()
     {
+        $rulesNickname = ['required', 'string', 'max:191', Rule::unique('users')];
+        $rulesName = ['nullable','string', 'max:191'];
+        $rulesEmail = ['required', 'string', 'email', 'max:191', Rule::unique('users')];
+        $rulesBirthday = ['nullable|date_format:d.m.Y|before:today'];
+
         $image =  '<img id="img-admin" width="100%" style="max-width: 800px;">';        
         return AdminForm::panel()->addBody([
-            AdminFormElement::text('nickname', 'логин')->required(),
-            AdminFormElement::text('first_name', 'имя'),
-            AdminFormElement::text('middle_name', 'фамилия'),
-            AdminFormElement::text('last_name', 'отчество'),
+            AdminFormElement::text('nickname', 'логин')->setValidationRules($rulesNickname)->required(),
+            AdminFormElement::select('role_id', 'Роль')->setModelForOptions(\App\Models\Role\Role::class)->setDisplay('name')
+                                              ->setDefaultValue('1')->required(),
+            AdminFormElement::text('first_name', 'имя')->setValidationRules($rulesName),
+            AdminFormElement::text('middle_name', 'фамилия')->setValidationRules($rulesName),
+            AdminFormElement::text('last_name', 'отчество')->setValidationRules($rulesName),
 
             AdminFormElement::custom()
                     ->setDisplay(function($instance) use($image) {
@@ -183,8 +203,8 @@ class Users extends Section implements Initializable
             AdminFormElement::hidden('img')->setLabel('картинка'),
             AdminFormElement::view('sleeping-owl.input-type-file'),
 
-            AdminFormElement::text('email', 'почта')->required(),
-            AdminFormElement::text('birthday', 'дата рождения')
+            AdminFormElement::text('email', 'почта')->setValidationRules($rulesEmail)->required(),
+            AdminFormElement::text('birthday', 'дата рождения')->setValidationRules($rulesBirthday),
 
         ]);
     }
