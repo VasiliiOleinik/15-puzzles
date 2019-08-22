@@ -43,8 +43,6 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::get('used_tags', 'NewsController@usedTags')->name('used_tags');
     Route::get('tags_cloud', 'NewsController@tagsCloud')->name('tags_cloud');
 
-    //Auth::routes(['verify' => true]);
-    
     // Authentication Routes...
     Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('login', 'Auth\LoginController@login');
@@ -71,19 +69,22 @@ Route::get('email/verify', 'Auth\VerificationController@show')->name('verificati
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');  
 
-Route::delete('medical_history/{id}', 'MedicalHistoryController@destroy');
-Route::post('medical_history/create_post', 'MedicalHistoryController@createPost')->name('medical_history_create_post');//без этого не работает сохранение новой мед истории с картинкой
-Route::post('medical_history/update_post/{id}', 'MedicalHistoryController@updatePost')->name('medical_history_update_post');//без этого не работает сохранение мед истории с картинкой
-Route::resource('comment', 'CommentController');
-
-
 /* MAIN */
-    Route::post('filter', 'MainController@filter')->name('filter');    
-    Route::post('model_partial', 'MainController@modelPartial')->name('model_partial');
+Route::post('filter', 'MainController@filter')->name('filter');    
+Route::post('model_partial', 'MainController@modelPartial')->name('model_partial');
+Route::post('map_refresh', 'MainController@mapRefresh')->name('map_refresh');
 /* ---- */
+
+Route::resource('comment', 'CommentController');
 
 Route::resource('user', 'UserController');
 
 /* FILE */
 Route::get('download/{id}', 'FileController@download');
+/* ---- */
+
+/* MEDICAL HISTORY */
+Route::delete('medical_history/{id}', 'MedicalHistoryController@destroy');
+Route::post('medical_history/create_post', 'MedicalHistoryController@createPost')->name('medical_history_create_post');//без этого не работает сохранение новой мед истории с картинкой
+Route::post('medical_history/update_post/{id}', 'MedicalHistoryController@updatePost')->name('medical_history_update_post');//без этого не работает сохранение мед истории с картинкой
 /* ---- */

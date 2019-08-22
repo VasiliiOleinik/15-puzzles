@@ -5,6 +5,9 @@ $(document).ready(function() {
     startCollapsed: "accordion"
   };
   tabsInit($("#mainTabs, #faqTabs"), maintabsProps); //Инит табов на главной
+  if($('.markers').hasClass('r-tabs-state-active')){
+    $(".methods-laboratories").slideDown();
+  }
   playVideo();
   $(".tooltip").tooltipster({
     side: "bottom",
@@ -288,7 +291,9 @@ $(".methods-select").on("click", function() {
 });
 $(
   "#select-method .methods-select-list li, #select-country .methods-select-list li"
-).on("click", function() {
+).on("click", function () {
+  $(this).parent().find('li').removeClass('selected');
+  $(this).addClass('selected');
   var thisVal = $(this).text();
   var thisData = $(this).data();
   $(this)

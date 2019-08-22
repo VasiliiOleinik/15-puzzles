@@ -25,7 +25,7 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {    
+    {        
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews_'.app()->getLocale(),

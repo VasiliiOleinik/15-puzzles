@@ -3,6 +3,7 @@
 /* ------------------ */
 let evidences;
 let diseaseFactors;
+
 /* ------------------ */
 /* ------------------ */
 
@@ -36,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let tab2 = $('#tabListDiseases').html();
     let tab3 = $('#tabListProtocols').html();
     let tab4 = $('#tabListRemedies').html();
-    let tab5 = $('#tabListMarkers').html();
+    let tab5 = $('#tabListMarkers').html();    
 
     /* ------------------ */
     /* ------------------ */
@@ -46,6 +47,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*       EVENTS       */
     /* ------------------ */
 
+    //инициализация карты
+    let mapInitAttempts = 0;
+    let mapInit = setInterval(function () {        
+        if ($('#map_canvas').find('div').length > 0 ||
+            mapInitAttempts > 10) {
+            clearInterval(mapInit);
+        } else {
+            $('.methods-btn').click();
+            mapInitAttempts ++;
+        }
+    }, 1);
+    
     //Поменялось значение чекбокса
     $(".tab-list.main-scroll").delegate('.checkbox', 'change', function () {
         syncCheckedElements('checkbox', $(this).attr('obj-id'), $(this).attr('obj-type'));
@@ -72,6 +85,77 @@ document.addEventListener("DOMContentLoaded", function (event) {
         removeTag($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
         checkCheckbox($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
         checkPuzzle($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
+    });
+
+    //Кликнули на 'найти лаборатории'
+    $('.methods-btn').bind('click', function () {        
+        try {
+            laboratories_ajax.abort();
+        } catch (err) {
+        }
+        let country = $('#select-country').find('li.selected').eq(0).attr('obj-id');
+        let method = $('#select-method').find('li.selected').eq(0).attr('obj-id');
+        if (country == "Your country") {
+            country = "";
+        }
+        /*
+        let zipcode = $('.methods-input').val();
+        let lat, lng;
+        let geocoder = new google.maps.Geocoder();
+        lat = geocoder.geocode({ address: zipcode},
+            function (results_array, status) {
+                // Check status and do whatever you want with what you get back
+                // in the results_array variable if it is OK.
+                lat = results_array[0].geometry.location.lat()
+                lng = results_array[0].geometry.location.lng()
+            });
+        */
+        let data = {
+            "country": country,
+            "method": method,
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+        };
+        laboratories_ajax = $.ajax({
+            type: "post",
+            url: "/map_refresh",
+            data: data,
+            dataType: 'json',
+            complete: function (response) {
+                //console.log(response.responseJSON);
+
+                //очистка карты
+                $('#map_canvas').html('');
+                //выставляем центр карты в зависимости от выбранной страны
+                let mapProp = {
+                    center: new google.maps.LatLng(45.0, 45.0),//USA
+                    zoom: 0,
+                };
+                if (country) {
+                    mapProp = {
+                        center: new google.maps.LatLng(parseFloat(response.responseJSON.country.lat),
+                            parseFloat(response.responseJSON.country.lng)),
+                        zoom: 0,
+                    };
+                }
+                //инициализакция карты
+                var map = new google.maps.Map(document.getElementById("map_canvas"), mapProp);
+                //функция добавления маркера
+                function addMarker(location) {
+                    marker = new google.maps.Marker({
+                        position: location,
+                        map: map
+                    });
+                }
+                //добавление маркера
+                laboratories = response.responseJSON.laboratories;
+                laboratories.forEach(function (item) {
+                    addMarker(new google.maps.LatLng(parseFloat(item.lat),
+                                                     parseFloat(item.lng) ) );
+                });                
+            },
+            error: function (err) {
+            }
+        });
     });
 
     /* ------------------ */
@@ -345,6 +429,8 @@ function startObserver(selector, callback, params) {
     // Pass in the target node, as well as the observer options
     observer.observe(target, config);
 }
+
+
 
 /* ------------------ */
 /* ------------------ */

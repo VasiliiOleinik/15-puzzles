@@ -24,6 +24,9 @@ use Illuminate\Support\Facades\Cache;
 use Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Country;
+use App\Models\Laboratory\Laboratory;
+//use GMaps;
 
 class MainController extends Controller
 {
@@ -95,12 +98,84 @@ class MainController extends Controller
         });
         $evidences = Cache::remember('evidences_'.app()->getLocale(), now()->addDay(1), function(){
                 return Evidence::all();
-        });        
+        });
+        $countries = Cache::remember('country', now()->addDay(1), function(){
+                return Country::all();
+        });
+        $laboratories = Cache::remember('laboratory', now()->addDay(1), function(){
+                return Laboratory::all();
+        });
+        //$map = $this->initMap($laboratories);
+        //$mapJs = $map['js'];
+   
         $data = [
             'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods',
-            'newsLatest', 'markerMethods'
+            'newsLatest', 'markerMethods', 'countries'
         ];
         return view('main.main', compact($data));
+    }
+
+    /**
+     * Initialize google maps
+     *
+     * @params integer[], string
+     * @return obj
+     */
+    public function initMap($laboratories, $countryName = null, $method = null){
+        
+        $config = array();
+        $config['center'] = 'auto';
+        $config['zoom'] = '2';          
+        $config['geocodeCaching'] = true;
+        GMaps::initialize($config);
+
+        if($method){
+            $laboratories = $this->checkIfMethodInLaboratory($laboratories, $method);
+        }
+        foreach($laboratories as $laboratory){
+                        
+            $marker['position'] = $laboratory->lat.', '.$laboratory->lng;//'47.09514, 37.54131';
+            $marker['infowindow_content'] = $laboratory->name;
+            GMaps::add_marker($marker);
+        }
+        return GMaps::create_map();
+
+    }
+
+    /**
+     * Check if method in laboratories
+     *
+     * @return []
+     */
+    public function checkIfMethodInLaboratory($laboratories, $method){
+        $laboratoriesFilter = [];
+        foreach($laboratories as $laboratory){
+            $methods = $laboratory->methods()->get()->pluck('id')->toArray();
+            if(in_array($method, $methods ) ){
+                array_push($laboratoriesFilter, $laboratory);
+            }
+        }
+        return $laboratoriesFilter;
+    }
+
+    /**
+     * Refresh map
+     *
+     * @return view
+     */
+    public function mapRefresh(Request $request){
+        $laboratories = Cache::remember('laboratory', now()->addDay(1), function(){
+                return Laboratory::all();
+        });
+        $country = null;
+        if($request['country']){
+            $country = Country::find($request['country']);
+        }
+        if($request['method']){
+            $laboratories = $this->checkIfMethodInLaboratory($laboratories, $request['method']);
+        }
+        $json = ['laboratories' => $laboratories, 'country' => $country];
+        return $json;       
     }
 
     /**
