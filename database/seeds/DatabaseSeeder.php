@@ -10,10 +10,7 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {
-        //$this->call(FactorsTableSeeder::class);
-        //$this->call(FactorLanguagesTableSeeder::class);
-
+    {        
         $this->call(FilesTableSeeder::class);
 
 		$this->call(RolesTableSeeder::class);
@@ -59,5 +56,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BookLanguagesTableSeeder::class);
         $this->call(LinksForBooksTableSeeder::class);
 
+        $this->call(CountriesTableSeeder::class);
+        $this->call(LaboratoriesTableSeeder::class);
     }
 }
