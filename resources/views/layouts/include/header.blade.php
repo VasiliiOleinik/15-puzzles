@@ -31,29 +31,27 @@
         @endif
       @endforeach
       </div>
-      <div class="header__login">
-        
+      <div class="header__login">        
           @guest
           <button id="login-btn" data-fancybox data-src="#header-login-modal-js"><img src="/img/svg/user.svg" alt="User">
             <span>@lang('header.login')</span>
           </button>
-          @endguest
-        
-        @auth
-          <button ><img src="/img/svg/user.svg" alt="User"></button>
+          @endguest        
+          @auth          
+          <button ><img src="{{Auth::user()->img}}" alt="User"></button>
           <a class="logout" href="{{ route('logout', app()->getLocale() ) }}"
              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{Auth::user()->nickname}}</a>
           <form id="logout-form" action="{{ route('logout', app()->getLocale() ) }}" method="POST" style="display: none;">
             @csrf
           </form>
-        @endauth
-
+          @endauth
           <div class="login-modal">
-            <a href="/" class="login-modal__link">@lang('header.personal')</a>
+            <a href="{{ url(app()->getLocale().'/personal_cabinet') }}" class="login-modal__link">@lang('header.personal')</a>
+            @auth
             <a class="login-modal__link" href="{{ route('logout', app()->getLocale() ) }}"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">@lang('header.logout')</a>
+            @endauth
           </div>
-
       </div>
       <div class="header__search-block">
         <button class="search-btn" id="search-btn-js"><img src="/img/svg/search.svg" alt="@lang('header.placeholder_search')"></button>
