@@ -34,8 +34,20 @@ function tabsInit(item, props) {
 }
 
 function setCategoryPosition() {
-  var step = $(".puzzle-15__item-outer").height(),
+  var maxStep;
+  $(".puzzle-15__item-outer").each(function(index, item) {
+    var height = $(item).outerHeight();
+    if (index > 0) {
+      if (height > maxStep) {
+        maxStep = height;
+      }
+    } else {
+      maxStep = height;
+    }
+  });
+  var step = maxStep,
     position = step;
+  $(".puzzle-15__item-outer").css({ height: maxStep });
   $(".puzzle-15__category").each(function(index, item) {
     $(item).css({
       top: position + "px"
@@ -122,7 +134,7 @@ $(function() {
   // Скрываю label когда input активен (personal page)
   $(
     ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
-  ).on("click", function() {
+  ).on("focus", function() {
     $(this).css({
       "box-shadow": "rgba(91, 156, 167, 0.32) 0px 1px 6px",
       border: "1px solid rgba(91, 156, 167, .5)",
@@ -193,7 +205,7 @@ $(function() {
     .val();
 
   // Окрытие доп.информации в табах на home page
-  $(".tab-list.main-scroll").delegate(".arrow", "click", function () {
+  $(".tab-list.main-scroll").delegate(".arrow", "click", function() {
     var isOpen = $(this).hasClass("dropdown");
 
     $(".arrow").removeClass("dropdown");
@@ -249,19 +261,25 @@ $(function() {
     });
   });
   // Подсветка выбранного таба на странице home page
-  $(".tab-list.main-scroll").delegate(".tab_head_check input", "click", function () {
-    $(this)
-      .parent()
-      .parent()
-      .toggleClass("checked-tab");
-  });
+  $(".tab-list.main-scroll").delegate(
+    ".tab_head_check input",
+    "click",
+    function() {
+      $(this)
+        .parent()
+        .parent()
+        .toggleClass("checked-tab");
+    }
+  );
 
   // Делаю фактор активным
-  $(".tab-list.main-scroll").delegate(".puzzle-15__item", "click", function () {
+  $(".tab-list.main-scroll").delegate(".puzzle-15__item", "click", function() {
     $(this).toggleClass("active");
   });
 
-  $(".tab-list.main-scroll").delegate(".evidence", "hover",
+  $(".tab-list.main-scroll").delegate(
+    ".evidence",
+    "hover",
     function() {
       $(this)
         .find(".evidence__detail")
@@ -275,7 +293,7 @@ $(function() {
   );
 });
 
-$(".tab-list.main-scroll").delegate(".method-item__head","change", function() {
+$(".tab-list.main-scroll").delegate(".method-item__head", "change", function() {
   var thisTitle = $(this)
     .find(".title")
     .text();
@@ -379,7 +397,7 @@ $(" #close-recovery-js, .fancybox-container").on("click", function() {
 $(function() {
   var categorItem = $(".categories__list .item"),
     tagsItem = $(".tags__list .item");
-  $(".tags__list").delegate(".item","click", function() {
+  $(".tags__list").delegate(".item", "click", function() {
     $(this).toggleClass("choosen");
     if (categorItem.hasClass("choosen") || tagsItem.hasClass("choosen")) {
       $("#clear-filter-btn-js").css({ cursor: "pointer" });
@@ -442,17 +460,32 @@ $(function() {
   });
 });
 
-$(function(){
-    $('.edit-artile').on('click', function(){
-    $('#med-history-js, #add-story-js').slideToggle();
-    $('#add-story-js').find('.add-story__title').text('Edit note');
-	$('.add-story__form').attr('method','post');
-	let id = $(this).parent().attr('obj-id');
-	$('.add-story__form').attr('action','/medical_history/update_post/' + id);
+$(function() {
+  $(".edit-artile").on("click", function() {
+    $("#med-history-js, #add-story-js").slideToggle();
+    $("#add-story-js")
+      .find(".add-story__title")
+      .text("Edit note");
+    $(".add-story__form").attr("method", "post");
+    let id = $(this)
+      .parent()
+      .attr("obj-id");
+    $(".add-story__form").attr("action", "/medical_history/update_post/" + id);
   });
-  $('#add-note-js, #cancel-form-js').on('click', function(){
-    $('#med-history-js, #add-story-js').slideToggle();
-    $('#add-story-js').find('.add-story__title').text('Add your story');
-	$('.add-story__form').attr('method','post');
+  $("#add-note-js, #cancel-form-js").on("click", function() {
+    $("#med-history-js, #add-story-js").slideToggle();
+    $("#add-story-js")
+      .find(".add-story__title")
+      .text("Add your story");
+    $(".add-story__form").attr("method", "post");
   });
+  
+  // Перевод страницы
+  if($('html')[0].lang === 'ru'){
+    $('body').removeAttr('id');
+    $('body').attr('id','russian');
+  } else {
+    $('body').removeAttr('id');
+    $('body').attr('id','english');
+  }
 });

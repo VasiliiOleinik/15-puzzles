@@ -1,0 +1,7 @@
+.main__books li a{
+	display: flex;
+	align-items: center;
+}
+.main__books li a:hover{
+	transition: .3s;
+}

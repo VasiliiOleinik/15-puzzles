@@ -68,11 +68,11 @@
                   <input id="img" type="hidden" name="img">  
                   <div class="labels">
                     <input class="headline inp" type="text" name="headline" required>
-                    <label for="headline">Headline</label>
+                    <label for="headline">Headline <span class="required">*</span></label>
                   </div>
                   <div class="labels">
                     <textarea class="story inp" name="your-story" required></textarea>
-                    <label class="textarea" for="your-story">Your story</label>
+                    <label class="textarea" for="your-story">Your story <span class="required">*</span></label>
                   </div>
                   <div class="add-images">
                     <h3 class="add-images__title">Add image</h3>
@@ -89,7 +89,7 @@
                       <div class="labels" style="padding: 0; min-height:48px;">
                           <input id="story-tags" required>  
                           <input class="add-tags inp" type="text" name="story-tags" id="tags">
-                          <label class="place">Add your story tags.</label>
+                          <label class="place">Add your story tags <span class="required">*</span></label>
                       </div>
                   </div>
                   <div class="footer-form">

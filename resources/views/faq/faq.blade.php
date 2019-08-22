@@ -38,7 +38,7 @@
                       @guest
                       <input type="text" name="name">
                       @endauth
-                      <label for="name">Your name</label>
+                      <label for="name">Your name<span class="required">*</span></label>
                     </div>
                     <div class="label">
                       <input type="text" name="phone">

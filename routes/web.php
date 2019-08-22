@@ -36,6 +36,7 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::post('faq', 'FaqController@letter')->name('letter');
     Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet    
 
+
     Route::post('literature-modal', 'LiteratureController@literatureModal')->name('literature-modal');
 
     Route::get('search', 'SearchController@index')->name('search');

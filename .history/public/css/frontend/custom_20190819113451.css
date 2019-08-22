@@ -1,0 +1,8 @@
+.main__books li a{
+	display: flex;
+	align-items: center;
+}
+.main__books li a:hover{
+	color: #599ba7;
+	transition: .3s;
+}

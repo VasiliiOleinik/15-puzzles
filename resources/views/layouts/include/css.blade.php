@@ -7,6 +7,8 @@
       integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/main.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/custom.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/lang.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/backend/auth.css') }}">
 @yield('verify-css')
 @yield('main-css')

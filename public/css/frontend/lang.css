@@ -1,0 +1,10 @@
+@media (max-width: 1600px){
+	#russian .logo{
+		width: 150px
+	}
+}
+@media (max-width: 1140px){
+	#russian .logo {
+		width: 100px;
+	}
+}

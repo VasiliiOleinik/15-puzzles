@@ -22,7 +22,8 @@ return [
     'eng' => 'ENG',
     'ru' => 'RU',
     'login' => 'LOGIN',
-    'logout' => 'LOGOUT',
+    'logout' => 'Logout',
+    'personal' => 'Personal cabinet',
     'placeholder_search' => 'Search',
 
 ];
