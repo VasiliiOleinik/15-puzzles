@@ -130,6 +130,7 @@ class MemberCases extends Section implements Initializable
             AdminFormElement::hidden('img')->setLabel('картинка'),
             AdminFormElement::view('sleeping-owl.member-cases.test'),
             AdminFormElement::textarea('content', 'история болезни'),
+            AdminFormElement::multiselect('tags', 'Тэги этой истории болезни')->setModelForOptions(\App\Models\Tag::class)->setDisplay('name'),
             AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1)       
         ]); 
     }
@@ -153,7 +154,8 @@ class MemberCases extends Section implements Initializable
             AdminFormElement::select('user_id', 'пользователь')->setModelForOptions(\App\Models\User\User::class)->setDisplay('nickname')
                                               ->setDefaultValue('1'),
             AdminFormElement::checkbox('anonym')->setLabel('анонимная публикация'),
-            AdminFormElement::textarea('content', 'история болезни')
+            AdminFormElement::textarea('content', 'история болезни'),
+            AdminFormElement::multiselect('tags', 'Тэги этой истории болезни')->setModelForOptions(\App\Models\Tag::class)->setDisplay('name')
         ]); 
     }
 
