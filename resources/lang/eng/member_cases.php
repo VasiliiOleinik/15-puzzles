@@ -23,5 +23,5 @@ return [
     'placeholder_tags' => 'Add tags. Tags must be separated by a comma.',
     'don_not_publish' => 'Do not publish my data. Publish case anonymously.',
     'button_submit' => 'Submit for moderation',
-
+    'anonimous' => 'User wished to remain anonymous',
 ];

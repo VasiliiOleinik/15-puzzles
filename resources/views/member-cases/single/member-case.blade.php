@@ -19,7 +19,7 @@
                     @if($memberCase->anonym == 0)
                     <span class="case-info-text">{{$memberCase->user->first_name}} {{$memberCase->user->last_name}}</span>
                     @else
-                    <span class="case-info-text">User wished to remain anonymous</span>
+                    <span class="case-info-text">@lang('member_cases.anonimous')</span>
                     @endif
                   </div>
                   <div class="case-container">

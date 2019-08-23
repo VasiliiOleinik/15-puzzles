@@ -31,7 +31,7 @@ return [
     'show_more' => 'SHOW MORE',
     'subtitle_markers' => "How to check to what extent the cells are under dna mutagenic influence",
     'title_methods' => "Find nearest laboratories to check this marker",
-    'subtitle_methods' => "Enter your country name and your zip code",
+    'subtitle_methods' => "Enter method and your country name",
     'methods' => 'Methods',
     'button_all_news' => 'All news',
     'button_literature' => 'Literature',
@@ -51,5 +51,5 @@ return [
     'dangers' => 'DANGERS',
     'defence' => 'DEFENCE',
     'dangers' => 'DANGERS',
-
+    'close' => 'Close',
 ];

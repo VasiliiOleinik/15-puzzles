@@ -20,7 +20,7 @@ return [
     'clear_filter' => "Clear filter",
     'placeholder_search' => 'Search',
     'placeholder_subscribe' => 'Your Email Address',
-    'button_buy' => 'Where can I buy',
+    'button_buy' => 'Buy',
     'shops_list' => 'Shops list:',
 
 ];

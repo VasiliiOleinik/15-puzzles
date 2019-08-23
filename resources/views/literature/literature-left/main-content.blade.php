@@ -6,7 +6,7 @@
                     <div class="book__info-block">
                       <h3 class="book-name">{{$book->title}}</h3>
                       <h4 class="book-author">{{$book->author}}</h4>
-                      <p class="book-review">{{$book->description}}</p><a class="show-more-info-book" data-src="#more-info-book-modal-js">Где купить</a>
+                      <p class="book-review">{{$book->description}}</p><a class="show-more-info-book" data-src="#more-info-book-modal-js">@lang('literature.button_buy')</a>
                     </div>
                   </div>
                   @endforeach                  

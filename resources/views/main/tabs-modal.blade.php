@@ -6,6 +6,6 @@
           <rect fill="#364458" height="40" width="2" y="-20" x="20" rx="2" ry="2" style="transform: rotate(45deg);"></rect>
         </g>
       </svg></a>
-    <div class="tabs-modal-text"></div><a class="close-tabs-modal-btn" href="javascript:void(0)">Закрыть</a>
+    <div class="tabs-modal-text"></div><a class="close-tabs-modal-btn" href="javascript:void(0)">@lang('main.close')</a>
   </div>
 </div>
