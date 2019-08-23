@@ -65,6 +65,13 @@ class TagsTableSeeder extends Seeder
             }
         }
 
+        //делаем одинаковыми имена
+        foreach(Tag::all() as $tag){
+            $tag->name = TagLanguage::where('tag_id','=',$tag->id)
+                                          ->where('language','=','eng')->first()->name;
+            $tag->save();
+        }
+
     }
 }
 

@@ -203,6 +203,9 @@ class NewsController extends Controller
           $article->img = $request['img'];
         } 
         $article->save();
+        if(array_key_exists("tags", $request->article)){
+            $article->tags()->sync($request->article['tags']);
+        }
 
         $articleLanguageEng->language = "eng";
         $articleLanguageEng->title = $request['titleEng'];
@@ -261,8 +264,10 @@ class NewsController extends Controller
         if($request->img != null){          
           $article->img = $request['img'];
         }
-
         $article->save();
+        if(array_key_exists("tags", $request->article)){
+            $article->tags()->sync($request->article['tags']);
+        }
 
         Cache::forget('newsLatest_eng');
         Cache::forget('newsLatest_ru');

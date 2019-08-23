@@ -108,6 +108,7 @@ class ArticleLanguages extends Section implements Initializable
             AdminFormElement::hidden('img')->setLabel('Картинка'),
             AdminFormElement::view('sleeping-owl.input-type-file'),
             AdminFormElement::textarea('content')->setLabel('Полное описание новости')->required(),
+            AdminFormElement::multiselect('article.tags', 'Тэги этой статьи')->setModelForOptions(\App\Models\Tag::class)->setDisplay('name'),
             AdminFormElement::text('article.created_at')->setLabel('Создано')->setReadonly(1)       
         ]); 
     }
@@ -143,7 +144,8 @@ class ArticleLanguages extends Section implements Initializable
                     return $image;
                 }),
             AdminFormElement::hidden('img')->setLabel('картинка'),
-            AdminFormElement::view('sleeping-owl.input-type-file'),            
+            AdminFormElement::view('sleeping-owl.input-type-file'),
+            AdminFormElement::multiselect('article.tags', 'Тэги этой статьи')->setModelForOptions(\App\Models\Tag::class)->setDisplay('name'),
 
             AdminFormElement::hidden('titleEng'),
             AdminFormElement::hidden('descriptionEng'),

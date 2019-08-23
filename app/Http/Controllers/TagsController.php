@@ -38,6 +38,7 @@ class TagsController extends Controller
         $tag = new Tag;
         //находим наивысшее значение id и ставим больше на 1
         $tag->id = Tag::orderBy('id', 'desc')->first()->id + 1;
+        $tag->name = $request['nameEng'];
         $tag->save();
 
         $tagLanguageEng->language = "eng";

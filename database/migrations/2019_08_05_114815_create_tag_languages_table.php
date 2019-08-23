@@ -17,7 +17,7 @@ class CreateTagLanguagesTable extends Migration {
 			$table->increments('id');
 			$table->string('language', 10)->default('eng');
 			$table->integer('tag_id')->unsigned()->default(1)->index('FK_tag_languages_tags');
-			$table->string('name', 50)->default('--');
+			$table->string('name', 50)->nullable();
 		});
 	}
 
