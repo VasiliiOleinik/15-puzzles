@@ -26,7 +26,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 $('.tags__list').delegate('.item', 'click', 'change', function () {
     //Тэги, которые мы вписали в поле "Search"
-    let searchTags = $("#tags").val().split(',');
+    let searchTags = [""];
+    if ($("#tags").length > 0) {
+        searchTags = $("#tags").val().split(',');
+    }
+
     //Тэг, по которому кликнули в облаке тэгов (добавляем его в массив выбранных тэгов из облака)
     let tag = $(this).attr('obj-id');
     if (!tagsActiveCloud.includes(tag)) {

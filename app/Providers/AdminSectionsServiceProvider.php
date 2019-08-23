@@ -27,7 +27,8 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\QuestionLanguage::class => 'App\Http\Admin\QuestionLanguages',
         \App\Models\Book\LinkForBooks::class => 'App\Http\Admin\LinkForBooks',
         \App\Models\MethodLanguage::class => 'App\Http\Admin\MethodLanguages',
-        \App\Models\TagLanguage::class => 'App\Http\Admin\TagLanguages', 
+        \App\Models\TagLanguage::class => 'App\Http\Admin\TagLanguages',
+        \App\Models\Subscriber::class => 'App\Http\Admin\Subscriber', 
     ];
 
     //protected $router->get('/factorLanguages/create', ['as' => 'admin.factorLanguages.create', 'uses' => '\App\Http\Controllers\MainController@index']);
