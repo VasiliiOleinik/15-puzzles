@@ -1,10 +1,12 @@
 @media (max-width: 1600px){
-	#russian .logo{
-		width: 150px
-	}
+    :lang(ru) .logo {
+        width: 150px;
+        min-width: 150px!important;
+    }
 }
 @media (max-width: 1140px){
-	#russian .logo {
-		width: 100px;
-	}
+    :lang(ru) .logo {
+        width: 100px;
+        min-width: 100px !important;
+    }
 }
