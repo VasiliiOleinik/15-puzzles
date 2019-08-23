@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', function () {
-
+document.addEventListener('DOMContentLoaded', function () {    
     $('[name=next_action]').on('click', function (e) {
         e.preventDefault();
+        $('input[type=text]').trigger('keyup');
         //Проверяем заполнены ли все required поля
         let elems = [$('[type=hidden][name= titleEng]').val(), $('[type=hidden][name = descriptionEng]').val(),
                      $('[type=hidden][name = contentEng]').val(), $('[type=hidden][type=hidden][name=titleRu]').val(),

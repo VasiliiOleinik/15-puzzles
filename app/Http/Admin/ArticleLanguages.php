@@ -91,26 +91,57 @@ class ArticleLanguages extends Section implements Initializable
      */
     public function onEdit($id)
     {
-        $ckeditor = view('sleeping-owl.pages.layout'); 
-
+        $ckeditor = view('sleeping-owl.pages.layout');
         $imageSrc = Article::find( $this->model::find($id)->article_id )->img;
-        $image = '<img id="img-admin" src="'.$imageSrc.'" width="100%" style="max-width: 800px;">';
-        return AdminForm::panel()->addBody([
-            /*AdminFormElement::custom()
+        $image = '<img id="img-admin" src="'.$imageSrc.'" width="100%" style="max-width: 600px;">';
+
+        //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
+        //(заполняются hidden поля на вкладке связей)
+        $scripts = "<script src='/js/backend/admin-news.js')></script>";        
+
+        $formEng = AdminForm::panel()->addBody([
+        AdminFormElement::custom()
                 ->setDisplay(function($instance) use($ckeditor) {
                     return $ckeditor;
-                }),*/
-            AdminFormElement::text('title')->setLabel('Название статьи')->setReadonly(1),
+                }),
+            AdminFormElement::custom()
+                ->setDisplay(function($instance) use($scripts) {
+                    return $scripts;
+                }),
+            
+            AdminFormElement::text('title')->setName('titleEng')->setLabel('Название новости')->required(),
+            AdminFormElement::textarea('description')->setName('descriptionEng')->setLabel('Краткое описание новости')->required(),
+            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Полное описание новости')->required()
+        ]);
+        $formRu = AdminForm::panel()->addBody([           
+            AdminFormElement::text('title')->setName('titleRu')->setLabel('Название новости')->required(),
+            AdminFormElement::textarea('description')->setName('descriptionRu')->setLabel('Краткое описание новости')->required(),
+            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Полное описание новости')->required()
+        ]);
+        $formRelations = AdminForm::panel()->addBody([
+            AdminFormElement::text('article.created_at')->setLabel('Создано')->setReadonly(1),
             AdminFormElement::custom()
                 ->setDisplay(function($instance) use($image) {
                     return $image;
                 }),
-            AdminFormElement::hidden('img')->setLabel('Картинка'),
+            AdminFormElement::hidden('img')->setLabel('картинка'),
             AdminFormElement::view('sleeping-owl.input-type-file'),
-            AdminFormElement::textarea('content')->setLabel('Полное описание новости')->required(),
             AdminFormElement::multiselect('article.tags', 'Тэги этой статьи')->setModelForOptions(\App\Models\Tag::class)->setDisplay('name'),
-            AdminFormElement::text('article.created_at')->setLabel('Создано')->setReadonly(1)       
-        ]); 
+
+            AdminFormElement::hidden('titleEng'),
+            AdminFormElement::hidden('descriptionEng'),
+            AdminFormElement::hidden('contentEng'),
+            AdminFormElement::hidden('titleRu'),
+            AdminFormElement::hidden('descriptionRu'),
+            AdminFormElement::hidden('contentRu')
+        ]);
+
+        $tabs = AdminDisplay::tabbed();
+        $tabs->appendTab($formEng, 'Новость eng');
+        $tabs->appendTab($formRu, 'Новость ru');
+        $tabs->appendTab($formRelations, 'Новость другое');
+        
+        return $tabs;
     }
 
     /**
@@ -118,6 +149,7 @@ class ArticleLanguages extends Section implements Initializable
      */
     public function onCreate()
     {
+        $ckeditor = view('sleeping-owl.pages.layout'); 
         $image = '<img id="img-admin" width="30%" style="max-width: 400px;">';               
 
         //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
@@ -125,10 +157,15 @@ class ArticleLanguages extends Section implements Initializable
         $scripts = "<script src='/js/backend/admin-news.js')></script>";        
 
         $formEng = AdminForm::panel()->addBody([
+        AdminFormElement::custom()
+                ->setDisplay(function($instance) use($ckeditor) {
+                    return $ckeditor;
+                }),
             AdminFormElement::custom()
                 ->setDisplay(function($instance) use($scripts) {
                     return $scripts;
                 }),
+            
             AdminFormElement::text('title')->setName('titleEng')->setLabel('Название новости')->required(),
             AdminFormElement::textarea('description')->setName('descriptionEng')->setLabel('Краткое описание новости')->required(),
             AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Полное описание новости')->required()

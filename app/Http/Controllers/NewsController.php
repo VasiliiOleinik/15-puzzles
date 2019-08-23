@@ -183,7 +183,7 @@ class NewsController extends Controller
      * @return \Illuminate\Support\Facades\Redirect
      */
     public function create(Request $request)
-    {        
+    {
         $validatedData = $request->validate([
         'titleEng' => ['required', 'string', 'max:191'],
         'titleRu' => ['required', 'string', 'max:191'],
@@ -259,12 +259,13 @@ class NewsController extends Controller
      */
     public function edit($id, Request $request)
     {
-        $id = ArticleLanguage::find($id)->article_id;
+        /*$id = ArticleLanguage::find($id)->article_id;
         $article = Article::find($id);
         if($request->img != null){          
           $article->img = $request['img'];
         }
         $article->save();
+
         if(array_key_exists("tags", $request->article)){
             $article->tags()->sync($request->article['tags']);
         }
@@ -281,7 +282,73 @@ class NewsController extends Controller
             }
         }        
 
-        return Redirect::to('/admin/news/');
+        return Redirect::to('/admin/news/');*/
+
+        //dd($request->all());
+        $validatedData = $request->validate([
+        'titleEng' => ['required', 'string', 'max:191'],
+        'titleRu' => ['required', 'string', 'max:191'],
+        'descriptionEng' => ['required', 'max:191'],
+        'descriptionRu' => ['required', 'max:191'],  
+        'contentEng' => ['required', 'max:64000'],
+        'contentRu' => ['required', 'max:64000'],      
+        'img' => ['nullable'],       
+        ]);
+
+        $id = ArticleLanguage::find($id)->article_id;
+        $article = Article::find($id);
+        $articleLanguageEng = ArticleLanguage::withoutGlobalScopes()
+                                             ->where('language','=','eng')
+                                             ->where('article_id','=',$id)
+                                             ->first();
+        $articleLanguageRu = ArticleLanguage::withoutGlobalScopes()
+                                             ->where('language','=','ru')
+                                             ->where('article_id','=',$id)
+                                             ->first();
+
+        //находим наивысшее значение id и ставим больше на 1
+        if($request->img != null){          
+          $article->img = $request['img'];
+        } 
+        $article->save();
+        if(array_key_exists("tags", $request->article)){
+            $article->tags()->sync($request->article['tags']);
+        }
+
+        $articleLanguageEng->language = "eng";
+        $articleLanguageEng->title = $request['titleEng'];
+        $articleLanguageEng->description = $request['descriptionEng'];
+        $articleLanguageEng->content = $request['contentEng'];
+        $articleLanguageEng->article_id = $article->id;
+
+        $articleLanguageRu->language = "ru";
+        $articleLanguageRu->title = $request['titleRu'];
+        $articleLanguageRu->description = $request['descriptionRu'];
+        $articleLanguageRu->content = $request['contentRu'];
+        $articleLanguageRu->article_id = $article->id;
+        
+        $articleLanguageEng->save();
+        $articleLanguageRu->save();
+
+        Cache::forget('newsLatest_eng');
+        Cache::forget('newsLatest_ru');
+        Cache::remember('newsLatest_eng', now()->addDay(1), function(){
+                $latest = Article::orderBy('id','desc')->paginate(3)->pluck('id');
+                return ArticleLanguage::withoutGlobalScopes()
+                                      ->with('article')
+                                      ->where('language','=','eng')
+                                      ->whereIn('article_id',$latest)
+                                      ->orderBy('article_id','desc')->paginate(3);
+        });
+        Cache::remember('newsLatest_ru', now()->addDay(1), function(){
+                $latest = Article::orderBy('id','desc')->paginate(3)->pluck('id');
+                return ArticleLanguage::withoutGlobalScopes()
+                                      ->with('article')
+                                      ->where('language','=','ru')
+                                      ->whereIn('article_id',$latest)
+                                      ->orderBy('article_id','desc')->paginate(3);
+        });
+        return Redirect::back();
     }
 
     /**

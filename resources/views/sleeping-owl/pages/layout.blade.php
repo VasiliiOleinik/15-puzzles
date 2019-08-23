@@ -3,7 +3,7 @@
 <script type="text/javascript">
     tinymce.init({
         setup:function(ed) {
-           ed.on('change keyup', function(e) {
+           ed.on('init change keyup', function(e) {
                /*console.log('the event object ', e);
                console.log('the editor object ', ed.id);
                console.log('the content ', ed.getContent());*/
