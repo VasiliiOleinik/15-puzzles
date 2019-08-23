@@ -117,6 +117,12 @@ return [
                 'url'   => url('/admin/roles'),
                 //'badge' => \App\Models\Role\Role::count(),
             ],
+             [
+                'title' => 'Подписчики',
+                'icon'  => 'fa fa-user-plus',
+                'url'   => url('/admin/subscribers'),
+                //'badge' => \App\Models\Subscriber::count(),
+            ],
             [
                 'title' => 'Комментарии',
                 'icon'  => 'fa fa-comments',
