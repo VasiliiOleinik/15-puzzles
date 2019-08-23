@@ -117,11 +117,20 @@ class MemberCases extends Section implements Initializable
      * @return FormInterface
      */
     public function onEdit($id)
-    {        
+    {
+        $rules = ['required', 'string', 'max:191'];
+
+        $ckeditor = view('sleeping-owl.pages.layout'); 
         $image = '<img id="img-admin" src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';
         return AdminForm::panel()->addBody([
-            AdminFormElement::text('title')->setLabel('заголовок')->required(),
+            AdminFormElement::custom()
+                ->setDisplay(function($instance) use($ckeditor) {
+                    return $ckeditor;
+            }),
+            AdminFormElement::text('title')->setLabel('заголовок')->setValidationRules($rules),
+            AdminFormElement::text('description')->setLabel('описание')->setValidationRules($rules),
             AdminFormElement::select('status', 'статус')->setOptions(['show' => 'show', 'hide' => 'hide', 'moderating' => 'moderating']),
+            AdminFormElement::text('user.nickname')->setLabel('пользователь')->setReadonly(1),
             AdminFormElement::checkbox('anonym')->setLabel('анонимная публикация'),
             AdminFormElement::custom()
                 ->setDisplay(function($instance) use($image) {
@@ -140,9 +149,17 @@ class MemberCases extends Section implements Initializable
      */
     public function onCreate()
     {
+        $rules = ['required', 'string', 'max:191'];
+
+        $ckeditor = view('sleeping-owl.pages.layout'); 
         $image = '<img id="img-admin" src="" width="100%" style="max-width: 800px;">';
         return AdminForm::panel()->addBody([
-            AdminFormElement::text('title')->setLabel('заголовок')->required(),
+            AdminFormElement::custom()
+                ->setDisplay(function($instance) use($ckeditor) {
+                    return $ckeditor;
+            }),
+            AdminFormElement::text('title')->setLabel('заголовок')->setValidationRules($rules),
+            AdminFormElement::text('description')->setLabel('описание')->setValidationRules($rules),
             AdminFormElement::custom()
                 ->setDisplay(function($instance) use($image) {
                     return $image;

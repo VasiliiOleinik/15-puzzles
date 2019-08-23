@@ -157,7 +157,7 @@ class ArticleLanguages extends Section implements Initializable
         $scripts = "<script src='/js/backend/admin-news.js')></script>";        
 
         $formEng = AdminForm::panel()->addBody([
-        AdminFormElement::custom()
+            AdminFormElement::custom()
                 ->setDisplay(function($instance) use($ckeditor) {
                     return $ckeditor;
                 }),

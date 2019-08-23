@@ -259,32 +259,6 @@ class NewsController extends Controller
      */
     public function edit($id, Request $request)
     {
-        /*$id = ArticleLanguage::find($id)->article_id;
-        $article = Article::find($id);
-        if($request->img != null){          
-          $article->img = $request['img'];
-        }
-        $article->save();
-
-        if(array_key_exists("tags", $request->article)){
-            $article->tags()->sync($request->article['tags']);
-        }
-
-        Cache::forget('newsLatest_eng');
-        Cache::forget('newsLatest_ru');
-
-        if( $request->has("next_action") ){
-            if($request['next_action'] == "save_and_continue"){
-                return redirect()->back();
-            }
-            if($request['next_action'] == "save_and_create"){
-                return redirect()->route('admin.model.create',['adminModel' => 'news']);
-            }
-        }        
-
-        return Redirect::to('/admin/news/');*/
-
-        //dd($request->all());
         $validatedData = $request->validate([
         'titleEng' => ['required', 'string', 'max:191'],
         'titleRu' => ['required', 'string', 'max:191'],
