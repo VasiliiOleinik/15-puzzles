@@ -2,7 +2,7 @@
   <h3 class="home-news__title">@lang('main.title_news')</h3>
   <div class="home-news__list">
     @foreach($newsLatest as $news)
-    <div class="home-news__item"><img class="news-image" src="{{$news->article->img}}" alt="">
+    <div class="home-news__item"><img class="news-image lazy" data-src="{{$news->article->img}}" alt="">
       <div class="news-detail">
         <a class="news-name" href="{{ url(app()->getLocale().'/news') }}/{{$news->article_id}}">{{$news->title}}</a>
         <a class="news-date" href="{{ url(app()->getLocale().'/news') }}/{{$news->article_id}}">{{$news->article->updated_at->format('d.m.Y')}}</a>

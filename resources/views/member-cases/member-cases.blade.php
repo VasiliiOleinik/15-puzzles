@@ -30,7 +30,7 @@
                       @if( $memberCase->img==null )
                         <img class="post__img" src="/img/med-history.png" alt="">
                       @else
-                        <img class="post__img" src="{{$memberCase->img}}" alt="">
+                        <img class="post__img" src="{{$memberCase->img}}" alt="" >
                       @endif                      
                     </a>
                     <a class="post__date" href="javascript:void(0)">{{$memberCase->updated_at->format('d.m.Y')}}</a>

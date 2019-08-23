@@ -1,8 +1,8 @@
 <div class="main__right">
   <div class="main__video">
-    <div class="main__video-overlay"><!--<img class="main__video-logo" src="img/svg/logo.svg">--></div>
-    <video poster="img/Video.png">
-      <source src="{{ config('puzzles.main.link_video') }}" type="video/mp4">
+    <div class="main__video-overlay"></div>
+    <video class="lazy" poster="img/Video.png">
+      <source data-src="{{ config('puzzles.main.link_video') }}" type="video/mp4">
     </video>
   </div>
   @include('main.main-right.puzzle-15')
