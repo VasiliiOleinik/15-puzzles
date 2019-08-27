@@ -38,7 +38,13 @@
           </button>
           @endguest        
           @auth          
-          <button ><img src="{{Auth::user()->img}}" alt="User"></button>
+          <button >
+          @if( Auth::user()->img==null )
+            <img src="/img/upload_big.png" alt="User">
+          @else
+            <img src="{{Auth::user()->img}}" alt="User">
+          @endif            
+          </button>
           <a class="logout" href="{{ route('logout', app()->getLocale() ) }}"
              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{Auth::user()->nickname}}</a>
           <form id="logout-form" action="{{ route('logout', app()->getLocale() ) }}" method="POST" style="display: none;">
