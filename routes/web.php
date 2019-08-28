@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+    
 /* LOCALIZATION */
 Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'middleware' => 'setlocale' ], function() {
 
@@ -30,7 +30,8 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::post('member_cases/update_post', 'MemberCaseController@updatePost')->name('update_post');//без этого не работает сохранение кейса с картинкой
     Route::get('factor_diagram', 'FactorDiagramController@index')->name('factor_diagram');
     Route::get('about', 'AboutController@index')->name('about');
-    Route::resource('news', 'NewsController');        
+    Route::resource('news', 'NewsController');
+    Route::get('news/{category?}', 'NewsController@index');        
     Route::get('literature', 'LiteratureController@index')->name('literature');
     Route::get('faq', 'FaqController@index')->name('faq');
     Route::post('faq', 'FaqController@letter')->name('letter');

@@ -25,14 +25,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /* ------------------ */
 
 $('.tags__list').delegate('.item', 'click', 'change', function () {
+    //Тэг, по которому кликнули в облаке тэгов (добавляем его в массив выбранных тэгов из облака)
+    let tag = $(this).attr('obj-id');
+    location.href = '/' + locale + '/news/?tag=' + tag;
+    //ajax способ
+    /*
     //Тэги, которые мы вписали в поле "Search"
     let searchTags = [""];
     if ($("#tags").length > 0) {
         searchTags = $("#tags").val().split(',');
-    }
-
-    //Тэг, по которому кликнули в облаке тэгов (добавляем его в массив выбранных тэгов из облака)
-    let tag = $(this).attr('obj-id');
+    }    
     if (!tagsActiveCloud.includes(tag)) {
         tagsActiveCloud.push(tag);
     } else {
@@ -58,7 +60,7 @@ $('.tags__list').delegate('.item', 'click', 'change', function () {
         error: function (err) {
         }
     });
-
+    */
 });
 
 /* ------------------------- */

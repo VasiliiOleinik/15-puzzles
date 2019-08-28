@@ -38,11 +38,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //ajax pagination
     $('.news-left').delegate('.pagination a', 'click', function (e) {
-        e.preventDefault();
+        /*e.preventDefault();
         var url = $(this).attr('href');
         $.get(url, $('#search').serialize(), function (data) {
             $('.main-content').html(data);
-        });
+        });*/
     });
 
     //клик на сброс фильтра
@@ -51,8 +51,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     //клик на категориях статей
-    $('.categories__list li a').on('click', function () {
+    $('.categories__list li a').on('click', function () {        
         let category = $(this).attr('obj-id');
+        location.href = '/' + locale+ '/news/?category=' + category;
+        //ajax способ
+        /*
         if (!categoriesForNewsActive.includes(category)) {
             categoriesForNewsActive.push(category);
         } else {
@@ -67,8 +70,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         } else {
             tagsActive = tagsActive.concat(tagsActiveCloud);
         }
-
-        
         try {
             categoryAjax.abort();
         } catch (err) { }
@@ -88,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     console.log(err.responseText);
             }
         });
+        */
     });
 
     //Клик на иконке поиска по тэгам

@@ -25,7 +25,7 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {        
+    {
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews_'.app()->getLocale(),
@@ -34,61 +34,32 @@ class NewsController extends Controller
                 return CategoryForNewsLanguage::with('categoriesForNews')->get();
             }
         );
-        //Выбраны тэги
-        if($request->tagsActive){
-            if($request->tagsActive[0]) {
-                $articles_id = array();
-                $tags = Tag::with('articles')->whereIn('id', $request->tagsActive)->get();
-                foreach ($tags as $tag) {
-                    foreach ($tag->articles as $obj) {
-                        array_push($articles_id, $obj->id);
-                    }
+        //Выбрана категория         
+        if($request->category){
+            $categoriesForNewsActive = [$request->category];
+            $collection = Article::with('categoriesForNews')->whereHas(
+                'categoriesForNews', function ($query) use ( $categoriesForNewsActive ) {
+                $query->whereIn('category_for_news_id', $categoriesForNewsActive);
+            })->get()->pluck('id')->toArray();
+        }
+        //Выбран тэг
+        if($request->tag){
+            $articles_id = array();
+            $tags = Tag::with('articles')->whereIn('id', [$request->tag])->get();
+            foreach ($tags as $tag) {
+                foreach ($tag->articles as $obj) {
+                    array_push($articles_id, $obj->id);
                 }
-                $articlesWithTags = Article::with('tags')->whereIn('id', $articles_id)->get()->pluck('id')->toArray();
-            }
+            }            
+            $collection = Article::with('tags')->whereIn('id', $articles_id)->get()->pluck('id')->toArray();
         }
-        //Выбраны категории
-        if($request->categoriesForNewsActive){
-            if(count($request->categoriesForNewsActive) > 0) {
-
-                $categoriesForNewsActive = $request->categoriesForNewsActive;
-
-                $articlesWithCategoriesForNews = Article::with('categoriesForNews')->whereHas(
-                    'categoriesForNews', function ($query) use ( $categoriesForNewsActive ) {
-                    $query->whereIn('category_for_news_id', $categoriesForNewsActive);
-                })->get()->pluck('id')->toArray();
-            }
-        }
-        //Выбраны тэги или категории
-        if($request->categoriesForNewsActive || $request->tagsActive){
-            //если переменные с массивами выбранных категорий/тэгов не существуют => мы их создаем пустыми []
-            $variableNames = ['articlesWithCategoriesForNews', 'articlesWithTags'];
-            foreach($variableNames as $variableName)
-            if( !isset(${$variableName}) ){
-                ${$variableName} = [];
-            }
-
-            //коллекция статей с учетом фильтра по категориям и тэгам                           
-            $collection = array_unique(array_merge( $articlesWithCategoriesForNews, $articlesWithTags ));
-
-            //если не выбраны ни категории, ни тэги => отображаем все статьи
-            if( count($collection) > 0){
-                $articles = ArticleLanguage::with('article')->whereIn('article_id',$collection)
+        if(!$request->category && !$request->tag){
+            $articles = ArticleLanguage::with('article')->orderBy('article_id', 'DESC')->paginate(4);
+        }else{
+            $articles = ArticleLanguage::with('article')->whereIn('article_id',$collection)
                                                             ->orderBy('article_id', 'DESC')->paginate(4);
-            }else{
-                $articles = ArticleLanguage::with('article')->orderBy('article_id', 'DESC')->paginate(4);
-            }       
-            return view('news.news-left.main-content', compact(['articles']));
         }
-        //пагинация
-        if($request->page){
-            $articles = ArticleLanguage::with('article')->orderBy('article_id', 'DESC')->paginate(4);
-            return view('news.news-left.main-content', compact(['articles']));
-        }
-        else{
-            $articles = ArticleLanguage::with('article')->orderBy('article_id', 'DESC')->paginate(4);
-            return view('news.news', compact(['articles','categoriesForNews']));
-        }
+        return view('news.news', compact(['articles','categoriesForNews']));
     }
 
     /**
