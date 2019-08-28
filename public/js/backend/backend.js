@@ -26,8 +26,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
 $('.tags__list').delegate('.item', 'click', 'change', function () {
     //Тэг, по которому кликнули в облаке тэгов (добавляем его в массив выбранных тэгов из облака)
+    let route = 'news';
+    if (location.href.includes("news")) {
+        route = 'news';
+    }
+    if (location.href.includes("literature")) {
+        route = 'literature';
+    }
+    if (location.href.includes("member_cases")) {
+        route = 'member_cases';
+    }
     let tag = $(this).attr('obj-id');
-    location.href = '/' + locale + '/news/?tag=' + tag;
+    location.href = '/' + locale + '/'+ route +'/?tag=' + tag;
     //ajax способ
     /*
     //Тэги, которые мы вписали в поле "Search"
