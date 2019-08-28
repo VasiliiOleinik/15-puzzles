@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*       EVENTS       */
     /* ------------------ */
 
-    //ajax pagination
+    /*//ajax pagination
     $('.cases-left').delegate('.pagination a', 'click', function (e) {
         e.preventDefault();
         var url = $(this).attr('href');
@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $('.main-content').html(data);
         });
     });
+    */
 
     //при смене аватара добавляем img src в hidden input формы
     $('.item-img').find('.image').on('load', function () {

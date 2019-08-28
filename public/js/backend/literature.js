@@ -38,13 +38,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
     //ajax pagination
-    $('.news-left').delegate('.pagination a', 'click', function (e) {
-        /*e.preventDefault();
+    /*$('.news-left').delegate('.pagination a', 'click', function (e) {
+        e.preventDefault();
         var url = $(this).attr('href');
         $.get(url, $('#search').serialize(), function (data) {
             $('.main-content').html(data);
-        });*/
+        });
     });
+    */
 
     //клик на "Где купить"
     $('.main-content').delegate('.show-more-info-book', 'click', function () {

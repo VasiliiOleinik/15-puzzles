@@ -19,32 +19,21 @@ class MemberCaseController extends Controller
     public function index(Request $request)
     {
          //Выбраны тэги
-        if($request->tagsActive){
-            if($request->tagsActive[0]) {
-                $memberCasesId = array();
-                $tags = Tag::with('memberCases')->whereIn('id', $request->tagsActive)->get();
-                foreach ($tags as $tag) {
-                    foreach ($tag->memberCases as $obj) {
-                        array_push($memberCasesId, $obj->id);
-                    }
-                }          
-                $memberCases = MemberCase::with('tags')->whereIn('id', $memberCasesId)->where('status','=','show')
-                                                       ->orderBy('id', 'DESC')->paginate(4);        
-            }
-            else{                
-              $memberCases = MemberCase::with('tags')->where('status','=','show')->orderBy('id', 'DESC')->paginate(4);              
-            }
-            return view('member-cases.partial.member-cases', compact(['memberCases']));
+        if($request->tag){
+            $memberCasesId = array();
+            $tags = Tag::with('memberCases')->whereIn('id', [$request->tag])->get();
+            foreach ($tags as $tag) {
+                foreach ($tag->memberCases as $obj) {
+                    array_push($memberCasesId, $obj->id);
+                }
+            }          
+            $memberCases = MemberCase::with('tags')->whereIn('id', $memberCasesId)->where('status','=','show')
+                                                    ->orderBy('id', 'DESC')->paginate(4);        
+            return view('member-cases.member-cases', compact(['memberCases']));
         }
-        //пагинация
-        if($request->page){
-            $memberCases = MemberCase::with('user')->where('status','=','show')->orderBy('id', 'DESC')->paginate(4);
-            return view('member-cases.partial.member-cases', compact(['memberCases']));
-        }
-        else{
-            $memberCases = MemberCase::with('user')->where('status','=','show')->orderBy('id', 'DESC')->paginate(4);
-            return view('member-cases.member-cases',compact(['memberCases']));
-        }
+        $memberCases = MemberCase::with('user')->where('status','=','show')->orderBy('id', 'DESC')->paginate(4);
+        return view('member-cases.member-cases',compact(['memberCases']));
+
     }
 
     /**
