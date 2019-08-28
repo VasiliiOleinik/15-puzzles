@@ -6,7 +6,8 @@
                   <li class="item"><a href="javascript:void(0)" obj-id="{{$category->category_for_books_id}}">{{$category->name}}</a></li>
                   @endforeach
                 </ul>
-              </div>              
+              </div>
+              <!--
               <div class="clear-filter"><a class="clear-filter-btn" id="clear-filter-btn-js" href="javascript:void(0)">@lang('literature.clear_filter')</a></div>
               <div class="search">
                 <p class="news-right__title">@lang('literature.title_search')</p>
@@ -15,6 +16,7 @@
                   <button class="search-news-btn"><img src="/img/svg/search_news.svg" alt=""></button>
                 </form>
               </div>
+              -->
               <div class="subscribe">
                 <p class="news-right__title">@lang('literature.title_subscribe')</p>
                 <form class="subscribe__input" method="get" action="{{ route('subscriber.create', app()->getLocale()) }}">
