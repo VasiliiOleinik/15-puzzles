@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('title')
+    <title>{{ config('puzzles.member_cases.title_'.app()->getLocale()) }}</title>
+@endsection
+@section('description')
+    <meta content="{{ config('puzzles.member_cases._description_'.app()->getLocale()) }}" name="description">
+@endsection
 @section('literature-js')
     <!--  scripts you need to search for tags   -->
     <script src="{{ asset('js/backend/tags search/typeahead.js') }}" defer></script>

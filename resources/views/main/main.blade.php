@@ -1,10 +1,14 @@
 @extends('layouts.app')
-
+@section('title')
+    <title>{{ config('puzzles.main.title_'.app()->getLocale()) }}</title>
+@endsection
+@section('description')
+    <meta content="{{ config('puzzles.main._description_'.app()->getLocale()) }}" name="description">
+@endsection
 @section('main-css')
   <link rel="stylesheet" type="text/css" href="{{ asset('css/backend/main.css') }}">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIjlu9ia5rqM9wTiQmXFKRCUiXH4wrjRs"></script>
 @endsection
-
 @section('content')
   <main class="main">
     <div class="box">
@@ -14,7 +18,6 @@
     </div>
   </main>
 @endsection
-
 @section('main-js')  
   <script src="{{ asset('js/backend/main.js') }}" defer></script>
 @endsection

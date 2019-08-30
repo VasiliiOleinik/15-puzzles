@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('title')
+    <title>{{ config('puzzles.about.title_'.app()->getLocale()) }}</title>
+@endsection
+@section('description')
+    <meta content="{{ config('puzzles.about._description_'.app()->getLocale()) }}" name="description">
+@endsection
 @section('content')
         <main class="main">
           <div class="box about">

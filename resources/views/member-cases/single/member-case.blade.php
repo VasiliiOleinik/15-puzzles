@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('title')
+    <title>{{ config('puzzles.member_cases.title_'.app()->getLocale()) }}</title>
+@endsection
+@section('description')
+    <meta content="{{ config('puzzles.member_cases._description_'.app()->getLocale()) }}" name="description">
+@endsection
 @section('content')
         <main class="main">
           <div class="box">

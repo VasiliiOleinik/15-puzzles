@@ -1,4 +1,10 @@
 @extends('layouts.app')
+@section('title')
+    <title>{{ config('puzzles.personal_cabinet.title_'.app()->getLocale()) }}</title>
+@endsection
+@section('description')
+    <meta content="{{ config('puzzles.personal_cabinet._description_'.app()->getLocale()) }}" name="description">
+@endsection
 @section('personal_cabinet-css')
     <link href="{{ asset('css/backend/personal_cabinet.css') }}" rel="stylesheet">    
 @endsection

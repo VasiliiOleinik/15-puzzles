@@ -2,8 +2,7 @@
 <html lang="{{ config('app.locale') }}">
 <head>
   @include('layouts.include.meta')
-  @include('layouts.include.css')
-  <title>{{ config('puzzles.main.title_'.app()->getLocale()) }}</title>
+  @include('layouts.include.css')   
 </head>
 <body>
 <div class="content-wrapper" id="contentWrapper">
