@@ -81,7 +81,7 @@ class BookLanguages extends Section implements Initializable
                 AdminColumn::text('language')->setLabel('Язык')
             );
 
-        return $display->setView(view('sleeping-owl.display.table'));
+        return $display->setView( view('sleeping-owl.display.table-title-description-scripts', ['view' => 'literature'] ) );
     }
 
     /**

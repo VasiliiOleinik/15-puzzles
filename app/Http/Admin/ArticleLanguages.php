@@ -80,8 +80,8 @@ class ArticleLanguages extends Section implements Initializable
                 AdminColumnEditable::textarea('content')->setLabel('Полное описание статьи'),
                 AdminColumn::text('language')->setLabel('Язык')
             );
-
-        return $display->setView(view('sleeping-owl.display.table'));
+        
+        return $display->setView( view('sleeping-owl.display.table-title-description-scripts', ['view' => 'news'] ) );
     }
 
     /**

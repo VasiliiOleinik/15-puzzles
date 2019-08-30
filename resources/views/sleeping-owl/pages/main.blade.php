@@ -10,10 +10,14 @@
       <input type="hidden" value="{{config('puzzles.main.puzzles_description_ru')}}" name="puzzlesDescriptionRu">
       <input type="hidden" value="{{config('puzzles.main.puzzles_description_eng')}}" name="puzzlesDescriptionEng">
        
-      <label for="titleRu">Название страницы RU:</label>
+      <label for="titleRu">Title RU:</label>
       <input type="text" class="form-control" name="titleRu" value="{{config('puzzles.main.title_ru')}}"><br>
-      <label for="titleEng">Название страницы ENG:</label>
+      <label for="titleEng">Title ENG:</label>
       <input type="text" class="form-control" name="titleEng" value="{{config('puzzles.main.title_eng')}}"><br>
+      <label for="_descriptionRu">Description RU:</label>
+      <input type="text" class="form-control" name="_descriptionRu" value="{{config('puzzles.main._description_ru')}}"><br>
+      <label for="_descriptionEng">Description ENG:</label>
+      <input type="text" class="form-control" name="_descriptionEng" value="{{config('puzzles.main._description_eng')}}"><br>
 
       <label for="h1Ru">Заголовок h1 RU:</label>
       <input type="text" class="form-control" name="h1Ru" value="{{config('puzzles.main.h1_ru')}}"><br>                 

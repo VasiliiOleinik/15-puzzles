@@ -1,6 +1,6 @@
 <?php return array (
-  'title_ru' => '15 пазлов литература',
-  'title_eng' => '15 puzzles Literature',
+  'title_ru' => 'Литература',
+  'title_eng' => 'Literature',
   '_description_ru' => 'Литература описание',
   '_description_eng' => 'Literature description',
 );

@@ -58,6 +58,8 @@ class PagesController extends Controller
            $this->rewriteConfig($request->page, 'logo' , $request->logo);
            $this->rewriteConfig($request->page, 'title_ru' , $request->titleRu);
            $this->rewriteConfig($request->page, 'title_eng' , $request->titleEng);
+           $this->rewriteConfig($request->page, '_description_ru' , $request->_descriptionRu);
+           $this->rewriteConfig($request->page, '_description_eng' , $request->_descriptionEng);
            $this->rewriteConfig($request->page, 'h1_ru' , $request->h1Ru);
            $this->rewriteConfig($request->page, 'h1_eng' , $request->h1Eng);
            $this->rewriteConfig($request->page, 'description_ru' , $request->descriptionRu);
@@ -68,10 +70,21 @@ class PagesController extends Controller
        }
        if($request->page == "about"){
            $this->rewriteConfig($request->page, 'img' , $request->img);
+           $this->rewriteConfig($request->page, 'title_ru' , $request->titleRu);
+           $this->rewriteConfig($request->page, 'title_eng' , $request->titleEng);
+           $this->rewriteConfig($request->page, '_description_ru' , $request->_descriptionRu);
+           $this->rewriteConfig($request->page, '_description_eng' , $request->_descriptionEng);
            $this->rewriteConfig($request->page, 'description_ru' , $request->descriptionRu);
            $this->rewriteConfig($request->page, 'description_eng' , $request->descriptionEng);
            $this->rewriteConfig($request->page, 'puzzles_description_ru' , $request->puzzlesDescriptionRu);
            $this->rewriteConfig($request->page, 'puzzles_description_eng' , $request->puzzlesDescriptionEng);
+       }
+       if($request->page == "member_cases" || $request->page == "faq" || $request->page == "literature" ||
+          $request->page == "news" || $request->page == "factor_diagram" ){
+           $this->rewriteConfig($request->page, 'title_ru' , $request->titleRu);
+           $this->rewriteConfig($request->page, 'title_eng' , $request->titleEng);
+           $this->rewriteConfig($request->page, '_description_ru' , $request->_descriptionRu);
+           $this->rewriteConfig($request->page, '_description_eng' , $request->_descriptionEng);
        }
 
 

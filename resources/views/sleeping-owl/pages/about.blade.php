@@ -8,6 +8,15 @@
       <label for="img">Логотип:</label>
       <input type="text" class="form-control" name="img" value="{{config('puzzles.about.img')}}"><br>
 
+      <label for="titleRu">Title RU:</label>
+      <input type="text" class="form-control" name="titleRu" value="{{config('puzzles.about.title_ru')}}"><br>
+      <label for="titleEng">Title ENG:</label>
+      <input type="text" class="form-control" name="titleEng" value="{{config('puzzles.about.title_eng')}}"><br>
+      <label for="_descriptionRu">Description RU:</label>
+      <input type="text" class="form-control" name="_descriptionRu" value="{{config('puzzles.about._description_ru')}}"><br>
+      <label for="_descriptionEng">Description ENG:</label>
+      <input type="text" class="form-control" name="_descriptionEng" value="{{config('puzzles.about._description_eng')}}"><br>
+
       <label for="descriptionRu">Описание RU:</label>
       <textarea class="form-control" rows="5" name="descriptionRu">{{config('puzzles.about.description_ru')}}</textarea><br>
       <label for="descriptionEng">Описание ENG:</label>
