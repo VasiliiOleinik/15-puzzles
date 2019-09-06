@@ -30,8 +30,11 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::post('member_cases/update_post', 'MemberCaseController@updatePost')->name('update_post');//без этого не работает сохранение кейса с картинкой
     Route::get('factor_diagram', 'FactorDiagramController@index')->name('factor_diagram');
     Route::get('about', 'AboutController@index')->name('about');
-    Route::resource('news', 'NewsController');     
+    Route::get('news/category/{name}', 'NewsController@index')->name('news_category');
+    Route::resource('news', 'NewsController');    
+    Route::get('news/{name}', 'NewsController@show')->name('news_show');  
     Route::get('literature', 'LiteratureController@index')->name('literature');
+    Route::get('literature/category/{name}', 'LiteratureController@index')->name('literature_category');   
     Route::get('faq', 'FaqController@index')->name('faq');
     Route::post('faq', 'FaqController@letter')->name('letter');
     Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet    

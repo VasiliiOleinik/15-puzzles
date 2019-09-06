@@ -24,8 +24,8 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request, $locale, $name = null)
+    {   
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews_'.app()->getLocale(),
@@ -35,12 +35,21 @@ class NewsController extends Controller
             }
         );
         //Выбрана категория         
-        if($request->category){
-            $categoriesForNewsActive = [$request->category];
+        if($request->route()->getname() == "news_category"){
+            foreach($categoriesForNews as $category){
+                $_name = mb_strtolower($category->categoriesForNews->name);
+                $_name = preg_replace('#[[:punct:]]#', '', $_name);
+                $_name = str_replace(" ","-",$_name);               
+                if($name == $_name){
+                    $categoryId = $category->category_for_news_id;
+                    break;
+                }                
+            }          
+            $categoriesForNewsActive = [$categoryId];
             $collection = Article::with('categoriesForNews')->whereHas(
                 'categoriesForNews', function ($query) use ( $categoriesForNewsActive ) {
                 $query->whereIn('category_for_news_id', $categoriesForNewsActive);
-            })->get()->pluck('id')->toArray();
+            })->get()->pluck('id')->toArray();            
         }
         //Выбран тэг
         if($request->tag){
@@ -53,12 +62,13 @@ class NewsController extends Controller
             }            
             $collection = Article::with('tags')->whereIn('id', $articles_id)->get()->pluck('id')->toArray();
         }
-        if(!$request->category && !$request->tag){
+        if($request->route()->getname() != "news_category" && !$request->tag){
             $articles = ArticleLanguage::with('article')->orderBy('article_id', 'DESC')->paginate(4);
         }else{
+        
             $articles = ArticleLanguage::with('article')->whereIn('article_id',$collection)
                                                             ->orderBy('article_id', 'DESC')->paginate(4);
-        }
+        }        
         return view('news.news', compact(['articles','categoriesForNews']));
     }
 
@@ -68,8 +78,25 @@ class NewsController extends Controller
      * @param  \App\Models\Article\Article  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($locale, $id)
+    public function show($locale, $title)
     {
+        //категории для новостей
+        $categoriesForNews = Cache::remember(
+            'categoryForNews_'.app()->getLocale(),
+            now()->addDay(1),
+            function(){
+                return CategoryForNewsLanguage::with('categoriesForNews')->get();
+            }
+        );
+        foreach(ArticleLanguage::with('article')->get() as $article){
+            $_title = mb_strtolower($article->article->title);
+            $_title = preg_replace('#[[:punct:]]#', '', $_title);
+            $_title = str_replace(" ","-",$_title);               
+            if($title == $_title){
+                $id = $article->article_id;
+                break;
+            }                
+        }
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews_'.app()->getLocale(),
@@ -170,6 +197,7 @@ class NewsController extends Controller
         $article = new Article;
         //находим наивысшее значение id и ставим больше на 1
         $article->id = Article::orderBy('id', 'desc')->first()->id + 1;
+        $article->title = $request['titleEng'];
         if($request->img != null){          
           $article->img = $request['img'];
         } 

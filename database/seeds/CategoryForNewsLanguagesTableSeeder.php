@@ -30,6 +30,12 @@ class CategoryForNewsLanguagesTableSeeder extends Seeder
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - CategoryForNews::count()] );
-        }    
+        }
+        //делаем одинаковыми имена
+        foreach(CategoryForNews::all() as $category){
+            $category->name = CategoryForNewsLanguage::where('category_for_news_id','=',$category->id)
+                                          ->where('language','=','eng')->first()->name;
+            $category->save();
+        }
     }
 }

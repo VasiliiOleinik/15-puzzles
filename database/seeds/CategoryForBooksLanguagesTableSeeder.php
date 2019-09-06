@@ -30,6 +30,12 @@ class CategoryForBooksLanguagesTableSeeder extends Seeder
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - CategoryForBooks::count()] );
-        }    
+        }
+        //делаем одинаковыми имена
+        foreach(CategoryForBooks::all() as $category){
+            $category->name = CategoryForBooksLanguage::where('category_for_books_id','=',$category->id)
+                                          ->where('language','=','eng')->first()->name;
+            $category->save();
+        }
     }
 }

@@ -24,6 +24,39 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /* ------------------ */
 /* ------------------ */
 
+function createCookie(name, value, days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "; expires=" + date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name, "", -1);
+}
+
+$.urlParam = function (name) {
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results == null) {
+        return null;
+    }
+    return decodeURI(results[1]) || 0;
+}
+
 $('.tags__list').delegate('.item', 'click', 'change', function () {
     //Тэг, по которому кликнули в облаке тэгов (добавляем его в массив выбранных тэгов из облака)
     let route = 'news';
@@ -118,7 +151,7 @@ function usedTags(_with, all) {
                 json_length = Object.keys(json).length;
 
                 data = formTheCorrectDataFormat(json, json_length);
-                tagsInputInit(data);
+                tagsInputInit(data);                
             }
         },
         error: function (err) {
@@ -150,6 +183,18 @@ function setTagsCloud(tags, _with) {
             //console.log(result.responseText);
             if (result.responseText.length != 0) {
                 $('.tags__list').html(result.responseText);
+
+                let timerCloud = setInterval(function () {
+                    //Выбран тэг - подсвечиваем его как выбранный
+                    if ($.urlParam('tag')) {
+                        $(".tags__list li.item").each(function () {
+                            clearInterval(timerCloud);
+                            if ($(this).attr('obj-id') == $.urlParam('tag')) {
+                                $(this).addClass('choosen');
+                            }
+                        });
+                    }
+                }, 1);                
             }
         },
         error: function (err) {

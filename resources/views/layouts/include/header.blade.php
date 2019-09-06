@@ -21,7 +21,7 @@
         @php
             $localeCount ++;
         @endphp
-        @if(ctype_digit(substr(url()->current(), strrpos(url()->current(), '/') + 1)) && (int) substr(url()->current(), strrpos(url()->current(), '/') + 1) > 0 || strpos(url()->current(), csrf_token()) !== false)
+        @if(ctype_digit(substr(url()->current(), strrpos(url()->current(), '/') + 1)) && (int) substr(url()->current(), strrpos(url()->current(), '/') + 1) > 0 || strpos(url()->current(), csrf_token()) !== false || \Request::route()->getName() == "news_category" || \Request::route()->getName() == "literature_category" || \Request::route()->getName() == "news_show" || \Request::route()->getName() == "news.show"|| \Request::route()->getName() == "member_cases.show")
           <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale, substr(url()->current(), strrpos(url()->current(), '/') + 1)]) }}">{{ strtoupper($locale) }}</a>
         @else        
           <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale]) }}">{{ strtoupper($locale) }}</a>

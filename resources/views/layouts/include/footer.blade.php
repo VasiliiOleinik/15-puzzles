@@ -20,7 +20,7 @@
           <input type="email" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" value="{{ Auth::user()->email }}" required>
           @endauth
           @guest
-          <input type="email" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" required>
+          <input type="email" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" required lang="de">
           @endguest
           <button type="submit">@lang('footer.button_subscribe')</button>
         </form>

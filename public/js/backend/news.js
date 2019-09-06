@@ -16,7 +16,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
     /*     FUNCTIONS      */
     /* ------------------ */
-    
+
+    //Выбрана категория
+    if (window.location.href.indexOf("category") > -1) {
+        if (readCookie('categoryForNewsId')) {
+            $("li.item").each(function () {
+                if ($(this).children().attr('obj-id') == readCookie('categoryForNewsId')) {
+                    $(this).addClass('choosen');
+                }
+            });
+        }
+    }    
 
     function clearFilter() {
         //tagsActiveCloud = [];
@@ -46,15 +56,25 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
     */
 
+    $('.post').on('click', function (e) {
+        e.preventDefault();
+        let newsId = $(this).find('a').attr('obj-id');        
+        createCookie('newsId', newsId, 1);
+        location.href = $(this).find('a').attr('href');
+    })
+
     //клик на сброс фильтра
     $('.clear-filter-btn').on('click', function () {
         clearFilter();
     });
 
     //клик на категориях статей
-    $('.categories__list li a').on('click', function () {        
-        let category = $(this).attr('obj-id');
-        location.href = '/' + locale+ '/news/?category=' + category;
+    $('.categories__list li a').on('click', function () {
+        let categoryId = $(this).attr('obj-id').toLowerCase();
+        let category = $(this).attr('obj-name').toLowerCase();
+        category = category.replace(" ", "+");
+        createCookie('categoryForNewsId', categoryId, 1);
+        location.href = '/' + locale+ '/news/category/' + category;
         //ajax способ
         /*
         if (!categoriesForNewsActive.includes(category)) {

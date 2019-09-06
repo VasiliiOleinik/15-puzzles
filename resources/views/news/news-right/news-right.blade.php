@@ -3,7 +3,10 @@
                 <p class="news-right__title">@lang('news.title_categories')</p>
                 <ul class="categories__list">
                   @foreach($categoriesForNews as $category)
-                  <li class="item"><a href="javascript:void(0)" obj-id="{{$category->category_for_news_id}}">{{$category->name}}</a></li>
+                  <li class="item">
+                    <a href="javascript:void(0)" obj-id="{{$category->category_for_news_id}}"
+                                                 obj-name="{{$category->categoriesForNews->name}}">{{$category->name}}</a>
+                  </li>
                   @endforeach                  
                 </ul>
               </div>

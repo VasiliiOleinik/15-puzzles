@@ -17,6 +17,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /*     FUNCTIONS      */
     /* ------------------ */
 
+    //Выбрана категория
+    if (window.location.href.indexOf("category") > -1) {
+        if (readCookie('categoryForBookId')) {
+            $("li.item").each(function () {
+                if ($(this).children().attr('obj-id') == readCookie('categoryForBookId')) {
+                    $(this).addClass('choosen');
+                }
+            });
+        }
+    } 
+
     //Без этого кнопки "Где купить" будут disabled (ждем document ready и активуруем их)
     $('.show-more-info-book').attr('data-fancybox', '');
 
@@ -94,8 +105,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //клик на категориях статей
     $('.categories__list li a').on('click', function () {
-        let category = $(this).attr('obj-id');
-        location.href = '/' + locale + '/literature/?category=' + category;
+        let categoryId = $(this).attr('obj-id').toLowerCase();
+        let category = $(this).attr('obj-name').toLowerCase();
+        category = category.replace(" ", "+");
+        createCookie('categoryForBookId', categoryId, 1);
+        location.href = '/' + locale + '/literature/category/' + category;
         //ajax способ
         /*
         if (!categoriesForBooksActive.includes(category)) {

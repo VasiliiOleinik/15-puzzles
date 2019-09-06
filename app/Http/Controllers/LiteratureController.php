@@ -19,7 +19,7 @@ class LiteratureController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index(Request $request, $locale, $name = null)
     {
         //категории для новостей
         $categoriesForBooks = Cache::remember(
@@ -30,8 +30,17 @@ class LiteratureController extends Controller
             }
         );
         //Выбрана категория         
-        if($request->category){
-            $categoriesForBooksActive = [$request->category];
+        if($request->route()->getname() == "literature_category"){
+            foreach($categoriesForBooks as $category){
+                $_name = mb_strtolower($category->categoriesForBook->name);
+                $_name = preg_replace('#[[:punct:]]#', '', $_name);
+                $_name = str_replace(" ","-",$_name);               
+                if($name == $_name){
+                    $categoryId = $category->category_for_books_id;
+                    break;
+                }                
+            }
+            $categoriesForBooksActive = [$categoryId];
             $collection = Book::with('categoriesForBooks')->whereHas(
                 'categoriesForBooks', function ($query) use ( $categoriesForBooksActive ) {
                 $query->whereIn('category_for_books_id', $categoriesForBooksActive);
@@ -48,7 +57,7 @@ class LiteratureController extends Controller
             }
             $collection = Book::with('tags')->whereIn('id',$books_id)->get()->pluck('id')->toArray();
         }
-        if(!$request->category && !$request->tag){
+        if($request->route()->getname() != "literature_category" && !$request->tag){
             $books = BookLanguage::with('book')->orderBy('book_id', 'DESC')->paginate(4);
         }else{
             $books = BookLanguage::with('book')->whereIn('book_id',$collection)
@@ -81,7 +90,6 @@ class LiteratureController extends Controller
      */
     public function create(Request $request)
     {
-        //dd($request->all());
         $validatedData = $request->validate([
         'titleEng' => ['required', 'string', 'max:191'],
         'titleRu' => ['required', 'string', 'max:191'],

@@ -18,7 +18,14 @@ class MemberCaseController extends Controller
      */
     public function index(Request $request)
     {
-         //Выбраны тэги
+        $memberCases = Cache::remember(
+            'memberCases',
+            now()->addDay(1),
+            function(){
+                return MemberCase::with('tags')->get();
+            }
+        );
+        //Выбраны тэги
         if($request->tag){
             $memberCasesId = array();
             $tags = Tag::with('memberCases')->whereIn('id', [$request->tag])->get();
@@ -90,7 +97,6 @@ class MemberCaseController extends Controller
      */
     public function updatePost(Request $request)
     {
-        dd($request->all());
         $validatedData = $request->validate([
         'headline' => ['required', 'string', 'max:191'],
         'your-story' => ['required'],
@@ -138,8 +144,25 @@ class MemberCaseController extends Controller
      * @param  \App\Models\MemberCase  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($locale, $id)
+    public function show($locale, $title)
     {
+        $memberCases = Cache::remember(
+            'memberCases',
+            now()->addDay(1),
+            function(){
+                return MemberCase::with('tags')->get();
+            }
+        );
+        foreach($memberCases as $memberCase){
+            $_title = mb_strtolower($memberCase->title);
+            $_title = preg_replace('#[[:punct:]]#', '', $_title);
+            $_title = str_replace(" ","-",$_title);               
+            if($_title == $title){
+                $id = $memberCase->id;
+                break;
+            }
+        }
+
         $tags = MemberCase::with('tags')->find($id)->tags()->get()->pluck('id');
         $tagLanguages = TagLanguage::whereIn('tag_id',$tags)->get();
         return view('member-cases.single.member-case', ['memberCase' => MemberCase::with('user', 'tags')->find($id),
