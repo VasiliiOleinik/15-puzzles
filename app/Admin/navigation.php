@@ -69,11 +69,11 @@ return [
                 'url'   => url('/admin/member-cases'),
                 //'badge' => \App\Models\MemberCase::count(),
             ],
-            [
+            /*[
                 'title' => 'Диаграмма факторов',
                 'icon'  => 'fa fa-retweet',
                 'url'   => url('/admin/pages/factor-diagram'),
-            ],
+            ],*/
             [
                 'title' => 'О нас',
                 'icon'  => 'fa fa-id-card',
