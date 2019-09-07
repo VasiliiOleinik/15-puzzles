@@ -73,11 +73,14 @@ class MarkerLanguages extends Section implements Initializable
         $display
             ->with(['marker'])
             ->setColumns(
-                AdminColumn::text('marker_id')->setLabel('marker id'),
+                //AdminColumn::text('marker_id')->setLabel('marker id'),
                 AdminColumnEditable::text('name')->setLabel('Название анализа'),
                 AdminColumnEditable::textarea('content')->setLabel('Описание анализа'),
                 AdminColumn::text('language')->setLabel('Язык')
-            );
+            )
+            ->setApply(function($query) {
+                $query->orderBy('marker_id', 'desc');
+            });
 
         return $display->setView(view('sleeping-owl.display.table'));
     }

@@ -70,9 +70,12 @@ class Roles extends Section implements Initializable
     {
         return AdminDisplay::datatablesAsync()        
             ->setColumns(
-                AdminColumn::link('id')->setLabel('id'),
+                //AdminColumn::link('id')->setLabel('id'),
                 AdminColumn::link('name')->setLabel('роль')
-            );
+            )
+            ->setApply(function($query) {
+                $query->orderBy('id', 'desc');
+            });
 
     }
 

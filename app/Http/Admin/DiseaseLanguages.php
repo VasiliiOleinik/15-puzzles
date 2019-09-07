@@ -73,11 +73,14 @@ class DiseaseLanguages extends Section implements Initializable
         $display
             ->with(['disease'])
             ->setColumns(
-                AdminColumn::text('disease_id')->setLabel('disease id'),
+                //AdminColumn::text('disease_id')->setLabel('disease id'),
                 AdminColumnEditable::text('name')->setLabel('Название болезни'),
                 AdminColumnEditable::textarea('content')->setLabel('Описание болезни'),
                 AdminColumn::text('language')->setLabel('Язык')
-            );
+            )
+            ->setApply(function($query) {
+                $query->orderBy('disease_id', 'desc');
+            });
 
         return $display->setView(view('sleeping-owl.display.table'));
     }

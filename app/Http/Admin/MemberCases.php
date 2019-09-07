@@ -108,7 +108,7 @@ class MemberCases extends Section implements Initializable
             );
         $display->getColumnFilters()->setPlacement('table.header');
 
-        return $display->setView( view('sleeping-owl.display.table-title-description', ['view' => 'member_cases'] ) );
+        return $display;
     }
 
     /**

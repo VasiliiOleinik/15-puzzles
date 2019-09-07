@@ -70,10 +70,13 @@ class LinkForBooks extends Section implements Initializable
         $display = AdminDisplay::datatablesAsync();
         return $display
             ->setColumns(
-                AdminColumn::text('id')->setLabel('id'),
+                //AdminColumn::text('id')->setLabel('id'),
                 AdminColumnEditable::text('title')->setLabel('Название магазина'),
                 AdminColumnEditable::text('url')->setLabel('Ссылка на магазин')
-            );        
+            )
+            ->setApply(function($query) {
+                $query->orderBy('id', 'desc');
+            });
     }
 
     /**

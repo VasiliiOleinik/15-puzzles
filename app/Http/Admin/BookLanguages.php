@@ -74,14 +74,14 @@ class BookLanguages extends Section implements Initializable
                 $query->orderBy('book_id', 'desc');
             })
             ->setColumns(
-                AdminColumn::text('book_id')->setLabel('book_id'),
+                //AdminColumn::text('book_id')->setLabel('book_id'),
                 AdminColumnEditable::text('title')->setLabel('Название книги'),
                 AdminColumnEditable::textarea('description')->setLabel('Краткое описание книги'),                
                 AdminColumnEditable::text('author')->setLabel('Автор книги'),
                 AdminColumn::text('language')->setLabel('Язык')
             );
 
-        return $display->setView( view('sleeping-owl.display.table-title-description-scripts', ['view' => 'literature'] ) );
+        return $display->setView( view('sleeping-owl.display.table' ) );
     }
 
     /**

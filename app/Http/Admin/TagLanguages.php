@@ -74,7 +74,7 @@ class TagLanguages extends Section implements Initializable
                 $query->orderBy('tag_id', 'desc')->orderBy('language', 'asc');
             })
             ->setColumns(
-                AdminColumn::text('tag_id')->setLabel('tag id'),
+                //AdminColumn::text('tag_id')->setLabel('tag id'),
                 AdminColumnEditable::text('name')->setLabel('Название тэга'),
                 AdminColumn::text('language')->setLabel('Язык')
             );

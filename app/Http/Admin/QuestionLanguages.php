@@ -83,7 +83,7 @@ class QuestionLanguages extends Section implements Initializable
                 $query->orderBy('question_id', 'desc');
             });
 
-        return $display->setView( view('sleeping-owl.display.table-title-description-scripts', ['view' => 'faq'] ) );
+        return $display->setView( view('sleeping-owl.display.table' ) );
     }
 
     /**

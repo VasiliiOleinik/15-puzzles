@@ -70,11 +70,14 @@ class MethodLanguages extends Section implements Initializable
         $display
             ->with(['method'])            
             ->setColumns(
-                AdminColumn::text('method_id')->setLabel('method id'),
+                //AdminColumn::text('method_id')->setLabel('method id'),
                 AdminColumnEditable::text('name')->setLabel('Название метода лечения'),            
                 AdminColumnEditable::textarea('content')->setLabel('Полное описание метода лечения'),
                 AdminColumn::text('language')->setLabel('Язык')
-            );
+            )
+            ->setApply(function($query) {
+                $query->orderBy('method_id', 'desc');
+            });
 
         return $display->setView(view('sleeping-owl.display.table'));
     }

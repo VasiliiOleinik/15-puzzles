@@ -79,12 +79,15 @@ class FactorLanguages extends Section implements Initializable
                 $query->withoutGlobalScopes();
             })
             ->setColumns(
-                AdminColumn::text('factor_id')->setLabel('factor id'),
+                //AdminColumn::text('factor_id')->setLabel('factor id'),
                 AdminColumnEditable::text('name')->setLabel('Название фактора'),
                 AdminColumnEditable::textarea('content')->setLabel('Описание Фактора'),
-                AdminColumn::text('factor.type.name', '' ,'factor.type.id')->setLabel('тип'),
+                AdminColumn::text('factor.type.name')->setLabel('тип'),
                 AdminColumn::text('language')->setLabel('Язык')
-            );
+            )
+            ->setApply(function($query) {
+                $query->orderBy('factor_id', 'desc');
+            });
 
         return $display->setView(view('sleeping-owl.display.table'));
     }

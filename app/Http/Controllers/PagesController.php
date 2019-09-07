@@ -17,8 +17,8 @@ class PagesController extends Controller
 
     public function memberCases(Request $request)
     {              
-       $content = view('sleeping-owl.pages.member-cases');
-	   return AdminSection::view($content, 'Страницы: истории болезней');
+       $content = view('sleeping-owl.pages.seo', ['view' => 'member_cases'] );//view('sleeping-owl.pages.member-cases');
+	   return AdminSection::view($content, 'Страницы SEO: истории болезней');
     }
 
     public function factorDiagram(Request $request)
@@ -35,20 +35,20 @@ class PagesController extends Controller
 
     public function news(Request $request)
     {              
-       $content = view('sleeping-owl.pages.news');
-	   return AdminSection::view($content, 'Страницы: новости');
+       $content = view('sleeping-owl.pages.seo', ['view' => 'news'] );//view('sleeping-owl.pages.news');
+	   return AdminSection::view($content, 'Страницы SEO: новости');
     }
 
     public function literature(Request $request)
     {              
-       $content = view('sleeping-owl.pages.literature');
-	   return AdminSection::view($content, 'Страницы: литература');
+       $content = view('sleeping-owl.pages.seo', ['view' => 'literature'] );//view('sleeping-owl.pages.literature');
+	   return AdminSection::view($content, 'Страницы SEO: литература');
     }
 
     public function faq(Request $request)
     {              
-       $content = view('sleeping-owl.pages.faq');
-	   return AdminSection::view($content, 'Страницы: faq');
+       $content = view('sleeping-owl.pages.seo', ['view' => 'faq'] );//view('sleeping-owl.pages.faq');
+	   return AdminSection::view($content, 'Страницы SEO: faq');
     }
 
     public function post(Request $request)

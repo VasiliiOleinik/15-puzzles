@@ -74,14 +74,14 @@ class ArticleLanguages extends Section implements Initializable
                 $query->orderBy('article_id', 'desc');
             })
             ->setColumns(
-                AdminColumn::text('article_id')->setLabel('article id'),
+                //AdminColumn::text('article_id')->setLabel('article id'),
                 AdminColumnEditable::text('title')->setLabel('Название статьи'),
                 AdminColumnEditable::textarea('description')->setLabel('Краткое описание статьи'),                
                 AdminColumnEditable::textarea('content')->setLabel('Полное описание статьи'),
                 AdminColumn::text('language')->setLabel('Язык')
             );
         
-        return $display->setView( view('sleeping-owl.display.table-title-description-scripts', ['view' => 'news'] ) );
+        return $display->setView( view('sleeping-owl.display.table' ) );
     }
 
     /**

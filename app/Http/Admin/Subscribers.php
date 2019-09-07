@@ -71,7 +71,7 @@ class Subscribers extends Section implements Initializable
         $display = AdminDisplay::datatablesAsync();
         $display
             ->setColumns(
-                AdminColumn::link('id')->setLabel('id'),
+                //AdminColumn::link('id')->setLabel('id'),
                 AdminColumn::text('email')->setLabel('почта'),
                 AdminColumn::text('language')->setLabel('Язык')
             )

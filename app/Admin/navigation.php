@@ -69,6 +69,12 @@ return [
                 'url'   => url('/admin/member-cases'),
                 //'badge' => \App\Models\MemberCase::count(),
             ],
+            [
+                'title' => 'Истории болезней SEO',
+                'icon'  => 'fa fa-address-card',
+                'url'   => url('/admin/pages/member-cases'),
+                //'badge' => \App\Models\MemberCase::count(),
+            ],
             /*[
                 'title' => 'Диаграмма факторов',
                 'icon'  => 'fa fa-retweet',
@@ -86,15 +92,33 @@ return [
                 //'badge' => \App\Models\Article\Article::count(),
             ],
             [
+                'title' => 'Новости SEO',
+                'icon'  => 'fa fa-comment',
+                'url'   => url('/admin/pages/news'),
+                //'badge' => \App\Models\Article\Article::count(),
+            ],
+            [
                 'title' => 'Литература',
                 'icon'  => 'fa fa-graduation-cap',
                 'url'   => url('/admin/literature'),
                 //'badge' => \App\Models\Book\Book::count(),
             ],
             [
+                'title' => 'Литература SEO',
+                'icon'  => 'fa fa-graduation-cap',
+                'url'   => url('/admin/pages/literature'),
+                //'badge' => \App\Models\Book\Book::count(),
+            ],
+            [
                 'title' => 'FAQ',
                 'icon'  => 'fa fa-question',
                 'url'   => url('/admin/faq'),
+                //'badge' => \App\Models\Question::count(),
+            ],
+            [
+                'title' => 'FAQ SEO',
+                'icon'  => 'fa fa-question',
+                'url'   => url('/admin/pages/faq'),
                 //'badge' => \App\Models\Question::count(),
             ],
         ]

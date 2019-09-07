@@ -97,7 +97,7 @@ class Users extends Section implements Initializable
         $display
             ->with(['role'])
             ->setColumns(
-                AdminColumn::link('id')->setLabel('id'),
+                //AdminColumn::link('id')->setLabel('id'),
                 AdminColumn::link('nickname')->setLabel('логин'),
                 AdminColumn::text('role.name')->setLabel('роль'),
                 AdminColumnEditable::text('first_name')->setLabel('имя'),
