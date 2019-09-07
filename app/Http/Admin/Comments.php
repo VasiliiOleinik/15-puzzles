@@ -75,8 +75,8 @@ class Comments extends Section implements Initializable
             ->setColumns(
                 AdminColumnEditable::text('content')->setLabel('комментарий'),
                 AdminColumn::text('created_at')->setLabel('создано'),
-                AdminColumn::relatedLink('memberCase.title', 'история болезни', 'id'),                
-                AdminColumn::relatedLink('user.nickname', 'пользователь', 'id')
+                AdminColumn::relatedLink('memberCase.title', 'история болезни'),                
+                AdminColumn::relatedLink('user.nickname', 'пользователь')
             )
              ->setFilters(
                 AdminDisplayFilter::field('user_id')->setTitle('id пользователя [:value]')
@@ -114,6 +114,11 @@ class Comments extends Section implements Initializable
     {        
         $form = AdminForm::panel()->addBody([
             AdminFormElement::textarea('content')->setLabel('комментарий')->required(),
+            AdminFormElement::text('user.nickname')->setLabel('логин пользователя, оставившего комментарий')->setReadonly(1),
+            AdminFormElement::text('user.first_name')->setLabel('имя пользователя')->setReadonly(1),
+            AdminFormElement::text('user.middle_name')->setLabel('фамилия пользователя')->setReadonly(1),
+            AdminFormElement::text('user.last_name')->setLabel('отчество пользователя')->setReadonly(1),
+            AdminFormElement::text('memberCase.title')->setLabel('пост истории болезни где оставлен комментарий')->setReadonly(1),
             AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1)           
         ]);
         /*
@@ -128,6 +133,7 @@ class Comments extends Section implements Initializable
         $form->addBody($display);
         }
         */
+
         return $form;
     }
 
