@@ -74,11 +74,14 @@ class QuestionLanguages extends Section implements Initializable
         $display
             ->with(['question'])
             ->setColumns(
-                AdminColumn::text('question_id')->setLabel('question_id'),
+                //AdminColumn::text('question_id')->setLabel('question_id'),
                 AdminColumnEditable::text('name')->setLabel('Название вопроса'),
                 AdminColumnEditable::textarea('content')->setLabel('Ответ'),                
                 AdminColumn::text('language')->setLabel('Язык')
-            );
+            )
+            ->setApply(function($query) {
+                $query->orderBy('question_id', 'desc');
+            });
 
         return $display->setView( view('sleeping-owl.display.table-title-description-scripts', ['view' => 'faq'] ) );
     }
