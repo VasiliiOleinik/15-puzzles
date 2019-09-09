@@ -112,6 +112,9 @@ class LiteratureController extends Controller
         if(array_key_exists("linksForBooks", $request->book)){
             $book->linksForBooks()->sync( $request->book['linksForBooks'] );
         }
+        if(array_key_exists("categoriesForBooks", $request->book)){
+            $book->categoriesForBooks()->sync($request->book['categoriesForBooks']);
+        }
 
         $bookLanguageEng->language = "eng";
         $bookLanguageEng->title = $request['titleEng'];
@@ -147,6 +150,9 @@ class LiteratureController extends Controller
         $book->save();
         if(array_key_exists("linksForBooks", $request->book)){
             $book->linksForBooks()->sync( $request->book['linksForBooks'] );
+        }
+        if(array_key_exists("categoriesForBooks", $request->book)){
+            $book->categoriesForBooks()->sync($request->book['categoriesForBooks']);
         }
 
         if( $request->has("next_action") ){

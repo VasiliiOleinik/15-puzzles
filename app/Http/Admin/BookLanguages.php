@@ -101,6 +101,7 @@ class BookLanguages extends Section implements Initializable
                 }),
             AdminFormElement::hidden('img')->setLabel('Картинка'),
             AdminFormElement::view('sleeping-owl.input-type-file'),
+            AdminFormElement::multiselect('book.categoriesForBooks', 'Категории этой книги')->setModelForOptions(\App\Models\Category\CategoryForBooks::class)->setDisplay('name'),
             AdminFormElement::multiselect('book.linksForBooks', 'Магазины где продается эта книга')->setModelForOptions(\App\Models\Book\LinkForBooks::class)->setDisplay('title')
         ]); 
     }
@@ -138,6 +139,7 @@ class BookLanguages extends Section implements Initializable
                 }),
             AdminFormElement::hidden('img')->setLabel('картинка'),
             AdminFormElement::view('sleeping-owl.input-type-file'),
+            AdminFormElement::multiselect('book.categoriesForBooks', 'Категории этой книги')->setModelForOptions(\App\Models\Category\CategoryForBooks::class)->setDisplay('name'),
             AdminFormElement::multiselect('book.linksForBooks', 'Магазины где продается эта книга')->setModelForOptions(\App\Models\Book\LinkForBooks::class)->setDisplay('title'),
 
             AdminFormElement::hidden('titleEng'),

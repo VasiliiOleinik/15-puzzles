@@ -63,4 +63,16 @@ Route::delete('/admin/tags/{id}/delete', 'App\Http\Controllers\TagsController@de
 Route::post('/admin/tags/{id}/edit', 'App\Http\Controllers\TagsController@edit');
 /* ---- */
 
+/* NEWS CATEGORIES */
+Route::post('/admin/news_categories/create', 'App\Http\Controllers\NewsCategoriesController@create');
+Route::delete('/admin/news_categories/{id}/delete', 'App\Http\Controllers\NewsCategoriesController@destroy');
+Route::post('/admin/news_categories/{id}/edit', 'App\Http\Controllers\NewsCategoriesController@edit');
+/* ---- */
+
+/* BOOK CATEGORIES */
+Route::post('/admin/book_categories/create', 'App\Http\Controllers\BookCategoriesController@create');
+Route::delete('/admin/book_categories/{id}/delete', 'App\Http\Controllers\BookCategoriesController@destroy');
+Route::post('/admin/book_categories/{id}/edit', 'App\Http\Controllers\BookCategoriesController@edit');
+/* ---- */
+
 

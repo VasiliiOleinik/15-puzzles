@@ -205,6 +205,9 @@ class NewsController extends Controller
         if(array_key_exists("tags", $request->article)){
             $article->tags()->sync($request->article['tags']);
         }
+        if(array_key_exists("categoriesForNews", $request->article)){
+            $article->categoriesForNews()->sync($request->article['categoriesForNews']);
+        }
 
         $articleLanguageEng->language = "eng";
         $articleLanguageEng->title = $request['titleEng'];
@@ -286,6 +289,9 @@ class NewsController extends Controller
         $article->save();
         if(array_key_exists("tags", $request->article)){
             $article->tags()->sync($request->article['tags']);
+        }
+        if(array_key_exists("categoriesForNews", $request->article)){
+            $article->categoriesForNews()->sync($request->article['categoriesForNews']);
         }
 
         $articleLanguageEng->language = "eng";

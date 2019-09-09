@@ -127,6 +127,7 @@ class ArticleLanguages extends Section implements Initializable
             AdminFormElement::hidden('img')->setLabel('картинка'),
             AdminFormElement::view('sleeping-owl.input-type-file'),
             AdminFormElement::multiselect('article.tags', 'Тэги этой статьи')->setModelForOptions(\App\Models\Tag::class)->setDisplay('name'),
+            AdminFormElement::multiselect('article.categoriesForNews', 'Категории этой статьи')->setModelForOptions(\App\Models\Category\CategoryForNews::class)->setDisplay('name'),
 
             AdminFormElement::hidden('titleEng'),
             AdminFormElement::hidden('descriptionEng'),
@@ -183,6 +184,7 @@ class ArticleLanguages extends Section implements Initializable
             AdminFormElement::hidden('img')->setLabel('картинка'),
             AdminFormElement::view('sleeping-owl.input-type-file'),
             AdminFormElement::multiselect('article.tags', 'Тэги этой статьи')->setModelForOptions(\App\Models\Tag::class)->setDisplay('name'),
+            AdminFormElement::multiselect('article.categoriesForNews', 'Категории этой статьи')->setModelForOptions(\App\Models\Category\CategoryForNews::class)->setDisplay('name'),
 
             AdminFormElement::hidden('titleEng'),
             AdminFormElement::hidden('descriptionEng'),
