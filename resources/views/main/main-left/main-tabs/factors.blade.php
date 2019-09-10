@@ -4,9 +4,11 @@
           <label class="tab_head_check">
             <input class="checkbox" type="checkbox" obj-id="{{$factor->factor_id}}" obj-type="factor"><span
                     class="checkbox-custom"></span>
-            <p class="title">@lang('main.tabs_title_factors') #{{$factor->factor_id}}: {{$factor->name}}</p>
           </label>
-          <div class="arrow"><img src="img/svg/dropdown-ico.svg" alt=""></div>
+          <div class="tab-name">
+            <p class="title">@lang('main.tabs_title_factors') #{{$factor->factor_id}}: {{$factor->name}}</p>
+            <div class="arrow"><img src="img/svg/dropdown-ico.svg" alt=""></div>
+          </div>
         </div>
         <div class="tab-item__content">
           <div class="text">

@@ -204,9 +204,10 @@ $(function() {
     })
     .val();
 
+
   // Окрытие доп.информации в табах на home page
-  $(".tab-list.main-scroll").delegate(".arrow", "click", function() {
-    var isOpen = $(this).hasClass("dropdown");
+  $(".tab-list.main-scroll").delegate(".tab-name", "click", function() {
+    var isOpen = $(this).find('.arrow').hasClass("dropdown");
 
     $(".arrow").removeClass("dropdown");
     $(".tab-item__content").slideUp();
@@ -214,7 +215,7 @@ $(function() {
     // $(".tab-item__head").removeClass("checked-tab");
 
     if (isOpen) {
-      $(this).removeClass("dropdown");
+      $(this).find('.arrow').removeClass("dropdown");
       $(this)
         .parent()
         .siblings(".tab-item__content")
@@ -223,7 +224,7 @@ $(function() {
         .parent(".tab-head-markers")
         .removeClass("checked-tab");
     } else {
-      $(this).addClass("dropdown");
+      $(this).find('.arrow').addClass("dropdown");
       $(this)
         .parent()
         .siblings(".tab-item__content")
@@ -277,10 +278,7 @@ $(function() {
     $(this).toggleClass("active");
   });
 
-  $(".tab-list.main-scroll").delegate(
-    ".evidence",
-    "hover",
-    function() {
+  $(".tab-list.main-scroll .evidence").hover(function() {
       $(this)
         .find(".evidence__detail")
         .css({ display: "flex" });

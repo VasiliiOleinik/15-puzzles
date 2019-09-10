@@ -3,9 +3,11 @@
         <div class="tab-item__head">
           <label class="tab_head_check">
             <input class="checkbox" type="checkbox"><span class="checkbox-custom"></span>
-            <p class="title">{{$remedy->name}}</p>
           </label>
-          <div class="arrow"><img src="img/svg/dropdown-ico.svg" alt=""></div>
+          <div class="tab-name">
+            <p class="title">{{$remedy->name}}</p>
+            <div class="arrow"><img src="img/svg/dropdown-ico.svg" alt=""></div>
+          </div>
         </div>
         <div class="tab-item__content">
           <div class="text">
