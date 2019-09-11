@@ -20,3 +20,6 @@
   </div>
    @include('main.main-left.map')
 </div>
+<div class="markers-message">
+  <h3 class="methods-laboratories__title">По вашим критериям не найдено ни одной лаборатории</h3>
+</div>

@@ -5,9 +5,6 @@ $(document).ready(function() {
     startCollapsed: "accordion"
   };
   tabsInit($("#mainTabs, #faqTabs"), maintabsProps); //Инит табов на главной
-  if($('.markers').hasClass('r-tabs-state-active')){
-    $(".methods-laboratories").slideDown();
-  }
   playVideo();
   $(".tooltip").tooltipster({
     side: "bottom",
@@ -34,18 +31,7 @@ function tabsInit(item, props) {
 }
 
 function setCategoryPosition() {
-  var maxStep;
-  $(".puzzle-15__item-outer").each(function(index, item) {
-    var height = $(item).outerHeight();
-    if (index > 0) {
-      if (height > maxStep) {
-        maxStep = height;
-      }
-    } else {
-      maxStep = height;
-    }
-  });
-  var step = maxStep,
+  var step = $(".puzzle-15__item-outer").height(),
     position = step;
   $(".puzzle-15__item-outer").css({ height: maxStep });
   $(".puzzle-15__category").each(function(index, item) {
@@ -134,7 +120,7 @@ $(function() {
   // Скрываю label когда input активен (personal page)
   $(
     ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
-  ).on("focus", function() {
+  ).on("click", function() {
     $(this).css({
       "box-shadow": "rgba(91, 156, 167, 0.32) 0px 1px 6px",
       border: "1px solid rgba(91, 156, 167, .5)",
@@ -204,7 +190,6 @@ $(function() {
     })
     .val();
 
-
   // Окрытие доп.информации в табах на home page
   $(".tab-list.main-scroll").delegate(".tab-name", "click", function() {
     var isOpen = $(this).find('.arrow').hasClass("dropdown");
@@ -262,19 +247,15 @@ $(function() {
     });
   });
   // Подсветка выбранного таба на странице home page
-  $(".tab-list.main-scroll").delegate(
-    ".tab_head_check input",
-    "click",
-    function() {
-      $(this)
-        .parent()
-        .parent()
-        .toggleClass("checked-tab");
-    }
-  );
+  $(".tab_head_check input").on("click", function() {
+    $(this)
+      .parent()
+      .parent()
+      .toggleClass("checked-tab");
+  });
 
   // Делаю фактор активным
-  $(".tab-list.main-scroll").delegate(".puzzle-15__item", "click", function() {
+  $(".puzzle-15__item").on("click", function() {
     $(this).toggleClass("active");
   });
 
@@ -291,7 +272,7 @@ $(function() {
   );
 });
 
-$(".tab-list.main-scroll").delegate(".method-item__head", "change", function() {
+$(".method-item__head").on("change", function() {
   var thisTitle = $(this)
     .find(".title")
     .text();
@@ -307,9 +288,7 @@ $(".methods-select").on("click", function() {
 });
 $(
   "#select-method .methods-select-list li, #select-country .methods-select-list li"
-).on("click", function () {
-  $(this).parent().find('li').removeClass('selected');
-  $(this).addClass('selected');
+).on("click", function() {
   var thisVal = $(this).text();
   var thisData = $(this).data();
   $(this)
@@ -323,7 +302,12 @@ $(".main__tabs-nav li").on("click", function() {
   $(".methods-laboratories").slideUp();
 });
 $(".main__tabs-nav li.markers").on("click", function() {
-  $(".methods-laboratories").slideDown();
+  var count = $(this).find('.count').text();
+  if(count === '[0]') {
+    $(".markers-message").slideDown();
+  } else {
+    $(".methods-laboratories").slideDown();
+  }
 });
 
 // Взаимодействие с поиском
@@ -371,11 +355,11 @@ $("#back-to-login-js").on("click", function() {
 // Успешная смена пароля
 $("#recovery-pass-js").on("click", function(e) {
   e.preventDefault();
-  /*$(".recovery-pass-inputs form").hide();
+  $(".recovery-pass-inputs form").hide();
   $(".recovery-pass-footer-link").hide();
   $(".recovery-pass-inputs .recovery-success").show();
   $(".recovery-pass-footer-link.close").show();
-  $(".recovery-pass-inputs").addClass("success");*/
+  $(".recovery-pass-inputs").addClass("success");
 });
 // Закрытие модалки
 $(" #close-recovery-js, .fancybox-container").on("click", function() {
@@ -395,7 +379,7 @@ $(" #close-recovery-js, .fancybox-container").on("click", function() {
 $(function() {
   var categorItem = $(".categories__list .item"),
     tagsItem = $(".tags__list .item");
-  $(".tags__list").delegate(".item", "click", function() {
+  $(tagsItem).on("click", function() {
     $(this).toggleClass("choosen");
     if (categorItem.hasClass("choosen") || tagsItem.hasClass("choosen")) {
       $("#clear-filter-btn-js").css({ cursor: "pointer" });
@@ -458,32 +442,63 @@ $(function() {
   });
 });
 
-$(function() {
-  $(".edit-artile").on("click", function() {
-    $("#med-history-js, #add-story-js").slideToggle();
-    $("#add-story-js")
-      .find(".add-story__title")
-      .text("Edit note");
-    $(".add-story__form").attr("method", "post");
-    let id = $(this)
-      .parent()
-      .attr("obj-id");
-    $(".add-story__form").attr("action", "/medical_history/update_post/" + id);
+$(function(){
+  $('#add-note-js, #cancel-form-js').on('click', function(){
+    $('#med-history-js, #add-story-js').slideToggle();
   });
-  $("#add-note-js, #cancel-form-js").on("click", function() {
-    $("#med-history-js, #add-story-js").slideToggle();
-    $("#add-story-js")
-      .find(".add-story__title")
-      .text("Add your story");
-    $(".add-story__form").attr("method", "post");
+
+  // Валидация
+  $("#contact_form, #subscription-form, #faq-form").validate({
+    errorClass: "invalid",
+    validClass: "success",
+    rules: {
+      email: {
+        email: true,
+        required: true
+      },
+      name: {
+        minlength: 2,
+        required: true
+      },
+      phone: {
+        minlength: 10,
+        maxlength: 13,
+        digits: true,
+        required: true
+      },
+      letter: {
+        minlength: 10,
+        required: true
+      },
+    },
+    messages: {
+      name: {
+        required: "Поле обязательно для заполнения",
+        minlength: "Минимальная длина имени - 2 символа"
+      },
+      email: {
+        required: "Поле обязательно для заполнения",
+        email: "Введите корректный email"
+      },
+      phone: {
+        required: "Поле обязательно для заполнения",
+        digits: "Поле должно содержать только цифры",
+        minlength: "Минимальная длина номера 10 цифр",
+        maxlength: "Максимальная длина номера 13 цифр"
+      },
+      letter: {
+        required: "Поле обязательно для заполнения",
+        minlength: "Минимальная длина сообщения 10 символов"
+      },
+      check: {
+        required: "Поле обязательно для заполнения"
+      }
+    }
   });
-  
-  // Перевод страницы
-  if($('html')[0].lang === 'ru'){
-    $('body').removeAttr('id');
-    $('body').attr('id','russian');
-  } else {
-    $('body').removeAttr('id');
-    $('body').attr('id','english');
-  }
+  $("#cont-phone").keypress(function(e) {
+    if (e.which != 8 && e.which != 0 && e.which != 46 && (e.which < 48 || e.which > 57)) {
+    return false;
+    }
+    });
+
 });
