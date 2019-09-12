@@ -112,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             },
             error: function (err) {
+                console.log(err.responseText);
                 $('.modal-reg-btn').removeAttr("disabled");
                 $('.errors').html('');
                 $('#errors-register').html('Error try again.');                
