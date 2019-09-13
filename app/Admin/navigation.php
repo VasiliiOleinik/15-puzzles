@@ -63,18 +63,6 @@ return [
                 'icon'  => 'fa fa-home',
                 'url'   => url('/admin/pages/main'),
             ],
-            [
-                'title' => 'Истории болезней',
-                'icon'  => 'fa fa-address-card',
-                'url'   => url('/admin/member-cases'),
-                //'badge' => \App\Models\MemberCase::count(),
-            ],
-            [
-                'title' => 'Истории болезней SEO',
-                'icon'  => 'fa fa-address-card',
-                'url'   => url('/admin/pages/member-cases'),
-                //'badge' => \App\Models\MemberCase::count(),
-            ],
             /*[
                 'title' => 'Диаграмма факторов',
                 'icon'  => 'fa fa-retweet',
@@ -85,6 +73,14 @@ return [
                 'icon'  => 'fa fa-id-card',
                 'url'   => url('/admin/pages/about'),
             ],
+        ]
+    ],
+
+    [
+        'title' => 'Новости',
+        'icon'  => 'fa fa-comment',
+        'url'   => url('/admin/pages'),
+        'pages' => [
             [
                 'title' => 'Новости',
                 'icon'  => 'fa fa-comment',
@@ -92,11 +88,19 @@ return [
                 //'badge' => \App\Models\Article\Article::count(),
             ],
             [
-                'title' => 'Новости SEO',
+                'title' => 'SEO',
                 'icon'  => 'fa fa-comment',
                 'url'   => url('/admin/pages/news'),
                 //'badge' => \App\Models\Article\Article::count(),
             ],
+        ],
+    ],
+
+    [
+        'title' => 'Литература',
+        'icon'  => 'fa fa-graduation-cap',
+        'url'   => url('/admin/pages'),
+        'pages' => [
             [
                 'title' => 'Литература',
                 'icon'  => 'fa fa-graduation-cap',
@@ -109,6 +113,34 @@ return [
                 'url'   => url('/admin/pages/literature'),
                 //'badge' => \App\Models\Book\Book::count(),
             ],
+        ]
+    ],
+
+    [
+        'title' => 'Истории болезней',
+        'icon'  => 'fa fa-address-card',
+        'url'   => url('/admin/pages'),
+        'pages' => [
+            [
+                'title' => 'Истории болезней',
+                'icon'  => 'fa fa-address-card',
+                'url'   => url('/admin/member-cases'),
+                //'badge' => \App\Models\MemberCase::count(),
+            ],
+            [
+                'title' => 'Истории болезней SEO',
+                'icon'  => 'fa fa-address-card',
+                'url'   => url('/admin/pages/member-cases'),
+                //'badge' => \App\Models\MemberCase::count(),
+            ],
+        ],
+    ],
+
+    [
+        'title' => 'FAQ',
+        'icon'  => 'fa fa-question',
+        'url'   => url('/admin/pages'),
+        'pages' => [
             [
                 'title' => 'FAQ',
                 'icon'  => 'fa fa-question',
@@ -121,7 +153,7 @@ return [
                 'url'   => url('/admin/pages/faq'),
                 //'badge' => \App\Models\Question::count(),
             ],
-        ]
+        ],
     ],
 
     [
@@ -209,9 +241,31 @@ return [
                         //'badge' => \App\Models\Book\LinkForBooks::count(),
                     ],
                 ],
-            ],   
-        ]
+            ],
+        ],
     ],
+
+    [
+        'title' => 'Категории',
+        'icon'  => 'fa fa-question',
+        'url'   => url('/admin/pages'),
+        'pages' => [
+            [
+                'title' => 'Категории новостей',
+                'icon'  => 'fa fa-question',
+                'url'   => url('/admin/news_categories'),
+                //'badge' => \App\Models\Question::count(),
+            ],
+            [
+                'title' => 'Категории книг',
+                'icon'  => 'fa fa-question',
+                'url'   => url('/admin/book_categories'),
+                //'badge' => \App\Models\Question::count(),
+            ],
+        ],
+    ],
+
+
    
 
     // Examples
