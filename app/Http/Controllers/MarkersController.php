@@ -41,9 +41,11 @@ class MarkersController extends Controller
         //находим наивысшее значение id и ставим больше на 1
         $marker->id = Marker::orderBy('id', 'desc')->first()->id + 1;
         $marker->name = $request['nameEng'];
-        $marker->save();        
-        if(array_key_exists("methods", $request->marker)){
-            $marker->methods()->sync( $request->marker['methods'] );
+        $marker->save();
+        if($request->marker) {
+            if (array_key_exists("methods", $request->marker)) {
+                $marker->methods()->sync($request->marker['methods']);
+            }
         }
         
         $markerLanguageEng->language = "eng";
