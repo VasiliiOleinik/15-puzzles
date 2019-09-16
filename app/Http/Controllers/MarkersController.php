@@ -63,7 +63,7 @@ class MarkersController extends Controller
         Cache::forget('marker_eng');
         Cache::forget('marker_ru');
 
-        return Redirect::to('/admin/markerLanguages/');
+        return Redirect::to('/admin/markers/');
     }
 
     /**
@@ -111,11 +111,11 @@ class MarkersController extends Controller
                 return redirect()->back();
             }
             if($request['next_action'] == "save_and_create"){
-                return redirect()->route('admin.model.create',['adminModel' => 'markerLanguages']);
+                return redirect()->route('admin.model.create',['adminModel' => 'markers']);
             }
         }
 
-        return Redirect::to('/admin/markerLanguages/');
+        return Redirect::to('/admin/markers/');
     }
 
     /**
@@ -143,6 +143,6 @@ class MarkersController extends Controller
         //Artisan::call('cache:clear');
         Cache::forget('marker_eng');
         Cache::forget('marker_ru');
-        return Redirect::to('/admin/markerLanguages/');
+        return Redirect::to('/admin/markers/');
     }
 }

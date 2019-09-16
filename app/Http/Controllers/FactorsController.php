@@ -34,6 +34,7 @@ class FactorsController extends Controller
      */
     public function create(Request $request)
     {
+
         $validatedData = $request->validate([
         'nameEng' => ['required', 'string', 'max:191'],
         'nameRu' => ['required', 'string', 'max:191'],       
@@ -54,7 +55,7 @@ class FactorsController extends Controller
         $factor->type_id = $request->factor['type_id'];        
         $factor->save();
 
-        setRelations($factor->id, $factor, $request);
+        $this->setRelations($factor->id, $factor, $request);
 
         $factorLanguageEng->language = "eng";
         $factorLanguageEng->name = $request['nameEng'];
@@ -72,7 +73,7 @@ class FactorsController extends Controller
         Cache::forget('factor_eng');
         Cache::forget('factor_ru');
 
-        return Redirect::to('/admin/factorLanguages/');
+        return Redirect::to('/admin/factors/');
     }
 
     /**
@@ -123,11 +124,11 @@ class FactorsController extends Controller
                 return redirect()->back();
             }
             if($request['next_action'] == "save_and_create"){
-                return redirect()->route('admin.model.create',['adminModel' => 'factorLanguages']);
+                return redirect()->route('admin.model.create',['adminModel' => 'factors']);
             }
         }
 
-        return Redirect::to('/admin/factorLanguages/');
+        return Redirect::to('/admin/factors/');
     }
 
     /**
