@@ -56,10 +56,10 @@ return [
     |--------------------------------------------------------------------------
     | Env Editor
     |--------------------------------------------------------------------------
-    | Url for env editor
+    | Url for .env editor
     |
     */
-    'env_editor_url' => 'env/editor',
+    'env_editor_url' => '.env/editor',
 
     /*
      * Excluded keys

@@ -13,6 +13,8 @@ $(document).ready(function() {
   });
 });
 
+
+
 // functions -------------------------------------------
 function playVideo() {
   $(".main__video").on("click", function() {
@@ -64,7 +66,7 @@ $(function() {
       selectedList.append(
         '<div class="selected-item">' +
           itemContent +
-          '<div class="delete-item"><img src="img/delete_item_ico.png" alt="Delete Item"></div></div>'
+          '<div class="delete-item"><img src="/img/delete_item_ico.png" alt="Delete Item"></div></div>'
       );
     } else {
       itemContent = " ";
@@ -608,3 +610,43 @@ $(document).ready(function () {
         });
     });
 });
+
+
+
+animePath();
+function animePath() {
+    var button = $('.js-item');
+
+    button.click(function () {
+        var pointY = `<span class="pointY"></span>`;
+        var circle1 = `<span class="pointX"></span>`;
+        // var pointZ = `<span class="pointZ"></span>`;
+        $(this).append(pointY);
+        $(this).append(circle1);
+        // var z = $(this).append(pointZ);
+
+        anime({
+            targets: '.pointY',
+            keyframes: [
+                {width: '135%', easing: 'linear', duration: 800},
+
+            ],
+        });
+        anime({
+            targets: '.pointX',
+            keyframes: [
+                { width: '0', height: '0', easing: 'linear', delay: 600},
+                { width: '10', height: '10', easing: 'linear'}
+
+            ],
+        });
+        anime({
+            targets: '.pointZ',
+            keyframes: [
+                { width: '0', height: '0', easing: 'linear', delay: 600},
+                { width: '10', height: '10', easing: 'linear'}
+            ],
+
+        });
+    });
+}

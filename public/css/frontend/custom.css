@@ -87,6 +87,44 @@
 .header__login:hover .login-modal{
 	display: block;
 }
+.group_item{
+    position: relative;
+}
+.pointY{
+    position: absolute;
+    top: 56%;
+    left: 100%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 1px;
+    background: red;
+    z-index: 1;
+}
+.pointX {
+    position: absolute;
+    top: 56%;
+    left: 200%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: red;
+    z-index: 1;
+}
+.pointZ {
+    position: absolute;
+    top: 256%;
+    left: 200%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: red;
+    z-index: 1;
+}
+
+
+
 .main .tab-list .tab-item__head .title,
 .main .tab-list .tab-item.markers .tab-head-markers .title{
 	cursor: pointer;
