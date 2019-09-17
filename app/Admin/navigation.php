@@ -113,6 +113,12 @@ return [
                 'url'   => url('/admin/pages/literature'),
                 //'badge' => \App\Models\Book\Book::count(),
             ],
+            [
+                'title' => 'Ссылки на магазин',
+                'icon'  => 'fa fa-shopping-cart',
+                'url'   => url('/admin/shops'),
+                //'badge' => \App\Models\Book\LinkForBooks::count(),
+            ],
         ]
     ],
 
@@ -229,16 +235,10 @@ return [
                         //'badge' => \App\Models\Marker\Marker::count(),
                     ],
                     [
-                        'title' => 'Методы лечения',
+                        'title' => 'Методы',
                         'icon'  => 'fa fa-compass',
                         'url'   => url('/admin/methods'),
                         //'badge' => \App\Models\Method::count(),
-                    ],
-                    [
-                        'title' => 'Ссылки на магазин',
-                        'icon'  => 'fa fa-shopping-cart',
-                        'url'   => url('/admin/shops'),
-                        //'badge' => \App\Models\Book\LinkForBooks::count(),
                     ],
                 ],
             ],

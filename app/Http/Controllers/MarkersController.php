@@ -61,9 +61,9 @@ class MarkersController extends Controller
         $markerLanguageEng->save();
         $markerLanguageRu->save();
 
-        //Artisan::call('cache:clear');
-        Cache::forget('marker_eng');
-        Cache::forget('marker_ru');
+        Artisan::call('cache:clear');
+        /*Cache::forget('marker_eng');
+        Cache::forget('marker_ru');*/
 
         return Redirect::to('/admin/markers/');
     }
@@ -105,8 +105,9 @@ class MarkersController extends Controller
             $marker->methods()->sync( $request->marker['methods'] );
         }
 
-        Cache::forget('marker_eng');
-        Cache::forget('marker_ru');
+        Artisan::call('cache:clear');
+        /*Cache::forget('marker_eng');
+        Cache::forget('marker_ru');*/
 
         if( $request->has("next_action") ){
             if($request['next_action'] == "save_and_continue"){
