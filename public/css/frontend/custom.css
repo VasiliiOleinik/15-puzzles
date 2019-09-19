@@ -96,3 +96,7 @@
 .header__nav-link{
 	height: initial;
 }
+.main__books img{
+	max-width: 20px;
+	margin-right: 10px;
+}

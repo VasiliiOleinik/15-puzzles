@@ -30,7 +30,7 @@
               </div>
               @endforeach             
               <div class="add-faq-letter">
-                <form method="post" action= "{{ route('letter', app()->getLocale() ) }}" >
+                <form method="post" action= "{{ route('letter', app()->getLocale() ) }}" id="faq-form">
                   @csrf
                   <div class="add-faq-letter-row">
                     <div class="label">
