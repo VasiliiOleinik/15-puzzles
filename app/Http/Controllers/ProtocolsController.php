@@ -74,7 +74,7 @@ class ProtocolsController extends Controller
         Cache::forget('protocol_eng');
         Cache::forget('protocol_ru');
 
-        return Redirect::to('/admin/protocolLanguages/');
+        return Redirect::to('/admin/protocols/');
     }
 
     /**
@@ -123,11 +123,11 @@ class ProtocolsController extends Controller
                 return redirect()->back();
             }
             if($request['next_action'] == "save_and_create"){
-                return redirect()->route('admin.model.create',['adminModel' => 'protocolLanguages']);
+                return redirect()->route('admin.model.create',['adminModel' => 'protocols']);
             }
         }
 
-        return Redirect::to('/admin/protocolLanguages/');
+        return Redirect::to('/admin/protocols/');
     }
 
     /**
@@ -154,7 +154,7 @@ class ProtocolsController extends Controller
         Protocol::find($id)->delete();
         Cache::forget('protocol_eng');
         Cache::forget('protocol_ru');
-        return Redirect::to('/admin/protocolLanguages/');
+        return Redirect::to('/admin/protocols/');
     }
 
     /**
