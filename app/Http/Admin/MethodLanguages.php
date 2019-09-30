@@ -54,7 +54,7 @@ class MethodLanguages extends Section implements Initializable
     /**
      * @var string
      */
-    protected $title = 'Методы лечения';
+    protected $title = 'Методы';
 
     /**
      * @var string
@@ -98,12 +98,12 @@ class MethodLanguages extends Section implements Initializable
                 ->setDisplay(function($instance) use($scripts) {
                     return $scripts;
                 }),
-            AdminFormElement::text('name')->setName('nameEng')->setLabel('Название новости')->required(),            
-            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Полное описание новости')->required()
+            AdminFormElement::text('name')->setName('nameEng')->setLabel('Название метода')->required(),
+            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Полное описание метода')->required()
         ]);
         $formRu = AdminForm::panel()->addBody([           
-            AdminFormElement::text('name')->setName('nameRu')->setLabel('Название новости')->required(),            
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Полное описание новости')->required()
+            AdminFormElement::text('name')->setName('nameRu')->setLabel('Название метода')->required(),
+            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Полное описание метода')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([        
             AdminFormElement::hidden('nameEng'),
@@ -139,7 +139,7 @@ class MethodLanguages extends Section implements Initializable
     //заголовок для создания записи
     public function getCreateTitle()
     {
-        return 'Создание пользователя';
+        return 'Создание метода';
     }
 
     // иконка для пункта меню - шестеренка

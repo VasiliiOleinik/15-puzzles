@@ -65,7 +65,7 @@ class RemediesController extends Controller
         Cache::forget('remedy_eng');
         Cache::forget('remedy_ru');
 
-        return Redirect::to('/admin/remedyLanguages/');
+        return Redirect::to('/admin/remedies/');
     }
 
     /**
@@ -111,11 +111,11 @@ class RemediesController extends Controller
                 return redirect()->back();
             }
             if($request['next_action'] == "save_and_create"){
-                return redirect()->route('admin.model.create',['adminModel' => 'remedyLanguages']);
+                return redirect()->route('admin.model.create',['adminModel' => 'remedies']);
             }
         }
 
-        return Redirect::to('/admin/remedyLanguages/');
+        return Redirect::to('/admin/remedies/');
     }
 
     /**
@@ -143,6 +143,6 @@ class RemediesController extends Controller
         //Artisan::call('cache:clear');
         Cache::forget('remedy_eng');
         Cache::forget('remedy_ru');
-        return Redirect::to('/admin/remedyLanguages/');
+        return Redirect::to('/admin/remedies/');
     }
 }

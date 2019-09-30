@@ -79,7 +79,7 @@ class DiseasesController extends Controller
         Cache::forget('disease_eng');
         Cache::forget('disease_ru');
 
-        return Redirect::to('/admin/diseaseLanguages/');
+        return Redirect::to('/admin/diseases/');
     }
 
     /**
@@ -138,11 +138,11 @@ class DiseasesController extends Controller
                 return redirect()->back();
             }
             if($request['next_action'] == "save_and_create"){
-                return redirect()->route('admin.model.create',['adminModel' => 'diseaseLanguages']);
+                return redirect()->route('admin.model.create',['adminModel' => 'diseases']);
             }
         }
 
-        return Redirect::to('/admin/diseaseLanguages/');
+        return Redirect::to('/admin/diseases/');
     }
 
     /**
@@ -170,7 +170,7 @@ class DiseasesController extends Controller
         //Artisan::call('cache:clear');
         Cache::forget('disease_eng');
         Cache::forget('disease_ru');
-        return Redirect::to('/admin/diseaseLanguages/');
+        return Redirect::to('/admin/diseases/');
     }
 
     /**

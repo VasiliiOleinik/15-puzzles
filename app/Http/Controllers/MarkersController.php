@@ -41,9 +41,11 @@ class MarkersController extends Controller
         //находим наивысшее значение id и ставим больше на 1
         $marker->id = Marker::orderBy('id', 'desc')->first()->id + 1;
         $marker->name = $request['nameEng'];
-        $marker->save();        
-        if(array_key_exists("methods", $request->marker)){
-            $marker->methods()->sync( $request->marker['methods'] );
+        $marker->save();
+        if($request->marker) {
+            if (array_key_exists("methods", $request->marker)) {
+                $marker->methods()->sync($request->marker['methods']);
+            }
         }
         
         $markerLanguageEng->language = "eng";
@@ -59,11 +61,11 @@ class MarkersController extends Controller
         $markerLanguageEng->save();
         $markerLanguageRu->save();
 
-        //Artisan::call('cache:clear');
-        Cache::forget('marker_eng');
-        Cache::forget('marker_ru');
+        Artisan::call('cache:clear');
+        /*Cache::forget('marker_eng');
+        Cache::forget('marker_ru');*/
 
-        return Redirect::to('/admin/markerLanguages/');
+        return Redirect::to('/admin/markers/');
     }
 
     /**
@@ -103,19 +105,20 @@ class MarkersController extends Controller
             $marker->methods()->sync( $request->marker['methods'] );
         }
 
-        Cache::forget('marker_eng');
-        Cache::forget('marker_ru');
+        Artisan::call('cache:clear');
+        /*Cache::forget('marker_eng');
+        Cache::forget('marker_ru');*/
 
         if( $request->has("next_action") ){
             if($request['next_action'] == "save_and_continue"){
                 return redirect()->back();
             }
             if($request['next_action'] == "save_and_create"){
-                return redirect()->route('admin.model.create',['adminModel' => 'markerLanguages']);
+                return redirect()->route('admin.model.create',['adminModel' => 'markers']);
             }
         }
 
-        return Redirect::to('/admin/markerLanguages/');
+        return Redirect::to('/admin/markers/');
     }
 
     /**
@@ -143,6 +146,6 @@ class MarkersController extends Controller
         //Artisan::call('cache:clear');
         Cache::forget('marker_eng');
         Cache::forget('marker_ru');
-        return Redirect::to('/admin/markerLanguages/');
+        return Redirect::to('/admin/markers/');
     }
 }
