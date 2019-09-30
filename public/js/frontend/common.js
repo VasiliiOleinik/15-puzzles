@@ -33,7 +33,6 @@ function tabsInit(item, props) {
 function setCategoryPosition() {
   var step = $(".puzzle-15__item-outer").height(),
     position = step;
-  $(".puzzle-15__item-outer").css({ height: maxStep });
   $(".puzzle-15__category").each(function(index, item) {
     $(item).css({
       top: position + "px"
@@ -190,76 +189,77 @@ $(function() {
     })
     .val();
 
-  // Окрытие доп.информации в табах на home page
-  $(".tab-list.main-scroll").delegate(".tab-name", "click", function() {
-    var isOpen = $(this).find('.arrow').hasClass("dropdown");
-
-    $(".arrow").removeClass("dropdown");
-    $(".tab-item__content").slideUp();
-    $(".tab-head-markers").removeClass("checked-tab");
-    // $(".tab-item__head").removeClass("checked-tab");
-
-    if (isOpen) {
-      $(this).find('.arrow').removeClass("dropdown");
-      $(this)
-        .parent()
-        .siblings(".tab-item__content")
-        .slideUp();
-      $(this)
-        .parent(".tab-head-markers")
-        .removeClass("checked-tab");
-    } else {
-      $(this).find('.arrow').addClass("dropdown");
-      $(this)
-        .parent()
-        .siblings(".tab-item__content")
-        .slideDown();
-      $(this)
-        .parent(".tab-head-markers")
-        .addClass("checked-tab");
-    }
-
-    // Модалка, если текста больше чем 160px по высоте
-    var tabText = $(this)
-        .parent()
-        .siblings(".tab-item__content")
-        .find(".text p"),
-      showMore = $(this)
-        .parent()
-        .siblings(".tab-item__content")
-        .find(".show-more"),
-      modalText = $(".tabs-modal .tabs-modal-text");
-    if (tabText.height() > 160) {
-      showMore.css({ display: "flex" });
-      modalText.append("<p>" + tabText.html() + "</p>");
-    }
-    showMore.on("click", function() {
-      $(".tabs-modal").show();
-      $("html, body").animate(
-        {
-          scrollTop: $(".header").height() / 2
-        },
-        500
-      );
+    // Окрытие доп.информации в табах на home page
+    $(".tab-list.main-scroll").delegate(".tab-name", "click", function() {
+      var isOpen = $(this).find('.arrow').hasClass("dropdown");
+  
+      $(".arrow").removeClass("dropdown");
+      $(".tab-item__content").slideUp();
+      $(".tab-head-markers").removeClass("checked-tab");
+      // $(".tab-item__head").removeClass("checked-tab");
+  
+      if (isOpen) {
+        $(this).find('.arrow').removeClass("dropdown");
+        $(this)
+          .parent()
+          .siblings(".tab-item__content")
+          .slideUp();
+        $(this)
+          .parent(".tab-head-markers")
+          .removeClass("checked-tab");
+      } else {
+        $(this).find('.arrow').addClass("dropdown");
+        $(this)
+          .parent()
+          .siblings(".tab-item__content")
+          .slideDown();
+        $(this)
+          .parent(".tab-head-markers")
+          .addClass("checked-tab");
+      }
+  
+      // Модалка, если текста больше чем 160px по высоте
+      var tabText = $(this)
+          .parent()
+          .siblings(".tab-item__content")
+          .find(".text p"),
+        showMore = $(this)
+          .parent()
+          .siblings(".tab-item__content")
+          .find(".show-more"),
+        modalText = $(".tabs-modal .tabs-modal-text");
+      if (tabText.height() > 160) {
+        showMore.css({ display: "flex" });
+        modalText.append("<p>" + tabText.html() + "</p>");
+      }
+      showMore.on("click", function() {
+        $(".tabs-modal").show();
+        $("html, body").animate(
+          {
+            scrollTop: $(".header").height() / 2
+          },
+          500
+        );
+      });
+      $(".close-tabs-modal-btn, .close-tabs-modal-ico").on("click", function() {
+        $(".tabs-modal").hide();
+      });
     });
-    $(".close-tabs-modal-btn, .close-tabs-modal-ico").on("click", function() {
-      $(".tabs-modal").hide();
+    // Подсветка выбранного таба на странице home page
+    $(".tab_head_check input").on("click", function() {
+      $(this)
+        .parent()
+        .parent()
+        .toggleClass("checked-tab");
     });
-  });
-  // Подсветка выбранного таба на странице home page
-  $(".tab_head_check input").on("click", function() {
-    $(this)
-      .parent()
-      .parent()
-      .toggleClass("checked-tab");
-  });
 
   // Делаю фактор активным
   $(".puzzle-15__item").on("click", function() {
     $(this).toggleClass("active");
   });
 
-  $(".tab-list.main-scroll .evidence").hover(function() {
+  $(".evidence").hover(
+    function() {
       $(this)
         .find(".evidence__detail")
         .css({ display: "flex" });
