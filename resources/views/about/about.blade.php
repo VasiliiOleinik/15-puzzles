@@ -1,26 +1,34 @@
 @extends('layouts.app')
 @section('title')
-    <title>{{ config('puzzles.about.title_'.app()->getLocale()) }}</title>
+    <title>{{ isset($dataPage->title) ? $dataPage->title : false }}</title>
 @endsection
 @section('description')
-    <meta content="{{ config('puzzles.about._description_'.app()->getLocale()) }}" name="description">
+    <meta content="{{ isset($dataPage->description) ? $dataPage->description : false }}" name="description">
 @endsection
 @section('content')
         <main class="main">
           <div class="box about">
             <div class="main__left">
-              <div class="title-container"><img src="{{ config('puzzles.about.img') }}" alt="About BG">
+              <div class="title-container">
+                  @if(isset($dataPage->img))
+                    <img src="{{ asset($dataPage->img)  }}" alt="About BG">
+                  @endif
                 <h2 class="main__left-title">@lang('about.title_about')<span class="title-line"></span><span class="title-text">@lang('about.title_text_about')</span></h2>
               </div>
 
-              <div class="main__left-text">{!! config('puzzles.about.description_'.app()->getLocale()) !!}</div>
+              <div class="main__left-text">{!! isset($dataPage->description) ? $dataPage->description : false  !!}</div>
             </div>
             <div class="main__right">
               <div class="main__video">
                 <div class="main__video-overlay"></div>
-                <video poster="/img/Video.png">
-                  <source src="{{ config('puzzles.main.link_video') }}" type="video/mp4">
-                </video>
+                  @if(isset($dataPage->video))
+
+                  <iframe width="640" height="360" src="{{$dataPage->video}}" frameborder="0" autoplay=0
+                          allow="autoplay=0; encrypted-media" allowfullscreen>
+                  </iframe>
+
+
+                  @endif
               </div>
               <div class="puzzle-15">
                 <div class="puzzle-15__category resons"><span></span>@lang('main.reasons')</div>
@@ -41,7 +49,7 @@
                   </div>
                 @endforeach
               </div>                  
-              <div class="main__right-note">{!! config('puzzles.about.puzzles_description_'.app()->getLocale()) !!}</div>
+              <div class="main__right-note">{!! isset($dataPage->puzzles_description) ? $dataPage->puzzles_description : false!!}</div>
               <ul class="main__books">
                 <li><a href=""><img src="/img/svg/book.svg">Detoxifying for cancer (by dr. George Andonevris)</a></li>
                 <li><a href=""><img src="/img/svg/book.svg">Using bioresonance for cancer (by dr. George Andonevris)</a></li>

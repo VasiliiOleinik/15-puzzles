@@ -1,6 +1,6 @@
 <?php return array (
   'logo' => NULL,
-  'title_ru' => '15 пазлов - Главная',
+  'title_ru' => NULL,
   'title_eng' => '15 puzzles - Main',
   '_description_ru' => 'Главная описание',
   '_description_eng' => 'Main description',

@@ -59,19 +59,7 @@ return [
         'url'   => url('/admin/pages'),
         'pages' => [
             [
-                'title' => 'Главная',
-                'icon'  => 'fa fa-home',
-                'url'   => url('/admin/pages/main'),
-            ],
-            /*[
-                'title' => 'Диаграмма факторов',
-                'icon'  => 'fa fa-retweet',
-                'url'   => url('/admin/pages/factor-diagram'),
-            ],*/
-            [
-                'title' => 'О нас',
-                'icon'  => 'fa fa-id-card',
-                'url'   => url('/admin/pages/about'),
+                (new Page(\App\Models\Page::class))->setTitle('Страницы')
             ],
         ]
     ],
