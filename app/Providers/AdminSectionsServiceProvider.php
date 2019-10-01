@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Factor\FactorLanguage;
 use SleepingOwl\Admin\Providers\AdminSectionsServiceProvider as ServiceProvider;
 
 class AdminSectionsServiceProvider extends ServiceProvider
@@ -33,6 +32,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Category\CategoryForNewsLanguage::class => 'App\Http\Admin\CategoryForNewsLanguages',
         \App\Models\Category\CategoryForBooksLanguage::class => 'App\Http\Admin\CategoryForBooksLanguages',
         \App\Models\Page::class => 'App\Http\Admin\Page',
+        \App\Models\Options::class => 'App\Http\Admin\Options',
     ];
 
     //protected $router->get('/factorLanguages/create', ['as' => 'admin.factorLanguages.create', 'uses' => '\App\Http\Controllers\MainController@index']);
