@@ -31,6 +31,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Subscriber::class => 'App\Http\Admin\Subscribers',
         \App\Models\Category\CategoryForNewsLanguage::class => 'App\Http\Admin\CategoryForNewsLanguages',
         \App\Models\Category\CategoryForBooksLanguage::class => 'App\Http\Admin\CategoryForBooksLanguages',
+        \App\Models\Options::class => 'App\Http\Admin\Options',
     ];
 
     //protected $router->get('/factorLanguages/create', ['as' => 'admin.factorLanguages.create', 'uses' => '\App\Http\Controllers\MainController@index']);

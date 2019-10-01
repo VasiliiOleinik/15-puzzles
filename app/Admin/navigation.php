@@ -47,10 +47,12 @@ return [
         ]
     ],*/
 
-    [
-        'title' => 'Настройки',
-        'icon'  => 'fa fa-cog',
-        'url'   => url('/admin/options'),
+    [  'title'=>'Хелперы',
+        'icon'  => 'fa fa-book',
+        'pages'=>[
+            (new Page(\App\Models\Options::class))->setTitle('Опции')
+        ]
+
     ],
 
     [

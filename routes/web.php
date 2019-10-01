@@ -22,7 +22,7 @@ Route::get('/', function () {
 Auth::routes();
     
 /* LOCALIZATION */
-Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'middleware' => 'setlocale' ], function() {
+Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'middleware' => 'setlocalesetlocale' ], function() {
 
     Route::get('/', 'MainController@index')->name('main');
     Route::resource('member_cases', 'MemberCaseController');
