@@ -1,5 +1,5 @@
 <?php
-
+//TODO Оставить предкам на память чтобы понимали всю глубину этих глубин код исправлен
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -40,7 +40,7 @@ class PagesController extends Controller
     }
 
     public function literature(Request $request)
-    {              
+    {
        $content = view('sleeping-owl.pages.seo', ['view' => 'literature'] );//view('sleeping-owl.pages.literature');
 	   return AdminSection::view($content, 'Страницы SEO: литература');
     }
@@ -69,7 +69,10 @@ class PagesController extends Controller
            $this->rewriteConfig($request->page, 'link_video' , $request->linkVideo);
        }
        if($request->page == "about"){
-           $this->rewriteConfig($request->page, 'img' , $request->img);
+
+           $nameFile = \Storage::put('/public', $request->img);
+           $url = \Storage::url($nameFile);
+           $this->rewriteConfig($request->page, 'img' , $url);
            $this->rewriteConfig($request->page, 'title_ru' , $request->titleRu);
            $this->rewriteConfig($request->page, 'title_eng' , $request->titleEng);
            $this->rewriteConfig($request->page, '_description_ru' , $request->_descriptionRu);
@@ -87,7 +90,7 @@ class PagesController extends Controller
            $this->rewriteConfig($request->page, '_description_eng' , $request->_descriptionEng);
        }
 
-
+       \Artisan::call('cache:clear');
        return Redirect::back();
     }
 
