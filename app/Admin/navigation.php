@@ -82,10 +82,7 @@ return [
         'url'   => url('/admin/pages'),
         'pages' => [
             [
-                'title' => 'Новости',
-                'icon'  => 'fa fa-comment',
-                'url'   => url('/admin/news'),
-                //'badge' => \App\Models\Article\Article::count(),
+                (new Page(\App\Models\Article\ArticleLanguage::class))->setTitle('Новости')
             ],
             [
                 'title' => 'SEO',
