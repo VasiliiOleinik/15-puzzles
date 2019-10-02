@@ -33,6 +33,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Category\CategoryForBooksLanguage::class => 'App\Http\Admin\CategoryForBooksLanguages',
         \App\Models\Page::class => 'App\Http\Admin\Page',
         \App\Models\Options::class => 'App\Http\Admin\Options',
+        \App\Models\Article\Article::class => 'App\Http\Admin\Article',
     ];
 
     //protected $router->get('/factorLanguages/create', ['as' => 'admin.factorLanguages.create', 'uses' => '\App\Http\Controllers\MainController@index']);
@@ -45,8 +46,6 @@ class AdminSectionsServiceProvider extends ServiceProvider
      */
     public function boot(\SleepingOwl\Admin\Admin $admin)
     {
-    	//
-
         parent::boot($admin);
     }
 }

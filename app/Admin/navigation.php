@@ -1,6 +1,7 @@
 <?php
 
 use SleepingOwl\Admin\Navigation\Page;
+use App\Models\Article\Article;
 
 // Default check access logic
 // AdminNavigation::setAccessLogic(function(Page $page) {
@@ -47,7 +48,8 @@ return [
         ]
     ],*/
 
-    [  'title'=>'Хелперы',
+    [
+        'title'=>'Хелперы',
         'icon'  => 'fa fa-book',
         'pages'=>[
             (new Page(\App\Models\Options::class))->setTitle('Опции')
@@ -58,28 +60,17 @@ return [
     [
         'title' => 'Страницы',
         'icon'  => 'fa fa-book',
-        'url'   => url('/admin/pages'),
         'pages' => [
-            [
                 (new Page(\App\Models\Page::class))->setTitle('Страницы')
-            ],
         ]
     ],
 
     [
         'title' => 'Новости',
         'icon'  => 'fa fa-comment',
-        'url'   => url('/admin/pages'),
         'pages' => [
-            [
-                (new Page(\App\Models\Article\ArticleLanguage::class))->setTitle('Новости')
-            ],
-            [
-                'title' => 'SEO',
-                'icon'  => 'fa fa-comment',
-                'url'   => url('/admin/pages/news'),
-                //'badge' => \App\Models\Article\Article::count(),
-            ],
+                (new Page(Article::class))->setTitle('Статьи')
+
         ],
     ],
 

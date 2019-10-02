@@ -68,7 +68,7 @@ class NewsController extends Controller
         
             $articles = ArticleLanguage::with('article')->whereIn('article_id',$collection)
                                                             ->orderBy('article_id', 'DESC')->paginate(4);
-        }        
+        }
         return view('news.news', compact(['articles','categoriesForNews']));
     }
 
