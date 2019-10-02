@@ -28,7 +28,7 @@
                   </div>
                 </div>
               </div>
-              @endforeach             
+              @endforeach
               <div class="add-faq-letter">
                 <form method="post" action= "{{ route('letter', app()->getLocale() ) }}" id="faq-form">
                   @csrf
@@ -44,37 +44,37 @@
                       @guest
                       <input type="text" name="name">
                       @endauth
-                      <label for="name">Your name<span class="required">*</span></label>
+                      <label for="name">@lang('faq.your_name')<span class="required">*</span></label>
                     </div>
                     <div class="label">
                       <input type="text" name="phone">
-                      <label for="phone">Your phone</label>
-                    </div>                    
+                      <label for="phone">@lang('faq.your_phone')</label>
+                    </div>
                     <div class="label">
                       @auth
                       <input type="text" name="email" value="{{ $user->email }}" required>
                       @endauth
                       @guest
-                      <input type="text" name="email" required>                      
+                      <input type="text" name="email" required>
                       @endauth
-                      <label for="email">Your e-mail<span class="required">*</span></label>                      
+                      <label for="email">@lang('faq.your_email')<span class="required">*</span></label>
                     </div>
                   </div>
                   <div class="label">
                     <textarea name="letter" required></textarea>
-                    <label for="letter">Write your letter<span class="required">*</span></label>
+                    <label for="letter">@lang('faq.write_letter')<span class="required">*</span></label>
                   </div>
-                  <button class="add-faq-letter-send-btn">Send letter</button>
+                  <button class="add-faq-letter-send-btn">@lang('faq.send_letter')</button>
                 </form>
               </div>
             </div>
-            <div class="faq-right">               
+            <div class="faq-right">
               <div class="faq__tabs" id="faqTabs">
                 <ul class="faq__tabs-nav">
                   @foreach($questions as $question)
                   <li class="faq__tabs-nav-item"><a href="#faq-{{$question->question_id}}">{{$question->name}}</a></li>
                   @endforeach
-                 
+
                 </ul>
               </div>
             </div>
