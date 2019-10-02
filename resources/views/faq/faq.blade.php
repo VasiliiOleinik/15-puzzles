@@ -30,7 +30,7 @@
               </div>
               @endforeach
               <div class="add-faq-letter">
-                <form method="post" action= "{{ route('letter', app()->getLocale() ) }}" id="faq-form">
+                <form method="post" id="faq-form">
                   @csrf
                   <div class="add-faq-letter-row">
                     <div class="label">
@@ -45,28 +45,35 @@
                       <input type="text" name="name">
                       @endauth
                       <label for="name">@lang('faq.your_name')<span class="required">*</span></label>
+                      <label id="faq-name-error" class="invalid" for="name"></label>
                     </div>
                     <div class="label">
                       <input type="text" name="phone">
                       <label for="phone">@lang('faq.your_phone')</label>
+                      <label id="faq-phone-error" class="invalid" for="phone"></label>
                     </div>
                     <div class="label">
                       @auth
-                      <input type="text" name="email" value="{{ $user->email }}" required>
+                      <input type="text" name="email" value="{{ $user->email }}">
                       @endauth
                       @guest
-                      <input type="text" name="email" required>
+                      <input type="text" name="email">
                       @endauth
                       <label for="email">@lang('faq.your_email')<span class="required">*</span></label>
+                      <label id="faq-email-error" class="invalid" for="email"></label>
                     </div>
                   </div>
                   <div class="label">
-                    <textarea name="letter" required></textarea>
+                    <textarea name="letter"></textarea>
                     <label for="letter">@lang('faq.write_letter')<span class="required">*</span></label>
+                    <label id="faq-letter-error" class="invalid" for="letter"></label>
                   </div>
                   <button class="add-faq-letter-send-btn">@lang('faq.send_letter')</button>
                 </form>
               </div>
+                {{-- <ul id="faq-form-errors" hidden>
+
+                </ul> --}}
             </div>
             <div class="faq-right">
               <div class="faq__tabs" id="faqTabs">

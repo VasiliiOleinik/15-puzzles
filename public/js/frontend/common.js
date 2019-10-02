@@ -192,12 +192,12 @@ $(function() {
     // Окрытие доп.информации в табах на home page
     $(".tab-list.main-scroll").delegate(".tab-name", "click", function() {
       var isOpen = $(this).find('.arrow').hasClass("dropdown");
-  
+
       $(".arrow").removeClass("dropdown");
       $(".tab-item__content").slideUp();
       $(".tab-head-markers").removeClass("checked-tab");
       // $(".tab-item__head").removeClass("checked-tab");
-  
+
       if (isOpen) {
         $(this).find('.arrow').removeClass("dropdown");
         $(this)
@@ -217,7 +217,7 @@ $(function() {
           .parent(".tab-head-markers")
           .addClass("checked-tab");
       }
-  
+
       // Модалка, если текста больше чем 160px по высоте
       var tabText = $(this)
           .parent()
@@ -448,7 +448,7 @@ $(function(){
   });
 
   // Валидация
-  $("#contact_form, #subscription-form, #faq-form").validate({
+  $("#contact_form, #subscription-form").validate({
     errorClass: "invalid",
     validClass: "success",
     rules: {
@@ -501,4 +501,33 @@ $(function(){
     }
     });
 
+});
+
+// Отправка FAQ-формы
+$(document).ready(function () {
+    $('#faq-form').on('submit', function (e) {
+        e.preventDefault();
+
+        $('#faq-name-error').text('');
+        $('#faq-phone-error').text('');
+        $('#faq-email-error').text('');
+        $('#faq-letter-error').text('');
+        $.ajax({
+            type: 'POST',
+            url: 'faq',
+            data: $('#faq-form').serialize(),
+            success: function (data) {
+                alert('Ваше сообщение отправлено');
+            },
+            error: function (data) {
+                $('#faq-form-errors').show();
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $('#faq-' + key + '-error').text(element[0]);
+                    }
+                }
+            }
+        });
+    });
 });

@@ -17,5 +17,13 @@ return [
     'your_email' => "Your e-mail",
     'write_letter' => 'Write your letter',
     'send_letter' => 'Send letter',
-
+    'name_required' => 'Enter your name',
+    'phone_required' => 'Enter your phone',
+    'phone_min' => 'Minimum length of the number is 10 digits',
+    'phone_max' => 'Maximum length of the number is 13 digits',
+    'email_required' => 'Enter your e-mail',
+    'email_email' => 'Your e-mail is incorrect',
+    'email_max' => 'Your e-mail is too long',
+    'letter_required' => 'Enter your letter',
+    'letter_min' => 'Minimum length of the letter is 10 symbols',
 ];

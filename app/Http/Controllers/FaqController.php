@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\LetterToEditor;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\FaqFormRequest;
+use Lang;
 
 class FaqController extends Controller
 {
@@ -35,8 +37,9 @@ class FaqController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return redirect
      */
-    public function letter(Request $request)
-    {        
+    public function letter(FaqFormRequest $request)
+    {
+        //dd(Lang::get('faq.phone_required'));
         Mail::to( config('puzzles.options.admin_email') )->send(new LetterToEditor($request));
         return redirect()->back();
     }
@@ -53,9 +56,9 @@ class FaqController extends Controller
         'titleEng' => ['required', 'string', 'max:191'],
         'titleRu' => ['required', 'string', 'max:191'],
         'contentEng' => ['required', 'max:64000'],
-        'contentRu' => ['required', 'max:64000'],            
+        'contentRu' => ['required', 'max:64000'],
         ]);
-        
+
         $questionLanguageEng = new QuestionLanguage;
         $questionLanguageRu = new QuestionLanguage;
         $question = new Question;
@@ -72,7 +75,7 @@ class FaqController extends Controller
         $questionLanguageRu->name = $request['titleRu'];
         $questionLanguageRu->content = $request['contentRu'];
         $questionLanguageRu->question_id = $question->id;
-        
+
         $questionLanguageEng->save();
         $questionLanguageRu->save();
 
