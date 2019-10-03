@@ -13,4 +13,9 @@ return [
     */
 
     'subject' => 'Latest news '.config('app.name'),
+    'email_required' => 'Enter your e-mail',
+    'email_email' => 'Your e-mail is incorrect',
+    'email_max' => 'Your e-mail is too long',
+    'successfully_subscribed' => 'You have successfully subscribed',
+    'already_subscribed' => 'You are already subscribed',
 ];

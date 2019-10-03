@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubscribeFormRequest;
 use Illuminate\Http\Request;
 use App\Models\Subscriber;
 use Illuminate\Support\Facades\Mail;
@@ -17,11 +18,8 @@ class SubscriberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $locale)
-    {        
-        $validatedData = $request->validate([
-            'email-subscribe' => ['required', 'string', 'email', 'max:191'],
-        ]);
+    public function create(SubscribeFormRequest $request, $locale)
+    {
         $newsLatest = Cache::remember('newsLatest_'.app()->getLocale(), now()->addDay(1), function(){
                 $latest = Article::orderBy('id','desc')->paginate(3)->pluck('id');
                 return ArticleLanguage::with('article')->whereIn('article_id',$latest)
@@ -29,18 +27,23 @@ class SubscriberController extends Controller
         });
         //проверяем подписан ли уже этот email
         if(Subscriber::where('email','=',$request['email-subscribe'])->count() == 0){
-            $subscriber = new Subscriber;        
+            $subscriber = new Subscriber;
             $subscriber->email = $request['email-subscribe'];
             $subscriber->language = $locale;
             $subscriber->save();
-            
+
             Mail::to( $subscriber->email )
                 ->send( new LetterToSubscriber($newsLatest) );
-            
-            $request->session()->flash('status-subscriber', 'You have successfully subscribed.');
-        }else{
-            $request->session()->flash('status-subscriber', 'You are already subscribed.');            
+
+            $answer = trans('subscriber.successfully_subscribed');
+
         }
-        return redirect()->back();
+        else
+        {
+            $answer = trans('subscriber.already_subscribed');
+        }
+        return response()->json([
+            'status_subscriber' => $answer,
+        ]);
     }
 }

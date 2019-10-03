@@ -525,11 +525,83 @@ $(document).ready(function () {
                 alert('Ваше сообщение отправлено');
             },
             error: function (data) {
-                $('#faq-form-errors').show();
                 for (const key in data.responseJSON.errors) {
                     if (data.responseJSON.errors.hasOwnProperty(key)) {
                         const element = data.responseJSON.errors[key];
                         $('#faq-' + key + '-error').text(element[0]);
+                    }
+                }
+            }
+        });
+    });
+});
+
+// Отправка формы подписки на страницах Member's cases, News, Literature
+$(document).ready(function () {
+    $('#literature-subscribe-form').on('submit', function (e) {
+        e.preventDefault();
+
+        $('#literature-subscribe-form label').text('');
+
+        $.ajax({
+            type: 'GET',
+            url: 'subscriber/create',
+            data: $('#literature-subscribe-form').serialize(),
+            success: function (data) {
+                $('#literature-subscribe-form input').val('');
+                alert(data.status_subscriber);
+            },
+            error: function (data) {
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $('#literature-' + key + '-error').text(element[0]);
+                    }
+                }
+            }
+        });
+    });
+    $('#member-cases-subscribe-form').on('submit', function (e) {
+        e.preventDefault();
+
+        $('#member-cases-subscribe-form label').text('');
+
+        $.ajax({
+            type: 'GET',
+            url: 'subscriber/create',
+            data: $('#member-cases-subscribe-form').serialize(),
+            success: function (data) {
+                $('#member-cases-subscribe-form input').val('');
+                alert(data.status_subscriber);
+            },
+            error: function (data) {
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $('#member-cases-' + key + '-error').text(element[0]);
+                    }
+                }
+            }
+        });
+    });
+    $('#news-subscribe-form').on('submit', function (e) {
+        e.preventDefault();
+
+        $('#news-subscribe-form label').text('');
+
+        $.ajax({
+            type: 'GET',
+            url: 'subscriber/create',
+            data: $('#news-subscribe-form').serialize(),
+            success: function (data) {
+                $('#news-subscribe-form input').val('');
+                alert(data.status_subscriber);
+            },
+            error: function (data) {
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $('#news-' + key + '-error').text(element[0]);
                     }
                 }
             }

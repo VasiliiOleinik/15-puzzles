@@ -13,4 +13,9 @@ return [
     */
 
     'subject' => 'Свежие новости сайта '.config('app.name'),
+    'email_required' => 'Введите ваш адрес e-mail',
+    'email_email' => 'Адрес e-mail введен неправильно',
+    'email_max' => 'Адрес e-mail слишком длинный',
+    'successfully_subscribed' => 'Вы успешно подписались',
+    'already_subscribed' => 'Вы уже подписаны',
 ];

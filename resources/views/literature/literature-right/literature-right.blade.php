@@ -22,19 +22,21 @@
               -->
               <div class="subscribe">
                 <p class="news-right__title">@lang('literature.title_subscribe')</p>
-                <form class="subscribe__input" method="get" action="{{ route('subscriber.create', app()->getLocale()) }}">
+                <form id="literature-subscribe-form" class="subscribe__input" method="get">
                   @auth
-                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')" value="{{ Auth::user()->email }}" required>
+                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')" value="{{ Auth::user()->email }}">
                   @endauth
                   @guest
-                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')" required>
+                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')">
                   @endguest
-                  <button class="subscribe-btn"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
+                  <button class="subscribe-btn" type="submit"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
+                  <label id="literature-email-subscribe-error" class="invalid" for="email-subscribe"></label>
                 </form>
+
               </div>
               <div class="tags" obj-route="literature">
                 <p class="news-right__title">@lang('literature.title_tags_cloud')</p>
-                <ul class="tags__list">                  
+                <ul class="tags__list">
                 </ul>
               </div>
             </div>

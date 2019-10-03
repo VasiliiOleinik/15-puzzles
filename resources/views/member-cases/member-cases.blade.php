@@ -14,7 +14,7 @@
 @section('literature-css')
     <link href="{{ asset('css/backend/tags search/bootstrap-tagsinput.css') }}" rel="stylesheet">
     <link href="{{ asset('css/backend/tags search/typeaheadjs.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/backend/memberCases.css') }}" rel="stylesheet">    
+    <link href="{{ asset('css/backend/memberCases.css') }}" rel="stylesheet">
 @endsection
 @section('content')
         <main class="main">
@@ -43,14 +43,14 @@
                         <img class="post__img" src="/img/med-history.png" alt="">
                       @else
                         <img class="post__img" src="{{$memberCase->img}}" alt="" >
-                      @endif                      
+                      @endif
                     </a>
                     <a class="post__date" href="javascript:void(0)">{{$memberCase->updated_at->format('d.m.Y')}}</a>
                     <a class="post__title" href="{{ url(app()->getLocale().'/member_cases') }}/{{ $memberCaseTitle }}">{!!$memberCase->title!!}
                       <span class="post__arrow"></span>
                     </a>
                     <p class="post__description">{!!$memberCase->description!!}</p>
-                  </div> 
+                  </div>
                   @endforeach
                 </div>
                 <div class="pagination">
@@ -58,17 +58,18 @@
                 </div>
               </div>
             </div>
-            <div class="cases-right">              
+            <div class="cases-right">
               <div class="subscribe">
-                <h3 class="news-right__title">Take latest news from 15-Puzzle</h3>
-                <form class="subscribe__input" method="get" action="{{ route('subscriber.create', app()->getLocale()) }}">
+                <h3 class="news-right__title">@lang('member_cases.title_subscribe')</h3>
+                <form id="member-cases-subscribe-form" class="subscribe__input" method="get">
                   @auth
-                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="Your Email Address" value="{{ Auth::user()->email }}" required>
+                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('member_cases.placeholder_subscribe')" value="{{ Auth::user()->email }}">
                   @endauth
                   @guest
-                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="Your Email Address" required>
+                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('member_cases.placeholder_subscribe')">
                   @endguest
                   <button class="subscribe-btn" type="submit"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
+                  <label id="member-cases-email-subscribe-error" class="invalid" for="email-subscribe"></label>
                 </form>
               </div>
               @auth
@@ -77,7 +78,7 @@
                 <form class="add-story__form"  method="post" action="{{ route('create_post', app()->getLocale()) }}">
                   @csrf
 
-                  <input id="img" type="hidden" name="img">  
+                  <input id="img" type="hidden" name="img">
                   <div class="labels">
                     <input class="headline inp" type="text" name="headline" required>
                     <label for="headline">Headline <span class="required">*</span></label>
@@ -89,7 +90,7 @@
                   <div class="add-images">
                     <h3 class="add-images__title">Add image</h3>
                     <div class="images-container">
-                      <div class="item-img">                        
+                      <div class="item-img">
                         <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">
                           <input class="file-input" type="file" placeholder="Choose Image" >
@@ -99,7 +100,7 @@
                   </div>
                   <div class="tag-search">
                       <div class="labels" style="padding: 0; min-height:48px;">
-                          <input id="story-tags" required>  
+                          <input id="story-tags" required>
                           <input class="add-tags inp" type="text" name="story-tags" id="tags">
                           <label class="place">Add your story tags <span class="required">*</span></label>
                       </div>
@@ -120,5 +121,5 @@
               </div>
             </div>
           </div>
-        </main>      
+        </main>
 @endsection
