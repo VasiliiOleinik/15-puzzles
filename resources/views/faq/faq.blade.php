@@ -36,44 +36,41 @@
                     <div class="label">
                       @auth
                         @if($user->first_name != null || $user->last_name != null)
-                        <input type="text" name="name" value="{{ $user->first_name }} {{ $user->last_name }}">
+                        <input id="faq-name" type="text" name="name" value="{{ $user->first_name }} {{ $user->last_name }}">
                         @else
-                        <input type="text" name="name">
+                        <input id="faq-name" type="text" name="name">
                         @endif
                       @endauth
                       @guest
-                      <input type="text" name="name">
+                      <input id="faq-name" type="text" name="name">
                       @endauth
                       <label for="name">@lang('faq.your_name')<span class="required">*</span></label>
                       <label id="faq-name-error" class="invalid" for="name"></label>
                     </div>
                     <div class="label">
-                      <input type="text" name="phone">
+                      <input id="faq-phone" type="text" name="phone">
                       <label for="phone">@lang('faq.your_phone')</label>
                       <label id="faq-phone-error" class="invalid" for="phone"></label>
                     </div>
                     <div class="label">
                       @auth
-                      <input type="text" name="email" value="{{ $user->email }}">
+                      <input id="faq-email" type="text" name="email" value="{{ $user->email }}">
                       @endauth
                       @guest
-                      <input type="text" name="email">
+                      <input id="faq-email" type="text" name="email">
                       @endauth
                       <label for="email">@lang('faq.your_email')<span class="required">*</span></label>
                       <label id="faq-email-error" class="invalid" for="email"></label>
                     </div>
                   </div>
                   <div class="label">
-                    <textarea name="letter"></textarea>
+                    <textarea id="faq-letter" name="letter"></textarea>
                     <label for="letter">@lang('faq.write_letter')<span class="required">*</span></label>
                     <label id="faq-letter-error" class="invalid" for="letter"></label>
                   </div>
                   <button class="add-faq-letter-send-btn">@lang('faq.send_letter')</button>
                 </form>
               </div>
-                {{-- <ul id="faq-form-errors" hidden>
-
-                </ul> --}}
             </div>
             <div class="faq-right">
               <div class="faq__tabs" id="faqTabs">

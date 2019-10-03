@@ -512,11 +512,16 @@ $(document).ready(function () {
         $('#faq-phone-error').text('');
         $('#faq-email-error').text('');
         $('#faq-letter-error').text('');
+
         $.ajax({
             type: 'POST',
             url: 'faq',
             data: $('#faq-form').serialize(),
             success: function (data) {
+                $('#faq-name').val('');
+                $('#faq-phone').val('');
+                $('#faq-email').val('');
+                $('#faq-letter').val('');
                 alert('Ваше сообщение отправлено');
             },
             error: function (data) {
