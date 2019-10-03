@@ -1,6 +1,7 @@
 <?php
 
 use SleepingOwl\Admin\Navigation\Page;
+use App\Models\Article\Article;
 
 // Default check access logic
 // AdminNavigation::setAccessLogic(function(Page $page) {
@@ -48,51 +49,28 @@ return [
     ],*/
 
     [
-        'title' => 'Настройки',
-        'icon'  => 'fa fa-cog',
-        'url'   => url('/admin/options'),
+        'title'=>'Хелперы',
+        'icon'  => 'fa fa-book',
+        'pages'=>[
+            (new Page(\App\Models\Options::class))->setTitle('Опции')
+        ]
+
     ],
 
     [
         'title' => 'Страницы',
         'icon'  => 'fa fa-book',
-        'url'   => url('/admin/pages'),
         'pages' => [
-            [
-                'title' => 'Главная',
-                'icon'  => 'fa fa-home',
-                'url'   => url('/admin/pages/main'),
-            ],
-            /*[
-                'title' => 'Диаграмма факторов',
-                'icon'  => 'fa fa-retweet',
-                'url'   => url('/admin/pages/factor-diagram'),
-            ],*/
-            [
-                'title' => 'О нас',
-                'icon'  => 'fa fa-id-card',
-                'url'   => url('/admin/pages/about'),
-            ],
+                (new Page(\App\Models\Page::class))->setTitle('Страницы')
         ]
     ],
 
     [
         'title' => 'Новости',
         'icon'  => 'fa fa-comment',
-        'url'   => url('/admin/pages'),
         'pages' => [
-            [
-                'title' => 'Новости',
-                'icon'  => 'fa fa-comment',
-                'url'   => url('/admin/news'),
-                //'badge' => \App\Models\Article\Article::count(),
-            ],
-            [
-                'title' => 'SEO',
-                'icon'  => 'fa fa-comment',
-                'url'   => url('/admin/pages/news'),
-                //'badge' => \App\Models\Article\Article::count(),
-            ],
+                (new Page(Article::class))->setTitle('Статьи')
+
         ],
     ],
 

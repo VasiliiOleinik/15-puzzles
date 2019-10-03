@@ -2,22 +2,17 @@
 
 namespace App\Http\Admin;
 
-use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
-use SleepingOwl\Admin\Contracts\Form\FormInterface;
-use SleepingOwl\Admin\Section;
-
-use App\Models\Article\Article;
-
 use AdminColumn;
-use AdminColumnEditable;
-use AdminColumnFilter;
 use AdminDisplay;
-use AdminDisplayFilter;
 use AdminForm;
 use AdminFormElement;
+use App\Models\Article\Article;
+use App\Models\Article\ArticleLanguage;
+use App\Scopes\LanguageScope;
+use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
+use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Contracts\Initializable;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Config;
+use SleepingOwl\Admin\Section;
 
 /**
  * Class ArticleLanguages
@@ -45,7 +40,7 @@ class ArticleLanguages extends Section implements Initializable
 
     }
 
-   /**
+    /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
      *
      * @var bool
@@ -66,21 +61,22 @@ class ArticleLanguages extends Section implements Initializable
      * @return DisplayInterface
      */
     public function onDisplay()
-    {        
+    {
         $display = AdminDisplay::datatablesAsync();
         $display
             ->with(['article'])
-            ->setApply(function($query) {
+            ->setApply(function ($query) {
                 $query->orderBy('article_id', 'desc');
             })
             ->setColumns(
-                //AdminColumn::text('article_id')->setLabel('article id'),
-                AdminColumnEditable::text('title')->setLabel('Название статьи'),
-                AdminColumnEditable::textarea('description')->setLabel('Краткое описание статьи'),                
-                AdminColumnEditable::textarea('content')->setLabel('Полное описание статьи'),
-                AdminColumn::text('language')->setLabel('Язык')
+                [
+                    AdminColumn::text('title')->setLabel('Название статьи'),
+                    AdminColumn::text('description')->setLabel('Краткое описание статьи'),
+                    AdminColumn::text('content')->setLabel('Полное описание статьи'),
+                    AdminColumn::text('language')->setLabel('Язык'),
+                ]
             );
-        
+
         return $display->setView( view('sleeping-owl.display.table' ) );
     }
 
@@ -91,37 +87,45 @@ class ArticleLanguages extends Section implements Initializable
      */
     public function onEdit($id)
     {
+        $articleCurrent = ArticleLanguage::where('article_id', '=', $id)
+            ->first();
+        $articleRu = ArticleLanguage::withoutGlobalScope(LanguageScope::class)
+            ->where('article_id', '=', $articleCurrent->article_id)
+            ->where('language', '=', 'ru')
+            ->first();
+//        dd($articleRu);
         $ckeditor = view('sleeping-owl.pages.layout');
-        $imageSrc = Article::find( $this->model::find($id)->article_id )->img;
-        $image = '<img id="img-admin" src="'.$imageSrc.'" width="100%" style="max-width: 600px;">';
+        $imageSrc = Article::find($this->model::find($id)->article_id)->img;
+        $image = '<img id="img-admin" src="' . $imageSrc . '" width="100%" style="max-width: 600px;">';
 
         //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
         //(заполняются hidden поля на вкладке связей)
-        $scripts = "<script src='/js/backend/admin-news.js')></script>";        
+        $scripts = "<script src='/js/backend/admin-news.js')></script>";
 
         $formEng = AdminForm::panel()->addBody([
-        AdminFormElement::custom()
-                ->setDisplay(function($instance) use($ckeditor) {
+            AdminFormElement::custom()
+                ->setDisplay(function ($instance) use ($ckeditor) {
                     return $ckeditor;
                 }),
             AdminFormElement::custom()
-                ->setDisplay(function($instance) use($scripts) {
+                ->setDisplay(function ($instance) use ($scripts) {
                     return $scripts;
                 }),
-            
+
             AdminFormElement::text('title')->setName('titleEng')->setLabel('Название новости')->required(),
             AdminFormElement::textarea('description')->setName('descriptionEng')->setLabel('Краткое описание новости')->required(),
             AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Полное описание новости')->required()
         ]);
-        $formRu = AdminForm::panel()->addBody([           
-            AdminFormElement::text('title')->setName('titleRu')->setLabel('Название новости')->required(),
-            AdminFormElement::textarea('description')->setName('descriptionRu')->setLabel('Краткое описание новости')->required(),
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Полное описание новости')->required()
+        $formRu = AdminForm::panel()->addBody([
+            AdminFormElement::text('article.articlesRu.title')->setName('titleRu')->setLabel('Название новости')->required(),
+            AdminFormElement::textarea('description')->setName('descriptionRu')->setValue($articleRu->description)->setLabel('Краткое описание новости')->required(),
+            AdminFormElement::textarea('content')->setName('contentRu')->setValue($articleRu->content)->setLabel('Полное описание новости')->required()
         ]);
+
         $formRelations = AdminForm::panel()->addBody([
             AdminFormElement::text('article.created_at')->setLabel('Создано')->setReadonly(1),
             AdminFormElement::custom()
-                ->setDisplay(function($instance) use($image) {
+                ->setDisplay(function ($instance) use ($image) {
                     return $image;
                 }),
             AdminFormElement::hidden('img')->setLabel('картинка'),
@@ -141,7 +145,7 @@ class ArticleLanguages extends Section implements Initializable
         $tabs->appendTab($formEng, 'Новость eng');
         $tabs->appendTab($formRu, 'Новость ru');
         $tabs->appendTab($formRelations, 'Новость другое');
-        
+
         return $tabs;
     }
 
@@ -150,35 +154,36 @@ class ArticleLanguages extends Section implements Initializable
      */
     public function onCreate()
     {
-        $ckeditor = view('sleeping-owl.pages.layout'); 
-        $image = '<img id="img-admin" width="30%" style="max-width: 400px;">';               
+        $ckeditor = view('sleeping-owl.pages.layout');
+        $image = '<img id="img-admin" width="30%" style="max-width: 400px;">';
 
         //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
         //(заполняются hidden поля на вкладке связей)
-        $scripts = "<script src='/js/backend/admin-news.js')></script>";        
+        $scripts = "<script src='/js/backend/admin-news.js')></script>";
 
         $formEng = AdminForm::panel()->addBody([
             AdminFormElement::custom()
-                ->setDisplay(function($instance) use($ckeditor) {
+                ->setDisplay(function ($instance) use ($ckeditor) {
                     return $ckeditor;
                 }),
             AdminFormElement::custom()
-                ->setDisplay(function($instance) use($scripts) {
+                ->setDisplay(function ($instance) use ($scripts) {
                     return $scripts;
                 }),
-            
-            AdminFormElement::text('title')->setName('titleEng')->setLabel('Название новости')->required(),
+
+            AdminFormElement::custom('title')->setName('titleEng')->setLabel('Название новости')->required(),
+
             AdminFormElement::textarea('description')->setName('descriptionEng')->setLabel('Краткое описание новости')->required(),
             AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Полное описание новости')->required()
         ]);
-        $formRu = AdminForm::panel()->addBody([           
-            AdminFormElement::text('title')->setName('titleRu')->setLabel('Название новости')->required(),
+        $formRu = AdminForm::panel()->addBody([
+            AdminFormElement::text('titleRu')->setName('titleRu')->setLabel('Название новости')->required(),
             AdminFormElement::textarea('description')->setName('descriptionRu')->setLabel('Краткое описание новости')->required(),
             AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Полное описание новости')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([
             AdminFormElement::custom()
-                ->setDisplay(function($instance) use($image) {
+                ->setDisplay(function ($instance) use ($image) {
                     return $image;
                 }),
             AdminFormElement::hidden('img')->setLabel('картинка'),
@@ -198,7 +203,7 @@ class ArticleLanguages extends Section implements Initializable
         $tabs->appendTab($formEng, 'Новость eng');
         $tabs->appendTab($formRu, 'Новость ru');
         $tabs->appendTab($formRelations, 'Новость другое');
-        
+
         return $tabs;
     }
 

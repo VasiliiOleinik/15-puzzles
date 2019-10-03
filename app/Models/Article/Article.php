@@ -3,6 +3,7 @@
 
 namespace App\Models\Article;
 
+use App\Scopes\LanguageScope;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -23,7 +24,7 @@ class Article extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'description', 'content', 'img', 'created_at', 'updated_at'];
+    protected $guarded = [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -38,7 +39,7 @@ class Article extends Model
      */
     public function tags()
     {
-    return $this->belongsToMany('App\Models\Tag', 'article_tags');
+        return $this->belongsToMany('App\Models\Tag', 'article_tags');
     }
 
     /**
@@ -48,4 +49,16 @@ class Article extends Model
     {
         return $this->belongsToMany('App\Models\Category\CategoryForNews', 'article_categories_for_news');
     }
+
+    public function articlesEng()
+    {
+        return $this->hasOne(ArticleLanguage::class);
+    }
+
+    public function articlesRu()
+    {
+        return $this->hasOne(ArticleLanguage::class)->withoutGlobalScope(LanguageScope::class)
+            ->where('language', 'ru');
+    }
+
 }

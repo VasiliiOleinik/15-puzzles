@@ -1,12 +1,12 @@
 @extends('sleeping-owl.pages.layout')
 @section('content')
-<form action="/admin/pages/post" method="post">
+<form action="/admin/pages/post" method="post" enctype="multipart/form-data">
     @csrf
     <div class="form-group">
       <input type="hidden" value="about" name="page">
 
       <label for="img">Логотип:</label>
-      <input type="text" class="form-control" name="img" value="{{config('puzzles.about.img')}}"><br>
+      <input type="file" class="form-control" name="img" value="{{config('puzzles.about.img')}}"><br>
 
       <label for="titleRu">Title RU:</label>
       <input type="text" class="form-control" name="titleRu" value="{{config('puzzles.about.title_ru')}}"><br>
@@ -26,7 +26,7 @@
       <textarea class="form-control" rows="5" name="puzzlesDescriptionRu">{{config('puzzles.about.puzzles_description_ru')}}</textarea><br>
       <label for="puzzlesDescriptionEng">Описание под пазлами ENG:</label>
       <textarea class="form-control" rows="5" name="puzzlesDescriptionEng">{{config('puzzles.about.puzzles_description_eng')}}</textarea><br>
-    </div>
+    </div>`
     <button type="submit" class="btn btn-info">Accept</button>
 </form>
 @endsection

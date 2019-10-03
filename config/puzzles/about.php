@@ -1,5 +1,5 @@
 <?php return array (
-  'img' => '/img/about_bg.jpg',
+  'img' => '/storage/S6DLtzaDdb77nDPvI4OXaoLzVYFO8OCfN0I0iv4Z.jpeg',
   'title_ru' => 'О нас',
   'title_eng' => 'About',
   '_description_ru' => 'О нас описание',
