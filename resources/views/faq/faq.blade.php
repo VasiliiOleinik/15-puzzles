@@ -20,7 +20,7 @@
                 </ul>
               </div>
               @foreach($questions as $question)
-              <div id="faq-{{ $question->question_id }}">
+              <div id="faq-{{ $question->question_id }}" class="r-tabs-state-default r-tabs-panel">
                 <div class="tab-faq-list">
                   <div class="tab-faq-item">
                     <h4 class="tab-faq-title">{{ $question->name }}</h4>
