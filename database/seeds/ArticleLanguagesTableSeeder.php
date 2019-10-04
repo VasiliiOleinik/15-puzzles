@@ -18,11 +18,11 @@ class ArticleLanguagesTableSeeder extends Seeder
         $table = $tableShort.'_languages';
         DB::update("ALTER TABLE ".$table." AUTO_INCREMENT = 0;");
 
-        Config::set('app.faker_locale', 'en_US');        
+        Config::set('app.faker_locale', 'en_US');
         for($i = 0; $i < Article::count(); $i++){
             factory(ArticleLanguage::class, 1 )->create();
         }
-        Config::set('app.faker_locale', 'ru_RU');        
+        Config::set('app.faker_locale', 'ru_RU');
         for($i = 0; $i < Article::count(); $i++){
             factory(ArticleLanguage::class, 1 )->create();
         }
@@ -32,10 +32,10 @@ class ArticleLanguagesTableSeeder extends Seeder
                 ->update( [$tableShort.'_id' => $i - Article::count()] );
         }
         //делаем одинаковыми имена
-        foreach(Article::all() as $article){
+        /* foreach(Article::all() as $article){
             $article->title = ArticleLanguage::where('article_id','=',$article->id)
                                           ->where('language','=','eng')->first()->title;
             $article->save();
-        }
+        } */
     }
 }
