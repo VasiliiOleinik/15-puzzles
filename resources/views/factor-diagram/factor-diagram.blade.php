@@ -15,7 +15,7 @@
                     <input class="group_title_checkbox" type="checkbox"><span class="checkbox-custom"></span><span class="label">Cancerogenesis (1-3)</span>
                   </label>
                   <div class="group_content">
-                    <div class="group_item js-item mutagenesis">
+                    <div class="group_item js-item mutagenesis" data-start="0,80" data-finish="750,80" data-changeFinish="160" data-radius="4">
                       <p>DNA mutagenesis</p>
                     </div>
                     <div class="group_item js-item infections">
@@ -64,47 +64,8 @@
               </div>
               <div class="diagram__center">
                 <h2 class="diagram__center-title">Reasons of cancer development</h2>
-                <div class="diagram__center-circle-container">
-                  <div class="main_circles">
-                      <div class="main_circles-item">
-                          <span>Система органов</span>
-                      </div>
-                      <div class="main_circles-item">
-                          <span>Орган</span>
-                      </div>
-                      <div class="main_circles-item">
-                          <span>Межклеточный матрикс</span>
-                      </div>
-                      <div class="main_circles-item">
-                          <span>Клетка</span>
-                      </div>
-                      <div class="main_circles-item">
-                          <span>Межклеточный матрикс</span>
-                      </div>
-                      <div class="main_circles-item">
-                          <span>Орган</span>
-                      </div>
-                      <div class="main_circles-item">
-                          <span>Система органов</span>
-                      </div>
-                    {{--<div class="cell_item infections"><img src="/img/diagram_ico/infections.svg" alt="infections"><span>Infections</span></div>--}}
-                    {{--<div class="cell_item food"><img src="/img/diagram_ico/cell_food.svg" alt="cell_food"><span>Cell "Food"</span></div>--}}
-                    {{--<div class="cell_item police"><img src="/img/diagram_ico/police_cell.svg" alt="police_cell"><span>"Police" cell</span></div>--}}
-                    {{--<div class="cell_item waste"><img src="/img/diagram_ico/cell_waste.svg" alt="cell_waste"><span>Cell "Waste"</span></div>--}}
-                    {{--<div class="cell_item three_radical"><img src="/img/diagram_ico/three_free_radicals.svg" alt="three_free_radicals"></div>--}}
-                    {{--<div class="cell_item some_small_blue"><img src="/img/diagram_ico/some_small_blue_cell.svg" alt="some_small_blue_cell"></div>--}}
-                    {{--<div class="inscribed-circle">--}}
-                      {{--<div class="cell_item dnk"><img src="/img/diagram_ico/cell_dnk.svg" alt="cell_dnk"></div>--}}
-                      {{--<div class="cell_item double_cell"><img src="/img/diagram_ico/double_cell.svg" alt="double_cell"></div>--}}
-                      {{--<div class="cell_item small_red_cell"><img src="/img/diagram_ico/small_red_cell.svg" alt="small_red_cell"></div>--}}
-                      {{--<div class="cell_item big_red_cell"><img src="/img/diagram_ico/big_red_cell.svg" alt="big_red_cell"></div>--}}
-                      {{--<div class="cell_item some_big_blue"><img src="/img/diagram_ico/some_big_blue_cell.svg" alt="some_big_blue_cell"></div>--}}
-                      {{--<div class="cell_item free_radical_f"><img src="/img/diagram_ico/free_radical.svg" alt="free_radical"></div>--}}
-                      {{--<div class="cell_item free_radical_s"><img src="/img/diagram_ico/free_radical.svg" alt="free_radical"></div>--}}
-                      {{--<div class="cell_item free_radical_t"><img src="/img/diagram_ico/free_radical.svg" alt="free_radical"><span>Free radical</span></div>--}}
-                    {{--</div>--}}
-                  </div>
-                </div>
+                <canvas class="diagram__center-circle-container" id="diagram" width="900" height="725">
+                </canvas>
                 </div>
                 <div class="diagram__right">
                 <div class="diagram__group">
@@ -112,13 +73,13 @@
                     <input class="group_title_checkbox" type="checkbox"><span class="checkbox-custom"></span><span class="label">Elimination of alignant cells (apoptosis) (12-14)</span>
                   </label>
                   <div class="group_content">
-                    <div class="group_item js-item">
+                    <div class="group_item js-item reverse">
                       <p>Malignant Cell apoptosis</p>
                     </div>
-                    <div class="group_item js-item">
+                    <div class="group_item js-item reverse">
                       <p>Reactivation of "police cells" (Immunomodulation: macrofages, neutrofils, etc)</p>
                     </div>
-                    <div class="group_item js-item">
+                    <div class="group_item js-item reverse">
                       <p>Malignant cell recognition by immune system cells (NK-cell, T-cytotoxic cells, macrophages and neutrophils)</p>
                     </div>
                   </div>
@@ -128,7 +89,7 @@
                     <input class="group_title_checkbox" type="checkbox"><span class="checkbox-custom"></span><span class="label">Drainage (11)</span>
                   </label>
                   <div class="group_content">
-                    <div class="group_item js-item">
+                    <div class="group_item js-item reverse">
                       <p>Intracellular Drainage malfunction</p>
                     </div>
                   </div>
@@ -138,7 +99,7 @@
                     <input class="group_title_checkbox" type="checkbox"><span class="checkbox-custom"></span><span class="label">Cancer blood vessel development (Angiogenesis) (15)</span>
                   </label>
                   <div class="group_content">
-                    <div class="group_item js-item">
+                    <div class="group_item js-item reverse">
                       <p>Neovascularisation</p>
                     </div>
                   </div>

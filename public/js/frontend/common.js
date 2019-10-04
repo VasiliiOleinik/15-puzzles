@@ -49,9 +49,9 @@ function preloader() {
   });
 }
 
-$(function() {
+ $(function() {
   // Обработка событий  на странице с диаграммой
-  var groupItem = $(".group_item"), // Один элемент
+   var groupItem = $(".group_item"), // Один элемент
     groupTitle = $(".group_title_checkbox"), // Заголовок группы элементов
     deleteItem = $(".delete-item"), // Крестик для удаления выьранного элемента
     selectedList = $(".diagram__info-selected-list"), // Список выбранного
@@ -61,16 +61,16 @@ $(function() {
   groupItem.on("click", function() {
     $(this).toggleClass("active");
     // Добавление в список выбранного
-    if ($(this).hasClass("active")) {
-      itemContent = $(this).html();
-      selectedList.append(
-        '<div class="selected-item">' +
-          itemContent +
-          '<div class="delete-item"><img src="/img/delete_item_ico.png" alt="Delete Item"></div></div>'
-      );
-    } else {
-      itemContent = " ";
-    }
+    // if ($(this).hasClass("active")) {
+    //   itemContent = $(this).html();
+    //   selectedList.append(
+    //     '<div class="selected-item">' +
+    //       itemContent +
+    //       '<div class="delete-item"><img src="/img/delete_item_ico.png" alt="Delete Item"></div></div>'
+    //   );
+    // } else {
+    //   itemContent = " ";
+    // }
   });
 
   // Подсветка всей группы
@@ -613,40 +613,165 @@ $(document).ready(function () {
 
 
 
-animePath();
-function animePath() {
-    var button = $('.js-item');
 
-    button.click(function () {
-        var pointY = `<span class="pointY"></span>`;
-        var circle1 = `<span class="pointX"></span>`;
-        // var pointZ = `<span class="pointZ"></span>`;
-        $(this).append(pointY);
-        $(this).append(circle1);
-        // var z = $(this).append(pointZ);
+// animePath();
+// function animePath() {
+//     var button = $('.js-item');
+//
+//     button.click(function (e) {
+//         var item = $(e.currentTarget);
+//         if(!item.hasClass('on') ) {
+//             var classes = item.data('dich');
+//             item.addClass('on');
+//             var lineA = `<span class="lineA ${classes}"></span>`;
+//             var lineB = `<span class="lineB ${classes}"></span>`;
+//             var lineC = `<span class="lineC ${classes}"></span>`;
+//             var lineD = `<span class="lineD ${classes}"></span>`;
+//             var circleA = `<span class="circleA"><span class="cirlce-litle" title=""><img src="/img/lungs.svg" alt=""></span></span>`;
+//             var circleB = `<span class="circleB"><span class="cirlce-litle" title=""><img src="/img/lungs.svg" alt=""></span></span>`;
+//             var circleC = `<span class="circleC"><span class="cirlce-litle" title=""><img src="/img/lungs.svg" alt=""></span></span>`;
+//             var circleD = `<span class="circleD"><span class="cirlce-litle" title=""><img src="/img/lungs.svg" alt=""></span></span>`;
+//             item.append(lineA);
+//             item.append(lineB);
+//             item.append(lineC);
+//             item.append(lineD);
+//             item.append(circleA);
+//             item.append(circleB);
+//             item.append(circleC);
+//             item.append(circleD);
+//
+//             anime({
+//                 targets: '.lineA',
+//                 width: '160',
+//                 easing: 'linear',
+//                 duration: 300
+//             });
+//
+//             anime({
+//                 targets: '.circleA',
+//                 delay: 300,
+//                 width: '50px',
+//                 height: '50px',
+//                 easing: 'linear',
+//                 duration: 150,
+//                 border: '1px solid #fbfbfb'
+//             });
+//
+//             anime({
+//                 targets: '.lineB',
+//                 width: '95',
+//                 delay: 450,
+//                 easing: 'linear',
+//                 duration: 300
+//             });
+//             anime({
+//                 targets: '.circleB',
+//                 delay: 750,
+//                 width: '50px',
+//                 height: '50px',
+//                 easing: 'linear',
+//                 duration: 150,
+//                 border: '1px solid #fbfbfb'
+//             });
+//             anime({
+//                 targets: '.lineC',
+//                 width: '95',
+//                 delay: 900,
+//                 easing: 'linear',
+//                 duration: 300
+//             });
+//             anime({
+//                 targets: '.circleC',
+//                 delay: 1200,
+//                 width: '50px',
+//                 height: '50px',
+//                 easing: 'linear',
+//                 duration: 150,
+//                 border: '1px solid #fbfbfb'
+//             });
+//             anime({
+//                 targets: '.lineD',
+//                 width: '95',
+//                 delay: 1350,
+//                 easing: 'linear',
+//                 duration: 300
+//             });
+//             anime({
+//                 targets: '.circleD',
+//                 delay: 1650,
+//                 width: '50px',
+//                 height: '50px',
+//                 easing: 'linear',
+//                 duration: 150,
+//                 border: '1px solid #fbfbfb'
+//             });
+//         } else {
+//             item.removeClass('on');
+//             item.find('.lineA').remove();
+//             item.find('.lineB').remove();
+//             item.find('.lineC').remove();
+//             item.find('.lineD').remove();
+//             item.find('.circleA').remove();
+//             item.find('.circleB').remove();
+//             item.find('.circleC').remove();
+//             item.find('.circleD').remove();
+//         }
+//     });
+// }
+diagramDraw();
+function diagramDraw() {
+    var startData = $('.js-item').data('start');
+    var finishData = $('.js-item').data('finish');
+    var changeFinishData = $('.js-item').data('finish');
+    var start = startData.split(',');
+    var finish = finishData.split(',');
+    var changeStart = finish;
+    var changeFinish = [finish[0], 80];
+    var radius = 4;
 
-        anime({
-            targets: '.pointY',
-            keyframes: [
-                {width: '135%', easing: 'linear', duration: 800},
 
-            ],
-        });
-        anime({
-            targets: '.pointX',
-            keyframes: [
-                { width: '0', height: '0', easing: 'linear', delay: 600},
-                { width: '10', height: '10', easing: 'linear'}
 
-            ],
-        });
-        anime({
-            targets: '.pointZ',
-            keyframes: [
-                { width: '0', height: '0', easing: 'linear', delay: 600},
-                { width: '10', height: '10', easing: 'linear'}
-            ],
+    drawLineHorisont(start, finish);
+    drawLineVertical(changeStart, changeFinish);
+    drawCirle(changeFinish, radius);
 
-        });
-    });
+    console.log(startData);
+
 }
+
+function drawLineHorisont(start, finish){
+    var canvas = document.getElementById("diagram"),
+        ctx = canvas.getContext("2d");
+
+    ctx.moveTo(start[0], start[1]);
+    ctx.lineTo(finish[0], finish[1]);
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = '1';
+    ctx.lineCap = "round"
+    ctx.stroke();
+}
+function drawLineVertical(changeStart, changeFinish){
+    var canvas = document.getElementById("diagram"),
+        ctx = canvas.getContext("2d");
+
+    ctx.moveTo(changeStart[0], changeStart[1]);
+    ctx.lineTo(changeFinish[0], changeFinish[1]);
+    ctx.strokeStyle = 'red';
+    ctx.lineWidth = '1';
+    ctx.lineCap = "round"
+    ctx.stroke();
+}
+function drawCirle(finish, radius) {
+    var canvas = document.getElementById("diagram"),
+        ctx = canvas.getContext("2d");
+
+    ctx.beginPath();
+    ctx.arc(finish[0], finish[1], radius, 0, 2*Math.PI, false);
+    ctx.fillStyle = 'red';
+    ctx.fill();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'red';
+    ctx.stroke();
+}
+
+
