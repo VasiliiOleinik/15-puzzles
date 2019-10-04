@@ -506,7 +506,7 @@ $(function(){
 });
 
 // Отправка FAQ-формы
-$(document).ready(function () {
+
     $('#faq-form').on('submit', function (e) {
         e.preventDefault();
 
@@ -537,25 +537,10 @@ $(document).ready(function () {
             }
         });
     });
-});
 
-function  diagramDraw() {
-    var item = $('.show');
-    //arr = item.data('position').parseJSON();
-    var position =  [
-        {
-            start: [0,40],
-            finish: [450,40],
-            circle: []
-        },
-        {
-            start: [450,40],
-            finish: [450,150],
-            circle: [450,150,4]
-        }
-    ];
+
 // Отправка формы подписки на страницах Member's cases, News, Literature
-$(document).ready(function () {
+
     $('#literature-subscribe-form').on('submit', function (e) {
         e.preventDefault();
 
@@ -625,7 +610,7 @@ $(document).ready(function () {
             }
         });
     });
-});
+
 
 diagramDraw();
 function diagramDraw() {
