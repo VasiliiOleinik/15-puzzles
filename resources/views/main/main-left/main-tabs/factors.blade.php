@@ -6,7 +6,7 @@
                     class="checkbox-custom"></span>
           </label>
           <div class="tab-name">
-            <p class="title">@lang('main.tabs_title_factors') #{{$factor->factor_id}}: {{$factor->name}}</p>
+            <p class="title">@lang('main.tabs_title_factors') #{{$factor->factor_id}}: <span>{{$factor->name}}</span></p>
             <div class="arrow"><img src="img/svg/dropdown-ico.svg" alt=""></div>
           </div>
         </div>
