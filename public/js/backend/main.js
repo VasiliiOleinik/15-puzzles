@@ -294,7 +294,8 @@ function checkActiveTab() {
 function syncCheckedElements(clicked, objId, objType) {
     if (clicked === "checkbox" && objType != undefined) {
         var elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
-        var objName = elem.parent().find('.title').html().split(':')[1].substr(1);
+        var objName = elem.parent().siblings('.tab-name').find('.title span').html();
+        console.log(objName);
         addTagToTagsList(objId, objName, objType);
         checkPuzzle(objId, objType);
     }
@@ -321,7 +322,7 @@ function checkCheckbox(objId, objType) {
 function checkPuzzle(objId, objType) {
     if (objType == 'factor') {
         var elem = $('.puzzle-15__item-outer[obj-id=' + objId + ']').children();
-        if (!elem.hasClass('active')) {
+        if (elem.hasClass('active')) {
             elem.addClass('active');
         } else {
             elem.removeClass('active');
@@ -333,36 +334,6 @@ function addTagToTagsList(objId, objName, objType) {
     if (tagExists(objId, objType)) {
         removeTag(objId, objType);
     } else {
-        /*if (objType === 'disease') {
-
-            var loop = setInterval(function () {
-                console.log(diseaseFactors)
-                if (diseaseFactors) {
-                    $.each(diseaseFactors, function (index, id) {
-                        let type = "factor";
-                        let elem = $("input[type='checkbox'][obj-id=" + id + "][obj-type=" + type + "]");
-                        let checkbox = $("input[type='checkbox'][obj-id=" + id + "][obj-type=" + type + "]");
-                        let puzzle = $('.puzzle-15__item-outer[obj-id=' + id + ']').children();
-
-                        let name = elem.parent().find('.title').html().split(':')[1].substr(1);
-                        
-                        html = '<li class="tag-item" obj-id="' + id + '" obj-type="' + type + '"><a class="tag-name" href="javascript:void(0)">' + name + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
-                        if (tagExists(id, type)) {
-                            removeTag(id, type);
-                            checkbox.prop('checked', false);
-                            checkbox.parent().parent().addClass('checked-tab');
-                        } 
-                        $('.tags__list').append(html);
-                        checkbox.prop('checked', true);
-                        checkbox.parent().parent().addClass('checked-tab');
-                        puzzle.addClass('active');
-                    });
-                    clearInterval(loop);
-                }
-            }, 1);
-         
-            checkOnlyThisCheckbox(objId, objType);
-        }*/
         if (objType === 'protocol') {
             let elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
             name = elem.parent().find('.title').html().split('<span')[0].trim();
