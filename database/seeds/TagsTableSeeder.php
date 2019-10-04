@@ -25,7 +25,7 @@ class TagsTableSeeder extends Seeder
         DB::update("ALTER TABLE tag_languages AUTO_INCREMENT = 0;");
 
 
-        $all_models = array();
+        //$all_models = array();
         /*array_push($all_models, Factor::all());
         array_push($all_models, Disease::all());
         array_push($all_models, Protocol::all());
@@ -44,12 +44,12 @@ class TagsTableSeeder extends Seeder
             }
         }*/
 
-        array_push($all_models, FactorLanguage::all());
+        /* array_push($all_models, FactorLanguage::all());
 
         foreach($all_models as $models)
         {
             foreach($models as $model)
-            {                
+            {
                 factory(Tag::class, 1)->create([
                 ]);
                 factory(TagLanguage::class, 1)->create([
@@ -57,12 +57,28 @@ class TagsTableSeeder extends Seeder
                     'tag_id' => Tag::count(),
                     'name' => $model::withoutGlobalScopes()->where('language','=','eng')->get()[Tag::count()-1]->name,
                 ]);
-                factory(TagLanguage::class, 1)->create([                    
+                factory(TagLanguage::class, 1)->create([
                     'language' => "ru",
                     'tag_id' => Tag::count(),
                     'name' =>  $model::withoutGlobalScopes()->where('language','=','ru')->get()[Tag::count()-1]->name,
                 ]);
             }
+        } */
+        $models_eng = FactorLanguage::where('language','=','eng')->get();
+        $models_rus = FactorLanguage::where('language','=','ru')->get();
+        foreach($models_eng as $model)
+        {
+            $tag = Tag::create();
+            TagLanguage::create([
+                'language' => "eng",
+                'tag_id' => $tag->id,
+                'name' => $models_eng[$tag->id-1]->name, //$model::withoutGlobalScopes()->where('language','=','eng')->get()[$tag->id-1]->name,
+            ]);
+            TagLanguage::create([
+                'language' => "ru",
+                'tag_id' => $tag->id,
+                'name' => $models_rus[$tag->id-1]->name, //$model::withoutGlobalScopes()->where('language','=','ru')->get()[$tag->id-1]->name,
+            ]);
         }
 
         //делаем одинаковыми имена
