@@ -316,6 +316,9 @@
 	max-width: 20px;
 	margin-right: 10px;
 }
+.diagram__center {
+    max-width: 900px;
+    padding: 0;
 
 .subscribe__input label.invalid {
     top:100%!important;
@@ -323,3 +326,8 @@
     left:0!important;
     color:red!important
 }
+.js-item.show {
+    transition: .5s;
+}
+
+

@@ -527,6 +527,7 @@ $(document).ready(function () {
                 alert('Ваше сообщение отправлено');
             },
             error: function (data) {
+                $('#faq-form-errors').show();
                 for (const key in data.responseJSON.errors) {
                     if (data.responseJSON.errors.hasOwnProperty(key)) {
                         const element = data.responseJSON.errors[key];
@@ -538,6 +539,21 @@ $(document).ready(function () {
     });
 });
 
+function  diagramDraw() {
+    var item = $('.show');
+    //arr = item.data('position').parseJSON();
+    var position =  [
+        {
+            start: [0,40],
+            finish: [450,40],
+            circle: []
+        },
+        {
+            start: [450,40],
+            finish: [450,150],
+            circle: [450,150,4]
+        }
+    ];
 // Отправка формы подписки на страницах Member's cases, News, Literature
 $(document).ready(function () {
     $('#literature-subscribe-form').on('submit', function (e) {
@@ -611,113 +627,6 @@ $(document).ready(function () {
     });
 });
 
-
-
-
-// animePath();
-// function animePath() {
-//     var button = $('.js-item');
-//
-//     button.click(function (e) {
-//         var item = $(e.currentTarget);
-//         if(!item.hasClass('on') ) {
-//             var classes = item.data('dich');
-//             item.addClass('on');
-//             var lineA = `<span class="lineA ${classes}"></span>`;
-//             var lineB = `<span class="lineB ${classes}"></span>`;
-//             var lineC = `<span class="lineC ${classes}"></span>`;
-//             var lineD = `<span class="lineD ${classes}"></span>`;
-//             var circleA = `<span class="circleA"><span class="cirlce-litle" title=""><img src="/img/lungs.svg" alt=""></span></span>`;
-//             var circleB = `<span class="circleB"><span class="cirlce-litle" title=""><img src="/img/lungs.svg" alt=""></span></span>`;
-//             var circleC = `<span class="circleC"><span class="cirlce-litle" title=""><img src="/img/lungs.svg" alt=""></span></span>`;
-//             var circleD = `<span class="circleD"><span class="cirlce-litle" title=""><img src="/img/lungs.svg" alt=""></span></span>`;
-//             item.append(lineA);
-//             item.append(lineB);
-//             item.append(lineC);
-//             item.append(lineD);
-//             item.append(circleA);
-//             item.append(circleB);
-//             item.append(circleC);
-//             item.append(circleD);
-//
-//             anime({
-//                 targets: '.lineA',
-//                 width: '160',
-//                 easing: 'linear',
-//                 duration: 300
-//             });
-//
-//             anime({
-//                 targets: '.circleA',
-//                 delay: 300,
-//                 width: '50px',
-//                 height: '50px',
-//                 easing: 'linear',
-//                 duration: 150,
-//                 border: '1px solid #fbfbfb'
-//             });
-//
-//             anime({
-//                 targets: '.lineB',
-//                 width: '95',
-//                 delay: 450,
-//                 easing: 'linear',
-//                 duration: 300
-//             });
-//             anime({
-//                 targets: '.circleB',
-//                 delay: 750,
-//                 width: '50px',
-//                 height: '50px',
-//                 easing: 'linear',
-//                 duration: 150,
-//                 border: '1px solid #fbfbfb'
-//             });
-//             anime({
-//                 targets: '.lineC',
-//                 width: '95',
-//                 delay: 900,
-//                 easing: 'linear',
-//                 duration: 300
-//             });
-//             anime({
-//                 targets: '.circleC',
-//                 delay: 1200,
-//                 width: '50px',
-//                 height: '50px',
-//                 easing: 'linear',
-//                 duration: 150,
-//                 border: '1px solid #fbfbfb'
-//             });
-//             anime({
-//                 targets: '.lineD',
-//                 width: '95',
-//                 delay: 1350,
-//                 easing: 'linear',
-//                 duration: 300
-//             });
-//             anime({
-//                 targets: '.circleD',
-//                 delay: 1650,
-//                 width: '50px',
-//                 height: '50px',
-//                 easing: 'linear',
-//                 duration: 150,
-//                 border: '1px solid #fbfbfb'
-//             });
-//         } else {
-//             item.removeClass('on');
-//             item.find('.lineA').remove();
-//             item.find('.lineB').remove();
-//             item.find('.lineC').remove();
-//             item.find('.lineD').remove();
-//             item.find('.circleA').remove();
-//             item.find('.circleB').remove();
-//             item.find('.circleC').remove();
-//             item.find('.circleD').remove();
-//         }
-//     });
-// }
 diagramDraw();
 function diagramDraw() {
     var startData = $('.js-item').data('start');
@@ -772,6 +681,29 @@ function drawCirle(finish, radius) {
     ctx.lineWidth = 1;
     ctx.strokeStyle = 'red';
     ctx.stroke();
+}
+function clearCanvas() {
+    var canvas = document.getElementById("diagram"),
+        ctx = canvas.getContext("2d");
+
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+}
+
+hoverItem();
+function hoverItem() {
+
+    $(this).hover(function (e) {
+        $(this).addClass('show');
+        diagramDraw(e);
+        console.log($(this));
+    }, function (e) {
+        $(this).removeClass('show');
+        clearCanvas(e);
+        });
+
 }
 
 

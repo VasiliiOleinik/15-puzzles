@@ -15,13 +15,13 @@
                     <input class="group_title_checkbox" type="checkbox"><span class="checkbox-custom"></span><span class="label">Cancerogenesis (1-3)</span>
                   </label>
                   <div class="group_content">
-                    <div class="group_item js-item mutagenesis" data-start="0,80" data-finish="750,80" data-changeFinish="160" data-radius="4">
+                    <div class="group_item js-item mutagenesis" data-position="0,40,450,40,450,40,450,370" data-start="0,40" data-finish="450,40" data-change-finish="190">
                       <p>DNA mutagenesis</p>
                     </div>
-                    <div class="group_item js-item infections">
+                    <div class="group_item js-item infections"  data-start="0,90" data-finish="450,90" data-change-finish="160">
                       <p>Infections / Viruses / helmints /inflammation spiritual & psychoemotional</p>
                     </div>
-                    <div class="group_item js-item oxygen">
+                    <div class="group_item js-item oxygen"  data-start="0,140" data-finish="450,140" data-change-finish="240" >
                       <p>Lack of oxygen</p>
                     </div>
                   </div>
