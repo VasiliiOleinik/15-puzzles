@@ -319,6 +319,7 @@
 .diagram__center {
     max-width: 900px;
     padding: 0;
+}
 
 .subscribe__input label.invalid {
     top:100%!important;
