@@ -35,6 +35,8 @@ class SubscriberController extends Controller
             Mail::to( $subscriber->email )
                 ->send( new LetterToSubscriber($newsLatest) );
 
+            $mailSender = new MailSenderController();
+            $mailSender->updateContact($subscriber->email);
             $answer = trans('subscriber.successfully_subscribed');
 
         }

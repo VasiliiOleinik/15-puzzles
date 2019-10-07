@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab10ef99002d92e64a5628e566764b6e",
+    "content-hash": "baec85aa7986a7e4ada93f00145eb97c",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -4095,6 +4095,54 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2017-11-27T11:13:29+00:00"
+        },
+        {
+            "name": "unisender/api-wrapper",
+            "version": "v1.6.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/unisender-dev/php-api-wrapper.git",
+                "reference": "137d57b2f7ff4bb18b4ee1d273a311bde8bb6f14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/unisender-dev/php-api-wrapper/zipball/137d57b2f7ff4bb18b4ee1d273a311bde8bb6f14",
+                "reference": "137d57b2f7ff4bb18b4ee1d273a311bde8bb6f14",
+                "shasum": ""
+            },
+            "require": {
+                "ext-iconv": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-openssl": "*",
+                "php": ">=5.6.0"
+            },
+            "suggest": {
+                "ext-bz2": "Allows bzip2 compression"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Unisender\\ApiWrapper\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Unisender developers",
+                    "email": "devs@unisender.com"
+                }
+            ],
+            "description": "Unisender API wrapper",
+            "keywords": [
+                "api",
+                "extension",
+                "unisender"
+            ],
+            "time": "2019-09-27T07:04:04+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
