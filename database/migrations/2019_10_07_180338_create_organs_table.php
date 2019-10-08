@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class CreateOrgansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('organs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name_page')->nullable();
-            $table->string('img')->nullable();
-            $table->string('video')->nullable();
+            $table->string('name');
+            $table->string('y-coordinate');
+            $table->string('z-coordinate');
+            $table->string('parent-coordinate');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('organs');
     }
 }

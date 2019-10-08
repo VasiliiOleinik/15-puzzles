@@ -70,7 +70,6 @@ return [
         'icon'  => 'fa fa-comment',
         'pages' => [
                 (new Page(Article::class))->setTitle('Статьи')
-
         ],
     ],
 
@@ -294,4 +293,6 @@ return [
     //        ]
     //    ]
     // ]
+
+    (new Page(\App\Models\Organ::class))->setTitle('Органы')
 ];
