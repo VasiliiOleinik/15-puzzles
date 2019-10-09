@@ -15,7 +15,7 @@
                     <input class="group_title_checkbox" type="checkbox"><span class="checkbox-custom"></span><span class="label">Cancerogenesis (1-3)</span>
                   </label>
                   <div class="group_content">
-                    <div class="group_item js-item mutagenesis" data-position="0,40,450,40,450,40,450,370" data-start="0,40" data-finish="450,40" data-change-finish="190">
+                    <div class="group_item js-item mutagenesis">
                       <p>DNA mutagenesis</p>
                     </div>
                     <div class="group_item js-item infections"  data-start="0,90" data-finish="450,90" data-change-finish="160">

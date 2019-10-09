@@ -90,218 +90,6 @@
 .group_item{
     position: relative;
 }
-.lineA{
-    position: absolute;
-    top: 56%;
-    left: 340px;
-    width: 0;
-    height: 1px;
-    background: red;
-    z-index: 1;
-}
-.lineB{
-    position: absolute;
-    top: 56%;
-    left: 505px;
-    width: 0;
-    height: 1px;
-    background: red;
-    z-index: 1;
-}
-.lineC{
-    position: absolute;
-    top: 56%;
-    left: 600px;
-    width: 0;
-    height: 1px;
-    background: red;
-    z-index: 1;
-}
-.lineD{
-    position: absolute;
-    top: 56%;
-    left: 207%;
-    width: 0px;
-    height: 1px;
-    background: red;
-    z-index: 1;
-}
-.circleA{
-    position: absolute;
-    top: 56%;
-    left: 503px;
-    transform: translate(-50%, -50%);
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-
-    z-index: 1;
-}
-.circleB{
-    position: absolute;
-    top: 56%;
-    left: 600px;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 1px;
-    border-radius: 50%;
-
-    z-index: 1;
-}
-.circleC{
-    position: absolute;
-    top: 56%;
-    left: 698px;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 1px;
-    border-radius: 50%;
-
-    z-index: 1;
-}
-.circleD{
-    position: absolute;
-    top: 56%;
-    left: 800px;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 1px;
-    border-radius: 50%;
-    z-index: 1;
-}
-.cirlce-litle {
-    display: flex;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-}
-
-.circleA,.circleB,.circleC,.circleD {
-    border: 0px solid red;
-    width: 0px;
-    height: 0px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-}
-
-.reverse .lineA{
-    position: absolute;
-    top: 55%;
-    left: 0;
-    transform: translateY(-50%);
-    transform: rotate(180deg);
-    transform-origin: left;
-    width: 0;
-    height: 1px;
-    background: red;
-    z-index: 1;
-}
-.reverse .lineB{
-    position: absolute;
-    top: 55%;
-    left: -160px;
-    transform: translateY(-50%);
-    transform: rotate(180deg);
-    transform-origin: left;
-    width: 0;
-    height: 1px;
-    background: red;
-    z-index: 1;
-}
-.reverse .lineC{
-    position: absolute;
-    top: 55%;
-    left: -260px;
-    transform: translateY(-50%);
-    transform: rotate(180deg);
-    transform-origin: left;
-    width: 0;
-    height: 1px;
-    background: red;
-    z-index: 1;
-}
-.reverse .lineD{
-    position: absolute;
-    top: 55%;
-    left: -106%;
-    transform: translateY(-50%);
-    transform: rotate(180deg);
-    transform-origin: left;
-    width: 0px;
-    height: 1px;
-    background: red;
-    z-index: 1;
-}
-.reverse .circleA{
-    position: absolute;
-    top: 55%;
-    left: -160px;
-    transform: translate(-50%, -50%);
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: red;
-    z-index: 1;
-}
-.reverse .circleB{
-    position: absolute;
-    top: 55%;
-    left: -260px;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 1px;
-    border-radius: 50%;
-    background: red;
-    z-index: 1;
-}
-.reverse .circleC{
-    position: absolute;
-    top: 55%;
-    left: -360px;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 1px;
-    border-radius: 50%;
-    background: red;
-    z-index: 1;
-}
-.reverse .circleD{
-    position: absolute;
-    top: 55%;
-    left: -460px;
-    transform: translate(-50%, -50%);
-    width: 80px;
-    height: 1px;
-    border-radius: 50%;
-    background: red;
-    z-index: 1;
-}
-.reverse .cirlce-litle {
-    display: flex;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    justify-content: center;
-    align-items: center;
-}
-
-.reverse .circleA,.reverse .circleB,.reverse .circleC,.reverse .circleD {
-    border: 0 solid transparent;
-    width: 0px;
-    height: 0px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #fff;
-}
-
-
 
 .main .tab-list .tab-item__head .title,
 .main .tab-list .tab-item.markers .tab-head-markers .title{
@@ -312,6 +100,13 @@
 .header__nav-link{
 	height: initial;
 }
+.subscribe__input label.invalid {
+    top:100%!important;
+    font-size:10px!important;
+    left:0!important;
+    color:red!important
+}
+
 .main__books img{
 	max-width: 20px;
 	margin-right: 10px;
@@ -320,12 +115,7 @@
     max-width: 900px;
     padding: 0;
 
-.subscribe__input label.invalid {
-    top:100%!important;
-    font-size:10px!important;
-    left:0!important;
-    color:red!important
-}
+
 .js-item.show {
     transition: .5s;
 }
