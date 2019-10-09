@@ -25,7 +25,7 @@ class FaqController extends Controller
     public function index()
     {
         $questions = Cache::remember('question_'.app()->getLocale(), now()->addDay(1), function(){
-                return QuestionLanguage::with('question')->get();
+                return QuestionLanguage::with('question')->where('language', app()->getLocale())->get();
         });
         $user = Auth::user();
         return view('faq.faq', compact(['questions', 'user']));

@@ -506,6 +506,7 @@ $(function(){
 });
 
 // Отправка FAQ-формы
+
     $('#faq-form').on('submit', function (e) {
         e.preventDefault();
 
@@ -537,6 +538,8 @@ $(function(){
         });
     });
 
+
+// Отправка формы подписки на страницах Member's cases, News, Literature
 
     $('#literature-subscribe-form').on('submit', function (e) {
         e.preventDefault();
@@ -607,12 +610,22 @@ $(function(){
             }
         });
     });
-});
+
 
 function  diagramDraw() {
     var item = $('.show');
     //arr = item.data('position').parseJSON();
 
+
+    drawLineHorisont(start, finish);
+    drawLineVertical(changeStart, changeFinish);
+    drawCirle(changeFinish, radius);
+
+    console.log(startData);
+
+}
+
+function drawLineHorisont(start, finish){
     var canvas = document.getElementById("diagram"),
         ctx = canvas.getContext("2d");
 
@@ -691,4 +704,5 @@ function hoverItem() {
         clearCanvas();
     });
 }
+
 
