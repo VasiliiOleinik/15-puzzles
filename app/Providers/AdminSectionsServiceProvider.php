@@ -34,6 +34,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Page::class => 'App\Http\Admin\Page',
         \App\Models\Options::class => 'App\Http\Admin\Options',
         \App\Models\Article\Article::class => 'App\Http\Admin\Article',
+        \App\Models\Organ::class => 'App\Http\Admin\Organ',
     ];
 
     //protected $router->get('/factorLanguages/create', ['as' => 'admin.factorLanguages.create', 'uses' => '\App\Http\Controllers\MainController@index']);
