@@ -10,6 +10,7 @@ use App\Mail\LetterToSubscriber;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Article\Article;
 use App\Models\Article\ArticleLanguage;
+use Unisender\ApiWrapper\UnisenderApi;
 
 class SubscriberController extends Controller
 {
@@ -37,6 +38,7 @@ class SubscriberController extends Controller
 
             $mailSender = new MailSenderController();
             $mailSender->updateContact($subscriber->email);
+
             $answer = trans('subscriber.successfully_subscribed');
 
         }
