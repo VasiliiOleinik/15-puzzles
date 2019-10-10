@@ -26,13 +26,15 @@ class Article extends Model
      */
     protected $guarded = [];
 
+    protected $fillable = ['alias', 'img', 'created_at', 'updated_at'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function articleTags()
     {
         return $this->hasMany('App\Models\Article\ArticleTag');
-    }    
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

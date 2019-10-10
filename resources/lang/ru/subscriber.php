@@ -13,6 +13,8 @@ return [
     */
 
     'subject' => 'Свежие новости сайта '.config('app.name'),
+    'member_cases_subject' => 'Новые истории болезней на сайте '.config('app.name'),
+    'from_who' => 'Администрация '.config('app.name'),
     'email_required' => 'Введите ваш адрес e-mail',
     'email_email' => 'Адрес e-mail введен неправильно',
     'email_max' => 'Адрес e-mail слишком длинный',

@@ -563,7 +563,7 @@ $(function(){
                 }
             }
         });
-    });
+
     $('#member-cases-subscribe-form').on('submit', function (e) {
         e.preventDefault();
 
@@ -612,17 +612,9 @@ $(function(){
     });
 
 
-diagramDraw();
-function diagramDraw() {
-    var startData = $('.js-item').data('start');
-    var finishData = $('.js-item').data('finish');
-    var changeFinishData = $('.js-item').data('finish');
-    var start = startData.split(',');
-    var finish = finishData.split(',');
-    var changeStart = finish;
-    var changeFinish = [finish[0], 80];
-    var radius = 4;
-
+function  diagramDraw() {
+    var item = $('.show');
+    //arr = item.data('position').parseJSON();
 
 
     drawLineHorisont(start, finish);
@@ -637,58 +629,80 @@ function drawLineHorisont(start, finish){
     var canvas = document.getElementById("diagram"),
         ctx = canvas.getContext("2d");
 
-    ctx.moveTo(start[0], start[1]);
-    ctx.lineTo(finish[0], finish[1]);
-    ctx.strokeStyle = 'red';
-    ctx.lineWidth = '1';
-    ctx.lineCap = "round"
-    ctx.stroke();
+    var position = [
+            {
+                start: [0, 40],
+                finish: [450, 40],
+                circle: []
+            },
+            {
+                start: [450,40],
+                finish: [450,340],
+                circle: [450,340]
+            },
+            {
+                start: [350,40],
+                finish: [350,140],
+                circle: [350,140]
+            },
+            {
+                start: [300,40],
+                finish: [300,140],
+                circle: []
+            },
+            {
+                start: [250,40],
+                finish: [250,240],
+                circle: [250,240]
+            }
+    ];
+    position.map(function (p) {
+
+        if (p.start && p.circle) {
+            ctx.moveTo(p.start[0], p.start[1]);
+            ctx.lineTo(p.finish[0], p.finish[1]);
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
+
+        }
+        if (p.finish && p.circle) {
+            ctx.moveTo(p.start[0], p.start[1]);
+            ctx.lineTo(p.finish[0], p.finish[1]);
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
+        }
+        if (p.circle) {
+
+            ctx.beginPath();
+            ctx.arc(p.circle[0], p.circle[1], 4, 0, 2 * Math.PI, false);
+            ctx.fillStyle = 'red';
+            ctx.fill();
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
+        }
+
+        ctx.stroke();
+    });
 }
-function drawLineVertical(changeStart, changeFinish){
+
+function  clearCanvas() {
     var canvas = document.getElementById("diagram"),
         ctx = canvas.getContext("2d");
 
-    ctx.moveTo(changeStart[0], changeStart[1]);
-    ctx.lineTo(changeFinish[0], changeFinish[1]);
-    ctx.strokeStyle = 'red';
-    ctx.lineWidth = '1';
-    ctx.lineCap = "round"
-    ctx.stroke();
-}
-function drawCirle(finish, radius) {
-    var canvas = document.getElementById("diagram"),
-        ctx = canvas.getContext("2d");
-
-    ctx.beginPath();
-    ctx.arc(finish[0], finish[1], radius, 0, 2*Math.PI, false);
-    ctx.fillStyle = 'red';
-    ctx.fill();
-    ctx.lineWidth = 1;
-    ctx.strokeStyle = 'red';
-    ctx.stroke();
-}
-function clearCanvas() {
-    var canvas = document.getElementById("diagram"),
-        ctx = canvas.getContext("2d");
-
-    ctx.save();
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.restore();
+    canvas.width = canvas.width;
 }
 
 hoverItem();
 function hoverItem() {
-
-    $(this).hover(function (e) {
+    var item = $('.js-item');
+    item.hover(function () {
         $(this).addClass('show');
-        diagramDraw(e);
-        console.log($(this));
-    }, function (e) {
+        diagramDraw();
+    }, function () {
         $(this).removeClass('show');
-        clearCanvas(e);
-        });
-
+        clearCanvas();
+    });
 }
 
 

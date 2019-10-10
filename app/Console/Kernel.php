@@ -2,8 +2,11 @@
 
 namespace App\Console;
 
+use App\Http\Controllers\MailSenderController;
+use App\Service\Sender\MailSenderService;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,8 +27,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call(function(){
+            $mailSender = new MailSenderController();
+            $mailSender->deleteEmails();
+            $mailSender->sendNewsNotification();
+            $mailSender->sendMemberCasesNotification();
+        })->weekly();
     }
 
     /**
