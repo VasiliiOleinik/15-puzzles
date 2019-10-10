@@ -20,7 +20,9 @@ class CategoryForNewsLanguagesTableSeeder extends Seeder
 
         Config::set('app.faker_locale', 'en_US');
         for($i = 0; $i < CategoryForNews::count(); $i++){
-            factory(CategoryForNewsLanguage::class, 1 )->create();
+            $category = factory(CategoryForNewsLanguage::class, 1 )->create();
+            $category[0]->categoriesForNews->alias = URLify::filter($category[0]->name.' '.$category[0]->categoriesForNews->id, 190);
+            $category[0]->categoriesForNews->save();
         }
         Config::set('app.faker_locale', 'ru_RU');
         for($i = 0; $i < CategoryForNews::count(); $i++){

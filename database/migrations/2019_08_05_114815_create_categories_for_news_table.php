@@ -14,7 +14,8 @@ class CreateCategoriesForNewsTable extends Migration {
 	{
 		Schema::create('categories_for_news', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
+            $table->string('alias')->nullable();
 			$table->integer('is_active')->default(1);
 		});
 	}
