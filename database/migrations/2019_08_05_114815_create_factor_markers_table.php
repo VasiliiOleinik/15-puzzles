@@ -17,6 +17,7 @@ class CreateFactorMarkersTable extends Migration {
 			$table->increments('id');
 			$table->integer('factor_id')->unsigned()->default(1)->index('FK_factor_markers_factors');
 			$table->integer('marker_id')->unsigned()->default(1)->index('FK_factor_markers_markers');
+			$table->integer('is_active')->default(1);
 		});
 	}
 

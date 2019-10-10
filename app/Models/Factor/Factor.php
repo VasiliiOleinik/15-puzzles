@@ -19,13 +19,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property FactorMarker[] $markers
  */
 class Factor extends Model
-{   
+{
 	public $timestamps = false;
-	
+
     /**
      * @var array
      */
-    protected $fillable = ['type_id', 'img'];   
+    protected $fillable = ['type_id', 'img'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -113,5 +113,16 @@ class Factor extends Model
     public function factorLanguage()
     {
         return $this->hasOne('App\Models\Factor\FactorLanguage');
+    }
+
+    public function factorRu()
+    {
+        return $this->hasOne(FactorLanguage::class)
+            ->where('language', 'ru');
+    }
+    public function factorEng()
+    {
+        return $this->hasOne(FactorLanguage::class)
+            ->where('language', 'eng');
     }
 }

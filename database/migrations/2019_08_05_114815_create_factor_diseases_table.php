@@ -17,6 +17,7 @@ class CreateFactorDiseasesTable extends Migration {
 			$table->increments('id');
 			$table->integer('factor_id')->unsigned()->default(1)->index('FK_factor_diseases_factors');
 			$table->integer('disease_id')->unsigned()->default(1)->index('FK_factor_diseases_diseases');
+			$table->integer('is_active')->default(1);
 		});
 	}
 

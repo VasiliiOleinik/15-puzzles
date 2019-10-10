@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 class Method extends Model
 {
     public $timestamps = false;
-    
+
     /**
      * @var array
      */
@@ -33,5 +33,16 @@ class Method extends Model
     public function methodLanguage()
     {
         return $this->HasMany('App\Models\MethodLanguage');
+    }
+
+    public function methodRu()
+    {
+        return $this->hasOne(MethodLanguage::class)
+            ->where('language', 'ru');
+    }
+    public function methodEng()
+    {
+        return $this->hasOne(MethodLanguage::class)
+            ->where('language', 'eng');
     }
 }

@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 class Remedy extends Model
 {
 	public $timestamps = false;
-	
+
     /**
      * @var array
      */
@@ -44,7 +44,7 @@ class Remedy extends Model
     {
         return $this->hasMany('App\Models\Protocol\ProtocolRemedy');
     }
-	
+
 	/**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -67,5 +67,16 @@ class Remedy extends Model
     public function protocols()
     {
     return $this->belongsToMany('App\Models\Protocol\Protocol', 'protocol_remedies');
+    }
+
+    public function remedyRu()
+    {
+        return $this->hasOne(RemedyLanguage::class)
+            ->where('language', 'ru');
+    }
+    public function remedyEng()
+    {
+        return $this->hasOne(RemedyLanguage::class)
+            ->where('language', 'eng');
     }
 }

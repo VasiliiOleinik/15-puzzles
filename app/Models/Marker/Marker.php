@@ -86,4 +86,15 @@ class Marker extends Model
     {
     return $this->belongsToMany('App\Models\Method', 'marker_methods');
     }
+
+    public function markerRu()
+    {
+        return $this->hasOne(MarkerLanguage::class)
+            ->where('language', 'ru');
+    }
+    public function markerEng()
+    {
+        return $this->hasOne(MarkerLanguage::class)
+            ->where('language', 'eng');
+    }
 }

@@ -52,6 +52,17 @@ class Tag extends Model
      */
     public function memberCases()
     {
-    return $this->belongsToMany('App\Models\MemberCase', 'member_case_tags');
+        return $this->belongsToMany('App\Models\MemberCase', 'member_case_tags');
+    }
+
+    public function tagRu()
+    {
+        return $this->hasOne(TagLanguage::class)
+            ->where('language', 'ru');
+    }
+    public function tagEng()
+    {
+        return $this->hasOne(TagLanguage::class)
+            ->where('language', 'eng');
     }
 }

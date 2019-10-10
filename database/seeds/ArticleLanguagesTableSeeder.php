@@ -33,11 +33,5 @@ class ArticleLanguagesTableSeeder extends Seeder
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - Article::count()] );
         }
-        //делаем одинаковыми имена
-        /* foreach(Article::all() as $article){
-            $article->title = ArticleLanguage::where('article_id','=',$article->id)
-                                          ->where('language','=','eng')->first()->title;
-            $article->save();
-        } */
     }
 }

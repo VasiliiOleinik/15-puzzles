@@ -17,6 +17,7 @@ class CreateFactorProtocolsTable extends Migration {
 			$table->increments('id');
 			$table->integer('factor_id')->unsigned()->default(1)->index('FK_factor_protocol_factors');
 			$table->integer('protocol_id')->unsigned()->default(1)->index('FK_factor_protocol_protocols');
+			$table->integer('is_active')->default(1);
 		});
 	}
 

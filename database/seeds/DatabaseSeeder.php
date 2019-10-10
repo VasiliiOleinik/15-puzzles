@@ -10,7 +10,7 @@ class DatabaseSeeder extends Seeder
      * @return void
      */
     public function run()
-    {        
+    {
         $this->call(FilesTableSeeder::class);
 
 		$this->call(RolesTableSeeder::class);
@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 		$this->call(UsersTableSeeder::class);
 
         $this->call(TypesTableSeeder::class);
-        $this->call(EvidencesTableSeeder::class);        
+        $this->call(EvidencesTableSeeder::class);
 
         $this->call(MethodsTableSeeder::class);
         $this->call(MethodLanguagesTableSeeder::class);
@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RemedyLanguagesTableSeeder::class);
         $this->call(MarkersTableSeeder::class);
         $this->call(MarkerLanguagesTableSeeder::class);
-        
+
 
         $this->call(TagsTableSeeder::class);
         $this->call(MemberCasesTableSeeder::class);
@@ -46,9 +46,9 @@ class DatabaseSeeder extends Seeder
         $this->call(ArticleLanguagesTableSeeder::class);
 
         $this->call(QuestionsTableSeeder::class);
-        $this->call(QuestionLanguagesTableSeeder::class);        
+        $this->call(QuestionLanguagesTableSeeder::class);
         $this->call(CommentsTableSeeder::class);
-        $this->call(MedicalHistoriesTableSeeder::class);        
+        $this->call(MedicalHistoriesTableSeeder::class);
 
         $this->call(CategoriesForBooksTableSeeder::class);
         $this->call(CategoryForBooksLanguagesTableSeeder::class);
@@ -59,5 +59,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CountriesTableSeeder::class);
         $this->call(LaboratoriesTableSeeder::class);
         $this->call(OptionSeeder::class);
+        $this->call(PagesSeeder::class);
     }
 }

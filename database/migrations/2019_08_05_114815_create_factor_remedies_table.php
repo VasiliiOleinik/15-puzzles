@@ -17,6 +17,7 @@ class CreateFactorRemediesTable extends Migration {
 			$table->increments('id');
 			$table->integer('factor_id')->unsigned()->default(1)->index('FK_factor_remedy_factors');
 			$table->integer('remedy_id')->unsigned()->default(1)->index('FK_factor_remedy_remedies');
+            $table->integer('is_active')->default(1);
 		});
 	}
 

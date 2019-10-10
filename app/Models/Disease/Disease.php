@@ -81,6 +81,18 @@ class Disease extends Model
      */
     public function markers()
     {
-    return $this->belongsToMany('App\Models\Marker\Marker', 'disease_markers');
+        return $this->belongsToMany('App\Models\Marker\Marker', 'disease_markers');
+    }
+
+    public function diseaseRu()
+    {
+       return $this->hasOne(DiseaseLanguage::class)
+       ->where('language', 'ru');
+    }
+
+    public function diseaseEng()
+    {
+        return $this->hasOne(DiseaseLanguage::class)
+            ->where('language', 'eng');
     }
 }

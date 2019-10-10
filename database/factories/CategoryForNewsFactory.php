@@ -7,6 +7,5 @@ use Faker\Generator as Faker;
 
 $factory->define(CategoryForNews::class, function (Faker $faker) {
     return [
-        'name' => $faker->word(15),
     ];
 });

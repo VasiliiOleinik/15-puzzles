@@ -18,11 +18,11 @@ class CategoryForNewsLanguagesTableSeeder extends Seeder
         $table = $tableShort.'_languages';
         DB::update("ALTER TABLE ".$table." AUTO_INCREMENT = 0;");
 
-        Config::set('app.faker_locale', 'en_US');        
+        Config::set('app.faker_locale', 'en_US');
         for($i = 0; $i < CategoryForNews::count(); $i++){
             factory(CategoryForNewsLanguage::class, 1 )->create();
         }
-        Config::set('app.faker_locale', 'ru_RU');        
+        Config::set('app.faker_locale', 'ru_RU');
         for($i = 0; $i < CategoryForNews::count(); $i++){
             factory(CategoryForNewsLanguage::class, 1 )->create();
         }
@@ -30,12 +30,6 @@ class CategoryForNewsLanguagesTableSeeder extends Seeder
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - CategoryForNews::count()] );
-        }
-        //делаем одинаковыми имена
-        foreach(CategoryForNews::all() as $category){
-            $category->name = CategoryForNewsLanguage::where('category_for_news_id','=',$category->id)
-                                          ->where('language','=','eng')->first()->name;
-            $category->save();
         }
     }
 }

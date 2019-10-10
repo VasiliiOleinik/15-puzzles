@@ -17,7 +17,7 @@ class CategoryForNews extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $guarded = [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -25,5 +25,17 @@ class CategoryForNews extends Model
     public function articles()
     {
         return $this->belongsToMany('App\Models\Article\Article', 'article_categories_for_news');
+    }
+
+    public function categoryRu()
+    {
+        return $this->hasOne(CategoryForNewsLanguage::class)
+            ->where('language', 'ru');
+    }
+
+    public function categoryEng()
+    {
+        return $this->hasOne(CategoryForNewsLanguage::class)
+            ->where('language', 'eng');
     }
 }

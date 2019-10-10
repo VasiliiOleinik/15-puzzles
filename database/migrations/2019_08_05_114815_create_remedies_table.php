@@ -15,8 +15,7 @@ class CreateRemediesTable extends Migration {
 		Schema::create('remedies', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 50)->nullable();
-			$table->text('content', 65535)->nullable();
+            $table->integer('is_active')->default(1);
 			$table->string('url', 191)->nullable();
 		});
 	}

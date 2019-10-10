@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateLinksForBooksTable extends Migration {
+class CreateLinkForBooksTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -17,6 +17,7 @@ class CreateLinksForBooksTable extends Migration {
 			$table->increments('id');
 			$table->string('title', 50)->nullable();
 			$table->string('url', 191)->nullable();
+            $table->integer('is_active')->default(1);
 		});
 	}
 

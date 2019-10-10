@@ -14,7 +14,7 @@ class CategoryForBooks extends Model
 
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'categories_for_books';
@@ -30,5 +30,17 @@ class CategoryForBooks extends Model
     public function books()
     {
         return $this->belongsToMany('App\Models\Book\Book', 'book_categories_for_books');
+    }
+
+    public function bookRu()
+    {
+        return $this->hasOne(CategoryForBooksLanguage::class)
+            ->where('language', 'ru');
+    }
+
+    public function bookEng()
+    {
+        return $this->hasOne(CategoryForBooksLanguage::class)
+            ->where('language', 'eng');
     }
 }

@@ -18,11 +18,11 @@ class RemedyLanguagesTableSeeder extends Seeder
         $table = 'remedy_languages';
         DB::update("ALTER TABLE ".$table." AUTO_INCREMENT = 0;");
 
-        Config::set('app.faker_locale', 'en_US');        
+        Config::set('app.faker_locale', 'en_US');
         for($i = 0; $i < Remedy::count(); $i++){
             factory(RemedyLanguage::class, 1 )->create();
         }
-        Config::set('app.faker_locale', 'ru_RU');        
+        Config::set('app.faker_locale', 'ru_RU');
         for($i = 0; $i < Remedy::count(); $i++){
             factory(RemedyLanguage::class, 1 )->create();
         }
@@ -30,12 +30,6 @@ class RemedyLanguagesTableSeeder extends Seeder
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - Remedy::count()] );
-        }
-        //делаем одинаковыми имена
-        foreach(Remedy::all() as $remedy){
-            $remedy->name = RemedyLanguage::where('remedy_id','=',$remedy->id)
-                                          ->where('language','=','eng')->first()->name;
-            $remedy->save();
         }
     }
 }

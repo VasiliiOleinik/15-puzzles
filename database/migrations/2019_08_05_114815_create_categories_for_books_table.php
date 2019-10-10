@@ -15,7 +15,7 @@ class CreateCategoriesForBooksTable extends Migration {
 		Schema::create('categories_for_books', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 50);
+			$table->integer('is_active')->default(1);
 		});
 	}
 

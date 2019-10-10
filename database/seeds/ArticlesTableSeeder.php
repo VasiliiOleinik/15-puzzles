@@ -23,21 +23,20 @@ class ArticlesTableSeeder extends Seeder
         $categoriesForNews = CategoryForNews::all();
 
         // Populate the pivot table
-        Article::all()->each(function ($article) use ($tags) { 
+        Article::all()->each(function ($article) use ($tags) {
             $article->tags()->attach(
                 $tags->random(
                     rand(6,  22))->pluck('id')->toArray()
-                
-            ); 
+
+            );
         });
 
         // Populate the pivot table
-        Article::all()->each(function ($article) use ($categoriesForNews) { 
+        Article::all()->each(function ($article) use ($categoriesForNews) {
             $article->categoriesForNews()->sync(
                 $categoriesForNews->random(
                     rand(1,  3))->pluck('id')->toArray()
-                
-            ); 
+            );
         });
     }
 }

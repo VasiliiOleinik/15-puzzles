@@ -18,11 +18,11 @@ class ProtocolLanguagesTableSeeder extends Seeder
         $table = 'protocol_languages';
         DB::update("ALTER TABLE ".$table." AUTO_INCREMENT = 0;");
 
-        Config::set('app.faker_locale', 'en_US');        
+        Config::set('app.faker_locale', 'en_US');
         for($i = 0; $i < Protocol::count(); $i++){
             factory(ProtocolLanguage::class, 1 )->create();
         }
-        Config::set('app.faker_locale', 'ru_RU');        
+        Config::set('app.faker_locale', 'ru_RU');
         for($i = 0; $i < Protocol::count(); $i++){
             factory(ProtocolLanguage::class, 1 )->create();
         }
@@ -30,12 +30,6 @@ class ProtocolLanguagesTableSeeder extends Seeder
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - Protocol::count(), 'evidence_id' => Protocol::find($i - Protocol::count())->evidence_id] );
-        }
-        //делаем одинаковыми имена
-        foreach(Protocol::all() as $protocol){
-            $protocol->name = ProtocolLanguage::where('protocol_id','=',$protocol->id)
-                                          ->where('language','=','eng')->first()->name;
-            $protocol->save();
         }
     }
 }

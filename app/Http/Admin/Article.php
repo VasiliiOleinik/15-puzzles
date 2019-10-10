@@ -47,12 +47,15 @@ class Article extends Section
             ->setColumns(
                 [
                     AdminColumn::text('articlesRu.title')->setLabel('Название статьи'),
-                    AdminColumn::text('articlesRu.description')->setLabel('Краткое описание статьи'),
-                    AdminColumn::text('articlesRu.content')->setLabel('Полное описание статьи'),
+                    AdminColumn::text('alias')->setLabel('Алиас(название страницы)'),
+                    \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет', 'Показывать'),
+                    AdminColumn::text('created_at')->setLabel('Дата создания'),
                 ]
 
             );
-
+        $display->setApply(function ($query) {
+            $query->where('language', 'ru');
+        });
         return $display;
     }
 
@@ -64,18 +67,18 @@ class Article extends Section
     public function onEdit($id)
     {
         $columns1 = AdminFormElement::columns([
-
             [
                 AdminFormElement::text('articlesEng.title')->setLabel('Название новости')->required(),
                 AdminFormElement::textarea('articlesEng.description')->setLabel('Краткое описание новости')->required(),
-                AdminFormElement::textarea('articlesEng.content')->setLabel('Полное описание новости')->required()
+                AdminFormElement::textarea('articlesEng.content')->setLabel('Полное описание новости')->required(),
 
             ],
             [
                 AdminFormElement::text('articlesRu.title')->setLabel('Название новости')->required(),
                 AdminFormElement::textarea('articlesRu.description')->setLabel('Краткое описание новости')->required(),
-                AdminFormElement::textarea('articlesRu.content')->setLabel('Полное описание новости')->required()
-
+                AdminFormElement::textarea('articlesRu.content')->setLabel('Полное описание новости')->required(),
+                AdminFormElement::hidden('articlesRu.language')->setDefaultValue('ru'),
+                AdminFormElement::hidden('articlesEng.language')->setDefaultValue('eng')
             ]
         ]);
 

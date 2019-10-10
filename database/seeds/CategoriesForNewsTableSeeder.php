@@ -15,9 +15,7 @@ class CategoriesForNewsTableSeeder extends Seeder
     {
         DB::table('categories_for_news')->delete();
         DB::update("ALTER TABLE categories_for_news AUTO_INCREMENT = 0;");
-        
         $countCategoriesForNews = 8;
         factory(CategoryForNews::class, $countCategoriesForNews)->create();
-               
     }
 }

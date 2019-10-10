@@ -16,11 +16,11 @@ use Illuminate\Database\Eloquent\Model;
 class Protocol extends Model
 {
 	public $timestamps = false;
-	
+
     /**
      * @var array
      */
-    protected $fillable = ['evidence_id', 'url'];
+    protected $guarded = [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -61,7 +61,7 @@ class Protocol extends Model
     {
         return $this->hasMany('App\Models\Protocol\ProtocolRemedy');
     }
-	
+
 	/**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -100,5 +100,16 @@ class Protocol extends Model
     public function protocolLanguages()
     {
         return $this->hasMany('App\Models\Protocol\protocolLanguage');
+    }
+
+    public function protocolRu()
+    {
+        return $this->hasOne(ProtocolLanguage::class)
+            ->where('language', 'ru');
+    }
+    public function protocolEng()
+    {
+        return $this->hasOne(ProtocolLanguage::class)
+            ->where('language', 'eng');
     }
 }

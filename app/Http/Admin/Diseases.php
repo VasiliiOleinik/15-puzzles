@@ -48,7 +48,16 @@ class Diseases extends Section
      */
     public function onDisplay()
     {
-        // remove if unused
+        $display = AdminDisplay::datatablesAsync();
+        $display
+            ->setColumns([
+                AdminColumn::text('diseaseRu.name')->setLabel('Название'),
+                AdminColumn::text('diseaseRu.content')->setLabel('Описание'),
+            ]);
+        $display->setApply(function ($query) {
+            $query->where('language', 'ru');
+        });
+        return $display;
     }
 
     /**
@@ -58,7 +67,24 @@ class Diseases extends Section
      */
     public function onEdit($id)
     {
-        // remove if unused
+        $columns1 = \AdminFormElement::columns([
+            [
+                AdminFormElement::text('diseaseEng.name')->setLabel('Имя Eng'),
+                AdminFormElement::textarea('diseaseEng.content')->setLabel('Контент Eng'),
+            ],
+            [
+                AdminFormElement::text('diseaseRu.name')->setLabel('Имя Ru'),
+                AdminFormElement::textarea('diseaseRu.content')->setLabel('Контент Ru'),
+
+                \AdminFormElement::hidden('diseaseRu.language')->setDefaultValue('ru'),
+                \AdminFormElement::hidden('diseaseEng.language')->setDefaultValue('eng')
+            ]
+        ]);
+        $form = \AdminForm::panel()->addBody([
+            $columns1,
+        ]);
+
+        return $form;
     }
 
     /**
