@@ -21,14 +21,12 @@ class ArticleLanguagesTableSeeder extends Seeder
         Config::set('app.faker_locale', 'en_US');
         for($i = 0; $i < Article::count(); $i++){
             $article = factory(ArticleLanguage::class, 1 )->create();
-            $article[0]->article->alias = URLify::filter($article[0]->title.' '.$article[0]->article->created_at.' '.$article[0]->article->id);
+            $article[0]->article->alias = URLify::filter($article[0]->title.' '.$article[0]->article->created_at.' '.$article[0]->article->id, 190);
             $article[0]->article->save();
         }
         Config::set('app.faker_locale', 'ru_RU');
         for($i = 0; $i < Article::count(); $i++){
-            $article = factory(ArticleLanguage::class, 1 )->create();
-            $article[0]->article->alias = URLify::filter($article[0]->title.' '.$article[0]->article->created_at.' '.$article[0]->article->id);
-            $article[0]->article->save();
+            factory(ArticleLanguage::class, 1 )->create();
         }
         for($i = Article::count() + 1; $i < Article::count()*2 + 1; $i++){
             DB::table($table)
