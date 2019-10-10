@@ -39,6 +39,7 @@ class CategoryForBooks extends Section
     {
         $display = \AdminDisplay::datatablesAsync()->with('bookRu')->setColumns([
             \AdminColumn::text('bookRu.name')->setLabel('Название'),
+            \AdminColumn::text('alias', 'Алиас (название страницы)'),
             \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет')->setLabel('Показывать'),
         ]);
         $display->setApply(function ($query) {
@@ -60,7 +61,7 @@ class CategoryForBooks extends Section
 
             ],
             [
-                \AdminFormElement::text('bookRu.name')->setLabel('Название RU'),
+                \AdminFormElement::text('bookRu.name')->setLabel('Название RU')->required(),
                 \AdminFormElement::hidden('bookRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('bookEng.language')->setDefaultValue('eng')
             ]

@@ -43,7 +43,6 @@ class Article extends Model
     {
         return $this->belongsToMany('App\Models\Tag', 'article_tags');
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

@@ -51,11 +51,12 @@ class Article extends Section
                     \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет', 'Показывать'),
                     AdminColumn::text('created_at')->setLabel('Дата создания'),
                 ]
-
             );
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
+            $query->orderBy('created_at', 'desc');
         });
+
         return $display;
     }
 
@@ -66,17 +67,16 @@ class Article extends Section
      */
     public function onEdit($id)
     {
-        $columns1 = AdminFormElement::columns([
+        $columns1 = \AdminFormElement::columns([
             [
-                AdminFormElement::text('articlesEng.title')->setLabel('Название новости')->required(),
-                AdminFormElement::textarea('articlesEng.description')->setLabel('Краткое описание новости')->required(),
-                AdminFormElement::textarea('articlesEng.content')->setLabel('Полное описание новости')->required(),
-
+                AdminFormElement::text('articlesEng.title')->setLabel('Название новости ENG')->required(),
+                AdminFormElement::textarea('articlesEng.description')->setLabel('Краткое описание новости ENG')->required(),
+                AdminFormElement::textarea('articlesEng.content')->setLabel('Полное описание новости ENG')->required(),
             ],
             [
-                AdminFormElement::text('articlesRu.title')->setLabel('Название новости')->required(),
-                AdminFormElement::textarea('articlesRu.description')->setLabel('Краткое описание новости')->required(),
-                AdminFormElement::textarea('articlesRu.content')->setLabel('Полное описание новости')->required(),
+                AdminFormElement::text('articlesRu.title')->setLabel('Название новости RU')->required(),
+                AdminFormElement::textarea('articlesRu.description')->setLabel('Краткое описание новости RU')->required(),
+                AdminFormElement::textarea('articlesRu.content')->setLabel('Полное описание новости RU')->required(),
                 AdminFormElement::hidden('articlesRu.language')->setDefaultValue('ru'),
                 AdminFormElement::hidden('articlesEng.language')->setDefaultValue('eng')
             ]
@@ -85,9 +85,10 @@ class Article extends Section
         $columns2 = AdminFormElement::columns([
             [
                 AdminFormElement::image('img')->setLabel('картинка'),
-                AdminFormElement::multiselect('tags', 'Тэги этой статьи')->setModelForOptions(\App\Models\Tag::class)->setDisplay('name'),
-                AdminFormElement::multiselect('categoriesForNews', 'Категории этой статьи')->setModelForOptions(\App\Models\Category\CategoryForNews::class)->setDisplay('name'),
-
+                AdminFormElement::multiselect('tags', 'Тэги этой статьи')
+                    ->setModelForOptions(\App\Models\Tag::class)
+                    ->setDisplay('tagRu.name'),
+                AdminFormElement::multiselect('categoriesForNews', 'Категории этой статьи')->setModelForOptions(\App\Models\Category\CategoryForNews::class)->setDisplay('categoryRu.name'),
             ]
         ]);
 

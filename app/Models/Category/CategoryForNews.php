@@ -38,4 +38,11 @@ class CategoryForNews extends Model
         return $this->hasOne(CategoryForNewsLanguage::class)
             ->where('language', 'eng');
     }
+
+    public function categoryNames()
+    {
+        return $this->hasOne(CategoryForNewsLanguage::class)
+
+            ->where('language', 'eng');
+    }
 }

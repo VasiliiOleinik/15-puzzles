@@ -63,7 +63,7 @@ class Book extends Section
 
             ],
             [
-                \AdminFormElement::text('bookRu.title')->setLabel('Название RU'),
+                \AdminFormElement::text('bookRu.title')->setLabel('Название RU')->required(),
                 \AdminFormElement::text('bookRu.author')->setLabel('Автор RU'),
                 \AdminFormElement::text('bookRu.description')->setLabel('Описание RU'),
 

@@ -36,7 +36,7 @@ class Tag extends Model
      */
     public function articles()
     {
-    return $this->belongsToMany('App\Models\Article\Article', 'article_tags');
+        return $this->belongsToMany('App\Models\Article\Article', 'article_tags');
     }
 
     /**
@@ -44,7 +44,7 @@ class Tag extends Model
      */
     public function books()
     {
-    return $this->belongsToMany('App\Models\Book\Book', 'book_tags');
+        return $this->belongsToMany('App\Models\Book\Book', 'book_tags');
     }
 
     /**
@@ -60,9 +60,11 @@ class Tag extends Model
         return $this->hasOne(TagLanguage::class)
             ->where('language', 'ru');
     }
+
     public function tagEng()
     {
         return $this->hasOne(TagLanguage::class)
             ->where('language', 'eng');
     }
+
 }

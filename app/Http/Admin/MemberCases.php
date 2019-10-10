@@ -35,14 +35,6 @@ class MemberCases extends Section implements Initializable
      */
     public function initialize()
     {
-        // Добавление пункта меню и счетчика кол-ва записей в разделе
-        /*$this->addToNavigation($priority = 500, function() {
-            return $this->model::count();
-        });
-
-        $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {
-            //...
-        });*/
     }
 
     /**
@@ -71,7 +63,7 @@ class MemberCases extends Section implements Initializable
         $display
             //->with(['roles'])
             ->setColumns(
-                AdminColumnEditable::text('title')->setLabel('заголовок'),
+                AdminColumnEditable::text('casesRu.title')->setLabel('заголовок'),
                 AdminColumn::text('status')->setLabel('статус'),
                 AdminColumnEditable::checkbox('anonym')->setLabel('анонимная публикация'),
                 AdminColumn::text('created_at')->setLabel('создано'),
@@ -119,8 +111,6 @@ class MemberCases extends Section implements Initializable
     public function onEdit($id)
     {
         $rules = ['required', 'string', 'max:191'];
-
-        $image = '<img id="img-admin" src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';
         $columns1 = \AdminFormElement::columns([
             [
                 AdminFormElement::text('title')->setLabel('Title ENG')->setValidationRules($rules),

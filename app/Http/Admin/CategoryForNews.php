@@ -60,7 +60,7 @@ class CategoryForNews extends Section
     {
         $columns1 = \AdminFormElement::columns([
             [
-                \AdminFormElement::text('categoryEng.name')->setLabel('Название ENG')->required(),
+                \AdminFormElement::text('categoryEng.name')->setLabel('Название ENG'),
                 \AdminFormElement::text('categoryRu.name')->setLabel('Название RU')->required(),
 
                 \AdminFormElement::hidden('categoryRu.language')->setDefaultValue('ru'),
