@@ -25,7 +25,7 @@ class NewsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request, $locale, $name = null)
-    {   
+    {
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews_'.app()->getLocale(),
@@ -34,22 +34,22 @@ class NewsController extends Controller
                 return CategoryForNewsLanguage::with('categoriesForNews')->get();
             }
         );
-        //Выбрана категория         
+        //Выбрана категория
         if($request->route()->getname() == "news_category"){
             foreach($categoriesForNews as $category){
                 $_name = mb_strtolower($category->categoriesForNews->name);
                 $_name = preg_replace('#[[:punct:]]#', '', $_name);
-                $_name = str_replace(" ","-",$_name);               
+                $_name = str_replace(" ","-",$_name);
                 if($name == $_name){
                     $categoryId = $category->category_for_news_id;
                     break;
-                }                
-            }          
+                }
+            }
             $categoriesForNewsActive = [$categoryId];
             $collection = Article::with('categoriesForNews')->whereHas(
                 'categoriesForNews', function ($query) use ( $categoriesForNewsActive ) {
                 $query->whereIn('category_for_news_id', $categoriesForNewsActive);
-            })->get()->pluck('id')->toArray();            
+            })->get()->pluck('id')->toArray();
         }
         //Выбран тэг
         if($request->tag){
@@ -59,13 +59,13 @@ class NewsController extends Controller
                 foreach ($tag->articles as $obj) {
                     array_push($articles_id, $obj->id);
                 }
-            }            
+            }
             $collection = Article::with('tags')->whereIn('id', $articles_id)->get()->pluck('id')->toArray();
         }
         if($request->route()->getname() != "news_category" && !$request->tag){
             $articles = ArticleLanguage::with('article')->orderBy('article_id', 'DESC')->paginate(4);
         }else{
-        
+
             $articles = ArticleLanguage::with('article')->whereIn('article_id',$collection)
                                                             ->orderBy('article_id', 'DESC')->paginate(4);
         }
@@ -78,7 +78,7 @@ class NewsController extends Controller
      * @param  \App\Models\Article\Article  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($locale, $title)
+    public function show($locale, $alias)
     {
         //категории для новостей
         $categoriesForNews = Cache::remember(
@@ -88,15 +88,7 @@ class NewsController extends Controller
                 return CategoryForNewsLanguage::with('categoriesForNews')->get();
             }
         );
-        foreach(ArticleLanguage::with('article')->get() as $article){
-            $_title = mb_strtolower($article->article->title);
-            $_title = preg_replace('#[[:punct:]]#', '', $_title);
-            $_title = str_replace(" ","-",$_title);               
-            if($title == $_title){
-                $id = $article->article_id;
-                break;
-            }                
-        }
+        $id = Article::where('alias', $alias)->first()->id;
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews_'.app()->getLocale(),
@@ -116,8 +108,8 @@ class NewsController extends Controller
     //Тэги, которые использовались ($request->with должен содержать таблицу, связанную с тэгами. например 'articles')
     public function usedTags(Request $request){
 
-        if($request->all == "all"){            
-            $tags_names = TagLanguage::where('language','=', app()->getLocale() )->get()->pluck('name','tag_id')->toJson();            
+        if($request->all == "all"){
+            $tags_names = TagLanguage::where('language','=', app()->getLocale() )->get()->pluck('name','tag_id')->toJson();
         }else
         {
             $tag_with = array();
@@ -132,7 +124,7 @@ class NewsController extends Controller
             }
             if($request['with'] == "memberCases"){
                 //$tags_names = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(
-                $tags_names = TagLanguage::whereIn('tag_id',$tag_with)->whereHas(                
+                $tags_names = TagLanguage::whereIn('tag_id',$tag_with)->whereHas(
                     'memberCases', function ($query) {
                         $query->where('status','=','show');
                     }
@@ -159,12 +151,12 @@ class NewsController extends Controller
                     array_push($tag_with, $tag->id);
                 }
             }
-            /*$tags_names = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(                
+            /*$tags_names = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(
                 'memberCases', function ($query) {
                     $query->where('status','=','show');
                 }
             )->get();*/
-            $tags_id = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(                
+            $tags_id = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(
                 'memberCases', function ($query) {
                     $query->where('status','=','show');
                 }
@@ -186,21 +178,21 @@ class NewsController extends Controller
         'titleEng' => ['required', 'string', 'max:191'],
         'titleRu' => ['required', 'string', 'max:191'],
         'descriptionEng' => ['required', 'max:191'],
-        'descriptionRu' => ['required', 'max:191'],  
+        'descriptionRu' => ['required', 'max:191'],
         'contentEng' => ['required', 'max:64000'],
-        'contentRu' => ['required', 'max:64000'],      
-        'img' => ['nullable'],       
+        'contentRu' => ['required', 'max:64000'],
+        'img' => ['nullable'],
         ]);
-        
+
         $articleLanguageEng = new ArticleLanguage;
         $articleLanguageRu = new ArticleLanguage;
         $article = new Article;
         //находим наивысшее значение id и ставим больше на 1
         $article->id = Article::orderBy('id', 'desc')->first()->id + 1;
         $article->title = $request['titleEng'];
-        if($request->img != null){          
+        if($request->img != null){
           $article->img = $request['img'];
-        } 
+        }
         $article->save();
         if(array_key_exists("tags", $request->article)){
             $article->tags()->sync($request->article['tags']);
@@ -220,7 +212,7 @@ class NewsController extends Controller
         $articleLanguageRu->description = $request['descriptionRu'];
         $articleLanguageRu->content = $request['contentRu'];
         $articleLanguageRu->article_id = $article->id;
-        
+
         $articleLanguageEng->save();
         $articleLanguageRu->save();
 
@@ -249,7 +241,7 @@ class NewsController extends Controller
             ->queue(new LetterToSubscriber(Cache::get('newsLatest_'.$subscriber->language)
                                                     ->take(1)));
         }*/
-                                                    
+
         return Redirect::to('/admin/news/');
     }
 
@@ -265,10 +257,10 @@ class NewsController extends Controller
         'titleEng' => ['required', 'string', 'max:191'],
         'titleRu' => ['required', 'string', 'max:191'],
         'descriptionEng' => ['required', 'max:191'],
-        'descriptionRu' => ['required', 'max:191'],  
+        'descriptionRu' => ['required', 'max:191'],
         'contentEng' => ['required', 'max:64000'],
-        'contentRu' => ['required', 'max:64000'],      
-        'img' => ['nullable'],       
+        'contentRu' => ['required', 'max:64000'],
+        'img' => ['nullable'],
         ]);
 
         $id = ArticleLanguage::find($id)->article_id;
@@ -283,9 +275,9 @@ class NewsController extends Controller
                                              ->first();
 
         //находим наивысшее значение id и ставим больше на 1
-        if($request->img != null){          
+        if($request->img != null){
           $article->img = $request['img'];
-        } 
+        }
         $article->save();
         if(array_key_exists("tags", $request->article)){
             $article->tags()->sync($request->article['tags']);
@@ -305,7 +297,7 @@ class NewsController extends Controller
         $articleLanguageRu->description = $request['descriptionRu'];
         $articleLanguageRu->content = $request['contentRu'];
         $articleLanguageRu->article_id = $article->id;
-        
+
         $articleLanguageEng->save();
         $articleLanguageRu->save();
 

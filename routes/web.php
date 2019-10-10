@@ -20,7 +20,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-    
+
 /* LOCALIZATION */
 Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'middleware' => 'setlocale' ], function() {
 
@@ -31,13 +31,13 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::get('factor_diagram', 'FactorDiagramController@index')->name('factor_diagram');
     Route::get('about', 'AboutController@index')->name('about');
     Route::get('news/category/{name}', 'NewsController@index')->name('news_category');
-    Route::resource('news', 'NewsController');    
-    Route::get('news/{name}', 'NewsController@show')->name('news_show');  
+    Route::resource('news', 'NewsController');
+    Route::get('news/{alias}', 'NewsController@show')->name('news_show');
     Route::get('literature', 'LiteratureController@index')->name('literature');
-    Route::get('literature/category/{name}', 'LiteratureController@index')->name('literature_category');   
+    Route::get('literature/category/{name}', 'LiteratureController@index')->name('literature_category');
     Route::get('faq', 'FaqController@index')->name('faq');
     Route::post('faq', 'FaqController@letter')->name('letter');
-    Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet    
+    Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet
 
 
     Route::post('literature-modal', 'LiteratureController@literatureModal')->name('literature-modal');
@@ -57,7 +57,7 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::post('register', 'Auth\RegisterController@register');
 
     // Email Verification Routes...
-    Route::get('email/verify', 'Auth\VerificationController@showLocale')->name('verification.notice.locale');    
+    Route::get('email/verify', 'Auth\VerificationController@showLocale')->name('verification.notice.locale');
 
     // Password Reset Routes...
     Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
@@ -71,10 +71,10 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
 // Email Verification Routes...
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
-Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');  
+Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
 /* MAIN */
-Route::post('filter', 'MainController@filter')->name('filter');    
+Route::post('filter', 'MainController@filter')->name('filter');
 Route::post('model_partial', 'MainController@modelPartial')->name('model_partial');
 Route::post('map_refresh', 'MainController@mapRefresh')->name('map_refresh');
 /* ---- */
