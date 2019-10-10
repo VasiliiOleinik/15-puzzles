@@ -17,6 +17,7 @@ class CreateLinkForBooksTable extends Migration {
 			$table->increments('id');
 			$table->string('title', 50)->nullable();
 			$table->string('url', 191)->nullable();
+            $table->integer('is_active')->default(1);
 		});
 	}
 

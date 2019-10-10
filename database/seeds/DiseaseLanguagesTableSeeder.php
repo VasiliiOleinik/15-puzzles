@@ -46,11 +46,5 @@ class DiseaseLanguagesTableSeeder extends Seeder
                 ->where('id', $i + 1)
                 ->update($data[$i]);
         }
-        //делаем одинаковыми имена
-        foreach(Disease::all() as $disease){
-            $disease->name = DiseaseLanguage::where('disease_id','=',$disease->id)
-                                          ->where('language','=','eng')->first()->name;
-            $disease->save();
-        }
     }
 }

@@ -17,6 +17,7 @@ class CreateBookTagsTable extends Migration {
 			$table->increments('id');
 			$table->integer('book_id')->unsigned()->default(1)->index('FK_book_tags_books');
 			$table->integer('tag_id')->unsigned()->default(1)->index('FK_book_tags_tags');
+			$table->integer('is_active')->default(1);
 		});
 	}
 

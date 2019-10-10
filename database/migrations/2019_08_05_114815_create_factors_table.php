@@ -15,9 +15,9 @@ class CreateFactorsTable extends Migration {
 		Schema::create('factors', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 50)->nullable();
 			$table->integer('type_id')->unsigned()->default(1)->index('FK_factors_types');
 			$table->longText('img')->nullable();
+            $table->integer('is_active')->default(1);
 		});
 	}
 

@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(CategoryForBooks::class, function (Faker $faker) {
     return [
-        'name' => $faker->word(15),
+        'is_active' => 1,
     ];
 });

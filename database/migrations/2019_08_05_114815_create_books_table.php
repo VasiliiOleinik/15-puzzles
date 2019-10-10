@@ -15,9 +15,6 @@ class CreateBooksTable extends Migration {
 		Schema::create('books', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title', 191)->nullable();
-			$table->string('author', 80)->nullable();
-			$table->string('description', 191)->nullable();
 			$table->integer('is_active')->default(1);
 			$table->longText('img')->nullable();
 		});

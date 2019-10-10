@@ -18,6 +18,7 @@ class CreateQuestionLanguagesTable extends Migration {
 			$table->string('language', 10)->default('eng');
 			$table->integer('question_id')->unsigned()->default(1)->index('FK_question_languages_questions');
 			$table->string('name', 191)->nullable();
+            $table->string('title', 191)->nullable();
 			$table->text('content')->nullable();
 		});
 	}

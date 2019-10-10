@@ -16,6 +16,7 @@ class CreateArticlesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->longText('img')->nullable();
+			$table->longText('is_active')->nullable();
 			$table->timestamps();
 		});
 	}

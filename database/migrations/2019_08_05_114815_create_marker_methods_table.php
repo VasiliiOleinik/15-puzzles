@@ -17,6 +17,7 @@ class CreateMarkerMethodsTable extends Migration {
 			$table->increments('id');
 			$table->integer('marker_id')->unsigned()->default(1)->index('FK_marker_methods_markers');
 			$table->integer('method_id')->unsigned()->default(1)->index('FK_marker_methods_methods');
+            $table->integer('is_active')->default(1);
 		});
 	}
 

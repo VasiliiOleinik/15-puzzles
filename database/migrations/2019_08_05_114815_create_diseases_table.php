@@ -15,7 +15,7 @@ class CreateDiseasesTable extends Migration {
 		Schema::create('diseases', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 50)->nullable();
+			$table->integer('is_active')->default(1);
 		});
 	}
 
