@@ -18,6 +18,7 @@ class CreateFactorsTable extends Migration {
 			$table->integer('type_id')->unsigned()->default(1)->index('FK_factors_types');
 			$table->longText('img')->nullable();
             $table->integer('is_active')->default(1);
+            $table->timestamps();
 		});
 	}
 

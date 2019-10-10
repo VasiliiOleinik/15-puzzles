@@ -16,6 +16,7 @@ class CreateMarkersTable extends Migration {
 		{
 			$table->increments('id');
             $table->integer('is_active')->default(1);
+            $table->timestamps();
 		});
 	}
 

@@ -44,6 +44,7 @@ class Remedy extends Section
         ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
+            $query->orderBy('created_at', 'desc');
         });
         return $display;
     }

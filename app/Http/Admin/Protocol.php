@@ -46,6 +46,7 @@ class Protocol extends Section
         ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
+            $table->timestamps();
         });
         return $display;
     }
