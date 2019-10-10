@@ -20,7 +20,9 @@ class CategoryForBooksLanguagesTableSeeder extends Seeder
 
         Config::set('app.faker_locale', 'en_US');
         for($i = 0; $i < CategoryForBooks::count(); $i++){
-            factory(CategoryForBooksLanguage::class, 1 )->create();
+            $category = factory(CategoryForBooksLanguage::class, 1 )->create();
+            $category[0]->categoriesForBook->alias = URLify::filter($category[0]->name.' '.$category[0]->categoriesForBook->id, 190);
+            $category[0]->categoriesForBook->save();
         }
         Config::set('app.faker_locale', 'ru_RU');
         for($i = 0; $i < CategoryForBooks::count(); $i++){
