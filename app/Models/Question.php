@@ -16,6 +16,17 @@ class Question extends Model
     /**
      * @var array
      */
-    protected $fillable = ['title', 'content'];
+    protected $guarded = [];
+
+    public function questRu()
+    {
+        return $this->hasOne(QuestionLanguage::class)
+            ->where('language', 'ru');
+    }
+    public function questEng()
+    {
+        return $this->hasOne(QuestionLanguage::class)
+            ->where('language', 'eng');
+    }
 
 }

@@ -41,7 +41,7 @@ class LinkForBooks extends Section implements Initializable
             return $this->model::count();
         });
 
-        $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {            
+        $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {
         });*/
     }
 
@@ -58,11 +58,6 @@ class LinkForBooks extends Section implements Initializable
     protected $title = 'Магазины';
 
     /**
-     * @var string
-     */
-    protected $alias = 'shops';
-
-    /**
      * @return DisplayInterface
      */
     public function onDisplay()
@@ -70,9 +65,8 @@ class LinkForBooks extends Section implements Initializable
         $display = AdminDisplay::datatablesAsync();
         return $display
             ->setColumns(
-                //AdminColumn::text('id')->setLabel('id'),
-                AdminColumnEditable::text('title')->setLabel('Название магазина'),
-                AdminColumnEditable::text('url')->setLabel('Ссылка на магазин')
+                AdminColumn::text('title')->setLabel('Название магазина'),
+                AdminColumn::url('url')->setLabel('Ссылка на магазин')
             )
             ->setApply(function($query) {
                 $query->orderBy('id', 'desc');
@@ -83,13 +77,16 @@ class LinkForBooks extends Section implements Initializable
      * @return FormInterface
      */
     public function onCreate()
-    {              
+    {
         return AdminForm::panel()->addBody([
             AdminFormElement::text('title')->setName('title')->setLabel('Название магазина')->required(),
             AdminFormElement::text('url')->setName('url')->setLabel('Ссылка на магазин')->required()
-        ]);        
+        ]);
     }
 
+    public function onEdit(){
+        return $this->onCreate(null);
+    }
     /**
      * @return void
      */

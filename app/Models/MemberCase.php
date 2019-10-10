@@ -41,4 +41,10 @@ class MemberCase extends Model
     {
         return $this->belongsTo('App\Models\User\User');
     }
+
+    public function casesRu()
+    {
+        return $this->hasOne(MemberCaseLanguage::class)
+            ->where('language', 'ru');
+    }
 }

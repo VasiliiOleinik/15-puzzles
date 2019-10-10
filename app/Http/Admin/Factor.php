@@ -6,25 +6,14 @@ use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
-use AdminColumn;
-use AdminColumnEditable;
-use AdminColumnFilter;
-use AdminDisplay;
-use AdminDisplayFilter;
-use AdminForm;
-use AdminFormElement;
-use SleepingOwl\Admin\Contracts\Initializable;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Config;
-
 /**
- * Class Diseases
+ * Class Factor
  *
- * @property \App\Models\Disease\Disease $model
+ * @property \App\Models\Factor\Factor $model
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class Diseases extends Section
+class Factor extends Section
 {
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
@@ -48,12 +37,11 @@ class Diseases extends Section
      */
     public function onDisplay()
     {
-        $display = AdminDisplay::datatablesAsync();
-        $display
-            ->setColumns([
-                AdminColumn::text('diseaseRu.name')->setLabel('Название'),
-                AdminColumn::text('diseaseRu.content')->setLabel('Описание'),
-            ]);
+        $display = \AdminDisplay::datatablesAsync()->setColumns([
+            \AdminColumn::text('factorRu.name')->setLabel('Имя фактора'),
+            \AdminColumn::text('factorRu.content')->setLabel('Описание Фактора'),
+            \AdminColumn::text('type.name')->setLabel('тип'),
+        ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
         });
@@ -68,20 +56,28 @@ class Diseases extends Section
     public function onEdit($id)
     {
         $columns1 = \AdminFormElement::columns([
-            [
-                AdminFormElement::text('diseaseEng.name')->setLabel('Имя Eng'),
-                AdminFormElement::textarea('diseaseEng.content')->setLabel('Контент Eng'),
-            ],
-            [
-                AdminFormElement::text('diseaseRu.name')->setLabel('Имя Ru'),
-                AdminFormElement::textarea('diseaseRu.content')->setLabel('Контент Ru'),
+        [
+            \AdminFormElement::text('factorEng.name')->setLabel('Название ENG'),
+            \AdminFormElement::textarea('factorEng.content')->setLabel('Контент ENG'),
 
-                \AdminFormElement::hidden('diseaseRu.language')->setDefaultValue('ru'),
-                \AdminFormElement::hidden('diseaseEng.language')->setDefaultValue('eng')
+        ],
+        [
+            \AdminFormElement::text('factorRu.name')->setLabel('Название RU'),
+            \AdminFormElement::textarea('factorRu.content')->setLabel('Контент RU'),
+
+            \AdminFormElement::hidden('factorRu.language')->setDefaultValue('ru'),
+            \AdminFormElement::hidden('factorEng.language')->setDefaultValue('eng')
+        ]
+    ]);
+        $columns2 = \AdminFormElement::columns([
+            [
+                \AdminFormElement::image('img')->setLabel('Изображение')
             ]
         ]);
+
         $form = \AdminForm::panel()->addBody([
             $columns1,
+            $columns2
         ]);
 
         return $form;

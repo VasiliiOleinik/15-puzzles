@@ -7,13 +7,13 @@ use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
 /**
- * Class FactorLanguage
+ * Class Laboratory
  *
- * @property \App\Models\Factor\FactorLanguage $model
+ * @property \App\Models\Laboratory\Laboratory $model
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class FactorLanguage extends Section
+class Laboratory extends Section
 {
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
@@ -37,7 +37,13 @@ class FactorLanguage extends Section
      */
     public function onDisplay()
     {
-        // remove if unused
+        $display = \AdminDisplay::datatablesAsync()->setColumns([
+            \AdminColumn::text('name')->setLabel('Имя лаборатории'),
+            \AdminColumnEditable::text('lat')->setLabel('Lat'),
+            \AdminColumnEditable::text('lng')->setLabel('Long'),
+        ]);
+
+        return $display;
     }
 
     /**
@@ -47,7 +53,18 @@ class FactorLanguage extends Section
      */
     public function onEdit($id)
     {
-        // remove if unused
+        $columns1 = \AdminFormElement::columns([
+            [
+                \AdminFormElement::text('name')->setLabel('Имя лаборатории'),
+                \AdminFormElement::text('lat')->setLabel('Lat'),
+                \AdminFormElement::text('lng')->setLabel('Long'),
+            ]
+        ]);
+
+        $form = \AdminForm::panel()->addBody([
+            $columns1,
+        ]);
+        return $form;
     }
 
     /**

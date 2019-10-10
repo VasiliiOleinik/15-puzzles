@@ -18,6 +18,7 @@ class CreateBooksTable extends Migration {
 			$table->string('title', 191)->nullable();
 			$table->string('author', 80)->nullable();
 			$table->string('description', 191)->nullable();
+			$table->integer('is_active')->default(1);
 			$table->longText('img')->nullable();
 		});
 	}

@@ -17,7 +17,7 @@ class CreatePagesLangsTable extends Migration
             $table->bigIncrements('id');
             $table->string('lang');
             $table->string('title');
-            $table->bigInteger('page_id')->unsigned()->index('FK_pages_langs');
+            $table->bigInteger('pages_id')->unsigned()->index('FK_pages_langs');
             $table->longText('description')->nullable();
             $table->string('short_description')->nullable();
             $table->longText('puzzles_description')->nullable();

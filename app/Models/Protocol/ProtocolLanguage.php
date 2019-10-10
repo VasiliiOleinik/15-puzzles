@@ -34,7 +34,7 @@ class ProtocolLanguage extends Model
     /**
      * @var array
      */
-    protected $fillable = ['protocol_id', 'evidence_id', 'language', 'name', 'content', 'subtitle'];
+    protected $guarded = [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

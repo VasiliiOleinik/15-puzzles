@@ -73,14 +73,14 @@ class Comments extends Section implements Initializable
                 $query->orderBy('created_at', 'desc');
             })
             ->setColumns(
-                AdminColumnEditable::text('content')->setLabel('комментарий'),
+                AdminColumn::text('content')->setLabel('комментарий'),
                 AdminColumn::text('created_at')->setLabel('создано'),
-                AdminColumn::relatedLink('memberCase.title', 'история болезни'),                
+                AdminColumn::relatedLink('memberCase.title', 'история болезни'),
                 AdminColumn::relatedLink('user.nickname', 'пользователь')
             )
              ->setFilters(
                 AdminDisplayFilter::field('user_id')->setTitle('id пользователя [:value]')
-            );   
+            );
         $display
             //поля поиска
             ->setColumnFilters(
@@ -94,14 +94,14 @@ class Comments extends Section implements Initializable
                 ),
                 AdminColumnFilter::text()
                     ->setPlaceholder('Заголовок истории болезни')
-                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),           
+                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
                 AdminColumnFilter::text()
                     ->setPlaceholder('Введите логин юзера')
                     ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS)
             ]
             );
         $display->getColumnFilters()->setPlacement('table.header');
-        
+
         return $display;
     }
 
@@ -111,7 +111,7 @@ class Comments extends Section implements Initializable
      * @return FormInterface
      */
     public function onEdit($id)
-    {        
+    {
         $form = AdminForm::panel()->addBody([
             AdminFormElement::textarea('content')->setLabel('комментарий')->required(),
             AdminFormElement::text('user.nickname')->setLabel('логин пользователя, оставившего комментарий')->setReadonly(1),
@@ -119,21 +119,8 @@ class Comments extends Section implements Initializable
             AdminFormElement::text('user.middle_name')->setLabel('фамилия пользователя')->setReadonly(1),
             AdminFormElement::text('user.last_name')->setLabel('отчество пользователя')->setReadonly(1),
             AdminFormElement::text('memberCase.title')->setLabel('пост истории болезни где оставлен комментарий')->setReadonly(1),
-            AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1)           
+            AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1)
         ]);
-        /*
-        if (!is_null($id)) { // Если есть ID
-            $display = AdminDisplay::table()
-               ->setModelClass(\App\Models\User\User::class) // Обязательно необходимо указать класс модели;
-               ->setApply(function($query) use($id) {
-                    $query->where('user_id','=', $this->model->user_id); // Фильтруем список                 
-                })
-            ;
-        
-        $form->addBody($display);
-        }
-        */
-
         return $form;
     }
 

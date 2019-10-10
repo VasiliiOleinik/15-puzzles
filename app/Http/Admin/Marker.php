@@ -6,25 +6,14 @@ use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
-use AdminColumn;
-use AdminColumnEditable;
-use AdminColumnFilter;
-use AdminDisplay;
-use AdminDisplayFilter;
-use AdminForm;
-use AdminFormElement;
-use SleepingOwl\Admin\Contracts\Initializable;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Config;
-
 /**
- * Class Diseases
+ * Class Marker
  *
- * @property \App\Models\Disease\Disease $model
+ * @property \App\Models\Marker\Marker $model
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class Diseases extends Section
+class Marker extends Section
 {
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
@@ -48,12 +37,10 @@ class Diseases extends Section
      */
     public function onDisplay()
     {
-        $display = AdminDisplay::datatablesAsync();
-        $display
-            ->setColumns([
-                AdminColumn::text('diseaseRu.name')->setLabel('Название'),
-                AdminColumn::text('diseaseRu.content')->setLabel('Описание'),
-            ]);
+        $display = \AdminDisplay::datatablesAsync()->setColumns([
+            \AdminColumn::text('markerRu.name')->setLabel('Название анализа'),
+            \AdminColumn::text('markerRu.content')->setLabel('Описание анализа'),
+        ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
         });
@@ -69,22 +56,29 @@ class Diseases extends Section
     {
         $columns1 = \AdminFormElement::columns([
             [
-                AdminFormElement::text('diseaseEng.name')->setLabel('Имя Eng'),
-                AdminFormElement::textarea('diseaseEng.content')->setLabel('Контент Eng'),
+                \AdminFormElement::text('markerEng.name')->setLabel('Название анализа ENG'),
+                \AdminFormElement::textarea('markerEng.content')->setLabel('Описание анализа ENG'),
             ],
             [
-                AdminFormElement::text('diseaseRu.name')->setLabel('Имя Ru'),
-                AdminFormElement::textarea('diseaseRu.content')->setLabel('Контент Ru'),
+                \AdminFormElement::text('markerRu.name')->setLabel('Название анализа Ru'),
+                \AdminFormElement::textarea('markerRu.content')->setLabel('Описание анализа RU'),
 
-                \AdminFormElement::hidden('diseaseRu.language')->setDefaultValue('ru'),
-                \AdminFormElement::hidden('diseaseEng.language')->setDefaultValue('eng')
+                \AdminFormElement::hidden('markerRu.language')->setDefaultValue('ru'),
+                \AdminFormElement::hidden('markerEng.language')->setDefaultValue('eng')
             ]
         ]);
-        $form = \AdminForm::panel()->addBody([
-            $columns1,
+        $columns2 = \AdminFormElement::columns([
+            [
+                \AdminFormElement::multiselect('methods', 'Методы лечения')->setModelForOptions(\App\Models\Method::class)->setDisplay('name')
+            ]
         ]);
 
+        $form = \AdminForm::panel()->addBody([
+            $columns1,
+            $columns2
+        ]);
         return $form;
+
     }
 
     /**

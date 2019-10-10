@@ -44,6 +44,18 @@ class Book extends Model
      */
     public function tags()
     {
-    return $this->belongsToMany('App\Models\Tag', 'book_tags');
+        return $this->belongsToMany('App\Models\Tag', 'book_tags');
+    }
+
+    public function bookRu()
+    {
+        return $this->hasOne(BookLanguage::class)
+            ->where('language', 'ru');
+    }
+
+    public function bookEng()
+    {
+        return $this->hasOne(BookLanguage::class)
+            ->where('language', 'eng');
     }
 }

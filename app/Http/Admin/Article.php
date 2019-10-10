@@ -52,7 +52,9 @@ class Article extends Section
                 ]
 
             );
-
+        $display->setApply(function ($query) {
+            $query->where('language', 'ru');
+        });
         return $display;
     }
 
@@ -64,18 +66,18 @@ class Article extends Section
     public function onEdit($id)
     {
         $columns1 = AdminFormElement::columns([
-
             [
                 AdminFormElement::text('articlesEng.title')->setLabel('Название новости')->required(),
                 AdminFormElement::textarea('articlesEng.description')->setLabel('Краткое описание новости')->required(),
-                AdminFormElement::textarea('articlesEng.content')->setLabel('Полное описание новости')->required()
+                AdminFormElement::textarea('articlesEng.content')->setLabel('Полное описание новости')->required(),
 
             ],
             [
                 AdminFormElement::text('articlesRu.title')->setLabel('Название новости')->required(),
                 AdminFormElement::textarea('articlesRu.description')->setLabel('Краткое описание новости')->required(),
-                AdminFormElement::textarea('articlesRu.content')->setLabel('Полное описание новости')->required()
-
+                AdminFormElement::textarea('articlesRu.content')->setLabel('Полное описание новости')->required(),
+                AdminFormElement::hidden('articlesRu.language')->setDefaultValue('ru'),
+                AdminFormElement::hidden('articlesEng.language')->setDefaultValue('eng')
             ]
         ]);
 
