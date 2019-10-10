@@ -31,16 +31,13 @@ class NewsController extends Controller
             'categoryForNews_'.app()->getLocale(),
             now()->addDay(1),
             function(){
-                return CategoryForNewsLanguage::with('categoriesForNews')->get();
+                return CategoryForNewsLanguage::with('categoriesForNews')->where('language', app()->getLocale())->get();
             }
         );
         //Выбрана категория
         if($request->route()->getname() == "news_category"){
             foreach($categoriesForNews as $category){
-                $_name = mb_strtolower($category->categoriesForNews->name);
-                $_name = preg_replace('#[[:punct:]]#', '', $_name);
-                $_name = str_replace(" ","-",$_name);
-                if($name == $_name){
+                if($category->categoriesForNews->alias == $name){
                     $categoryId = $category->category_for_news_id;
                     break;
                 }
@@ -63,10 +60,10 @@ class NewsController extends Controller
             $collection = Article::with('tags')->whereIn('id', $articles_id)->get()->pluck('id')->toArray();
         }
         if($request->route()->getname() != "news_category" && !$request->tag){
-            $articles = ArticleLanguage::with('article')->orderBy('article_id', 'DESC')->paginate(4);
+            $articles = ArticleLanguage::with('article')->where('language', app()->getLocale())->orderBy('article_id', 'DESC')->paginate(4);
         }else{
 
-            $articles = ArticleLanguage::with('article')->whereIn('article_id',$collection)
+            $articles = ArticleLanguage::with('article')->where('language', app()->getLocale())->whereIn('article_id',$collection)
                                                             ->orderBy('article_id', 'DESC')->paginate(4);
         }
         return view('news.news', compact(['articles','categoriesForNews']));

@@ -19,6 +19,8 @@ class CategoryForNews extends Model
      */
     protected $guarded = [];
 
+    protected $fillable = ['alias'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

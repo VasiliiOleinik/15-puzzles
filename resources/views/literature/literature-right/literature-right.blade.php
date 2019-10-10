@@ -4,7 +4,7 @@
                 <ul class="categories__list">
                   @foreach($categoriesForBooks as $category)
                   <li class="item">
-                    <a href="javascript:void(0)" obj-id="{{$category->category_for_books_id}}"
+                    <a href="{{ url(app()->getLocale().'/literature/category') }}/{{ $category->categoriesForBook->alias }}" obj-id="{{$category->category_for_books_id}}"
                                                  obj-name="{{$category->categoriesForBook->name}}">{{$category->name}}</a>
                   </li>
                   @endforeach
