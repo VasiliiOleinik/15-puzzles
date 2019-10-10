@@ -26,19 +26,17 @@ class LiteratureController extends Controller
             'categoryForBooks_'.app()->getLocale(),
             now()->addDay(1),
             function(){
-                return CategoryForBooksLanguage::with('categoriesForBook')->get();
+                return CategoryForBooksLanguage::with('categoriesForBook')->where('language', app()->getLocale())->get();
             }
         );
-        //Выбрана категория         
+        //Выбрана категория
         if($request->route()->getname() == "literature_category"){
             foreach($categoriesForBooks as $category){
-                $_name = mb_strtolower($category->categoriesForBook->name);
-                $_name = preg_replace('#[[:punct:]]#', '', $_name);
-                $_name = str_replace(" ","-",$_name);               
-                if($name == $_name){
+
+                if($category->categoriesForBook->alias == $name){
                     $categoryId = $category->category_for_books_id;
                     break;
-                }                
+                }
             }
             $categoriesForBooksActive = [$categoryId];
             $collection = Book::with('categoriesForBooks')->whereHas(
@@ -48,19 +46,19 @@ class LiteratureController extends Controller
         }
         //Выбран тэг
         if($request->tag){
-            $books_id = array();                
-            $tags = Tag::with('books')->whereIn('id',[$request->tag])->get();              
+            $books_id = array();
+            $tags = Tag::with('books')->whereIn('id',[$request->tag])->get();
             foreach($tags as $tag){
                 foreach($tag->books as $obj) {
                     array_push($books_id, $obj->id);
-                }               
+                }
             }
             $collection = Book::with('tags')->whereIn('id',$books_id)->get()->pluck('id')->toArray();
         }
         if($request->route()->getname() != "literature_category" && !$request->tag){
-            $books = BookLanguage::with('book')->orderBy('book_id', 'DESC')->paginate(4);
+            $books = BookLanguage::with('book')->where('language', app()->getLocale())->orderBy('book_id', 'DESC')->paginate(4);
         }else{
-            $books = BookLanguage::with('book')->whereIn('book_id',$collection)
+            $books = BookLanguage::with('book')->where('language', app()->getLocale())->whereIn('book_id',$collection)
                                                    ->orderBy('book_id', 'DESC')->paginate(4);
         }
         return view('literature.literature', compact(['books','categoriesForBooks']));
@@ -94,20 +92,20 @@ class LiteratureController extends Controller
         'titleEng' => ['required', 'string', 'max:191'],
         'titleRu' => ['required', 'string', 'max:191'],
         'descriptionEng' => ['required', 'max:64000'],
-        'descriptionRu' => ['required', 'max:64000'],  
+        'descriptionRu' => ['required', 'max:64000'],
         'authorEng' => ['required', 'max:191'],
-        'authorRu' => ['required', 'max:191'],      
-        'img' => ['nullable'],       
+        'authorRu' => ['required', 'max:191'],
+        'img' => ['nullable'],
         ]);
-        
+
         $bookLanguageEng = new BookLanguage;
         $bookLanguageRu = new BookLanguage;
         $book = new Book;
         //находим наивысшее значение id и ставим больше на 1
         $book->id = Book::orderBy('id', 'desc')->first()->id + 1;
-        if($request->img != null){          
+        if($request->img != null){
           $book->img = $request['img'];
-        }        
+        }
         $book->save();
         if(array_key_exists("linksForBooks", $request->book)){
             $book->linksForBooks()->sync( $request->book['linksForBooks'] );
@@ -127,7 +125,7 @@ class LiteratureController extends Controller
         $bookLanguageRu->description = $request['descriptionRu'];
         $bookLanguageRu->author = $request['authorRu'];
         $bookLanguageRu->book_id = $book->id;
-        
+
         $bookLanguageEng->save();
         $bookLanguageRu->save();
 
@@ -144,9 +142,9 @@ class LiteratureController extends Controller
     {
         $id = BookLanguage::find($id)->book_id;
         $book = Book::find($id);
-        if($request->img != null){          
+        if($request->img != null){
           $book->img = $request['img'];
-        }        
+        }
         $book->save();
         if(array_key_exists("linksForBooks", $request->book)){
             $book->linksForBooks()->sync( $request->book['linksForBooks'] );
