@@ -47,4 +47,9 @@ class MemberCase extends Model
         return $this->hasOne(MemberCaseLanguage::class)
             ->where('language', 'ru');
     }
+
+    public function casesLanguage($lang)
+    {
+        return $this->hasOne(MemberCaseLanguage::class)->where('language', $lang)->first();
+    }
 }
