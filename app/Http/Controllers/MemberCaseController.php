@@ -33,9 +33,9 @@ class MemberCaseController extends Controller
                 foreach ($tag->memberCases as $obj) {
                     array_push($memberCasesId, $obj->id);
                 }
-            }          
+            }
             $memberCases = MemberCase::with('tags')->whereIn('id', $memberCasesId)->where('status','=','show')
-                                                    ->orderBy('id', 'DESC')->paginate(4);        
+                                                    ->orderBy('id', 'DESC')->paginate(4);
             return view('member-cases.member-cases', compact(['memberCases']));
         }
         $memberCases = MemberCase::with('user')->where('status','=','show')->orderBy('id', 'DESC')->paginate(4);
@@ -49,8 +49,8 @@ class MemberCaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
-    {        
-        
+    {
+
     }
 
     /**
@@ -64,15 +64,15 @@ class MemberCaseController extends Controller
         'headline' => ['required', 'string', 'max:191'],
         'your-story' => ['required'],
         'img' => ['nullable'],
-        'story-tags' => ['required'],        
+        'story-tags' => ['required'],
         ]);
 
         $tags = explode(",",$request['story-tags']);
         $memberCase = new MemberCase;
-        
-        if($request->img != null){          
+
+        if($request->img != null){
           $memberCase->img = $request['img'];
-        }        
+        }
         $memberCase->title = $request['headline'];
         $memberCase->content = $request['your-story'];
         $memberCase->description = substr($memberCase->content,0,186);
@@ -101,15 +101,15 @@ class MemberCaseController extends Controller
         'headline' => ['required', 'string', 'max:191'],
         'your-story' => ['required'],
         'img' => ['nullable'],
-        'story-tags' => ['required'],        
+        'story-tags' => ['required'],
         ]);
 
         $tags = explode(",",$request['story-tags']);
         $memberCase = new MemberCase;
-        
-        if($request->img != null){          
+
+        if($request->img != null){
           $memberCase->img = $request['img'];
-        }        
+        }
         $memberCase->title = $request['headline'];
         $memberCase->content = $request['your-story'];
         $memberCase->description = substr($memberCase->content,0,186);
@@ -144,7 +144,7 @@ class MemberCaseController extends Controller
      * @param  \App\Models\MemberCase  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($locale, $title)
+    public function show($locale, $alias)
     {
         $memberCases = Cache::remember(
             'memberCases',
@@ -153,15 +153,7 @@ class MemberCaseController extends Controller
                 return MemberCase::with('tags')->get();
             }
         );
-        foreach($memberCases as $memberCase){
-            $_title = mb_strtolower($memberCase->title);
-            $_title = preg_replace('#[[:punct:]]#', '', $_title);
-            $_title = str_replace(" ","-",$_title);               
-            if($_title == $title){
-                $id = $memberCase->id;
-                break;
-            }
-        }
+        $id = MemberCase::where('alias', $alias)->first()->id;
 
         $tags = MemberCase::with('tags')->find($id)->tags()->get()->pluck('id');
         $tagLanguages = TagLanguage::whereIn('tag_id',$tags)->get();

@@ -32,13 +32,7 @@
                 <div class="post_container">
                   @foreach($memberCases as $memberCase)
                   <div class="post">
-                    @php
-                      //форматируем
-                      $memberCaseTitle = mb_strtolower($memberCase->title);
-                      $memberCaseTitle = preg_replace('#[[:punct:]]#', '', $memberCaseTitle);
-                      $memberCaseTitle = str_replace(' ', '-', $memberCaseTitle);
-                    @endphp
-                    <a class="post__image" href="{{ url(app()->getLocale().'/member_cases') }}/{{ $memberCaseTitle }}">
+                    <a class="post__image" href="{{ url(app()->getLocale().'/member_cases') }}/{{ $memberCase->alias }}">
                       @if( $memberCase->img==null )
                         <img class="post__img" src="/img/med-history.png" alt="">
                       @else
@@ -46,7 +40,7 @@
                       @endif
                     </a>
                     <a class="post__date" href="javascript:void(0)">{{$memberCase->updated_at->format('d.m.Y')}}</a>
-                    <a class="post__title" href="{{ url(app()->getLocale().'/member_cases') }}/{{ $memberCaseTitle }}">{!!$memberCase->title!!}
+                    <a class="post__title" href="{{ url(app()->getLocale().'/member_cases') }}/{{ $memberCase->alias }}">{!!$memberCase->title!!}
                       <span class="post__arrow"></span>
                     </a>
                     <p class="post__description">{!!$memberCase->description!!}</p>
