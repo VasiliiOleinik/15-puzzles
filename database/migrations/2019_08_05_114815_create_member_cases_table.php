@@ -14,7 +14,8 @@ class CreateMemberCasesTable extends Migration {
 	{
 		Schema::create('member_cases', function(Blueprint $table)
 		{
-			$table->increments('id');
+            $table->increments('id');
+            $table->string('alias')->nullable();
 			$table->bigInteger('user_id')->unsigned()->default(1)->index('FK_cases_users');
 			$table->string('title', 191)->nullable();
 			$table->string('description', 191)->nullable();

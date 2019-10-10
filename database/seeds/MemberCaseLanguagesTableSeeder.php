@@ -18,11 +18,13 @@ class MemberCaseLanguagesTableSeeder extends Seeder
         $table = $tableShort.'_languages';
         DB::update("ALTER TABLE ".$table." AUTO_INCREMENT = 0;");
 
-        Config::set('app.faker_locale', 'en_US');        
+        Config::set('app.faker_locale', 'en_US');
         for($i = 0; $i < MemberCase::count(); $i++){
-            factory(MemberCaseLanguage::class, 1 )->create();
+            $memberCase = factory(MemberCaseLanguage::class, 1 )->create();
+            $memberCase[0]->memberCase->alias = URLify::filter($memberCase[0]->title.' '.$memberCase[0]->memberCase->created_at.' '.$memberCase[0]->memberCase->id, 190);
+            $memberCase[0]->memberCase->save();
         }
-        Config::set('app.faker_locale', 'ru_RU');        
+        Config::set('app.faker_locale', 'ru_RU');
         for($i = 0; $i < MemberCase::count(); $i++){
             factory(MemberCaseLanguage::class, 1 )->create();
         }
@@ -30,6 +32,6 @@ class MemberCaseLanguagesTableSeeder extends Seeder
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - MemberCase::count()] );
-        }    
+        }
     }
 }
