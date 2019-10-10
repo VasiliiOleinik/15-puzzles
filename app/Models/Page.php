@@ -8,13 +8,15 @@ class Page extends Model
 {
     protected $guarded = [];
 
-    public function langRu()
+    public function pageRu()
     {
-        return $this->where('lang', 'ru');
+        return $this->hasOne(PageLang::class, 'pages_id')
+            ->where('lang', 'ru');
     }
 
-    public function langEng()
+    public function pageEng()
     {
-
+        return $this->hasOne(PageLang::class, 'pages_id')
+            ->where('lang', 'eng');
     }
 }

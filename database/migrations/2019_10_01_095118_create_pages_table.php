@@ -18,7 +18,7 @@ class CreatePagesTable extends Migration
             $table->string('name_page')->nullable();
             $table->string('img')->nullable();
             $table->string('video')->nullable();
-            $table->string('is_active')->default(1);
+            $table->integer('is_active')->default(1);
             $table->timestamps();
         });
     }

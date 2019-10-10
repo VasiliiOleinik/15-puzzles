@@ -44,7 +44,7 @@ class Page extends Section
     public function onDisplay()
     {
         $display = AdminDisplay::datatablesAsync()->setColumns([
-            AdminColumn::text('title', 'Название (Title)'),
+            AdminColumn::text('pageRu.title', 'Название (Title)'),
             AdminColumn::text('name_page', 'Алиас (название страницы)'),
             \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет')->setLabel('Показывать'),
 
@@ -69,32 +69,34 @@ class Page extends Section
         $columns1 = AdminFormElement::columns([
             [
                 AdminFormElement::text('name_page', 'Имя страницы')->required(),
-
-            ],
-            [
-                AdminFormElement::image('img', 'Изображение на странице')
-            ],
-            [
+                AdminFormElement::image('img', 'Изображение на странице'),
                 AdminFormElement::text('video', 'Ссылка на видео из ютуба')
-            ]
+            ],
         ]);
         $columns2 = AdminFormElement::columns([
             [
-                AdminFormElement::text('h1', 'Заголовок h1')
+                AdminFormElement::text('pageEng.h1', 'Заголовок h1 ENG'),
+                AdminFormElement::text('pageEng.title', 'Title ENG'),
+                AdminFormElement::textarea('pageEng.short_description', 'Описание короткое ENG'),
+                AdminFormElement::textarea('pageEng.puzzles_description', 'Текст под баннером ENG'),
+                AdminFormElement::textarea('pageEng.description', 'Главный текст на странице ENG'),
             ],
             [
-                AdminFormElement::text('title', 'Title'),
-                AdminFormElement::textarea('short_description', 'Описание короткое')
+                AdminFormElement::text('pageRu.h1', 'Заголовок h1 RU'),
+                AdminFormElement::text('pageRu.title', 'Title RU'),
+                AdminFormElement::textarea('pageRu.short_description', 'Описание короткое RU'),
+                AdminFormElement::textarea('pageRu.puzzles_description', 'Текст под баннером RU'),
+                AdminFormElement::textarea('pageRu.description', 'Главный текст на странице RU'),
+
+                \AdminFormElement::hidden('pageRu.lang')->setDefaultValue('ru'),
+                \AdminFormElement::hidden('pageEng.lang')->setDefaultValue('eng')
             ],
-            [
-                AdminFormElement::textarea('puzzles_description', 'Текст под баннером')
-            ]
 
         ]);
         $form = AdminForm::panel()->addBody([
             $columns1,
             $columns2,
-            AdminFormElement::wysiwyg('description', 'Главный текст на странице', 'tinymce'),
+
         ]);
         return $form;
     }

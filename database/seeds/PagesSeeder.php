@@ -214,19 +214,19 @@ class PagesSeeder extends Seeder
             ]
         ];
         foreach ($pages as $page) {
-            $id = \App\Models\Page::create([
+            $pageItem = \App\Models\Page::create([
                 'name_page'=>$page[0]['name_page'],
-                'img'=>$page[0]['img'],
+                'img'=>isset($page[0]['img']) ? $page[0]['img']: null,
                 'video'=>null,
             ]);
             foreach ($page as $item){
                 \App\PagesLang::create([
-                    'pages_id'=>$id,
+                    'pages_id'=>$pageItem->id,
                     'lang'=>$item['lang'],
-                    'title'=>$item['title'],
-                    'short_description'=>$item['short_description'],
-                    'puzzles_description'=>$item['puzzles_description'],
-                    'h1'=>$item['h1'],
+                    'title'=>isset($item['title']) ? $item['title'] : null ,
+                    'short_description'=>isset($item['short_description']) ? $item['short_description'] : null,
+                    'puzzles_description'=>isset($item['puzzles_description']) ? $item['puzzles_description'] : null,
+                    'h1'=>isset($item['h1']) ? $item['h1'] : null ,
                 ]);
             }
         }

@@ -47,8 +47,9 @@ class Article extends Section
             ->setColumns(
                 [
                     AdminColumn::text('articlesRu.title')->setLabel('Название статьи'),
-                    AdminColumn::text('articlesRu.description')->setLabel('Краткое описание статьи'),
-                    AdminColumn::text('articlesRu.content')->setLabel('Полное описание статьи'),
+                    AdminColumn::text('alias')->setLabel('Алиас(название страницы)'),
+                    \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет', 'Показывать'),
+                    AdminColumn::text('created_at')->setLabel('Дата создания'),
                 ]
 
             );
