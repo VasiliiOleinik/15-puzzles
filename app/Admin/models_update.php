@@ -21,17 +21,19 @@ AdminSection::registerModel(CategoryForNews::class, function (ModelConfiguration
         $data->save();
     });
 });
+
 AdminSection::registerModel(CategoryForBooks::class, function (ModelConfiguration $model) {
     $model->created(function ($model, CategoryForBooks $data) {
-        $data = $data->bookRu;
-        $data->alias = URLify::filter($data->name.' '.$data->created_at.' '.$data->id, 190);
+        $dataItem = $data->bookRu;
+        $data->alias = URLify::filter($dataItem->name.' '.$dataItem->created_at.' '.$dataItem->id, 190);
         $data->save();
     });
 });
+
 AdminSection::registerModel(MemberCase::class, function (ModelConfiguration $model) {
     $model->created(function ($model, MemberCase $data) {
-        $data = $data->casesRu;
-        $data->alias = URLify::filter($data->name.' '.$data->created_at.' '.$data->id, 190);
+        $dataItem = $data->casesRu;
+        $data->alias = URLify::filter($dataItem->name.' '.$dataItem->created_at.' '.$dataItem->id, 190);
         $data->save();
     });
 });

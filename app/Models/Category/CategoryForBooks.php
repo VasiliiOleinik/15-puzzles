@@ -22,7 +22,7 @@ class CategoryForBooks extends Model
     /**
      * @var array
      */
-    protected $fillable = ['alias'];
+    protected $guarded = [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
