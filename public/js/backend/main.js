@@ -397,8 +397,5 @@ function startObserver(selector, callback, params) {
     // Pass in the target node, as well as the observer options
     observer.observe(target, config);
 }
-
-
-
 /* ------------------ */
 /* ------------------ */
