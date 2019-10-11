@@ -17,11 +17,11 @@ class LanguageScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        if ( $this->notInDashboard() ){            
+//        if ( $this->notInDashboard() ){
             $builder->where($model->getTable() . '.language', app()->getLocale());
-        }
+        //}
     }
-    
+
     /**
      * @return bool
      */
