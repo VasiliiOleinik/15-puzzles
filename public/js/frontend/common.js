@@ -248,17 +248,19 @@ function preloader() {
       });
     });
     // Подсветка выбранного таба на странице home page
-    $(".tab_head_check input").on("click", function() {
-      $(this)
-        .parent()
-        .parent()
-        .toggleClass("checked-tab");
-    });
+    // $(".tab_head_check input").on("click", function() {
+    //   console.log('Parent: ' + $(this).parent().parent().html());
+    //   $('.tab-item__head').toggleClass('toggle');
+    //   $(this)
+    //     .parent()
+    //     .parent()
+    //     .toggleClass("checked-tab");
+    // });
 
   // Делаю фактор активным
-  $(".puzzle-15__item").on("click", function() {
-    $(this).toggleClass("active");
-  });
+  // $(".puzzle-15__item").on("click", function() {
+  //   $(this).toggleClass("active");
+  // });
 
   $(".evidence").hover(
     function() {

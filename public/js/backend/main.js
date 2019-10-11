@@ -298,6 +298,7 @@ function syncCheckedElements(clicked, objId, objType) {
         console.log(objName);
         addTagToTagsList(objId, objName, objType);
         checkPuzzle(objId, objType);
+        checkCheckbox(objId, objType);
     }
     if (clicked == "puzzle") {
         var elem = $(".puzzle-15__item-outer[obj-id=" + objId + "]");
@@ -322,11 +323,7 @@ function checkCheckbox(objId, objType) {
 function checkPuzzle(objId, objType) {
     if (objType == 'factor') {
         var elem = $('.puzzle-15__item-outer[obj-id=' + objId + ']').children();
-        if (elem.hasClass('active')) {
-            elem.addClass('active');
-        } else {
-            elem.removeClass('active');
-        }
+       elem.toggleClass('active');
     }
 }
 
