@@ -506,9 +506,7 @@ $(function(){
     });
 
 });
-
 // Отправка FAQ-формы
-
     $('#faq-form').on('submit', function (e) {
         e.preventDefault();
 
