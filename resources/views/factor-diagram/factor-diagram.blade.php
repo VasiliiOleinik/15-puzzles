@@ -115,10 +115,13 @@
               <div class="diagram__info-table">
                 <div class="table_row head">
                   <div class="table-column first">
-                    <p class="table-text">Norm</p>
+                    <p class="table-text">Name</p>
                   </div>
                   <div class="table-column second">
                     <p class="table-text">Groups of related factors</p>
+                  </div>
+                  <div class="table-column first">
+                    <p class="table-text">Norm</p>
                   </div>
                   <div class="table-column third">
                     <p class="table-text">Patalogy</p>
@@ -132,43 +135,42 @@
                 </div>
                 <div class="table_row">
                   <div class="table-column first">
-                    <p class="table-text">Aerobic glycolisis </p>
+                      <p class="table-text cell-factor-name"></p>
                   </div>
-                  <div class="table-column second">
-                    <div class="table_image"><img src="/img/diagram_ico/Cancerogenesis_table.svg" alt="Cancerogenesis_table" title="Cancerogenesis"></div>
-                    <div class="table_image"><img src="/img/diagram_ico/Cell_nutrition_table.svg" alt="Cell_nutrition_table" title="Cell_nutrition"></div>
-                  </div>
-                  <div class="table-column third">
-                    <p class="table-text">Anaerobic glycolisis (5-50%  of oxygen intake of normal cells</p>
-                  </div>
-                  <div class="table-column fourth">
-                    <div class="table-method">O2 supply</div>
-                    <div class="table-method">HMDetox</div>
-                    <p class="table-text">Betaine (red beetroot), Chlorophyl, etc ormobaric oxygenation (or other oxigenation techniques) Lineseed oil, cysteine, ethionine (Budwig Diet)Normobaric oxygenation  (or other oxigenation techniques) Lineseed oil, cysteine, methionine (Budwig Diet)</p>
-                  </div>
-                  <div class="table-column fifth">
-                    <p class="table-text">Test description Lorem Ipsum dolor sit amet #1</p><a class="table-link" href="javascript:void(0);">Test link</a>
-                  </div>
-                </div>
-                <div class="table_row">
                   <div class="table-column first">
-                    <p class="table-text">Helmints, protozoa, viruses candida removed, inflamma tion reduced</p>
-                  </div>
+                      <p class="table-text cell-group-name"></p>
+                    </div>
                   <div class="table-column second">
-                    <div class="table_image"><img src="/img/diagram_ico/Cancerogenesis_table.svg" alt="Cancerogenesis_table" title="Cancerogenesis"></div>
+                    <p class="table-text cell-group-norm">Aerobic glycolisis </p>
                   </div>
                   <div class="table-column third">
-                    <p class="table-text">Helmints, Protozoa, Viruses are causing hypoxy and inflammation in target organ</p>
+                    <p class="table-text cell-group-patalogy">Anaerobic glycolisis (5-50%  of oxygen intake of normal cells</p>
                   </div>
                   <div class="table-column fourth">
-                    <p class="table-text">Rife's technology, Zapper, Bioresonance Bioadditives, MMS drops Dieting</p>
-                  </div>
-                  <div class="table-column fifth">
-                    <p class="table-text">Test description Lorem Ipsum dolor sit amet #1</p><a class="table-link" href="javascript:void(0);">Test link</a>
-                  </div>
+                      <a data-fancybox data-src="#hidden-content" href="javascript:;" class="table-method">
+                        Trigger the fancybox
+                      </a>
+                </div>
+                <div class="table-column fourth">
+                  <a data-fancybox data-src="#hidden-content" href="javascript:;" class="table-method">
+                    Testing
+                  </a>
                 </div>
               </div>
             </div>
           </div>
+          <div style="display: none;" id="hidden-content">
+            <div class="factor-diagrams_modal">
+              <div class="factor-diagrams_modal-content">
+                  <h2>Header</h2>
+                  <p>Malignant cell recognition by immune system cells (NK-cell, T-cytotoxic cells, macrophages and neutrophils) Malignant cell recognition by
+                    immune system cells (NK-cell, T-cytotoxic cells, macrophages and neutrophils) Malignant cell recognition by immune system cells
+                    (NK-cell, T-cytotoxic cells, macrophages and neutrophils) Malignant cell recognition by immune system cells (NK-cell,
+                    T-cytotoxic cells, macrophages and neutrophils) Malignant cell recognition by immune system cells (NK-cell, T-cytotoxic cells,
+                    macrophages and neutrophils)
+                  </p>
+                </div>
+              </div>
+            </div>
         </main>
 @endsection
