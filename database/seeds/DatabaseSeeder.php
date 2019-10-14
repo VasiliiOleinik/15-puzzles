@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(FilesTableSeeder::class);
 
-		$this->call(RolesTableSeeder::class);
-		$this->call(PermissionsTableSeeder::class);
-		$this->call(RolePermissionsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(RolePermissionsTableSeeder::class);
 
-		$this->call(UsersTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
 
         $this->call(TypesTableSeeder::class);
         $this->call(EvidencesTableSeeder::class);
@@ -60,5 +60,6 @@ class DatabaseSeeder extends Seeder
         $this->call(LaboratoriesTableSeeder::class);
         $this->call(OptionSeeder::class);
         $this->call(PagesSeeder::class);
+        $this->call(TypeLanguageSeeder::class);
     }
 }

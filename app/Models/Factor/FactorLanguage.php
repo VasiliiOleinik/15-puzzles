@@ -2,6 +2,7 @@
 
 namespace App\Models\Factor;
 
+use App\Models\TypesLanguage;
 use Illuminate\Database\Eloquent\Model;
 use App\Scopes\LanguageScope;
 use Illuminate\Support\Facades\Config;
@@ -26,7 +27,7 @@ class FactorLanguage extends Model
 
     public function scopeSetLocale($query)
     {
-        return $query->where('language', app()->getLocale() );
+        return $query->where('language', app()->getLocale());
     }
 
     /**
@@ -36,8 +37,8 @@ class FactorLanguage extends Model
      */
     protected static function boot()
     {
-        parent::boot();        
-        static::addGlobalScope(new LanguageScope());        
+        parent::boot();
+        static::addGlobalScope(new LanguageScope());
     }
 
     /**
@@ -82,7 +83,7 @@ class FactorLanguage extends Model
      */
     public function remedies()
     {
-    return $this->belongsToMany('App\Models\Remedy', 'factor_remedies', 'factor_id');
+        return $this->belongsToMany('App\Models\Remedy', 'factor_remedies', 'factor_id');
     }
 
     /**
@@ -90,6 +91,11 @@ class FactorLanguage extends Model
      */
     public function markers()
     {
-    return $this->belongsToMany('App\Models\Marker\Marker', 'factor_markers', 'factor_id');
+        return $this->belongsToMany('App\Models\Marker\Marker', 'factor_markers', 'factor_id');
+    }
+
+    public function typeLanguage()
+    {
+        return $this->hasOne(TypesLanguage::class, 'type_id', 'type_id');
     }
 }

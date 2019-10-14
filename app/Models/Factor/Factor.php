@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Factor extends Model
 {
-	public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * @var array
@@ -88,7 +88,7 @@ class Factor extends Model
      */
     public function remedies()
     {
-    return $this->belongsToMany('App\Models\Remedy', 'factor_remedies');
+        return $this->belongsToMany('App\Models\Remedy', 'factor_remedies');
     }
 
     /**
@@ -96,7 +96,7 @@ class Factor extends Model
      */
     public function markers()
     {
-    return $this->belongsToMany('App\Models\Marker\Marker', 'factor_markers');
+        return $this->belongsToMany('App\Models\Marker\Marker', 'factor_markers');
     }
 
     /**
@@ -120,6 +120,7 @@ class Factor extends Model
         return $this->hasOne(FactorLanguage::class)
             ->where('language', 'ru');
     }
+
     public function factorEng()
     {
         return $this->hasOne(FactorLanguage::class)

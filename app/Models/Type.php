@@ -17,13 +17,18 @@ class Type extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'abnormal_condition', 'normal_condition'];
+    protected $guarded = [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function factors()
     {
-        return $this->hasMany('App\Models\Factor\Factor');
+        return $this->hasMany('App\Models\Factor\Factor', 'type_id', 'id');
+    }
+
+    public function typesLang()
+    {
+        return $this->hasOne(TypesLanguage::class);
     }
 }

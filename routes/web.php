@@ -41,7 +41,6 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
 
 
     Route::post('literature-modal', 'LiteratureController@literatureModal')->name('literature-modal');
-
     Route::get('search', 'SearchController@index')->name('search');
 
     Route::get('used_tags', 'NewsController@usedTags')->name('used_tags');
@@ -66,6 +65,8 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
     Route::resource('subscriber', 'SubscriberController');
+
+    Route::post('print_row/', 'FactorDiagramController@printRowAboutFactor');
 });
 
 // Email Verification Routes...
@@ -92,3 +93,7 @@ Route::delete('medical_history/{id}', 'MedicalHistoryController@destroy');
 Route::post('medical_history/create_post', 'MedicalHistoryController@createPost')->name('medical_history_create_post');//без этого не работает сохранение новой мед истории с картинкой
 Route::post('medical_history/update_post/{id}', 'MedicalHistoryController@updatePost')->name('medical_history_update_post');//без этого не работает сохранение мед истории с картинкой
 /* ---- */
+
+/*FACTOR DIAGRAM*/
+
+/*FACTOR DIAGRAM END*/

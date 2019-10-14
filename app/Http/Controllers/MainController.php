@@ -97,10 +97,10 @@ class MainController extends Controller
     }
 
     /**
-     * Initialize google maps
-     *
-     * @params integer[], string
-     * @return obj
+     * @param $laboratories
+     * @param null $countryName
+     * @param null $method
+     * @return mixed
      */
     public function initMap($laboratories, $countryName = null, $method = null)
     {
@@ -115,13 +115,11 @@ class MainController extends Controller
             $laboratories = $this->checkIfMethodInLaboratory($laboratories, $method);
         }
         foreach ($laboratories as $laboratory) {
-
             $marker['position'] = $laboratory->lat . ', ' . $laboratory->lng;//'47.09514, 37.54131';
             $marker['infowindow_content'] = $laboratory->name;
             GMaps::add_marker($marker);
         }
         return GMaps::create_map();
-
     }
 
     /**

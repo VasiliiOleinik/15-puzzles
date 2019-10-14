@@ -17,12 +17,12 @@ class FactorsTableSeeder extends Seeder
         DB::table('factors')->delete();
         DB::update("ALTER TABLE factors AUTO_INCREMENT = 0;");
 
-        factory(Factor::class, 22)->create();        
-        
+        factory(Factor::class, 22)->create();
+
         $factor_names = [
             ['img' => '/img/svg/oxygen_metabolism.svg', 'type_id' => 1],
             ['img' => '/img/svg/dna.svg', 'type_id' => 1],
-			['img' => '/img/svg/etiology.svg', 'type_id' => 1],
+            ['img' => '/img/svg/etiology.svg', 'type_id' => 1],
             ['img' => '/img/svg/hand.svg', 'type_id' => 3],
             ['img' => '/img/svg/detox.svg', 'type_id' => 2],
             ['img' => '/img/svg/voltage.svg', 'type_id' => 2],
@@ -64,12 +64,11 @@ class FactorsTableSeeder extends Seeder
             ['img' => '/img/svg/angiogenesis.svg', 'type_id' => 4],
             ['img' => '/img/svg/angiogenesis.svg', 'type_id' => 4],
             ['img' => '/img/svg/angiogenesis.svg', 'type_id' => 4],
-            ['img' => '/img/svg/angiogenesis.svg', 'type_id' => 4],     
+            ['img' => '/img/svg/angiogenesis.svg', 'type_id' => 4],
             */
         ];
 
-        for($i = 0; $i < count($factor_names); $i++){
-
+        for ($i = 0; $i < count($factor_names); $i++) {
             DB::table('factors')
                 ->where('id', $i + 1)
                 ->update($factor_names[$i]);

@@ -616,9 +616,9 @@ function diagramDraw() {
     //arr = item.data('position').parseJSON();
 
 
-    drawLineHorisont(start, finish);
-    drawLineVertical(changeStart, changeFinish);
-    drawCirle(changeFinish, radius);
+ //   drawLineHorisont(start, finish);
+    //drawLineVertical(changeStart, changeFinish);
+    //drawCirle(changeFinish, radius);
 
     console.log(startData);
 
@@ -705,6 +705,25 @@ function hoverItem() {
     });
 }
 
+$(function () {
+    $('.group_item').on('click', function () {
+        var id = $(this).attr('id'),
+        locale = $('#locale').data('locale');
+        $.ajax({
+            url: 'print_row/',
+            data:{
+                id: id
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            success: function (response) {
+                $('.diagram__info-table').append(response);
+            },
+        });
+    });
+});
 
 
 

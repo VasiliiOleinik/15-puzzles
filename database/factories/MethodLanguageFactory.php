@@ -13,22 +13,22 @@ $factory->define(MethodLanguage::class, function (Faker $faker) {
     $jsonString = file_get_contents(base_path('public/json/russian.json'));
     $russian = json_decode($jsonString, true);
 
-    if( Config::get('app.faker_locale') == "en_US" ){
+    if (Config::get('app.faker_locale') == "en_US") {
         $locale = "eng";
-        $name = str_replace( ".", "", $faker->word )." method";
+        $name = str_replace(".", "", $faker->word) . " method";
         $content = $faker->realText(600);
         $tableId = MethodLanguage::count() + 1;
-    }else{
+    } else {
         $locale = "ru";
-        $name = str_replace( ".", "", $faker->word )." метод";
-        $content = $russian["text"][ rand( 0, 21) ];
+        $name = str_replace(".", "", $faker->word) . " метод";
+        $content = $russian["text"][rand(0, 21)];
         $tableId = 1;
     }
 
     return [
         'language' => $locale,
-        $tableShort.'_id' => $tableId,
+        $tableShort . '_id' => $tableId,
         'name' => $name,
-        'content' => $content,        
+        'content' => $content,
     ];
 });

@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Protocol extends Model
 {
-	public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * @var array
@@ -62,12 +62,12 @@ class Protocol extends Model
         return $this->hasMany('App\Models\Protocol\ProtocolRemedy');
     }
 
-	/**
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function factors()
     {
-    return $this->belongsToMany('App\Models\Factor\Factor', 'factor_protocols');
+        return $this->belongsToMany('App\Models\Factor\Factor', 'factor_protocols');
     }
 
     /**
@@ -75,7 +75,7 @@ class Protocol extends Model
      */
     public function diseases()
     {
-    return $this->belongsToMany('App\Models\Disease\Disease', 'disease_protocols');
+        return $this->belongsToMany('App\Models\Disease\Disease', 'disease_protocols');
     }
 
     /**
@@ -83,7 +83,7 @@ class Protocol extends Model
      */
     public function remedies()
     {
-    return $this->belongsToMany('App\Models\Remedy', 'protocol_remedies');
+        return $this->belongsToMany('App\Models\Remedy', 'protocol_remedies');
     }
 
     /**
@@ -91,7 +91,7 @@ class Protocol extends Model
      */
     public function markers()
     {
-    return $this->belongsToMany('App\Models\Marker\Marker', 'protocol_markers');
+        return $this->belongsToMany('App\Models\Marker\Marker', 'protocol_markers');
     }
 
     /**
@@ -99,7 +99,7 @@ class Protocol extends Model
      */
     public function protocolLanguages()
     {
-        return $this->hasMany('App\Models\Protocol\protocolLanguage');
+        return $this->hasMany('App\Models\Protocol\ProtocolLanguage');
     }
 
     public function protocolRu()
@@ -107,6 +107,7 @@ class Protocol extends Model
         return $this->hasOne(ProtocolLanguage::class)
             ->where('language', 'ru');
     }
+
     public function protocolEng()
     {
         return $this->hasOne(ProtocolLanguage::class)

@@ -15,17 +15,17 @@ class FactorLanguagesTableSeeder extends Seeder
     {
         $table = 'factor_languages';
         DB::table($table)->delete();
-        DB::update("ALTER TABLE ".$table." AUTO_INCREMENT = 0;");
+        DB::update("ALTER TABLE " . $table . " AUTO_INCREMENT = 0;");
 
-        for($i = 0; $i < Factor::count()*2; $i++){
-            factory(FactorLanguage::class, 1 )->create();
+        for ($i = 0; $i < Factor::count() * 2; $i++) {
+            factory(FactorLanguage::class, 1)->create();
         }
 
         $data = [
             //eng
             ['name' => 'Oxygen metabolism change', 'factor_id' => 1, 'type_id' => 1],
             ['name' => 'DNA damage', 'factor_id' => 2, 'type_id' => 1],
-			['name' => 'Etiology', 'factor_id' => 3, 'type_id' => 1],
+            ['name' => 'Etiology', 'factor_id' => 3, 'type_id' => 1],
             ['name' => 'Looking up', 'factor_id' => 4, 'type_id' => 3],
             ['name' => 'Detox', 'factor_id' => 5, 'type_id' => 2],
             ['name' => 'Cell voltage', 'factor_id' => 6, 'type_id' => 2],
@@ -70,7 +70,7 @@ class FactorLanguagesTableSeeder extends Seeder
             ['name' => 'Развитие кровеносных сосудов', 'factor_id' => 22, 'type_id' => 4],
         ];
 
-        for($i = 0; $i < count($data); $i++){
+        for ($i = 0; $i < count($data); $i++) {
 
             DB::table($table)
                 ->where('id', $i + 1)
