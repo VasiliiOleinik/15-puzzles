@@ -24,7 +24,7 @@ class MemberCase extends Model
     /**
      * @var array
      */
-    protected $fillable = ['alias', 'user_id', 'title', 'description', 'content', 'img', 'status', 'anonym', 'created_at', 'updated_at'];
+    protected $fillable = ['alias', 'user_id', 'img', 'status', 'anonym', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
