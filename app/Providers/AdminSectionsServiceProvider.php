@@ -25,7 +25,6 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Remedy::class => 'App\Http\Admin\Remedy',
         \App\Models\Marker\Marker::class => 'App\Http\Admin\Marker',
         \App\Models\Method::class => 'App\Http\Admin\Method',
-        \App\Models\TagLanguage::class => 'App\Http\Admin\TagLanguages',
         \App\Models\Subscriber::class => 'App\Http\Admin\Subscribers',
         \App\Models\Page::class => 'App\Http\Admin\Page',
         \App\Models\Options::class => 'App\Http\Admin\Options',

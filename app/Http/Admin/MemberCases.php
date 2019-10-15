@@ -64,10 +64,14 @@ class MemberCases extends Section implements Initializable
             //->with(['roles'])
             ->setColumns(
                 AdminColumnEditable::text('casesRu.title')->setLabel('заголовок'),
-                AdminColumn::text('status')->setLabel('статус'),
-                AdminColumnEditable::checkbox('anonym')->setLabel('анонимная публикация'),
-                AdminColumn::text('created_at')->setLabel('создано'),
+                AdminColumn::text('status')->setLabel('статус')
+                    ->setOrderable(false),
+                AdminColumnEditable::checkbox('anonym')->setLabel('анонимная публикация')
+                    ->setOrderable(false),
+                AdminColumn::text('created_at')->setLabel('создано')
+                    ->setOrderable(false),
                 AdminColumn::relatedLink('user.nickname', 'пользователь')
+                    ->setOrderable(false)
             )
             ->setApply(function($query) {
                 $query->orderBy('created_at', 'desc');

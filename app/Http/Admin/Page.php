@@ -49,15 +49,17 @@ class Page extends Section
     {
         $display = AdminDisplay::datatablesAsync()->setColumns([
             AdminColumn::text('pageRu.title', 'Название (Title)'),
-            AdminColumn::text('name_page', 'Алиас (название страницы)'),
-            \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет')->setLabel('Показывать'),
+            AdminColumn::text('name_page', 'Алиас (название страницы)')->setOrderable(false),
+            \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет')
+                ->setLabel('Показывать')
+                ->setOrderable(false),
 
         ]);
         $display->setColumnFilters([
             AdminColumnFilter::text()->setPlaceholder('Введите название')->setOperator(FilterInterface::CONTAINS),
         ]);
         $display->setApply(function ($query) {
-            //$query->where('pages_langs.lang', "ru");
+            $query->where('pages_langs.lang', "ru");
         });
         $display->getColumnFilters()->setPlacement('table.header');
         return $display;

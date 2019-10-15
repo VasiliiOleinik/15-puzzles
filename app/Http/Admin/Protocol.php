@@ -42,11 +42,12 @@ class Protocol extends Section
             \AdminColumn::text('protocolRu.subtitle')->setLabel('Заголовок описания протокола'),
             \AdminColumn::text('protocolRu.content')->setLabel('Описание протокола'),
             \AdminColumn::text('protocolRu.evidence.name')->setLabel('степень доказанности'),
-            \AdminColumn::url('url')->setLabel('Ссылка на протокол'),
+            \AdminColumn::text('url')->setLabel('Ссылка на протокол')
+                ->setOrderable(false),
         ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
-            $table->timestamps();
+
         });
         return $display;
     }

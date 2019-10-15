@@ -66,7 +66,7 @@ class LinkForBooks extends Section implements Initializable
         return $display
             ->setColumns(
                 AdminColumn::text('title')->setLabel('Название магазина'),
-                AdminColumn::url('url')->setLabel('Ссылка на магазин')
+                AdminColumn::text('url')->setLabel('Ссылка на магазин')
             )
             ->setApply(function($query) {
                 $query->orderBy('id', 'desc');

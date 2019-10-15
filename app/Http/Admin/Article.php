@@ -47,9 +47,9 @@ class Article extends Section
             ->setColumns(
                 [
                     AdminColumn::text('articlesRu.title')->setLabel('Название статьи'),
-                    AdminColumn::text('alias')->setLabel('Алиас(название страницы)'),
-                    \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет', 'Показывать'),
-                    AdminColumn::text('created_at')->setLabel('Дата создания'),
+                    AdminColumn::text('alias')->setLabel('Алиас(название страницы)') ->setOrderable(false),
+                    \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет', 'Показывать')->setOrderable(false),
+                    AdminColumn::text('created_at')->setLabel('Дата создания')->setOrderable(false),
                 ]
             );
         $display->setApply(function ($query) {
@@ -88,7 +88,9 @@ class Article extends Section
                 AdminFormElement::multiselect('tags', 'Тэги этой статьи')
                     ->setModelForOptions(\App\Models\Tag::class)
                     ->setDisplay('tagRu.name'),
-                AdminFormElement::multiselect('categoriesForNews', 'Категории этой статьи')->setModelForOptions(\App\Models\Category\CategoryForNews::class)->setDisplay('categoryRu.name'),
+                AdminFormElement::multiselect('categoriesForNews', 'Категории этой статьи')
+                    ->setModelForOptions(\App\Models\Category\CategoryForNews::class)
+                    ->setDisplay('categoryRu.name'),
             ]
         ]);
 

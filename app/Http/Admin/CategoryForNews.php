@@ -36,8 +36,10 @@ class CategoryForNews extends Section
     {
         $display = \AdminDisplay::datatablesAsync()->setColumns([
             \AdminColumn::text('categoryRu.name', 'Название (Title)'),
-            \AdminColumn::text('alias', 'Алиас (название страницы)'),
-            \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет')->setLabel('Показывать'),
+            \AdminColumn::text('alias', 'Алиас (название страницы)')
+                ->setOrderable(false),
+            \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет')->setLabel('Показывать')
+                ->setOrderable(false),
 
         ]);
 

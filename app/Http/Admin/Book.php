@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin;
 
+use AdminFormElement;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
@@ -40,7 +41,11 @@ class Book extends Section
         $display = \AdminDisplay::datatablesAsync()->with('bookRu')->setColumns([
             \AdminColumn::text('bookRu.title', 'Название'),
             \AdminColumn::text('bookRu.author', 'Автор'),
-            \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет')->setLabel('Показывать'),
+            \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет')
+                ->setLabel('Показывать')
+                ->setOrderable(false),
+            \AdminColumn::lists('linksForBooks.title', 'Название магазина')
+                ->setOrderable(false),
         ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
@@ -74,7 +79,10 @@ class Book extends Section
         ]);
         $columns2 = \AdminFormElement::columns([
             [
-                \AdminFormElement::image('img')->setLabel('Изображение')
+                \AdminFormElement::image('img')->setLabel('Изображение'),
+                \AdminFormElement::multiselect('linksForBooks', 'Магазин где продается эта книга')
+                    ->setModelForOptions(\App\Models\Book\LinkForBooks::class)
+                    ->setDisplay('title'),
             ]
         ]);
 
