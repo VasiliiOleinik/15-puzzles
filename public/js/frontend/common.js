@@ -504,63 +504,62 @@ $(function () {
         }
     });
 
-});
-// Отправка FAQ-формы
-$('#faq-form').on('submit', function (e) {
-    e.preventDefault();
 
-    $('#faq-name-error').text('');
-    $('#faq-phone-error').text('');
-    $('#faq-email-error').text('');
-    $('#faq-letter-error').text('');
+    // Отправка FAQ-формы
+    $('#faq-form').on('submit', function (e) {
+        e.preventDefault();
 
-    $.ajax({
-        type: 'POST',
-        url: 'faq',
-        data: $('#faq-form').serialize(),
-        success: function (data) {
-            $('#faq-name').val('');
-            $('#faq-phone').val('');
-            $('#faq-email').val('');
-            $('#faq-letter').val('');
-            alert('Ваше сообщение отправлено');
-        },
-        error: function (data) {
-            $('#faq-form-errors').show();
-            for (const key in data.responseJSON.errors) {
-                if (data.responseJSON.errors.hasOwnProperty(key)) {
-                    const element = data.responseJSON.errors[key];
-                    $('#faq-' + key + '-error').text(element[0]);
+        $('#faq-name-error').text('');
+        $('#faq-phone-error').text('');
+        $('#faq-email-error').text('');
+        $('#faq-letter-error').text('');
+
+        $.ajax({
+            type: 'POST',
+            url: 'faq',
+            data: $('#faq-form').serialize(),
+            success: function (data) {
+                $('#faq-name').val('');
+                $('#faq-phone').val('');
+                $('#faq-email').val('');
+                $('#faq-letter').val('');
+                alert('Ваше сообщение отправлено');
+            },
+            error: function (data) {
+                $('#faq-form-errors').show();
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $('#faq-' + key + '-error').text(element[0]);
+                    }
                 }
             }
-        }
+        });
     });
-});
 
+    // Отправка формы подписки на страницах Member's cases, News, Literature
+    $('#literature-subscribe-form').on('submit', function (e) {
+        e.preventDefault();
 
-// Отправка формы подписки на страницах Member's cases, News, Literature
+        $('#literature-subscribe-form label').text('');
 
-$('#literature-subscribe-form').on('submit', function (e) {
-    e.preventDefault();
-
-    $('#literature-subscribe-form label').text('');
-
-    $.ajax({
-        type: 'GET',
-        url: 'subscriber/create',
-        data: $('#literature-subscribe-form').serialize(),
-        success: function (data) {
-            $('#literature-subscribe-form input').val('');
-            alert(data.status_subscriber);
-        },
-        error: function (data) {
-            for (const key in data.responseJSON.errors) {
-                if (data.responseJSON.errors.hasOwnProperty(key)) {
-                    const element = data.responseJSON.errors[key];
-                    $('#literature-' + key + '-error').text(element[0]);
+        $.ajax({
+            type: 'GET',
+            url: 'subscriber/create',
+            data: $('#literature-subscribe-form').serialize(),
+            success: function (data) {
+                $('#literature-subscribe-form input').val('');
+                alert(data.status_subscriber);
+            },
+            error: function (data) {
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $('#literature-' + key + '-error').text(element[0]);
+                    }
                 }
             }
-        }
+        });
     });
 
     $('#member-cases-subscribe-form').on('submit', function (e) {
@@ -586,6 +585,7 @@ $('#literature-subscribe-form').on('submit', function (e) {
             }
         });
     });
+
     $('#news-subscribe-form').on('submit', function (e) {
         e.preventDefault();
 

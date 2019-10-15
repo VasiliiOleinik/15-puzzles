@@ -24,10 +24,10 @@
                 <p class="news-right__title">@lang('literature.title_subscribe')</p>
                 <form id="literature-subscribe-form" class="subscribe__input" method="get">
                   @auth
-                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')" value="{{ Auth::user()->email }}">
+                  <input class="subscribe-field" type="text" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')" value="{{ Auth::user()->email }}">
                   @endauth
                   @guest
-                  <input class="subscribe-field" type="email" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')">
+                  <input class="subscribe-field" type="text" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')">
                   @endguest
                   <button class="subscribe-btn" type="submit"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                   <label id="literature-email-subscribe-error" class="invalid" for="email-subscribe"></label>
