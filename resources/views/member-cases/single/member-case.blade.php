@@ -33,12 +33,12 @@
                       <img class="case-container__img" src="/img/med-history.png" alt="">
                     @else
                       <img class="case-container__img" src="{{$memberCase->img}}" alt="">
-                    @endif  
+                    @endif
                     <p class="case-container__title">
-                      {!!$memberCase->description!!}
+                      {!!$memberCase->casesLanguage(app()->getLocale())->description!!}
                     </p>
                     <span class="case-container__text">
-                      {!!$memberCase->content!!}
+                      {!!$memberCase->casesLanguage(app()->getLocale())->content!!}
                     </span>
                   </div>
                 </div>
@@ -66,7 +66,7 @@
                   <div class="case-add-comm"><span class="case-info-title">Add comment</span>
                     <form method="get" action="{{ route('comment.create') }}">
                       <input type="hidden" name="member-case-id" value="{{ $memberCase->id }}">
-                      <div class="label">                        
+                      <div class="label">
                         <textarea name="add-comm" type="text"></textarea>
                         <label for="add-comm">Add comment</label>
                       </div>
@@ -86,7 +86,7 @@
                         <p class="comm-item-text">{{$comment->content}}</p>
                       </div>
                     </div>
-                    @endforeach                   
+                    @endforeach
                   </div>
                 </div>
               </div>

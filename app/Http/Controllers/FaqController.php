@@ -41,7 +41,10 @@ class FaqController extends Controller
     {
         //dd(Lang::get('faq.phone_required'));
         Mail::to( config('puzzles.options.admin_email') )->send(new LetterToEditor($request));
-        return redirect()->back();
+        //return redirect()->back();
+        return response()->json([
+            'letter_status' => trans('faq.letter_has_sent')
+        ]);
     }
 
     /**

@@ -9,6 +9,7 @@ use App\Models\Protocol\Protocol;
 use App\Models\Remedy;
 use App\Models\Marker\Marker;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Log;
 
 class TagsTableSeeder extends Seeder
 {
@@ -64,8 +65,9 @@ class TagsTableSeeder extends Seeder
                 ]);
             }
         } */
-        $models_eng = FactorLanguage::where('language','=','eng')->get();
-        $models_rus = FactorLanguage::where('language','=','ru')->get();
+        $models_eng = FactorLanguage::withoutGlobalScopes()->where('language', 'eng')->get();
+        $models_rus = FactorLanguage::withoutGlobalScopes()->where('language', 'ru')->get();
+
         foreach($models_eng as $model)
         {
             $tag = Tag::create();

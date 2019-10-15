@@ -26,7 +26,7 @@ class FaqFormRequest extends FormRequest
         return [
             'name' => 'required|string',
             'phone' => 'required|string|min:10|max:13',
-            'email' => 'required|string|email|max:191',
+            'email' => 'required|string|email:filter|max:191',
             'letter' => 'required|string|min:10',
         ];
     }
