@@ -18,7 +18,8 @@
                     margin-bottom: 30px;
              "
         >
-       <img class="news-image" src="{{$memberCase->memberCase->img}}" alt=""
+       {{-- <img class="news-image" src="{{$memberCase->memberCase->img}}" alt="" --}}
+       <img class="news-image" src="{{ url($memberCase->memberCase->img) }}" alt=""
              style="
                     display: flex;
                     max-width: 134px;
@@ -41,7 +42,8 @@
                     margin-bottom: 30px;
              "
         >
-        <img class="news-image" src="{{config('app.url')}}{{$memberCase->memberCase->img}}" alt=""
+        {{-- <img class="news-image" src="{{config('app.url')}}{{$memberCase->memberCase->img}}" alt="" --}}
+        <img class="news-image" src="{{ url($memberCase->memberCase->img) }}" alt=""
              style="
                     display: flex;
                     max-width: 134px;
@@ -53,12 +55,12 @@
              "
         >
     @endif
-    @php
+    {{-- @php
         //форматируем
         $memberCaseTitle = mb_strtolower($memberCase->title);
         $memberCaseTitle = preg_replace('#[[:punct:]]#', '', $memberCaseTitle);
         $memberCaseTitle = str_replace(' ', '-', $memberCaseTitle);
-    @endphp
+    @endphp --}}
       <div class="news-detail"
             style="
                     display: -webkit-box;
@@ -72,7 +74,7 @@
                     flex-direction: column;
             "
             >
-        <a class="news-name" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCaseTitle}}"
+        <a class="news-name" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCase->memberCase->alias}}"
             style="
                     color: #364458;
                     font-size: 18px;
@@ -81,7 +83,7 @@
             "
             >{{$memberCase->title}}
         </a>
-        <a class="news-date" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCaseTitle}}"
+        <a class="news-date" href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCase->memberCase->alias}}"
             style="
                     color: #599ba7;
                     font-size: 14px;
@@ -90,7 +92,7 @@
             "
             >{{$memberCase->memberCase->updated_at->format('d.m.Y')}}
         </a>
-        <a class="news-text " href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCaseTitle}}"
+        <a class="news-text " href="{{ url(app()->getLocale().'/member_cases') }}/{{$memberCase->memberCase->alias}}"
             style="
                     color: #59596a;
                     font-size: 15px;

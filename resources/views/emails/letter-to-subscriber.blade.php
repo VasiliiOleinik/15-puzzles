@@ -18,7 +18,8 @@
                     margin-bottom: 30px;
              "
         >
-       <img class="news-image" src="{{$article->article->img}}" alt=""
+       {{-- <img class="news-image" src="{{$article->article->img}}" alt="" --}}
+       <img class="news-image" src="{{ url($article->article->img) }}" alt=""
              style="
                     display: flex;
                     max-width: 134px;
@@ -41,7 +42,8 @@
                     margin-bottom: 30px;
              "
         >
-        <img class="news-image" src="{{config('app.url')}}{{$article->article->img}}" alt=""
+        {{-- <img class="news-image" src="{{config('app.url')}}{{$article->article->img}}" alt="" --}}
+        <img class="news-image" src="{{ url($article->article->img) }}" alt=""
              style="
                     display: flex;
                     max-width: 134px;
@@ -66,7 +68,7 @@
                     flex-direction: column;
             "
             >
-        <a class="news-name" href="{{ url(app()->getLocale().'/news') }}/{{$article->article_id}}"
+        <a class="news-name" href="{{ url(app()->getLocale().'/news') }}/{{$article->article->alias}}"
             style="
                     color: #364458;
                     font-size: 18px;
@@ -75,7 +77,7 @@
             "
             >{{$article->title}}
         </a>
-        <a class="news-date" href="{{ url(app()->getLocale().'/news') }}/{{$article->article_id}}"
+        <a class="news-date" href="{{ url(app()->getLocale().'/news') }}/{{$article->article->alias}}"
             style="
                     color: #599ba7;
                     font-size: 14px;
@@ -84,7 +86,7 @@
             "
             >{{$article->article->updated_at->format('d.m.Y')}}
         </a>
-        <a class="news-text " href="{{ url(app()->getLocale().'/news') }}/{{$article->article_id}}"
+        <a class="news-text " href="{{ url(app()->getLocale().'/news') }}/{{$article->article->alias}}"
             style="
                     color: #59596a;
                     font-size: 15px;
