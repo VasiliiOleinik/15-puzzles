@@ -99,7 +99,7 @@ class Protocol extends Model
      */
     public function protocolLanguages()
     {
-        return $this->hasMany('App\Models\Protocol\ProtocolLanguage');
+        return $this->hasOne('App\Models\Protocol\ProtocolLanguage');
     }
 
     public function protocolRu()

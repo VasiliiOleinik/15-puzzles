@@ -23,27 +23,27 @@
         @endphp
         @if(ctype_digit(substr(url()->current(), strrpos(url()->current(), '/') + 1)) && (int) substr(url()->current(), strrpos(url()->current(), '/') + 1) > 0 || strpos(url()->current(), csrf_token()) !== false || \Request::route()->getName() == "news_category" || \Request::route()->getName() == "literature_category" || \Request::route()->getName() == "news_show" || \Request::route()->getName() == "news.show"|| \Request::route()->getName() == "member_cases.show")
           <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale, substr(url()->current(), strrpos(url()->current(), '/') + 1)]) }}">{{ strtoupper($locale) }}</a>
-        @else        
+        @else
           <a class="header__lang" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), [$locale]) }}">{{ strtoupper($locale) }}</a>
         @endif
         @if( $localeCount < count( config('app.available_locales') ) )
-          <span class="header__lang-devider"></span>        
+          <span class="header__lang-devider"></span>
         @endif
       @endforeach
       </div>
-      <div class="header__login">        
+      <div class="header__login">
           @guest
           <button id="login-btn" data-fancybox data-src="#header-login-modal-js"><img src="/img/svg/user.svg" alt="User">
             <span>@lang('header.login')</span>
           </button>
-          @endguest        
-          @auth          
+          @endguest
+          @auth
           <button >
           @if( Auth::user()->img==null )
             <img src="/img/upload_big.png" alt="User">
           @else
             <img src="{{Auth::user()->img}}" alt="User">
-          @endif            
+          @endif
           </button>
           <a class="logout" href="{{ route('logout', app()->getLocale() ) }}"
              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{Auth::user()->nickname}}</a>

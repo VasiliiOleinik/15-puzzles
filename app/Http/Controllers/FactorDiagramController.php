@@ -39,9 +39,13 @@ class FactorDiagramController extends Controller
     public function printRowAboutFactor(Request $request)
     {
         $factor = FactorLanguage::find($request->id);
-        $x = $factor->typeLanguage;
-        $z = $factor->factor->protocols;
-        $g = $factor->factor->markers;
+//        foreach ($factor->factor->protocols as $protocol){
+//            $protocols = $protocol->protocolLanguages;
+//        }
+
+        foreach ($factor->factor->markers as $marker){
+            $markers = $marker->markerLanguage;
+        }
         return view('factor-diagram.print_factor_row', compact('factor'));
     }
 }

@@ -709,6 +709,7 @@ function hoverItem() {
 
 $(function () {
     $('.group_item').on('click', function () {
+        $('#preloader').css('display', 'flex');
         var id = $(this).attr('id'),
         locale = $('#locale').data('locale');
         $.ajax({
@@ -721,8 +722,12 @@ $(function () {
             },
             type: 'POST',
             success: function (response) {
+                $('#preloader').css('display', 'none');
                 $('.diagram__info-table').append(response);
             },
+            error: function(){
+                $('#preloader').css('display', 'none');
+            }
         });
     });
 });
@@ -754,4 +759,19 @@ $(function() {
     }
     $(this).text(text);
   });
+});
+
+// Preloader settings
+$(function(){
+   if($('#preloader').css('display') == 'block') {
+       $('html, body').css({
+           overflow: 'hidden',
+           height: '100%'
+       });
+   } else {
+       $('html, body').css({
+           overflow: 'auto',
+           height: 'auto'
+       });
+   }
 });

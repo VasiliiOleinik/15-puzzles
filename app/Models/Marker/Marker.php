@@ -2,6 +2,7 @@
 
 namespace App\Models\Marker;
 
+use App\Models\MethodLanguage;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -60,7 +61,7 @@ class Marker extends Model
      */
     public function factors()
     {
-    return $this->belongsToMany('App\Models\Factor\Factor', 'factor_markers');
+        return $this->belongsToMany('App\Models\Factor\Factor', 'factor_markers');
     }
 
     /**
@@ -68,7 +69,7 @@ class Marker extends Model
      */
     public function diseases()
     {
-    return $this->belongsToMany('App\Models\Disease\Disease', 'disease_markers');
+        return $this->belongsToMany('App\Models\Disease\Disease', 'disease_markers');
     }
 
     /**
@@ -76,7 +77,7 @@ class Marker extends Model
      */
     public function protocols()
     {
-    return $this->belongsToMany('App\Models\Protocol\Protocol', 'protocol_markers');
+        return $this->belongsToMany('App\Models\Protocol\Protocol', 'protocol_markers');
     }
 
     /**
@@ -84,7 +85,12 @@ class Marker extends Model
      */
     public function methods()
     {
-    return $this->belongsToMany('App\Models\Method', 'marker_methods');
+        return $this->belongsToMany('App\Models\Method', 'marker_methods');
+    }
+
+    public function markerLanguage()
+    {
+        return $this->hasOne(MarkerLanguage::class);
     }
 
     public function markerRu()
@@ -92,6 +98,7 @@ class Marker extends Model
         return $this->hasOne(MarkerLanguage::class)
             ->where('language', 'ru');
     }
+
     public function markerEng()
     {
         return $this->hasOne(MarkerLanguage::class)
