@@ -52,32 +52,70 @@
                 </div>
             </div>
             <div class="diagram__info">
-                <div class="diagram__info-title">Processes in which factors are involved</div>
-                <div class="diagram__info-selected">
-                    <div class="diagram__info-selected-title">Selected factors:</div>
-                    <div class="diagram__info-selected-list"></div>
+              <div class="diagram__info-title">Processes in which factors are involved</div>
+              <div class="diagram__info-selected">
+                <div class="diagram__info-selected-title">Selected factors:</div>
+                <div class="diagram__info-selected-list"></div>
+              </div>
+              <div class="diagram__info-table">
+                <div class="table_row head">
+                  <div class="table-column first">
+                    <p class="table-text">Name</p>
+                  </div>
+                  <div class="table-column second">
+                    <p class="table-text">Groups of related factors</p>
+                  </div>
+                  <div class="table-column first">
+                    <p class="table-text">Norm</p>
+                  </div>
+                  <div class="table-column third">
+                    <p class="table-text">Patalogy</p>
+                  </div>
+                  <div class="table-column fourth">
+                    <p class="table-text">Pathology correction methods</p>
+                  </div>
+                  <div class="table-column fifth">
+                    <p class="table-text">Testing</p>
+                  </div>
                 </div>
-                <div class="diagram__info-table">
-                    <div class="table_row head">
-                        <div class="table-column first">
-                            <p class="table-text">Norm</p>
-                        </div>
-                        <div class="table-column second">
-                            <p class="table-text">Groups of related factors</p>
-                        </div>
-                        <div class="table-column third">
-                            <p class="table-text">Patalogy</p>
-                        </div>
-                        <div class="table-column fourth">
-                            <p class="table-text">Pathology correction methods</p>
-                        </div>
-                        <div class="table-column fifth">
-                            <p class="table-text">Testing</p>
-                        </div>
+                <div class="table_row">
+                  <div class="table-column first">
+                      <p class="table-text cell-factor-name"></p>
+                  </div>
+                  <div class="table-column first">
+                      <p class="table-text cell-group-name"></p>
                     </div>
+                  <div class="table-column second">
+                    <p class="table-text cell-group-norm">Aerobic glycolisis </p>
+                  </div>
+                  <div class="table-column third">
+                    <p class="table-text cell-group-patalogy">Anaerobic glycolisis (5-50%  of oxygen intake of normal cells</p>
+                  </div>
+                  <div class="table-column fourth">
+                      <a data-fancybox data-src="#hidden-content" href="javascript:;" class="table-method">
+                        Trigger the fancybox
+                      </a>
                 </div>
+                <div class="table-column fourth">
+                  <a data-fancybox data-src="#hidden-content" href="javascript:;" class="table-method">
+                    Testing
+                  </a>
+                </div>
+              </div>
             </div>
-        </div>
-        <span id="locale" data-locale="{{app()->getLocale()}}"></span>
-    </main>
+          </div>
+          <div style="display: none;" id="hidden-content">
+            <div class="factor-diagrams_modal">
+              <div class="factor-diagrams_modal-content">
+                  <h2>Header</h2>
+                  <p>Malignant cell recognition by immune system cells (NK-cell, T-cytotoxic cells, macrophages and neutrophils) Malignant cell recognition by
+                    immune system cells (NK-cell, T-cytotoxic cells, macrophages and neutrophils) Malignant cell recognition by immune system cells
+                    (NK-cell, T-cytotoxic cells, macrophages and neutrophils) Malignant cell recognition by immune system cells (NK-cell,
+                    T-cytotoxic cells, macrophages and neutrophils) Malignant cell recognition by immune system cells (NK-cell, T-cytotoxic cells,
+                    macrophages and neutrophils)
+                  </p>
+                </div>
+              </div>
+            </div>
+        </main>
 @endsection

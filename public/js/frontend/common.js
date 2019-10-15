@@ -615,10 +615,9 @@ function diagramDraw() {
     var item = $('.show');
     //arr = item.data('position').parseJSON();
 
-
- //   drawLineHorisont(start, finish);
-    //drawLineVertical(changeStart, changeFinish);
-    //drawCirle(changeFinish, radius);
+  drawLineHorisont(start, finish);
+  drawLineVertical(changeStart, changeFinish);
+  drawCirle(changeFinish, radius);
 
     console.log(startData);
 
@@ -695,14 +694,17 @@ function clearCanvas() {
 hoverItem();
 
 function hoverItem() {
-    var item = $('.js-item');
-    item.hover(function () {
-        $(this).addClass('show');
-        diagramDraw();
-    }, function () {
-        $(this).removeClass('show');
-        clearCanvas();
-    });
+  var item = $(".js-item");
+  item.hover(
+    function() {
+      $(this).addClass("show");
+      diagramDraw();
+    },
+    function() {
+      $(this).removeClass("show");
+      clearCanvas();
+    }
+  );
 }
 
 $(function () {
@@ -725,5 +727,31 @@ $(function () {
     });
 });
 
+// Content fill for Diagram table
 
+$(function() {
+  $(".group_item").each(function(index, item) {
+    var itemText = "",
+      groupText = "";
+    $(item).on("click", function() {
+      itemText = $(this).text();
+      groupText = $(this)
+        .parent()
+        .siblings(".group_title")
+        .find(".label")
+        .text();
+      $(".cell-factor-name").text(itemText);
+      $(".cell-group-name").text(groupText);
+      console.log(text);
+    });
+  });
 
+  $(".cell-group-patalogy, .cell-group-norm").text(function(i, text) {
+    if (text.length >= 50) {
+      text = text.substring(0, 50);
+      var lastIndex = text.lastIndexOf(" ");
+      text = text.substring(0, lastIndex) + "...";
+    }
+    $(this).text(text);
+  });
+});

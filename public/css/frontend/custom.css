@@ -122,3 +122,27 @@
 }
 
 
+.factor-diagrams_modal {
+	width: 600px;
+    height: auto;
+    max-height: 500px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #e9edf3;
+    background-color: #fff;
+    z-index: 9999;
+}
+.factor-diagrams_modal .factor-diagrams_modal-content {
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	padding: 30px 29px 60px;
+}
+
+body .main .diagram__info-table .table_row .table-column {
+	width: 100%;
+}
