@@ -66,6 +66,7 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
 
     Route::resource('subscriber', 'SubscriberController');
+    Route::get('news/subscriber/create', 'SubscriberController@create')->name('subscriber_create'); // фикс для работы формы подписки на странице с открытой новостью
 });
 
 // Email Verification Routes...
