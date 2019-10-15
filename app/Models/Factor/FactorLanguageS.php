@@ -25,7 +25,7 @@ class FactorLanguageS extends Model
 
     public function scopeSetLocale($query)
     {
-        return $query->where('language', app()->getLocale() );
+        return $query->where('language', app()->getLocale());
     }
 
     /**
@@ -70,7 +70,7 @@ class FactorLanguageS extends Model
      */
     public function remedies()
     {
-    return $this->belongsToMany('App\Models\Remedy', 'factor_remedies', 'factor_id');
+        return $this->belongsToMany('App\Models\Remedy', 'factor_remedies', 'factor_id');
     }
 
     /**
@@ -78,6 +78,6 @@ class FactorLanguageS extends Model
      */
     public function markers()
     {
-    return $this->belongsToMany('App\Models\Marker\Marker', 'factor_markers', 'factor_id');
+        return $this->belongsToMany('App\Models\Marker\Marker', 'factor_markers', 'factor_id');
     }
 }

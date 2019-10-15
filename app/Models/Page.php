@@ -19,4 +19,9 @@ class Page extends Model
         return $this->hasOne(PageLang::class, 'pages_id')
             ->where('lang', 'eng');
     }
+
+    public function scopeSetLocaleRu($query)
+    {
+        return $query->where('lang', 'ru');
+    }
 }

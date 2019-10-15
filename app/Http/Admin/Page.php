@@ -21,6 +21,10 @@ use SleepingOwl\Admin\Section;
  */
 class Page extends Section
 {
+
+
+
+
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
      *
@@ -53,7 +57,7 @@ class Page extends Section
             AdminColumnFilter::text()->setPlaceholder('Введите название')->setOperator(FilterInterface::CONTAINS),
         ]);
         $display->setApply(function ($query) {
-            $query->where('lang', "ru");
+            //$query->where('pages_langs.lang', "ru");
         });
         $display->getColumnFilters()->setPlacement('table.header');
         return $display;
@@ -68,7 +72,7 @@ class Page extends Section
     {
         $columns1 = AdminFormElement::columns([
             [
-                AdminFormElement::text('name_page', 'Имя страницы')->required(),
+                AdminFormElement::text('name_page', 'Алиас (название страницы)')->required(),
                 AdminFormElement::image('img', 'Изображение на странице'),
                 AdminFormElement::text('video', 'Ссылка на видео из ютуба')
             ],

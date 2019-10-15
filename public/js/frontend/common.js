@@ -611,22 +611,11 @@ $('#literature-subscribe-form').on('submit', function (e) {
     });
 });
 
-function diagramDraw() {
+function  diagramDraw() {
     var item = $('.show');
     //arr = item.data('position').parseJSON();
-
-  drawLineHorisont(start, finish);
-  drawLineVertical(changeStart, changeFinish);
-  drawCirle(changeFinish, radius);
-
-    console.log(startData);
-
-}
-
-function drawLineHorisont(start, finish) {
     var canvas = document.getElementById("diagram"),
         ctx = canvas.getContext("2d");
-
     var position = [
         {
             start: [0, 40],
@@ -634,34 +623,32 @@ function drawLineHorisont(start, finish) {
             circle: []
         },
         {
-            start: [450, 40],
-            finish: [450, 340],
-            circle: [450, 340]
+            start: [450,40],
+            finish: [450,340],
+            circle: [450,340]
         },
         {
-            start: [350, 40],
-            finish: [350, 140],
-            circle: [350, 140]
+            start: [350,40],
+            finish: [350,140],
+            circle: [350,140]
         },
         {
-            start: [300, 40],
-            finish: [300, 140],
-            circle: []
+            start: [300,40],
+            finish: [300,140],
+            circle: [300,140]
         },
         {
-            start: [250, 40],
-            finish: [250, 240],
-            circle: [250, 240]
+            start: [250,40],
+            finish: [250,240],
+            circle: [250,240]
         }
     ];
     position.map(function (p) {
-
         if (p.start && p.circle) {
             ctx.moveTo(p.start[0], p.start[1]);
             ctx.lineTo(p.finish[0], p.finish[1]);
             ctx.strokeStyle = 'red';
             ctx.stroke();
-
         }
         if (p.finish && p.circle) {
             ctx.moveTo(p.start[0], p.start[1]);
@@ -670,7 +657,6 @@ function drawLineHorisont(start, finish) {
             ctx.stroke();
         }
         if (p.circle) {
-
             ctx.beginPath();
             ctx.arc(p.circle[0], p.circle[1], 4, 0, 2 * Math.PI, false);
             ctx.fillStyle = 'red';
@@ -679,34 +665,25 @@ function drawLineHorisont(start, finish) {
             ctx.strokeStyle = 'red';
             ctx.stroke();
         }
-
         ctx.stroke();
     });
 }
-
-function clearCanvas() {
+function  clearCanvas() {
     var canvas = document.getElementById("diagram"),
         ctx = canvas.getContext("2d");
-
     canvas.width = canvas.width;
 }
-
 hoverItem();
-
 function hoverItem() {
-  var item = $(".js-item");
-  item.hover(
-    function() {
-      $(this).addClass("show");
-      diagramDraw();
-    },
-    function() {
-      $(this).removeClass("show");
-      clearCanvas();
-    }
-  );
+    var item = $('.js-item');
+    item.hover(function () {
+        $(this).addClass('show');
+        diagramDraw();
+    }, function () {
+        $(this).removeClass('show');
+        clearCanvas();
+    });
 }
-
 $(function () {
     $('.group_item').on('click', function () {
         $('#preloader').css('display', 'flex');

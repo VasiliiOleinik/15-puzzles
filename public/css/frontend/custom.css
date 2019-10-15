@@ -116,6 +116,11 @@
     padding: 0;
 }
 
+.diagram__center-circle-container{
+    height: 725px;
+    background: url(/../img/diagram_ico/diagram.jpg) no-repeat;
+    background-size: cover;
+}
 
 .js-item.show {
     transition: .5s;
