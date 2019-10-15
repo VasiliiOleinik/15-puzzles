@@ -523,7 +523,7 @@ $(function () {
                 $('#faq-phone').val('');
                 $('#faq-email').val('');
                 $('#faq-letter').val('');
-                alert('Ваше сообщение отправлено');
+                alert(data.letter_status);
             },
             error: function (data) {
                 $('#faq-form-errors').show();

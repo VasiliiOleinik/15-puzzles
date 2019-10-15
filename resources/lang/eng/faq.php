@@ -26,4 +26,5 @@ return [
     'email_max' => 'Your e-mail is too long',
     'letter_required' => 'Enter your letter',
     'letter_min' => 'Minimum length of the letter is 10 symbols',
+    'letter_has_sent' => 'Your message has been sent',
 ];
