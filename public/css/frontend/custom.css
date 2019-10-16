@@ -136,6 +136,7 @@
     border: 1px solid #e9edf3;
     background-color: #fff;
     z-index: 9999;
+    overflow: auto;
 }
 .factor-diagrams_modal .factor-diagrams_modal-content {
 	display: -webkit-box;
@@ -172,4 +173,143 @@ body .main .diagram__info-table .table_row .table-column {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 100px;
+}
+
+
+.factor-diagrams_modal .tab-item__content.markers .methods {
+    color: #364458;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 25px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+}
+.factor-diagrams_modal .tab-item__content.markers .method-list {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.factor-diagrams_modal .tab-item__content.markers .method-list .method-item {
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin-bottom: 20px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #e9edf3;
+    background-color: #fff;
+    height: auto;
+}
+.factor-diagrams_modal .tab-item__content.markers .method-list .method-item:last-of-type {
+    margin-bottom: 0;
+}
+.factor-diagrams_modal .tab-item__content.markers .method-list .method-item .method-item__head {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid #e9edf3;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+}
+.factor-diagrams_modal .tab-item__content.markers .method-list .method-item .method-item__head.active-method {
+    background-color: #599ba7;
+    border-bottom: 2px solid #f76577;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+}
+.factor-diagrams_modal .tab-item__content.markers .method-list .method-item__head .checkbox {
+    display: none;
+}
+.factor-diagrams_modal .tab-item__content.markers .method-list .method-item__head .checkbox-custom {
+    width: 48px;
+    height: 48px;
+    border-right: 1px solid #e9edf3;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-right: 20px;
+    position: relative;
+}
+.factor-diagrams_modal .tab-item__content.markers .method-list .method-item__head .checkbox-custom:before {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 24px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 1px solid #599ba7;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+}
+.factor-diagrams_modal .tab-item__content.markers .method-list .method-item__head .checkbox:checked+.checkbox-custom:before {
+    content: "";
+    width: 24px;
+    height: 24px;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    border: 3px solid #cee1e5;
+    -webkit-box-sizing: border-box;
+    -webkit-transition: .3s;
+    -o-transition: .3s;
+    transition: .3s;
+    background-image: url(/img/svg/white-check.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: 100% 100%;
+    background-size: 100%;
+    box-sizing: border-box;
+    display: block;
+}
+.factor-diagrams_modal .tab-item__content.markers .method-list .method-item__content {
+    padding: 20px;
+    color: #59596a;
+    font-size: 16px;
+    font-weight: 400;
+}
+.factor-diagrams_modal .tab-item__content .text {
+    color: #535353;
+    font-size: 15px;
+    font-weight: 400;
+    max-height: 160px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+.factor-diagrams_modal .tab-item__content .text.markers {
+    margin: 0px;
 }

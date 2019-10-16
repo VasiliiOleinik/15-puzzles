@@ -275,7 +275,7 @@ $(function () {
     );
 });
 
-$(".method-item__head").on("change", function () {
+$(document).on("change", ".method-item__head",  function () {
     var thisTitle = $(this)
         .find(".title")
         .text();
@@ -695,7 +695,7 @@ $(function () {
         id.push($(this).attr('id'));
         if ($(this).hasClass('active') !== false) {
             printRows(id);
-        }else{
+        } else {
             deleteRows(id)
         }
     });
@@ -709,13 +709,13 @@ $(function () {
         if ($(this).hasClass('active') !== false) {
             $('#preloader').css('display', 'flex');
             printRows(ids, true)
-        }else{
+        } else {
             deleteRows(ids)
         }
 
     });
 
-    function printRows(id, clear_table=false) {
+    function printRows(id, clear_table = false) {
         $.ajax({
             method: 'GET',
             url: 'print_row/',
@@ -727,10 +727,9 @@ $(function () {
             },
             success: function (response) {
                 $('#preloader').css('display', 'none');
-                if(clear_table){
+                if (clear_table) {
                     $('#table-body').html(response);
-                }
-                else{
+                } else {
                     $('#table-body').append(response);
                 }
 
@@ -740,6 +739,58 @@ $(function () {
             }
         });
     }
+    $(document).on('click', '.show_protocol', function(){
+        $('#preloader').css('display', 'flex');
+            var option = 'protocol',
+                id = $(this).data('id');
+            showFullContent(id, option)
+    });
+    $(document).on('click', '.show_norm_condition', function(){
+        $('#preloader').css('display', 'flex');
+        var option = 'normal_condition',
+            id = $(this).data('id');
+        showFullContent(id, option)
+    });
+    $(document).on('click', '.show_abnorm_condition', function(){
+        $('#preloader').css('display', 'flex');
+        var option = 'abnormal_condition',
+            id = $(this).data('id');
+        showFullContent(id, option)
+    });
+    $(document).on('click', '.show_marker', function(){
+        $('#preloader').css('display', 'flex');
+        var option = 'methods',
+            id = $(this).data('id');
+        showFullContent(id, option)
+    });
+
+
+    function showFullContent(id, option) {
+        $.ajax({
+            method: 'GET',
+            url: 'show_full/',
+            data: {
+                id: id,
+                option: option
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                $('#preloader').css('display', 'none');
+                $('.factor-diagrams_modal-content').html(response);
+                $.fancybox.open({
+                    src: '#hidden-content',
+                    type: 'inline',
+                });
+            },
+            error: function () {
+                $('#hidden-content').html('error...');
+                $('#preloader').css('display', 'none');
+            }
+        });
+    }
+
     function deleteRows(ids) {
         ids.forEach(function (item, i, ids) {
             $('#row' + item).remove();
