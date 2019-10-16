@@ -28,5 +28,7 @@ return [
     'send_comment' => 'Send comment',
     'comments' => 'Comments',
     'comment_required' => 'Enter your comment',
-    'comment_min' => 'Minimum length of the comment is 3 symbols'
+    'comment_min' => 'Minimum length of the comment is 3 symbols',
+    'tags' => 'Tags',
+    'share' => 'Share',
 ];

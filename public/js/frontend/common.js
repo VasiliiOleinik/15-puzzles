@@ -614,7 +614,7 @@ $(function () {
         e.preventDefault();
 
         $('#add-comm-error').text('');
-        $('#add-comment-form button').prop("disabled", true);
+        $('#send-comment').prop("disabled", true);
         $('#send-comment').addClass('disabled-button');
 
         $.ajax({

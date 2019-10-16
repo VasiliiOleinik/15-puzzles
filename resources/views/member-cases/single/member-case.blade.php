@@ -45,14 +45,14 @@
               </div>
               <div class="member-case__right">
                 <div class="sticky-right">
-                  <div class="case-tags"><span class="case-info-title">Tags</span>
+                  <div class="case-tags"><span class="case-info-title">@lang('member_cases.tags')</span>
                     <ul class="case-tags__list">
                       @foreach($tags as $tag)
                       <li class="item" obj-id="{{$tag->tag_id}}"><a>{{$tag->name}}</a></li>
                       @endforeach
                     </ul>
                   </div>
-                  <div class="case-share"><span class="case-info-title">Share</span>
+                  <div class="case-share"><span class="case-info-title">@lang('member_cases.share')</span>
                     <ul class="case-share-links">
                       <li><a href="{{Share::load(url()->current(), $memberCase->title)->linkedin()}}" target="_blank"><i class="fab fa-linkedin-in"></i><span>Linkedin</span></a></li>
                       <li><a href="{{Share::load(url()->current(), $memberCase->title)->facebook()}}" target="_blank"><i class="fab fa-facebook-square"></i><span>Facebook</span></a></li>
