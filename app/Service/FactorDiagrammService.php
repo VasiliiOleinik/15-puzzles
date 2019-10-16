@@ -5,10 +5,11 @@ namespace App\Service;
 
 
 use App\Models\Factor\FactorLanguage;
+use mysql_xdevapi\Collection;
 
 class FactorDiagramService
 {
-    public function twoCollect(FactorLanguage $factors)
+    public function getCollectFactors(array $ids)
     {
 
     }

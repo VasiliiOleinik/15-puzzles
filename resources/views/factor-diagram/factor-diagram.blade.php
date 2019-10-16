@@ -78,6 +78,9 @@
                             <p class="table-text">Testing</p>
                         </div>
                     </div>
+                    <div id="table-body">
+
+                    </div>
                 </div>
             </div>
             <div style="display: none;" id="hidden-content">

@@ -611,7 +611,7 @@ $(function () {
     });
 });
 
-function  diagramDraw() {
+function diagramDraw() {
     var item = $('.show');
     //arr = item.data('position').parseJSON();
     var canvas = document.getElementById("diagram"),
@@ -623,24 +623,24 @@ function  diagramDraw() {
             circle: []
         },
         {
-            start: [450,40],
-            finish: [450,340],
-            circle: [450,340]
+            start: [450, 40],
+            finish: [450, 340],
+            circle: [450, 340]
         },
         {
-            start: [350,40],
-            finish: [350,140],
-            circle: [350,140]
+            start: [350, 40],
+            finish: [350, 140],
+            circle: [350, 140]
         },
         {
-            start: [300,40],
-            finish: [300,140],
-            circle: [300,140]
+            start: [300, 40],
+            finish: [300, 140],
+            circle: [300, 140]
         },
         {
-            start: [250,40],
-            finish: [250,240],
-            circle: [250,240]
+            start: [250, 40],
+            finish: [250, 240],
+            circle: [250, 240]
         }
     ];
     position.map(function (p) {
@@ -668,12 +668,15 @@ function  diagramDraw() {
         ctx.stroke();
     });
 }
-function  clearCanvas() {
+
+function clearCanvas() {
     var canvas = document.getElementById("diagram"),
         ctx = canvas.getContext("2d");
     canvas.width = canvas.width;
 }
+
 hoverItem();
+
 function hoverItem() {
     var item = $('.js-item');
     item.hover(function () {
@@ -684,15 +687,39 @@ function hoverItem() {
         clearCanvas();
     });
 }
+
 $(function () {
     $('.group_item').on('click', function () {
         $('#preloader').css('display', 'flex');
-        var id = $(this).attr('id'),
-        locale = $('#locale').data('locale');
+        var id = [];
+        id.push($(this).attr('id'));
+        if ($(this).hasClass('active') !== false) {
+            printRows(id);
+        }else{
+            deleteRows(id)
+        }
+    });
+    $(".group_title_checkbox").on('click', function (event) {
+        $('#preloader').css('display', 'flex');
+        var elements = $(this).parent().siblings(".group_content").find(".group_item"),
+            ids = [];
+        elements.each(function (i, item) {
+            ids.push($(item).attr('id'));
+        });
+        if ($(this).hasClass('active') !== false) {
+            $('#preloader').css('display', 'flex');
+            printRows(ids, true)
+        }else{
+            deleteRows(ids)
+        }
+
+    });
+
+    function printRows(id, clear_table=false) {
         $.ajax({
             method: 'GET',
             url: 'print_row/',
-            data:{
+            data: {
                 id: id
             },
             headers: {
@@ -700,55 +727,49 @@ $(function () {
             },
             success: function (response) {
                 $('#preloader').css('display', 'none');
-                $('.diagram__info-table').append(response);
+                if(clear_table){
+                    $('#table-body').html(response);
+                }
+                else{
+                    $('#table-body').append(response);
+                }
+
             },
-            error: function(){
+            error: function () {
                 $('#preloader').css('display', 'none');
             }
         });
-    });
+    }
+    function deleteRows(ids) {
+        ids.forEach(function (item, i, ids) {
+            $('#row' + item).remove();
+        });
+        $('#preloader').css('display', 'none');
+    }
 });
 
-// Content fill for Diagram table
-
-$(function() {
-  $(".group_item").each(function(index, item) {
-    var itemText = "",
-      groupText = "";
-    $(item).on("click", function() {
-      itemText = $(this).text();
-      groupText = $(this)
-        .parent()
-        .siblings(".group_title")
-        .find(".label")
-        .text();
-      $(".cell-factor-name").text(itemText);
-      $(".cell-group-name").text(groupText);
-      console.log(text);
+$(function () {
+    $(".cell-group-patalogy, .cell-group-norm").text(function (i, text) {
+        if (text.length >= 50) {
+            text = text.substring(0, 50);
+            var lastIndex = text.lastIndexOf(" ");
+            text = text.substring(0, lastIndex) + "...";
+        }
+        $(this).text(text);
     });
-  });
-
-  $(".cell-group-patalogy, .cell-group-norm").text(function(i, text) {
-    if (text.length >= 50) {
-      text = text.substring(0, 50);
-      var lastIndex = text.lastIndexOf(" ");
-      text = text.substring(0, lastIndex) + "...";
-    }
-    $(this).text(text);
-  });
 });
 
 // Preloader settings
-$(function(){
-   if($('#preloader').css('display') == 'block') {
-       $('html, body').css({
-           overflow: 'hidden',
-           height: '100%'
-       });
-   } else {
-       $('html, body').css({
-           overflow: 'auto',
-           height: 'auto'
-       });
-   }
+$(function () {
+    if ($('#preloader').css('display') == 'block') {
+        $('html, body').css({
+            overflow: 'hidden',
+            height: '100%'
+        });
+    } else {
+        $('html, body').css({
+            overflow: 'auto',
+            height: 'auto'
+        });
+    }
 });
