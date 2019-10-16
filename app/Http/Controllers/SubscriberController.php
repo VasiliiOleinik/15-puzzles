@@ -34,7 +34,7 @@ class SubscriberController extends Controller
             $subscriber->save();
 
             Mail::to( $subscriber->email )
-                ->send( new LetterToSubscriber($newsLatest) );
+                ->send( new LetterToSubscriber($newsLatest, $subscriber->language) );
 
             $mailSender = new MailSenderController();
             $mailSender->updateContact($subscriber->email);

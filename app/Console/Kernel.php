@@ -32,7 +32,8 @@ class Kernel extends ConsoleKernel
             $mailSender->deleteEmails();
             $mailSender->sendNewsNotification();
             $mailSender->sendMemberCasesNotification();
-        })->everyMinute()/* weekly() */;
+        })->weekly();
+        //})->everyMinute();
     }
 
     /**
