@@ -541,6 +541,8 @@ $(function () {
         e.preventDefault();
 
         $('#literature-subscribe-form label').text('');
+        $('#literature-subscribe-form button').prop("disabled", true);
+        $('#literature-subscribe-form button').addClass('disabled-button');
 
         $.ajax({
             type: 'GET',
@@ -548,6 +550,8 @@ $(function () {
             data: $('#literature-subscribe-form').serialize(),
             success: function (data) {
                 $('#literature-subscribe-form input').val('');
+                $('#literature-subscribe-form button').prop("disabled", false);
+                $('#literature-subscribe-form button').removeClass('disabled-button');
                 alert(data.status_subscriber);
             },
             error: function (data) {
@@ -557,6 +561,8 @@ $(function () {
                         $('#literature-' + key + '-error').text(element[0]);
                     }
                 }
+                $('#literature-subscribe-form button').prop("disabled", false);
+                $('#literature-subscribe-form button').removeClass('disabled-button');
             }
         });
     });
@@ -565,6 +571,8 @@ $(function () {
         e.preventDefault();
 
         $('#member-cases-subscribe-form label').text('');
+        $('#member-cases-subscribe-form button').prop("disabled", true);
+        $('#member-cases-subscribe-form button').addClass('disabled-button');
 
         $.ajax({
             type: 'GET',
@@ -572,6 +580,8 @@ $(function () {
             data: $('#member-cases-subscribe-form').serialize(),
             success: function (data) {
                 $('#member-cases-subscribe-form input').val('');
+                $('#member-cases-subscribe-form button').prop("disabled", false);
+                $('#member-cases-subscribe-form button').removeClass('disabled-button');
                 alert(data.status_subscriber);
             },
             error: function (data) {
@@ -581,6 +591,8 @@ $(function () {
                         $('#member-cases-' + key + '-error').text(element[0]);
                     }
                 }
+                $('#member-cases-subscribe-form button').prop("disabled", false);
+                $('#member-cases-subscribe-form button').removeClass('disabled-button');
             }
         });
     });
@@ -589,6 +601,8 @@ $(function () {
         e.preventDefault();
 
         $('#news-subscribe-form label').text('');
+        $('#news-subscribe-form button').prop("disabled", true);
+        $('#news-subscribe-form button').addClass('disabled-button');
 
         $.ajax({
             type: 'GET',
@@ -596,6 +610,8 @@ $(function () {
             data: $('#news-subscribe-form').serialize(),
             success: function (data) {
                 $('#news-subscribe-form input').val('');
+                $('#news-subscribe-form button').prop("disabled", false);
+                $('#news-subscribe-form button').removeClass('disabled-button');
                 alert(data.status_subscriber);
             },
             error: function (data) {
@@ -605,6 +621,8 @@ $(function () {
                         $('#news-' + key + '-error').text(element[0]);
                     }
                 }
+                $('#news-subscribe-form button').prop("disabled", false);
+                $('#news-subscribe-form button').removeClass('disabled-button');
             }
         });
     });
