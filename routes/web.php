@@ -66,7 +66,8 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
 
     Route::resource('subscriber', 'SubscriberController');
 
-    Route::post('print_row/', 'FactorDiagramController@printRowAboutFactor');
+    Route::get('print_row/', 'FactorDiagramController@printRowAboutFactor');
+
     Route::get('news/subscriber/create', 'SubscriberController@create')->name('subscriber_create'); // фикс для работы формы подписки на странице с открытой новостью
 });
 

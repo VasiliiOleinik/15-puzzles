@@ -690,6 +690,7 @@ $(function () {
         var id = $(this).attr('id'),
         locale = $('#locale').data('locale');
         $.ajax({
+            method: 'GET',
             url: 'print_row/',
             data:{
                 id: id
@@ -697,7 +698,6 @@ $(function () {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
-            type: 'POST',
             success: function (response) {
                 $('#preloader').css('display', 'none');
                 $('.diagram__info-table').append(response);
