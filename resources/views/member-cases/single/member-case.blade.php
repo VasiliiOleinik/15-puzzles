@@ -63,18 +63,19 @@
                     </ul>
                   </div>
                   @auth
-                  <div class="case-add-comm"><span class="case-info-title">Add comment</span>
-                    <form method="get" action="{{ route('comment.create') }}">
+                  <div class="case-add-comm"><span class="case-info-title">@lang('member_cases.add_comment')</span>
+                    <form id="add-comment-form" method="get">
                       <input type="hidden" name="member-case-id" value="{{ $memberCase->id }}">
                       <div class="label">
-                        <textarea name="add-comm" type="text"></textarea>
-                        <label for="add-comm">Add comment</label>
+                        <textarea id="add-comment-text" name="add-comm" type="text"></textarea>
+                        <label for="add-comm">@lang('member_cases.add_comment')</label>
                       </div>
-                      <button class="send-comment">Send comment</button>
+                      <label id="add-comm-error" class="invalid" for="add-comm"></label>
+                      <button id="send-comment" class="send-comment" type="submit">@lang('member_cases.send_comment')</button>
                     </form>
                   </div>
                   @endauth
-                  <div class="case-comm-list"><span class="case-info-title">Comments</span>
+                  <div class="case-comm-list"><span class="case-info-title">@lang("member_cases.comments")</span>
                     @foreach($comments as $comment)
                     <div class="case-comm-item">
                       <div class="comm-item-header"><img src="{{$comment->user->img}}">

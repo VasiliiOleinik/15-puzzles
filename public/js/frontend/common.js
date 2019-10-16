@@ -526,7 +526,6 @@ $(function () {
                 alert(data.letter_status);
             },
             error: function (data) {
-                $('#faq-form-errors').show();
                 for (const key in data.responseJSON.errors) {
                     if (data.responseJSON.errors.hasOwnProperty(key)) {
                         const element = data.responseJSON.errors[key];
@@ -606,6 +605,48 @@ $(function () {
                         $('#news-' + key + '-error').text(element[0]);
                     }
                 }
+            }
+        });
+    });
+
+    // Отправка комментария
+    $('#add-comment-form').on('submit', function (e) {
+        e.preventDefault();
+
+        $('#add-comm-error').text('');
+        $('#add-comment-form button').prop("disabled", true);
+        $('#send-comment').addClass('disabled-button');
+
+        $.ajax({
+            type: 'GET',
+            url: 'comment/create',
+            data: $('#add-comment-form').serialize(),
+            success: function (data) {
+                $('#add-comment-text').val('');
+                $('#add-comment-form button').prop("disabled", false);
+                $('#send-comment').removeClass('disabled-button');
+                $('div.case-comm-list').append(`
+                    <div class="case-comm-item">
+                        <div class="comm-item-header"><img src="` + data.img + `">
+                        <div class="item-header-info">
+                            <p class="comm-author">` + data.nickname + `</p><span class="comm-date">` + data.updated_at + `</span>
+                        </div>
+                        </div>
+                        <div class="comm-item-content">
+                        <p class="comm-item-text">` + data.content + `</p>
+                        </div>
+                    </div>
+                `);
+            },
+            error: function (data) {
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $('#' + key + '-error').text(element[0]);
+                    }
+                }
+                $('#add-comment-form button').prop("disabled", false);
+                $('#send-comment').removeClass('disabled-button');
             }
         });
     });
