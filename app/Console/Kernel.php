@@ -33,6 +33,7 @@ class Kernel extends ConsoleKernel
             $mailSender->sendNewsNotification();
             $mailSender->sendMemberCasesNotification();
         })->weekly();
+        //})->everyMinute();
     }
 
     /**

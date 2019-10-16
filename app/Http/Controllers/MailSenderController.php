@@ -40,14 +40,14 @@ class MailSenderController extends Controller
             if (!$emails->isEmpty())
             {
                 $latest = Article::whereBetween('created_at', [$previousDate, $currentDate])->pluck('id');
-                $news = ArticleLanguage::where('language', $language)->
+                $news = ArticleLanguage::withoutGlobalScopes()->where('language', $language)->
                         whereIn('article_id', $latest)->
                         orderBy('article_id', 'desc')->
                         get();
 
                 if (!$news->isEmpty())
                 {
-                    $body = view('emails.letter-to-subscriber', ['news' => $news])->render();
+                    $body = view('emails.letter-to-subscriber', ['news' => $news, 'language' => $language])->render();
 
                     $result = $this->unisender->createEmailMessage([
                         'sender_name' => trans('subscriber.from_who', [], $language),
@@ -79,14 +79,14 @@ class MailSenderController extends Controller
             if (!$emails->isEmpty())
             {
                 $latest = MemberCase::whereBetween('created_at', [$previousDate, $currentDate])->where('status', 'show')->pluck('id');
-                $memberCases = MemberCaseLanguage::where('language', $language)->
+                $memberCases = MemberCaseLanguage::withoutGlobalScopes()->where('language', $language)->
                                 whereIn('member_case_id', $latest)->
                                 orderBy('member_case_id', 'desc')->
                                 get();
 
                 if (!$memberCases->isEmpty())
                 {
-                    $body = view('emails.member_cases-to-subscriber', ['memberCases' => $memberCases])->render();
+                    $body = view('emails.member_cases-to-subscriber', ['memberCases' => $memberCases, 'language' => $language])->render();
 
                     $result = $this->unisender->createEmailMessage([
                         'sender_name' => trans('subscriber.from_who', [], $language),
