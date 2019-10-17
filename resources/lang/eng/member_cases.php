@@ -24,4 +24,11 @@ return [
     'don_not_publish' => 'Do not publish my data. Publish case anonymously.',
     'button_submit' => 'Submit for moderation',
     'anonimous' => 'User wished to remain anonymous',
+    'add_comment' => 'Add comment',
+    'send_comment' => 'Send comment',
+    'comments' => 'Comments',
+    'comment_required' => 'Enter your comment',
+    'comment_min' => 'Minimum length of the comment is 3 symbols',
+    'tags' => 'Tags',
+    'share' => 'Share',
 ];

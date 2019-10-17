@@ -71,6 +71,8 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::get('show_relation/', 'FactorDiagramController@showRelation');
 
     Route::get('news/subscriber/create', 'SubscriberController@create')->name('subscriber_create'); // фикс для работы формы подписки на странице с открытой новостью
+
+    Route::get('member_cases/comment/create', 'CommentController@create')->name('comment_create');
 });
 
 // Email Verification Routes...
@@ -84,7 +86,8 @@ Route::post('model_partial', 'MainController@modelPartial')->name('model_partial
 Route::post('map_refresh', 'MainController@mapRefresh')->name('map_refresh');
 /* ---- */
 
-Route::resource('comment', 'CommentController');
+//Route::resource('comment', 'CommentController');
+
 
 Route::resource('user', 'UserController');
 

@@ -526,7 +526,6 @@ $(function () {
                 alert(data.letter_status);
             },
             error: function (data) {
-                $('#faq-form-errors').show();
                 for (const key in data.responseJSON.errors) {
                     if (data.responseJSON.errors.hasOwnProperty(key)) {
                         const element = data.responseJSON.errors[key];
@@ -542,6 +541,8 @@ $(function () {
         e.preventDefault();
 
         $('#literature-subscribe-form label').text('');
+        $('#literature-subscribe-form button').prop("disabled", true);
+        $('#literature-subscribe-form button').addClass('disabled-button');
 
         $.ajax({
             type: 'GET',
@@ -549,6 +550,8 @@ $(function () {
             data: $('#literature-subscribe-form').serialize(),
             success: function (data) {
                 $('#literature-subscribe-form input').val('');
+                $('#literature-subscribe-form button').prop("disabled", false);
+                $('#literature-subscribe-form button').removeClass('disabled-button');
                 alert(data.status_subscriber);
             },
             error: function (data) {
@@ -558,6 +561,8 @@ $(function () {
                         $('#literature-' + key + '-error').text(element[0]);
                     }
                 }
+                $('#literature-subscribe-form button').prop("disabled", false);
+                $('#literature-subscribe-form button').removeClass('disabled-button');
             }
         });
     });
@@ -566,6 +571,8 @@ $(function () {
         e.preventDefault();
 
         $('#member-cases-subscribe-form label').text('');
+        $('#member-cases-subscribe-form button').prop("disabled", true);
+        $('#member-cases-subscribe-form button').addClass('disabled-button');
 
         $.ajax({
             type: 'GET',
@@ -573,6 +580,8 @@ $(function () {
             data: $('#member-cases-subscribe-form').serialize(),
             success: function (data) {
                 $('#member-cases-subscribe-form input').val('');
+                $('#member-cases-subscribe-form button').prop("disabled", false);
+                $('#member-cases-subscribe-form button').removeClass('disabled-button');
                 alert(data.status_subscriber);
             },
             error: function (data) {
@@ -582,6 +591,8 @@ $(function () {
                         $('#member-cases-' + key + '-error').text(element[0]);
                     }
                 }
+                $('#member-cases-subscribe-form button').prop("disabled", false);
+                $('#member-cases-subscribe-form button').removeClass('disabled-button');
             }
         });
     });
@@ -590,6 +601,8 @@ $(function () {
         e.preventDefault();
 
         $('#news-subscribe-form label').text('');
+        $('#news-subscribe-form button').prop("disabled", true);
+        $('#news-subscribe-form button').addClass('disabled-button');
 
         $.ajax({
             type: 'GET',
@@ -597,6 +610,8 @@ $(function () {
             data: $('#news-subscribe-form').serialize(),
             success: function (data) {
                 $('#news-subscribe-form input').val('');
+                $('#news-subscribe-form button').prop("disabled", false);
+                $('#news-subscribe-form button').removeClass('disabled-button');
                 alert(data.status_subscriber);
             },
             error: function (data) {
@@ -606,6 +621,50 @@ $(function () {
                         $('#news-' + key + '-error').text(element[0]);
                     }
                 }
+                $('#news-subscribe-form button').prop("disabled", false);
+                $('#news-subscribe-form button').removeClass('disabled-button');
+            }
+        });
+    });
+
+    // Отправка комментария
+    $('#add-comment-form').on('submit', function (e) {
+        e.preventDefault();
+
+        $('#add-comm-error').text('');
+        $('#send-comment').prop("disabled", true);
+        $('#send-comment').addClass('disabled-button');
+
+        $.ajax({
+            type: 'GET',
+            url: 'comment/create',
+            data: $('#add-comment-form').serialize(),
+            success: function (data) {
+                $('#add-comment-text').val('');
+                $('#add-comment-form button').prop("disabled", false);
+                $('#send-comment').removeClass('disabled-button');
+                $('div.case-comm-list').append(`
+                    <div class="case-comm-item">
+                        <div class="comm-item-header"><img src="` + data.img + `">
+                        <div class="item-header-info">
+                            <p class="comm-author">` + data.nickname + `</p><span class="comm-date">` + data.updated_at + `</span>
+                        </div>
+                        </div>
+                        <div class="comm-item-content">
+                        <p class="comm-item-text">` + data.content + `</p>
+                        </div>
+                    </div>
+                `);
+            },
+            error: function (data) {
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $('#' + key + '-error').text(element[0]);
+                    }
+                }
+                $('#add-comment-form button').prop("disabled", false);
+                $('#send-comment').removeClass('disabled-button');
             }
         });
     });

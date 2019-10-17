@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentFormRequest;
 use Illuminate\Http\Request;
 use App\Models\Comment;
 use Auth;
@@ -23,16 +24,16 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(CommentFormRequest $request)
     {
-        
-        $validatedData = $request->validate([
-            'add-comm' => ['required'],
-            'member-case-id' => ['required'],
-        ]);
+
+        // $validatedData = $request->validate([
+        //     'add-comm' => ['required'],
+        //     'member-case-id' => ['required'],
+        // ]);
 
         $comment = new Comment;
-        
+
         $comment->content = $request['add-comm'];
         $comment->member_case_id = $request['member-case-id'];
         $comment->user_id = Auth::user()->id;
@@ -40,7 +41,13 @@ class CommentController extends Controller
 
         $request->session()->flash('status-member_case', 'You have successfully created your medical history.');
 
-        return redirect()->back();
+        //return redirect()->back();
+        return response()->json([
+            'img' => $comment->user->img,
+            'nickname' => $comment->user->nickname,
+            'updated_at' => $comment->updated_at->format('d.m.Y'),
+            'content' => $comment->content,
+        ]);
     }
 
     /**

@@ -14,15 +14,17 @@ class LetterToSubscriber extends Mailable
     use Queueable, SerializesModels;
 
     public $news;
+    public $language;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data, $language)
     {
         $this->news = $data;
+        $this->language = $language;
     }
 
     /**
@@ -34,6 +36,6 @@ class LetterToSubscriber extends Mailable
     {
         //dd(app()->getLocale());
         return $this->subject(__('subscriber.subject'))
-                    ->view('emails.letter-to-subscriber', compact($this->news));
+                    ->view('emails.letter-to-subscriber')->with([$this->news, $this->language]);
     }
 }

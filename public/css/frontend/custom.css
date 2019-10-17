@@ -313,3 +313,7 @@ body .main .diagram__info-table .table_row .table-column {
 .factor-diagrams_modal .tab-item__content .text.markers {
     margin: 0px;
 }
+
+.disabled-button {
+    background-color: rgb(173,173,173) !important;
+}

@@ -10,8 +10,8 @@
           <div class="box about">
             <div class="main__left">
               <div class="title-container">
-                  @if(isset($dataPage->img))
-                    <img src="{{ asset($dataPage->img)  }}" alt="About BG">
+                  @if(isset($dataPage->page->img))
+                    <img src="{{ asset($dataPage->page->img)  }}" alt="About BG">
                   @endif
                 <h2 class="main__left-title">@lang('about.title_about')<span class="title-line"></span><span class="title-text">@lang('about.title_text_about')</span></h2>
               </div>
@@ -21,9 +21,9 @@
             <div class="main__right">
               <div class="main__video">
                 <div class="main__video-overlay"></div>
-                  @if(isset($dataPage->video))
+                  @if(isset($dataPage->page->video))
 
-                  <iframe width="640" height="360" src="{{$dataPage->video}}" frameborder="0" autoplay=0
+                  <iframe width="640" height="360" src="{{$dataPage->page->video}}" frameborder="0" autoplay=0
                           allow="autoplay=0; encrypted-media" allowfullscreen>
                   </iframe>
 
@@ -40,15 +40,15 @@
                 @foreach($factors as $factor)
                   <div class="puzzle-15__item-outer" obj-id="{{$factor->factor_id}}">
                     <a href="{{ url('/?factor='.$factor->factor_id, app()->getLocale() )}}">
-                        <div class="puzzle-15__item {{$factor->type->name}}">                      
+                        <div class="puzzle-15__item {{$factor->type->name}}">
                           <img class="factors-check" src="/img/svg/factors-check.svg" alt="">
                           <img src="{{$factor->factor->img}}">
-                          <h6 class="puzzle-15__item-title">{{$factor->name}}</h6>                      
+                          <h6 class="puzzle-15__item-title">{{$factor->name}}</h6>
                         </div>
                     </a>
                   </div>
                 @endforeach
-              </div>                  
+              </div>
               <div class="main__right-note">{!! isset($dataPage->puzzles_description) ? $dataPage->puzzles_description : false!!}</div>
               <ul class="main__books">
                 <li><a href=""><img src="/img/svg/book.svg">Detoxifying for cancer (by dr. George Andonevris)</a></li>
@@ -60,5 +60,5 @@
               </ul><a class="arrow-link" href="#" target="_blank">@lang('about.button_literature')</a>
             </div>
           </div>
-        </main>      
+        </main>
 @endsection
