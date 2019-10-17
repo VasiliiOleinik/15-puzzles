@@ -19,13 +19,13 @@
                             <label class="group_title"><img src="{{$type->img}}"
                                                             alt="Cancerogenesis" width="50px">
                                 <input class="group_title_checkbox" type="checkbox"><span
-                                    class="checkbox-custom"></span><span class="label">{{$type->typesLang->name}}</span>
+                                    class="checkbox-custom"></span><span class="label">{{isset($type->typesLang->name) ? $type->typesLang->name : false }}</span>
                             </label>
                             <div class="group_content">
                                 @foreach($type->factors as $factor)
                                     <div class="group_item js-item reverse" id="{{$factor->factorLanguage->id}}"
-                                         data-json='{{$factor->organ}}'>
-                                        <p>{{$factor->factorLanguage->name}}</p>
+                                         data-json=@foreach($factor->organ as $organ){!!$organ->name!!},@endforeach>
+                                        <p>{{isset($factor->factorLanguage->name) ? $factor->factorLanguage->name : false}}</p>
                                     </div>
                                 @endforeach
                             </div>

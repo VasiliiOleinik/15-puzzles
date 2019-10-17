@@ -2,6 +2,8 @@
 
 namespace App\Http\Admin;
 
+use App\Models\Type;
+use App\Models\TypesLanguage;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
@@ -40,7 +42,7 @@ class Factor extends Section
         $display = \AdminDisplay::datatablesAsync()->setColumns([
             \AdminColumn::text('factorRu.name')->setLabel('Имя фактора'),
             \AdminColumn::text('factorRu.content')->setLabel('Описание Фактора'),
-            \AdminColumn::text('type.name')->setLabel('тип'),
+            \AdminColumn::text('type.typesLangRu.name')->setLabel('тип'),
         ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
@@ -57,22 +59,25 @@ class Factor extends Section
     public function onEdit($id)
     {
         $columns1 = \AdminFormElement::columns([
-        [
-            \AdminFormElement::text('factorEng.name')->setLabel('Название ENG'),
-            \AdminFormElement::textarea('factorEng.content')->setLabel('Контент ENG'),
+            [
+                \AdminFormElement::text('factorEng.name')->setLabel('Название ENG'),
+                \AdminFormElement::textarea('factorEng.content')->setLabel('Контент ENG'),
 
-        ],
-        [
-            \AdminFormElement::text('factorRu.name')->setLabel('Название RU'),
-            \AdminFormElement::textarea('factorRu.content')->setLabel('Контент RU'),
+            ],
+            [
+                \AdminFormElement::text('factorRu.name')->setLabel('Название RU'),
+                \AdminFormElement::textarea('factorRu.content')->setLabel('Контент RU'),
 
-            \AdminFormElement::hidden('factorRu.language')->setDefaultValue('ru'),
-            \AdminFormElement::hidden('factorEng.language')->setDefaultValue('eng')
-        ]
-    ]);
+                \AdminFormElement::hidden('factorRu.language')->setDefaultValue('ru'),
+                \AdminFormElement::hidden('factorEng.language')->setDefaultValue('eng')
+            ]
+        ]);
         $columns2 = \AdminFormElement::columns([
             [
-                \AdminFormElement::image('img')->setLabel('Изображение')
+                \AdminFormElement::image('img')->setLabel('Изображение'),
+                \AdminFormElement::select('type_id', 'Типы')
+                    ->setModelForOptions(Type::class, 'typesLangRu.name')
+                    //->setDisplay('name'),
             ]
         ]);
 
