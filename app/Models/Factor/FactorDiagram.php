@@ -39,7 +39,7 @@ class FactorDiagram extends Model
 
     public function markers()
     {
-        return $this->belongsToMany('App\Models\Marker\Marker', 'factor_markers');
+        return $this->belongsToMany('App\Models\Marker\Marker', 'factor_markers', 'factor_id');
     }
 
     public function typeRu()

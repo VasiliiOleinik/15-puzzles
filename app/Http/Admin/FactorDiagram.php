@@ -64,6 +64,10 @@ class FactorDiagram extends Section
                 \AdminFormElement::multiselect('protocols', 'Протоколы')
                     ->setModelForOptions(\App\Models\Protocol\Protocol::class)
                     ->setDisplay('protocolRu.name'),
+
+                \AdminFormElement::multiselect('markers')
+                    ->setModelForOptions(\App\Models\Marker\Marker::class, 'Маркеры')
+                    ->setDisplay('markerRu.name'),
             ],
         ]);
 
