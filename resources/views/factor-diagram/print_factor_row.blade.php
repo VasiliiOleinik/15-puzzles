@@ -1,10 +1,10 @@
 @foreach($factors as $factor )
     <div class="table_row" id="row{{$factor->id}}">
         <div class="table-column first">
-            <p class="table-text cell-factor-name">{{$factor->name}}</p>
+            <p class="table-text cell-factor-name">{{isset($factor->name) ? $factor->name : false}}</p>
         </div>
         <div class="table-column first">
-            <p class="table-text cell-group-name">{{$factor->typeLanguage->name}}</p>
+            <p class="table-text cell-group-name">{{ isset($factor->typeLanguage->name) ? $factor->typeLanguage->name : false}}</p>
         </div>
         <div class="table-column first">
             <p class="table-text">{{str_limit(strip_tags($factor->typeLanguage->normal_condition), 200, '...')}}</p>

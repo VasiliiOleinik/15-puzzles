@@ -29,13 +29,6 @@ class Type extends Model
 
     public function typesLang()
     {
-        return $this->hasMany(TypesLanguage::class)
-            ->where('language', 'ru');
-    }
-
-    public function typesLangRu()
-    {
-        return $this->hasOne(TypesLanguage::class)
-            ->where('language', 'eng');
+        return $this->hasOne(TypesLanguage::class);
     }
 }
