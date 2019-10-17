@@ -317,3 +317,18 @@ body .main .diagram__info-table .table_row .table-column {
 .disabled-button {
     background-color: rgb(173,173,173) !important;
 }
+
+.main .home-news .all-news:after,
+.main-content .post_container .book__info-block .show-more-info-book:after,
+.arrow-link::after {
+  top: 50%;
+  transform: translate(0, -50%);
+}
+body .footer__subscribe input[type="email"] {
+  line-height: 50px;
+  padding: 0px 30px;
+}
+.faq-left-sticky {
+    position: sticky;
+    top: 0;
+}
