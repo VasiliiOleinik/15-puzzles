@@ -889,6 +889,20 @@ $(function () {
     }
 });
 
+$(function(){
+    lazyScroll($("#faq-left-sticky, .r-tabs-anchor"), 500);
+});
+
+// Lazy scroll
+function lazyScroll(anchor, speed) {
+    anchor.on("click", function(e) {
+      e.preventDefault();
+      var href = $(this).attr("href");
+      var scrollRange = $(href).offset().top;
+      $("html, body").animate({ scrollTop: scrollRange }, speed);
+    });
+
+  }
 //hover
 
 function toggleColor(elem, isColor) {
@@ -905,24 +919,24 @@ function toggleColor(elem, isColor) {
 }
 function hoverFactor(){
     $('.js-item').hover(function(){
-        var item = $(this);
-        var obj = item.data('json');
-        var data = obj.split(',');
+            var item = $(this);
+            var obj = item.data('json');
+            var data = obj.split(',');
 
-        data.forEach(function (i) {
-            var id = '#'+i;
-            id !== '#' && toggleColor($(id), true);
-        });
-    },
-    function() {
-        var item = $(this);
-        var obj = item.data('json');
-        var data = obj.split(',');
+            data.forEach(function (i) {
+                var id = '#'+i;
+                id !== '#' && toggleColor($(id), true);
+            });
+        },
+        function() {
+            var item = $(this);
+            var obj = item.data('json');
+            var data = obj.split(',');
 
-        data.forEach(function (i) {
-            var id = '#'+i;
-            id !== '#' && toggleColor($(id), false);
+            data.forEach(function (i) {
+                var id = '#'+i;
+                id !== '#' && toggleColor($(id), false);
+            });
         });
-    });
 }
 hoverFactor();
