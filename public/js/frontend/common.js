@@ -670,87 +670,87 @@ $(function () {
     });
 });
 
-function diagramDraw(id) {
-
-    var position = [];
-
-    var item = $('#45').data('json');
-    console.log(item);
-    //arr = item.data('position').parseJSON();
-    var canvas = document.getElementById("diagram"),
-        ctx = canvas.getContext("2d");
-    // var position = [
-    //     {
-    //         start: [0, 40],
-    //         finish: [450, 40],
-    //         circle: []
-    //     },
-    //     {
-    //         start: [450, 40],
-    //         finish: [450, 340],
-    //         circle: [450, 340]
-    //     },
-    //     {
-    //         start: [350, 40],
-    //         finish: [350, 140],
-    //         circle: [350, 140]
-    //     },
-    //     {
-    //         start: [300, 40],
-    //         finish: [300, 140],
-    //         circle: [300, 140]
-    //     },
-    //     {
-    //         start: [250, 40],
-    //         finish: [250, 240],
-    //         circle: [250, 240]
-    //     }
-    // ];
-    position.map(function (item) {
-        if (i.start && i.circle) {
-            ctx.moveTo(i.start[0], i.start[1]);
-            ctx.lineTo(i.finish[0], i.finish[1]);
-            ctx.strokeStyle = 'red';
-            ctx.stroke();
-        }
-        if (p.finish && p.circle) {
-            ctx.moveTo(i.start[0], i.start[1]);
-            ctx.lineTo(i.finish[0], i.finish[1]);
-            ctx.strokeStyle = 'red';
-            ctx.stroke();
-        }
-        if (p.circle) {
-            ctx.beginPath();
-            ctx.arc(i.circle[0], i.circle[1], 4, 0, 2 * Math.PI, false);
-            ctx.fillStyle = 'red';
-            ctx.fill();
-            ctx.lineWidth = 1;
-            ctx.strokeStyle = 'red';
-            ctx.stroke();
-        }
-        ctx.stroke();
-    });
-}
-
-function clearCanvas() {
-    var canvas = document.getElementById("diagram"),
-        ctx = canvas.getContext("2d");
-    canvas.width = canvas.width;
-}
-
-hoverItem();
-
-function hoverItem() {
-    var item = $('.js-item'),
-    id = item.data('id');
-    item.hover(function () {
-        $(this).addClass('show');
-        diagramDraw(id);
-    }, function () {
-        $(this).removeClass('show');
-        clearCanvas();
-    });
-}
+// function diagramDraw(id) {
+//
+//     var position = [];
+//
+//     var item = $('#45').data('json');
+//     console.log(item);
+//     //arr = item.data('position').parseJSON();
+//     var canvas = document.getElementById("diagram"),
+//         ctx = canvas.getContext("2d");
+//     // var position = [
+//     //     {
+//     //         start: [0, 40],
+//     //         finish: [450, 40],
+//     //         circle: []
+//     //     },
+//     //     {
+//     //         start: [450, 40],
+//     //         finish: [450, 340],
+//     //         circle: [450, 340]
+//     //     },
+//     //     {
+//     //         start: [350, 40],
+//     //         finish: [350, 140],
+//     //         circle: [350, 140]
+//     //     },
+//     //     {
+//     //         start: [300, 40],
+//     //         finish: [300, 140],
+//     //         circle: [300, 140]
+//     //     },
+//     //     {
+//     //         start: [250, 40],
+//     //         finish: [250, 240],
+//     //         circle: [250, 240]
+//     //     }
+//     // ];
+//     position.map(function (item) {
+//         if (i.start && i.circle) {
+//             ctx.moveTo(i.start[0], i.start[1]);
+//             ctx.lineTo(i.finish[0], i.finish[1]);
+//             ctx.strokeStyle = 'red';
+//             ctx.stroke();
+//         }
+//         if (p.finish && p.circle) {
+//             ctx.moveTo(i.start[0], i.start[1]);
+//             ctx.lineTo(i.finish[0], i.finish[1]);
+//             ctx.strokeStyle = 'red';
+//             ctx.stroke();
+//         }
+//         if (p.circle) {
+//             ctx.beginPath();
+//             ctx.arc(i.circle[0], i.circle[1], 4, 0, 2 * Math.PI, false);
+//             ctx.fillStyle = 'red';
+//             ctx.fill();
+//             ctx.lineWidth = 1;
+//             ctx.strokeStyle = 'red';
+//             ctx.stroke();
+//         }
+//         ctx.stroke();
+//     });
+// }
+//
+// function clearCanvas() {
+//     var canvas = document.getElementById("diagram"),
+//         ctx = canvas.getContext("2d");
+//     canvas.width = canvas.width;
+// }
+//
+// hoverItem();
+//
+// function hoverItem() {
+//     var item = $('.js-item'),
+//     id = item.data('id');
+//     item.hover(function () {
+//         $(this).addClass('show');
+//         diagramDraw(id);
+//     }, function () {
+//         $(this).removeClass('show');
+//         clearCanvas();
+//     });
+// }
 
 $(function () {
     $('.group_item').on('click', function () {
@@ -888,3 +888,27 @@ $(function () {
         });
     }
 });
+
+//hover
+toggleColor($('.cirlce img'), true);
+function toggleColor(elem, isColor) {
+    if(isColor){
+        $(elem).find('color').fadeIn();
+        $(elem).find('grey').fadeOut();
+    } else {
+        $(elem).find('grey').fadeIn();
+        $(elem).find('color').fadeOut();
+    }
+}
+function hoverFactor(){
+    $('.js-item').hover(function(){
+        var item = $(this);
+        var obj = item.data('json');
+        //var data = JSON.parse(obj);
+
+    },
+    function() {
+
+    });
+}
+hoverFactor();

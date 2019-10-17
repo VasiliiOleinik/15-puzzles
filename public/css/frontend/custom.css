@@ -117,15 +117,37 @@
 }
 
 .diagram__center-circle-container{
+    width: 900px;
     height: 725px;
-    background: url(/../img/diagram_ico/diagram.jpg) no-repeat;
-    background-size: cover;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+    @media (max-width: 1280px)  {
+        .diagram__center-circle-container{
+            height: auto;
+            background-size: cover;
+        }
+    }
+.circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+.color {
+    display: none;
 }
 
 .js-item.show {
     transition: .5s;
 }
 
+.diagram__group .group_content .group_item p:after {
+    display: none;
+}
 
 .factor-diagrams_modal {
 	width: 600px;
