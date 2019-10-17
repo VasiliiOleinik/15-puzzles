@@ -34,8 +34,36 @@
                 </div>
                 <div class="diagram__center">
                     <h2 class="diagram__center-title">Reasons of cancer development</h2>
-                    <canvas class="diagram__center-circle-container" id="diagram" width="900" height="725">
-                    </canvas>
+                    <div class="diagram__center-circle-container">
+                        <div class="circle" id="organ_system">
+                            <img class="grey" src="/../img/diagram_ico/bg-grey.jpg" alt="">
+                            <img class="color" src="/../img/diagram_ico/bg-color.jpg" alt="">
+                            <div class="target organ_system">
+                                <span class="target__span">target organ system</span><span class="treangle treangle-organ_system"></span>
+                            </div>
+                        </div>
+                        <div class="circle" id="organ">
+                            <img class="grey" src="/../img/diagram_ico/organ-grey.png" alt="" class="">
+                            <img class="color" src="/../img/diagram_ico/organ-color.png" alt="" class="">
+                            <div class="target organ">
+                                <span class="target__span">target organ</span><span class="treangle treangle-organ"></span>
+                            </div>
+                        </div>
+                        <div class="circle" id="matrix">
+                            <img class="grey" src="/../img/diagram_ico/matrix-grey.png" alt="" class="">
+                            <img class="color" src="/../img/diagram_ico/matrix-color.png" alt="" class="">
+                            <div class="target matrix">
+                                <span class="target__span">target matrix</span><span class="treangle treangle-matrix"></span>
+                            </div>
+                        </div>
+                        <div class="circle" id="cell">
+                            <img class="grey" src="/../img/diagram_ico/cell-grey.png" alt="" class="">
+                            <img class="color" src="/../img/diagram_ico/cell-color.png" alt="" class="">
+                            <div class="target cell">
+                                <span class="target__span">target cell</span><span class="treangle treangle-cell"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="diagram__right">
                     @foreach($type2 as $type)
