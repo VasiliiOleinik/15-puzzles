@@ -195,3 +195,27 @@ body .footer__subscribe input[type="email"] {
     position: sticky;
     top: 0;
 }
+
+.success-modal-content {
+    background: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #e9edf3;
+    background-color: #fff;
+}
+.success-modal-content__header {
+    color: #59596a;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    height: 100%;
+}
+.success-modal-content__text {
+    color: #888;
+    font-size: 18px;
+    font-weight: 400;
+}
+.about .main__right {
+    height: 100%;
+}

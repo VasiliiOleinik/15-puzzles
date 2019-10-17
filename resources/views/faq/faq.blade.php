@@ -69,7 +69,7 @@
                     <label for="letter">@lang('faq.write_letter')<span class="required">*</span></label>
                     <label id="faq-letter-error" class="invalid" for="letter"></label>
                   </div>
-                  <button class="add-faq-letter-send-btn">@lang('faq.send_letter')</button>
+                  <button class="add-faq-letter-send-btn" id="send-form-btn">@lang('faq.send_letter')</button>
                 </form>
               </div>
             </div>
