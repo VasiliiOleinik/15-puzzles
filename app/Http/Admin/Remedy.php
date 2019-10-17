@@ -70,6 +70,16 @@ class Remedy extends Section
             [
                 \AdminFormElement::text('url')->setLabel('Ссылка на протокол')->required(),
 
+                \AdminFormElement::multiselect('diseases', 'Болезни')
+                    ->setModelForOptions(\App\Models\Disease\Disease::class, 'diseaseRu.name'),
+
+                \AdminFormElement::multiselect('factors', 'Факторы')
+                    ->setModelForOptions(\App\Models\Factor\Factor::class, 'factorRu.name'),
+
+                \AdminFormElement::multiselect('protocols', 'Протоколы')
+                    ->setModelForOptions(\App\Models\Protocol\Protocol::class, 'protocolRu.name'),
+
+
                 \AdminFormElement::hidden('remedyRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('remedyEng.language')->setDefaultValue('eng')
             ]

@@ -42,7 +42,6 @@ class Factor extends Section
         $display = \AdminDisplay::datatablesAsync()->setColumns([
             \AdminColumn::text('factorRu.name')->setLabel('Имя фактора'),
             \AdminColumn::text('factorRu.content')->setLabel('Описание Фактора'),
-            \AdminColumn::text('type.typesLangRu.name')->setLabel('тип'),
         ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
@@ -75,7 +74,19 @@ class Factor extends Section
         $columns2 = \AdminFormElement::columns([
             [
                 \AdminFormElement::image('img')->setLabel('Изображение'),
-                \AdminFormElement::multiselect()->setModelForOptions(D)
+
+                \AdminFormElement::multiselect('diseases', 'Болезни которые вызывает фактор')
+                    ->setModelForOptions(\App\Models\Disease\Disease::class, 'diseaseRu.name'),
+
+                \AdminFormElement::multiselect('protocols', 'Протоколы описывающие фактор')
+                    ->setModelForOptions(\App\Models\Protocol\Protocol::class, 'protocolRu.name'),
+
+                \AdminFormElement::multiselect('remedies', 'Лекарства')
+                    ->setModelForOptions(\App\Models\Remedy::class, 'remedyRu.name'),
+
+                \AdminFormElement::multiselect('markers', 'Анализы')
+                    ->setModelForOptions(\App\Models\Marker\Marker::class, 'markerRu.name')
+
             ]
         ]);
 

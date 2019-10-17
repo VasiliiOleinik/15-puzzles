@@ -67,15 +67,13 @@ class Disease extends Model
     {
         return $this->belongsToMany('App\Models\Protocol\Protocol', 'disease_protocols');
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function remedies()
     {
-    return $this->belongsToMany('App\Models\Remedy', 'disease_remedies');
+        return $this->belongsToMany('App\Models\Remedy', 'disease_remedies');
     }
-
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -86,8 +84,8 @@ class Disease extends Model
 
     public function diseaseRu()
     {
-       return $this->hasOne(DiseaseLanguage::class)
-       ->where('language', 'ru');
+        return $this->hasOne(DiseaseLanguage::class)
+            ->where('language', 'ru');
     }
 
     public function diseaseEng()
