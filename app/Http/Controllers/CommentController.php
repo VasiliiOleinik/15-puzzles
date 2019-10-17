@@ -43,7 +43,7 @@ class CommentController extends Controller
 
         //return redirect()->back();
         return response()->json([
-            'img' => $comment->user->img,
+            'img' => $comment->user->img ? $comment->user->img : asset('images/no_avatar.png'),
             'nickname' => $comment->user->nickname,
             'updated_at' => $comment->updated_at->format('d.m.Y'),
             'content' => $comment->content,
