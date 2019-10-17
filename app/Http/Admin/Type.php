@@ -2,20 +2,18 @@
 
 namespace App\Http\Admin;
 
-use App\Models\Type;
-use App\Models\TypesLanguage;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
 /**
- * Class Factor
+ * Class Type
  *
- * @property \App\Models\Factor\Factor $model
+ * @property \App\Models\Type $model
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class Factor extends Section
+class Type extends Section
 {
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
@@ -40,9 +38,7 @@ class Factor extends Section
     public function onDisplay()
     {
         $display = \AdminDisplay::datatablesAsync()->setColumns([
-            \AdminColumn::text('factorRu.name')->setLabel('Имя фактора'),
-            \AdminColumn::text('factorRu.content')->setLabel('Описание Фактора'),
-            \AdminColumn::text('type.typesLangRu.name')->setLabel('тип'),
+            \AdminColumn::text('typesLang.name')->setLabel('Имя фактора'),
         ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
@@ -60,28 +56,13 @@ class Factor extends Section
     {
         $columns1 = \AdminFormElement::columns([
             [
-                \AdminFormElement::text('factorEng.name')->setLabel('Название ENG'),
-                \AdminFormElement::textarea('factorEng.content')->setLabel('Контент ENG'),
-
+                \AdminFormElement::multiselect('factors', 'Факторы')
+                    ->setModelForOptions(\App\Models\Factor\Factor::class)
+                    ->setDisplay('factorRu.name'),
             ],
-            [
-                \AdminFormElement::text('factorRu.name')->setLabel('Название RU'),
-                \AdminFormElement::textarea('factorRu.content')->setLabel('Контент RU'),
-
-                \AdminFormElement::hidden('factorRu.language')->setDefaultValue('ru'),
-                \AdminFormElement::hidden('factorEng.language')->setDefaultValue('eng')
-            ]
         ]);
-        $columns2 = \AdminFormElement::columns([
-            [
-                \AdminFormElement::image('img')->setLabel('Изображение'),
-                \AdminFormElement::multiselect()->setModelForOptions(D)
-            ]
-        ]);
-
         $form = \AdminForm::panel()->addBody([
             $columns1,
-            $columns2
         ]);
 
         return $form;

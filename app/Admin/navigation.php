@@ -61,4 +61,5 @@ return [
     (new Page(\App\Models\Tag::class))->setTitle('Теги'),
     (new Page(\App\Models\Options::class))->setTitle('Настройки'),
     (new Page(\App\Models\Factor\FactorDiagram::class))->setTitle('Факторная диаграмма'),
+    (new Page(\App\Models\Type::class))->setTitle('Группы факторов'),
 ];
