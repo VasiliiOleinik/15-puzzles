@@ -19,6 +19,7 @@
                   <li class="breadcrumbs__element"><a class="breadcrumbs__link current" href="javascript:void(0);">@lang('breadcrumbs.faq')</a></li>
                 </ul>
               </div>
+              <div id="faq-left-sticky">
               @foreach($questions as $question)
               <div id="faq-{{ $question->question_id }}" class="r-tabs-state-default r-tabs-panel">
                 <div class="tab-faq-list">
@@ -68,9 +69,10 @@
                     <label for="letter">@lang('faq.write_letter')<span class="required">*</span></label>
                     <label id="faq-letter-error" class="invalid" for="letter"></label>
                   </div>
-                  <button class="add-faq-letter-send-btn">@lang('faq.send_letter')</button>
+                  <button class="add-faq-letter-send-btn" id="send-form-btn">@lang('faq.send_letter')</button>
                 </form>
               </div>
+            </div>
             </div>
             <div class="faq-right">
               <div class="faq__tabs" id="faqTabs">

@@ -43,3 +43,9 @@
     </div>
   </div>
 </footer>
+<div style="display: none;" id="success-modal">
+  <div class="success-modal-content">
+	  <h2 class="success-modal-content__header">Спасибо!</h2>
+    <p class="success-modal-content__text">Ваши данные отправлены!</p>
+  </div>
+</div>

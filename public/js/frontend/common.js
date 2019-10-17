@@ -888,3 +888,21 @@ $(function () {
         });
     }
 });
+$(document).on("click", "#send-form-btn", function() {
+  $("#preloader").css("display", "flex");
+});
+
+$(function(){
+    lazyScroll($("#faq-left-sticky, .r-tabs-anchor"), 500);
+});
+
+// Lazy scroll
+function lazyScroll(anchor, speed) {
+    anchor.on("click", function(e) {
+      e.preventDefault();
+      var href = $(this).attr("href");
+      var scrollRange = $(href).offset().top;
+      $("html, body").animate({ scrollTop: scrollRange }, speed);
+    });
+
+  }
