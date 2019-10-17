@@ -1,0 +1,32 @@
+<?php
+
+return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | Personal cabinet Page Messages
+    |--------------------------------------------------------------------------
+    |
+    | The following language lines are used by the personal_cabinet page. You are free to change them to anything
+    | you want to customize your views to better match your application.
+    |
+    */
+
+    'personal_cabinet' => 'Personal cabinet',
+    'save_changes' => 'Save changes',
+    'nickname' => 'Nickname',
+    'email' => 'Email',
+    'name' => 'Name',
+    'last_name' => 'Last Name',
+    'middle_name' => 'Middle Name',
+    'date_of_birth' => 'Date Of Birth',
+    'password' => 'Password',
+    'non_public_info' => 'Non-public information for administration only',
+    'history' => 'History of analyzes',
+    'file_formats' => 'You can add file formats: PDF and Office files',
+    'file_name' => 'File Name',
+    'add_button' => 'ADD',
+    'search_caption' => 'Search by analysis history',
+    'search_by_date' => 'Search by date',
+    'search_by_name' => 'Search by name',
+];
