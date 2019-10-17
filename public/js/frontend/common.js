@@ -890,25 +890,39 @@ $(function () {
 });
 
 //hover
-toggleColor($('.cirlce img'), true);
+
 function toggleColor(elem, isColor) {
     if(isColor){
-        $(elem).find('color').fadeIn();
-        $(elem).find('grey').fadeOut();
+        $(elem).find('.color').fadeIn(0);
+        $(elem).find('.grey').fadeOut(0);
+        $(elem).find('.target').addClass('show');
+
     } else {
-        $(elem).find('grey').fadeIn();
-        $(elem).find('color').fadeOut();
+        $(elem).find('.grey').fadeIn(0);
+        $(elem).find('.color').fadeOut(0);
+        $(elem).find('.target').removeClass('show');
     }
 }
 function hoverFactor(){
     $('.js-item').hover(function(){
         var item = $(this);
         var obj = item.data('json');
-        //var data = JSON.parse(obj);
+        var data = obj.split(',');
 
+        data.forEach(function (i) {
+            var id = '#'+i;
+            id !== '#' && toggleColor($(id), true);
+        });
     },
     function() {
+        var item = $(this);
+        var obj = item.data('json');
+        var data = obj.split(',');
 
+        data.forEach(function (i) {
+            var id = '#'+i;
+            id !== '#' && toggleColor($(id), false);
+        });
     });
 }
 hoverFactor();

@@ -140,7 +140,75 @@
 .color {
     display: none;
 }
+.target {
+    display: none;
+    justify-content: center;
+    width: 100%;
+    max-width: 200px;
+    background-color: #599ba7;
+    padding: 10px;
+    position: absolute;
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 
+}
+.show {
+    display: flex;
+    transition: .3s;
+}
+.cell {
+    top: 45px;
+    left: 142px;
+}
+.matrix {
+    top: 47px;
+    left: -104px;
+    z-index: 1;
+}
+.organ {
+    top: 47px;
+    left: 246px;
+}
+.organ_system {
+    top: 70px;
+    left: 349px;
+}
+.target__span {
+    position: relative;
+}
+.treangle-cell {
+    border: 14px solid transparent;
+    border-bottom: 20px solid #fff;
+    position: absolute;
+    left: -32px;
+    top: 5px;
+    transform: rotate(-90deg);
+}
+.treangle-matrix {
+    border: 14px solid transparent;
+    border-bottom: 20px solid #fff;
+    position: absolute;
+    right: -31px;
+    top: 5px;
+    transform: rotate(90deg);
+}
+.treangle-organ {
+    border: 14px solid transparent;
+    border-bottom: 20px solid #fff;
+    position: absolute;
+    left: -32px;
+    top: 5px;
+    transform: rotate(-90deg);
+}
+.treangle-organ_system {
+    border: 14px solid transparent;
+    border-bottom: 20px solid #fff;
+    position: absolute;
+    right: 83px;
+    top: 42px;
+    transform: rotate(180deg);
+}
 .js-item.show {
     transition: .5s;
 }
