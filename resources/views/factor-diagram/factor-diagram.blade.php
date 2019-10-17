@@ -23,7 +23,8 @@
                             </label>
                             <div class="group_content">
                                 @foreach($type->factors as $factor)
-                                    <div class="group_item js-item reverse" id="{{$factor->factorLanguage->id}}">
+                                    <div class="group_item js-item reverse" id="{{$factor->factorLanguage->id}}"
+                                         data-json='{{$factor->organ}}'>
                                         <p>{{$factor->factorLanguage->name}}</p>
                                     </div>
                                 @endforeach
@@ -46,7 +47,7 @@
                             </label>
                             <div class="group_content">
                                 @foreach($type->factors as $factor)
-                                    <div class="group_item js-item reverse" id="{{$factor->factorLanguage->id}}">
+                                    <div class="group_item js-item reverse" id="{{$factor->factorLanguage->id}}" data-json='{{$factor->organ}}'>
                                         <p>{{$factor->factorLanguage->name}}</p>
                                     </div>
                                 @endforeach

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFactorOrgansTable extends Migration
+class CreateFactorOrgans extends Migration
 {
     /**
      * Run the migrations.
@@ -15,9 +15,8 @@ class CreateFactorOrgansTable extends Migration
     {
         Schema::create('factor_organs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('factors_id')->unsigned();
-            $table->bigInteger('organs_id')->unsigned();
-            $table->bigInteger('is_active')->default(0);
+            $table->integer('factor_id');
+            $table->integer('organ_id');
             $table->timestamps();
         });
     }

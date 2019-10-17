@@ -2,6 +2,7 @@
 
 namespace App\Models\Factor;
 
+use App\Models\Organ;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -125,5 +126,10 @@ class Factor extends Model
     {
         return $this->hasOne(FactorLanguage::class)
             ->where('language', 'eng');
+    }
+
+    public function organ()
+    {
+        return $this->belongsToMany(Organ::class, 'factor_organs');
     }
 }

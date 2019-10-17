@@ -16,9 +16,6 @@ class CreateOrgansTable extends Migration
         Schema::create('organs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('y-coordinate');
-            $table->string('z-coordinate');
-            $table->string('parent-coordinate');
             $table->timestamps();
         });
     }

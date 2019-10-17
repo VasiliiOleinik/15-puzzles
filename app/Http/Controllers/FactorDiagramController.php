@@ -41,4 +41,9 @@ class FactorDiagramController extends Controller
         $factors = FactorLanguage::whereIn('id', $request->id)->get();
         return view('factor-diagram.print_factor_row', compact('factors'));
     }
+
+    public function showRelation(Request $request)
+    {
+        $factorLang = FactorLanguage::find($request->id)->factor;
+    }
 }

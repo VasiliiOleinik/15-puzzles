@@ -37,6 +37,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         Question::class=>'App\Http\Admin\Question',
         Tag::class=>'App\Http\Admin\Tag',
         \App\Models\Book\LinkForBooks::class => 'App\Http\Admin\LinkForBooks',
+        \App\Models\Factor\FactorDiagram::class => 'App\Http\Admin\FactorDiagram',
     ];
 
     //protected $router->get('/factorLanguages/create', ['as' => 'admin.factorLanguages.create', 'uses' => '\App\Http\Controllers\MainController@index']);

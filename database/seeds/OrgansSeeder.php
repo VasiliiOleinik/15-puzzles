@@ -11,13 +11,21 @@ class OrgansSeeder extends Seeder
      */
     public function run()
     {
-        for ($x = 0; $x < 5; $x++) {
-            \App\Models\Organ::create([
-                'name'=>'test'.$x,
-                'y-coordinate'=>rand(100, 500),
-                'z-coordinate'=>rand(100, 500),
-                'parent-coordinate'=>rand(100, 500)
-            ]);
-        }
+
+        \App\Models\Organ::create([
+            'name' => 'cell',
+        ]);
+
+        \App\Models\Organ::create([
+            'name' => 'matrix',
+        ]);
+
+        \App\Models\Organ::create([
+            'name' => 'organ',
+        ]);
+
+        \App\Models\Organ::create([
+            'name' => 'organ_system',
+        ]);
     }
 }
