@@ -13,4 +13,9 @@ class PageLang extends Model
     {
         return $query->where('lang', 'ru');
     }
+
+    public function page()
+    {
+        return $this->belongsTo(Page::class, 'pages_id');
+    }
 }
