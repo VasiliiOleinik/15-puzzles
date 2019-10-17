@@ -69,7 +69,17 @@ class Marker extends Section
         ]);
         $columns2 = \AdminFormElement::columns([
             [
-                \AdminFormElement::multiselect('methods', 'Методы лечения')->setModelForOptions(\App\Models\Method::class)->setDisplay('name')
+                \AdminFormElement::multiselect('methods', 'Методы лечения')
+                    ->setModelForOptions(\App\Models\Method::class)
+                    ->setDisplay('methodRu.name'),
+
+                \AdminFormElement::multiselect('protocols', 'Протоколы')
+                    ->setModelForOptions(\App\Models\Protocol\Protocol::class, 'protocolRu.name'),
+                \AdminFormElement::multiselect('diseases', 'Болезни')
+                    ->setModelForOptions(\App\Models\Disease\Disease::class, 'diseaseRu.name'),
+                \AdminFormElement::multiselect('factors', 'Факторы')
+                    ->setModelForOptions(\App\Models\Factor\Factor::class, 'factorRu.name')
+
             ]
         ]);
 
