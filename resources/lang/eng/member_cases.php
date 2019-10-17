@@ -13,7 +13,7 @@ return [
     */
 
     'title_member_cases' => "Member's cases",
-    'title_tags_cloud' => 'TAG CLOUD',
+    'title_tags_cloud' => 'TAGS CLOUD',
     'title_subscribe' => 'TAKE LATEST NEWS FROM 15-PUZZLE',
     'title_add_story' => 'Add your story',
     'placeholder_subscribe' => 'Your Email Address',
@@ -31,4 +31,12 @@ return [
     'comment_min' => 'Minimum length of the comment is 3 symbols',
     'tags' => 'Tags',
     'share' => 'Share',
+    'add_your_story' => 'Add your story',
+    'headline' => 'Headline',
+    'your_story' => 'Your story',
+    'add_image' => 'Add image',
+    'your_story_tags' => 'Add your story tags',
+    'do_not_publish' => 'Do not publish my data. Publish case anonymously',
+    'tag_cloud' => 'Tag cloud',
+    'submit_for_moderation' => 'Submit for moderation',
 ];

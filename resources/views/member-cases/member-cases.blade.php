@@ -68,21 +68,21 @@
               </div>
               @auth
               <div class="add-story">
-                <h3 class="add-story__title">Add your story</h3>
+                <h3 class="add-story__title">@lang('member_cases.add_your_story')</h3>
                 <form class="add-story__form"  method="post" action="{{ route('create_post', app()->getLocale()) }}">
                   @csrf
 
                   <input id="img" type="hidden" name="img">
                   <div class="labels">
                     <input class="headline inp" type="text" name="headline" required>
-                    <label for="headline">Headline <span class="required">*</span></label>
+                    <label for="headline">@lang('member_cases.headline') <span class="required">*</span></label>
                   </div>
                   <div class="labels">
                     <textarea class="story inp" name="your-story" required></textarea>
-                    <label class="textarea" for="your-story">Your story <span class="required">*</span></label>
+                    <label class="textarea" for="your-story">@lang('member_cases.your_story') <span class="required">*</span></label>
                   </div>
                   <div class="add-images">
-                    <h3 class="add-images__title">Add image</h3>
+                    <h3 class="add-images__title">@lang('member_cases.add_image')</h3>
                     <div class="images-container">
                       <div class="item-img">
                         <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
@@ -96,20 +96,20 @@
                       <div class="labels" style="padding: 0; min-height:48px;">
                           <input id="story-tags" required>
                           <input class="add-tags inp" type="text" name="story-tags" id="tags">
-                          <label class="place">Add your story tags <span class="required">*</span></label>
+                          <label class="place">@lang('member_cases.your_story_tags') <span class="required">*</span></label>
                       </div>
                   </div>
                   <div class="footer-form">
                     <label>
-                      <input class="checkbox" name="anonym" type="checkbox"><span class="checkbox-custom"></span><span class="label">Do not publish my data. Publish case anonymously</span>
+                      <input class="checkbox" name="anonym" type="checkbox"><span class="checkbox-custom"></span><span class="label">@lang('member_cases.do_not_publish')</span>
                     </label>
-                    <input class="submit-form" type="submit" value="Submit for moderation">
+                    <input class="submit-form" type="submit" value="@lang('member_cases.submit_for_moderation')">
                   </div>
                 </form>
               </div>
               @endauth
               <div class="tags" obj-route="member_cases">
-                <h3 class="news-right__title">Tag cloud</h3>
+                <h3 class="news-right__title">@lang('member_cases.tag_cloud')</h3>
                 <ul class="tags__list">
                 </ul>
               </div>

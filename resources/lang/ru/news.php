@@ -15,7 +15,7 @@ return [
     'news' => 'Новости',
     'title_news' => 'Новости и статьи',
     'title_categories' => 'НОВОСТИ КАТЕГОРИИ',
-    'title_tags_cloud' => 'НОВОСТИ КАТЕГОРИИ',
+    'title_tags_cloud' => 'ОБЛАКО ТЭГОВ',
     'title_search' => 'ПОИСК В НОВОСТЯХ',
     'title_subscribe' => 'ПОЛУЧИТЬ ПОСЛЕДНИЕ НОВОСТИ С 15-PUZZLE',
     'clear_filter' => "Очистить фильтр",
