@@ -40,7 +40,7 @@
           @auth
           <button >
           @if( Auth::user()->img==null )
-            <img src="/img/upload_big.png" alt="User">
+            <img src="{{ asset('images/no_avatar.png') }}" alt="User">
           @else
             <img src="{{Auth::user()->img}}" alt="User">
           @endif
