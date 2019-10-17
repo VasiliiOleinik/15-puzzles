@@ -14,7 +14,7 @@ return [
 
     'title_news' => 'News and Articles',
     'title_categories' => 'NEWS CATEGORIES',
-    'title_tags_cloud' => 'NEWS CATEGORIES',
+    'title_tags_cloud' => 'TAGS CLOUD',
     'title_search' => 'SEARCH IN NEWS',
     'title_subscribe' => 'TAKE LATEST NEWS FROM 15-PUZZLE',
     'clear_filter' => "Clear filter",
