@@ -287,3 +287,7 @@ body .footer__subscribe input[type="email"] {
     position: sticky;
     top: 0;
 }
+
+  .puzzle-15__item-outer {
+    height: 125px;
+  }
