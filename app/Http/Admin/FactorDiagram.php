@@ -57,14 +57,32 @@ class FactorDiagram extends Section
     {
         $columns1 = \AdminFormElement::columns([
             [
-                \AdminFormElement::multiselect('organ', 'Тэги этой статьи')
+                \AdminFormElement::multiselect('organ', 'На какой орган действует')
                     ->setModelForOptions(\App\Models\Organ::class)
                     ->setDisplay('name'),
+
+                \AdminFormElement::multiselect('protocols', 'Протоколы')
+                    ->setModelForOptions(\App\Models\Protocol\Protocol::class)
+                    ->setDisplay('protocolRu.name'),
+            ],
+        ]);
+
+        $columns2 = \AdminFormElement::columns([
+            [
+                \AdminFormElement::textarea('typeRu.normal_condition', 'Нормальная кондиция Ru'),
+                \AdminFormElement::textarea('typeRu.abnormal_condition', 'Нормальная кондиция Ru')
+            ],
+            [
+                \AdminFormElement::textarea('typeEng.normal_condition', 'Нормальная кондиция Eng'),
+                \AdminFormElement::textarea('typeEng.abnormal_condition', 'Ненормальная кондиция Eng')
             ]
         ]);
 
+
+
         $form = \AdminForm::panel()->addBody([
             $columns1,
+            $columns2
         ]);
 
         return $form;
