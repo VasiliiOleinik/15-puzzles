@@ -72,7 +72,6 @@ class MainController extends Controller
      */
     public function index(Request $request)
     {
-
         $newsLatest = Cache::remember('newsLatest_' . app()->getLocale(), now()->addDay(1), function () {
             $latest = Article::orderBy('id', 'desc')->paginate(3)->pluck('id');
             return ArticleLanguage::with('article')->whereIn('article_id', $latest)

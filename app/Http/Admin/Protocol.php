@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin;
 
+use Composer\Cache;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
@@ -59,6 +60,7 @@ class Protocol extends Section
      */
     public function onEdit($id)
     {
+        \Cache::clear();
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('protocolEng.name')->setLabel('Название протокола ENG'),
@@ -79,12 +81,12 @@ class Protocol extends Section
                 \AdminFormElement::select('evidence_id', 'степень доказанности ENG', \App\Models\Evidence::class)
                     ->setDisplay('name')->required(),
                 \AdminFormElement::text('url')->setLabel('Ссылка на протокол')->required(),
-
-                \AdminFormElement::multiselect('diseases', 'Болезни')
-                    ->setModelForOptions(\App\Models\Disease\Disease::class, 'diseaseRu.name'),
-
-                \AdminFormElement::multiselect('factors', 'Факторы')
-                    ->setModelForOptions(\App\Models\Factor\Factor::class, 'factorRu.name'),
+//
+//                \AdminFormElement::multiselect('diseases', 'Болезни')
+//                    ->setModelForOptions(\App\Models\Disease\Disease::class, 'diseaseRu.name'),
+//
+//                \AdminFormElement::multiselect('factors', 'Факторы')
+//                    ->setModelForOptions(\App\Models\Factor\Factor::class, 'factorRu.name'),
 
                 \AdminFormElement::multiselect('remedies', 'Лекарства')
                     ->setModelForOptions(\App\Models\Remedy::class, 'remedyRu.name'),
@@ -107,6 +109,7 @@ class Protocol extends Section
      */
     public function onCreate()
     {
+        \Cache::clear();
         return $this->onEdit(null);
     }
 
