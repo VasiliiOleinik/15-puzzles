@@ -71,7 +71,6 @@ class FactorLanguagesTableSeeder extends Seeder
         ];
 
         for ($i = 0; $i < count($data); $i++) {
-
             DB::table($table)
                 ->where('id', $i + 1)
                 ->update($data[$i]);

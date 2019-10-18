@@ -31,7 +31,7 @@ class MemberCase extends Model
      */
     public function tags()
     {
-    return $this->belongsToMany('App\Models\Tag', 'member_case_tags');
+        return $this->belongsToMany('App\Models\Tag', 'member_case_tags');
     }
 
     /**
@@ -46,6 +46,12 @@ class MemberCase extends Model
     {
         return $this->hasOne(MemberCaseLanguage::class)
             ->where('language', 'ru');
+    }
+
+    public function casesEng()
+    {
+        return $this->hasOne(MemberCaseLanguage::class)
+            ->where('language', 'eng');
     }
 
     public function casesLanguage($lang)

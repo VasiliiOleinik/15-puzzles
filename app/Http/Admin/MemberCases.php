@@ -117,9 +117,9 @@ class MemberCases extends Section implements Initializable
         $rules = ['required', 'string', 'max:191'];
         $columns1 = \AdminFormElement::columns([
             [
-                AdminFormElement::text('title')->setLabel('Title ENG')->setValidationRules($rules),
-                AdminFormElement::textarea('description')->setLabel('Описание ENG')->setValidationRules($rules),
-                AdminFormElement::textarea('content', 'история болезни ENG'),
+                AdminFormElement::text('casesEng.title')->setLabel('Title ENG')->setValidationRules($rules),
+                AdminFormElement::textarea('casesEng.description')->setLabel('Описание ENG')->setValidationRules($rules),
+                AdminFormElement::textarea('casesEng.content', 'история болезни ENG'),
 
             ],
             [
@@ -135,7 +135,9 @@ class MemberCases extends Section implements Initializable
                 AdminFormElement::checkbox('anonym')->setLabel('анонимная публикация'),
                 AdminFormElement::image('img')->setLabel('картинка'),
 
-                AdminFormElement::multiselect('tags', 'Тэги этой истории болезни')->setModelForOptions(\App\Models\Tag::class)->setDisplay('name'),
+                AdminFormElement::multiselect('tags', 'Тэги этой истории болезни')
+                    ->setModelForOptions(\App\Models\Tag::class)
+                    ->setDisplay('tagRu.name'),
                 AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1)
             ]
         ]);
