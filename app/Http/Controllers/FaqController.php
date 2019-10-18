@@ -24,6 +24,7 @@ class FaqController extends Controller
      */
     public function index()
     {
+        Cache::clear();
         $questions = Cache::remember('question_'.app()->getLocale(), now()->addDay(1), function(){
                 return QuestionLanguage::with('question')->where('language', app()->getLocale())->get();
         });

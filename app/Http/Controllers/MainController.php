@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book\Book;
+use App\Models\Book\BookLanguage;
 use App\Models\User\User;
 use App\Models\Permission;
 use App\Models\Factor\Factor;
@@ -70,37 +72,60 @@ class MainController extends Controller
      */
     public function index(Request $request)
     {
-        $latest = Article::orderBy('id', 'desc')->paginate(3)->pluck('id');
-        $newsLatest = ArticleLanguage::with('article')
-            ->whereIn('article_id', $latest)
-            ->orderBy('article_id', 'desc')
-            ->paginate(3);
 
-        $factors = FactorLanguage::with('factor.type')->get();
-        $diseases = DiseaseLanguage::with('disease')->get();
-        $protocols = ProtocolLanguage::with('protocol.evidence')->get();
-        $remedies = RemedyLanguage::with('remedy')->get();
-        $markers = MarkerLanguage::with('marker.methods.methodLanguage')->get();
-        $markerMethods = $markers;
-        $methods = MethodLanguage::with('method')->get();
-        $evidences = Evidence::all();
-        $countries = Country::all();
-        $laboratories = Laboratory::all();
+        $newsLatest = Cache::remember('newsLatest_' . app()->getLocale(), now()->addDay(1), function () {
+            $latest = Article::orderBy('id', 'desc')->paginate(3)->pluck('id');
+            return ArticleLanguage::with('article')->whereIn('article_id', $latest)
+                ->orderBy('id', 'desc')->paginate(3);
+        });
+        $factors = Cache::remember('factor_' . app()->getLocale(), now()->addDay(1), function () {
+            return FactorLanguage::with('factor.type')->get();
+        });
+        $diseases = Cache::remember('disease_' . app()->getLocale(), now()->addDay(1), function () {
+            return DiseaseLanguage::with('disease')->get();
+        });
+        $protocols = Cache::remember('protocol_' . app()->getLocale(), now()->addDay(1), function () {
+            return ProtocolLanguage::with('protocol.evidence')->get();
+        });
+        $remedies = Cache::remember('remedy_' . app()->getLocale(), now()->addDay(1), function () {
+            return RemedyLanguage::with('remedy')->get();
+        });
+        $markers = Cache::remember('marker_' . app()->getLocale(), now()->addDay(1), function () {
+            return MarkerLanguage::with('marker.methods.methodLanguage')->get();
+        });
+        $markerMethods = Cache::remember('markerMethod_' . app()->getLocale(), now()->addDay(1),
+            function () use ($markers) {
+                return $markers;
+            });
+        $methods = Cache::remember('methods_' . app()->getLocale(), now()->addDay(1), function () {
+            return MethodLanguage::with('method')->get();
+        });
+        $evidences = Cache::remember('evidences_' . app()->getLocale(), now()->addDay(1), function () {
+            return Evidence::all();
+        });
+        $countries = Cache::remember('country', now()->addDay(1), function () {
+            return Country::all();
+        });
+        $laboratories = Cache::remember('laboratory', now()->addDay(1), function () {
+            return Laboratory::all();
+        });
         //$map = $this->initMap($laboratories);
         //$mapJs = $map['js'];
-
+        $lits = BookLanguage::with('book')
+            ->latest('id')
+            ->take(5)->get();
         $data = [
             'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods',
-            'newsLatest', 'markerMethods', 'countries'
+            'newsLatest', 'markerMethods', 'countries', 'lits'
         ];
         return view('main.main', compact($data));
     }
 
     /**
-     * @param $laboratories
-     * @param null $countryName
-     * @param null $method
-     * @return mixed
+     * Initialize google maps
+     *
+     * @params integer[], string
+     * @return obj
      */
     public function initMap($laboratories, $countryName = null, $method = null)
     {
@@ -115,11 +140,13 @@ class MainController extends Controller
             $laboratories = $this->checkIfMethodInLaboratory($laboratories, $method);
         }
         foreach ($laboratories as $laboratory) {
+
             $marker['position'] = $laboratory->lat . ', ' . $laboratory->lng;//'47.09514, 37.54131';
             $marker['infowindow_content'] = $laboratory->name;
             GMaps::add_marker($marker);
         }
         return GMaps::create_map();
+
     }
 
     /**
@@ -161,8 +188,9 @@ class MainController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return array
+     * Main tabs filter
+     *
+     * @return JSON
      */
     public function filter(Request $request)
     {
@@ -213,8 +241,9 @@ class MainController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return false|string
+     * Return array of rendered views and array of models data
+     *
+     * @return JSON
      */
     public function modelPartial(Request $request)
     {

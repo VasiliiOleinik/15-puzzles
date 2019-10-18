@@ -62,5 +62,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PagesSeeder::class);
         $this->call(TypeLanguageSeeder::class);
         $this->call(OrgansSeeder::class);
+        $this->call(SocialSeeder::class);
     }
 }

@@ -7,6 +7,7 @@ use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
+use SleepingOwl\Admin\Contracts\Display\Extension\FilterInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
@@ -52,10 +53,15 @@ class Article extends Section
                     AdminColumn::text('created_at')->setLabel('Дата создания')->setOrderable(false),
                 ]
             );
+        $display->setColumnFilters([
+            \AdminColumnFilter::text()->setPlaceholder('Введите название')->setOperator(FilterInterface::CONTAINS),
+        ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
             $query->orderBy('created_at', 'desc');
         });
+
+
 
         return $display;
     }
@@ -89,8 +95,10 @@ class Article extends Section
                     ->setModelForOptions(\App\Models\Tag::class)
                     ->setDisplay('tagRu.name'),
                 AdminFormElement::multiselect('categoriesForNews', 'Категории этой статьи')
-                    ->setModelForOptions(\App\Models\Protocol\Protocol::class)
+                    ->setModelForOptions(\App\Models\Category\CategoryForNews::class)
                     ->setDisplay('categoryRu.name'),
+
+                AdminFormElement::text('author')->setLabel('Автор')->required(),
             ]
         ]);
 

@@ -95,10 +95,10 @@ class FactorDiagram extends Section
     /**
      * @return FormInterface
      */
-    public function onCreate()
-    {
-        return $this->onEdit(null);
-    }
+//    public function onCreate()
+//    {
+//        return $this->onEdit(null);
+//    }
 
     /**
      * @return void
