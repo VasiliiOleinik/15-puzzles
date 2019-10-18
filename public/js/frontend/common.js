@@ -523,9 +523,14 @@ $(function () {
                 $('#faq-phone').val('');
                 $('#faq-email').val('');
                 $('#faq-letter').val('');
-                alert(data.letter_status);
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
             },
             error: function (data) {
+                $("#preloader").css("display", "none");
                 for (const key in data.responseJSON.errors) {
                     if (data.responseJSON.errors.hasOwnProperty(key)) {
                         const element = data.responseJSON.errors[key];
@@ -552,9 +557,14 @@ $(function () {
                 $('#literature-subscribe-form input').val('');
                 $('#literature-subscribe-form button').prop("disabled", false);
                 $('#literature-subscribe-form button').removeClass('disabled-button');
-                alert(data.status_subscriber);
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
             },
             error: function (data) {
+                $("#preloader").css("display", "none");
                 for (const key in data.responseJSON.errors) {
                     if (data.responseJSON.errors.hasOwnProperty(key)) {
                         const element = data.responseJSON.errors[key];
@@ -582,9 +592,14 @@ $(function () {
                 $('#member-cases-subscribe-form input').val('');
                 $('#member-cases-subscribe-form button').prop("disabled", false);
                 $('#member-cases-subscribe-form button').removeClass('disabled-button');
-                alert(data.status_subscriber);
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
             },
             error: function (data) {
+                $("#preloader").css("display", "none");
                 for (const key in data.responseJSON.errors) {
                     if (data.responseJSON.errors.hasOwnProperty(key)) {
                         const element = data.responseJSON.errors[key];
@@ -612,9 +627,14 @@ $(function () {
                 $('#news-subscribe-form input').val('');
                 $('#news-subscribe-form button').prop("disabled", false);
                 $('#news-subscribe-form button').removeClass('disabled-button');
-                alert(data.status_subscriber);
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
             },
             error: function (data) {
+                $("#preloader").css("display", "none");
                 for (const key in data.responseJSON.errors) {
                     if (data.responseJSON.errors.hasOwnProperty(key)) {
                         const element = data.responseJSON.errors[key];
@@ -655,8 +675,14 @@ $(function () {
                         </div>
                     </div>
                 `);
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
             },
             error: function (data) {
+                $("#preloader").css("display", "none");
                 for (const key in data.responseJSON.errors) {
                     if (data.responseJSON.errors.hasOwnProperty(key)) {
                         const element = data.responseJSON.errors[key];
