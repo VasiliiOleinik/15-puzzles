@@ -1,6 +1,5 @@
 <script src="{{ asset('js/frontend/libs.min.js') }}"></script>
 <script src="{{ asset('js/frontend/anime.min.js') }}"></script>
-<script src="{{ asset('js/frontend/jquery.sticky.js') }}"></script>
 <script src="{{ asset('js/frontend/common.js') }}"></script>
 <script src="{{ asset('js/frontend/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('js/frontend/jquery-ui.min.js') }}"></script>
