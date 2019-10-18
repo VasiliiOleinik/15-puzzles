@@ -35,11 +35,10 @@
   </div>
   <div class="box">
     <div class="footer__copirate">@lang('footer.copyright')
-      <div class="footer__socs"><a class="footer__soc" href="#" target="_blank"><img src="/img/svg/youtube.svg"></a><a
-                class="footer__soc" href="#" target="_blank"><img src="/img/svg/facebook.svg"></a><a class="footer__soc"
-                                                                                                    href="#"
-                                                                                                    target="_blank"><img
-                  src="/img/svg/insta.svg"></a></div>
+      <div class="footer__socs">
+          @foreach(app('social') as $social)
+          <a class="footer__soc" href="#" target="_blank"><img src="{{asset($social->img)}}"></a>
+        @endforeach
     </div>
   </div>
 </footer>

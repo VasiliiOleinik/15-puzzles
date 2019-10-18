@@ -62,4 +62,5 @@ return [
     (new Page(\App\Models\Options::class))->setTitle('Настройки'),
     (new Page(\App\Models\Factor\FactorDiagram::class))->setTitle('Факторная диаграмма'),
     (new Page(\App\Models\Type::class))->setTitle('Группы факторов'),
+    (new Page(\App\Models\SocialNetwork::class))->setTitle('Социальные Сети'),
 ];

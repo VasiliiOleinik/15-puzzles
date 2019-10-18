@@ -39,7 +39,7 @@
                 <div class="main-content">
                     <h1 class="title">{{$article->title}}</h1>
                     <div class="post_container">
-                        <div class="post news-full"><img class="post__img" src="{{$article->article->img}}"
+                        <div class="post news-full"><img class="post__img" src="{{asset($article->article->img)}}"
                                                          alt="Post img">
                             <span class="post__description">
                       {!!$article->content!!}

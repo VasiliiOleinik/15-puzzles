@@ -7,6 +7,7 @@ use AdminDisplay;
 use AdminForm;
 use AdminFormElement;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
+use SleepingOwl\Admin\Contracts\Display\Extension\FilterInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
@@ -52,10 +53,15 @@ class Article extends Section
                     AdminColumn::text('created_at')->setLabel('Дата создания')->setOrderable(false),
                 ]
             );
+        $display->setColumnFilters([
+            \AdminColumnFilter::text()->setPlaceholder('Введите название')->setOperator(FilterInterface::CONTAINS),
+        ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
             $query->orderBy('created_at', 'desc');
         });
+
+
 
         return $display;
     }
