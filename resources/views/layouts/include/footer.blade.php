@@ -15,15 +15,16 @@
       </div>
       <div class="footer__right footer__item">
         <h6 class="footer__h6">@lang('footer.title_subscribe')</h6>
-        <form class="footer__subscribe" method="get" action="{{ route('subscriber.create', app()->getLocale()) }}">
+        <form id="footer-subscribe-form" class="footer__subscribe" method="get">
           @auth
-          <input type="email" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" value="{{ Auth::user()->email }}" required>
+          <input type="text" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" value="{{ Auth::user()->email }}">
           @endauth
           @guest
-          <input type="email" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" required lang="de">
+          <input type="text" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')">
           @endguest
           <button type="submit">@lang('footer.button_subscribe')</button>
         </form>
+        <label id="footer-email-subscribe-error" class="invalid" for="email-subscribe"></label>
         <h6 class="footer__h6 evidence-title">@lang('footer.levels')</h6>
         <ul class="footer__evidence">
           <li class="proven">@lang('footer.proven')</li>
