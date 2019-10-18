@@ -8,3 +8,9 @@ label.invalid-feedback {
     color: #f76577 !important;
     line-height: initial;
 }
+
+#edit-story-js {
+    display: none;
+    border-top: none;
+    padding-top: 0;
+}

@@ -22,8 +22,8 @@ class MedicalHistoryController extends Controller
         ]);
 
         $medicalHistory = new MedicalHistory;
-        
-        if($request['img-medical-history'] != null){          
+
+        if($request['img-medical-history'] != null){
           $medicalHistory->img = $request['img-medical-history'];
         }
         //dd($medicalHistory);
@@ -43,7 +43,7 @@ class MedicalHistoryController extends Controller
      * @param  Request $request, integer $id
      * @return redirect()->back()
      */
-    public function updatePost(Request $request, $id)
+    public function updatePost(Request $request)
     {
         $validatedData = $request->validate([
         'headline' => ['required', 'string', 'max:191'],
@@ -51,9 +51,10 @@ class MedicalHistoryController extends Controller
         'img-medical-history' => ['nullable'],
         ]);
 
+        $id = $request['id'];
         $medicalHistory = MedicalHistory::find($id);
-        
-        if($request['img-medical-history'] != null){          
+
+        if($request['img-medical-history'] != null){
           $medicalHistory->img = $request['img-medical-history'];
         }
         $medicalHistory->title = $request['headline'];

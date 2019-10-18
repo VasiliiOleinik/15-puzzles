@@ -22,6 +22,7 @@
                </div>
                <a class="add-note" href="javascript:void(0)" id="add-note-js">@lang('personal_cabinet.add_a_note')</a>
               </div>
+              {{-- форма добавления новой истории --}}
               <div class="add-story" id="add-story-js">
                 <h3 class="add-story__title">@lang('personal_cabinet.add_your_story')</h3>
                 <form class="add-story__form" method="post" action="{{ route('medical_history_create_post') }}">
@@ -37,7 +38,7 @@
                   <div class="add-images">
                     <h3 class="add-images__title">@lang('personal_cabinet.add_image')</h3>
                     <div class="images-container">
-                      <div class="item-img">
+                      <div class="item-img" id="add-story-item-image">
                         <input id="add-story-img" type="hidden" name="img-medical-history">
                         <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">
@@ -49,6 +50,38 @@
                   <div class="footer-form">
                     <input class="submit-form" type="submit" value="@lang('personal_cabinet.submit_note')">
                     <input class="cancel-form" type="button" value="@lang('personal_cabinet.cancel')" id="cancel-form-js">
+                  </div>
+                </form>
+              </div>
+              {{-- форма изменения истории --}}
+              <div class="add-story" id="edit-story-js">
+                <h3 class="add-story__title">@lang('personal_cabinet.change_your_story')</h3>
+                <form class="add-story__form" id="edit-story__form" method="post" action="{{ route('medical_history_update_post') }}">
+                @csrf
+                  <input type="hidden" name="id" value="">
+                  <div class="labels">
+                    <input class="headline inp" type="text" name="headline" required>
+                    <label for="headline">@lang('personal_cabinet.headline')</label>
+                  </div>
+                  <div class="labels">
+                    <textarea class="story inp" name="your-story" required></textarea>
+                    <label class="textarea" for="your-story">@lang('personal_cabinet.your_story')</label>
+                  </div>
+                  <div class="add-images">
+                    <h3 class="add-images__title">@lang('personal_cabinet.add_image')</h3>
+                    <div class="images-container">
+                      <div class="item-img" id="edit-story-item-image">
+                        <input id="edit-story-img" type="hidden" name="img-medical-history">
+                        <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
+                        <button class="file-upload">
+                          <input class="file-input" type="file" placeholder="@lang('personal_cabinet.choose_file')">
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="footer-form">
+                    <input class="submit-form" type="submit" value="@lang('personal_cabinet.save_note')">
+                    <input class="cancel-form" type="button" value="@lang('personal_cabinet.cancel')" id="cancel-edit-form-js">
                   </div>
                 </form>
               </div>

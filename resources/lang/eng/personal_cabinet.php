@@ -39,4 +39,6 @@ return [
     'choose_file' => 'Choose File',
     'submit_note' => 'Submit note',
     'cancel' => 'Cancel',
+    'change_your_story' => 'Change your story',
+    'save_note' => 'Save note',
 ];

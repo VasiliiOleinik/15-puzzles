@@ -39,4 +39,6 @@ return [
     'choose_file' => 'Выбрать файл',
     'submit_note' => 'Отправить заметку',
     'cancel' => 'Отмена',
+    'change_your_story' => 'Измените вашу историю',
+    'save_note' => 'Сохранить заметку',
 ];
