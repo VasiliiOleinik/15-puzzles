@@ -194,19 +194,20 @@ class MainController extends Controller
     public function filter(Request $request)
     {
         $json = [];
+        // инициализируем модели
         $models = [$this->modelFactor, $this->modelDisease, $this->modelProtocol, $this->modelRemedy, $this->modelMarker];
-
+        // Перебираем модели
         foreach ($models as $model) {
-
+            // Получаем имя таблицы без s в конце
             $table = $this->getModelNameLowercase($model);
             //если фильтр не задан => берем значения таблиц из кэша
             if (!$request['factor'] && !$request['disease'] && !$request['protocol']) {
                 $modelResults = Cache::get($table . '_' . $request['locale']);
                 $json[$table] = $modelResults;
+
             } else {
                 $resultStartArray = Cache::get($table . '_' . $request['locale'])->pluck($table . '_id')->toArray();
                 $withArray = ['factor', 'disease', 'protocol'];
-
                 //фильтр по таблице не задан => ищем
                 if (!$request[$table]) {
                     //проходим по всем фильтры: 'factor', 'disease', 'protocol'
@@ -229,10 +230,6 @@ class MainController extends Controller
         if ($request['disease']) {
             return ([
                 "models" => $json,
-                /*"diseaseFactors" => Disease::with('factors')
-                                            ->find($request['disease'][0])
-                                            ->factors()->get()
-                                            ->pluck('id')->toArray()*/
             ]);
         } else {
             return (["models" => $json]);
@@ -260,7 +257,6 @@ class MainController extends Controller
         if (count($result['models']['factor']) == Factor::count() &&
             count($result['models']['disease']) == Disease::count() &&
             count($result['models']['protocol']) == Protocol::count()) {
-
             return json_encode(['views' => $views, 'models' => $result['models']/*, 'diseaseFactors' => $diseaseFactors*/]);
         } else {
             $models = [$this->modelFactorLanguage, $this->modelDiseaseLanguage, $this->modelProtocolLanguage, $this->modelRemedyLanguage, $this->modelMarkerLanguage];
@@ -269,20 +265,40 @@ class MainController extends Controller
 
                 //добавляем связанную таблицу
                 if ($modelName == "factor") {
-                    ${'factors'} = $model::withoutGlobalScopes()->where('language', '=', $request['locale'])->with($modelName . '.type')->whereIn($modelName . '_id', $result['models'][$modelName])->get();
+                    ${'factors'} = $model::withoutGlobalScopes()
+                        ->where('language', '=', $request['locale'])
+                        ->with($modelName . '.type')
+                        ->whereIn($modelName . '_id', $result['models'][$modelName])
+                        ->get();
                 } else
                     if ($modelName == "disease") {
-                        ${'diseases'} = $model::withoutGlobalScopes()->where('language', '=', $request['locale'])->with($modelName)->whereIn($modelName . '_id', $result['models'][$modelName])->get();
+                        ${'diseases'} = $model::withoutGlobalScopes()
+                            ->where('language', '=', $request['locale'])
+                            ->with($modelName)
+                            ->whereIn($modelName . '_id', $result['models'][$modelName])
+                            ->get();
                     } else
                         if ($modelName == "protocol") {
-                            ${'protocols'} = $model::withoutGlobalScopes()->where('language', '=', $request['locale'])->with($modelName . '.evidence')->whereIn($modelName . '_id', $result['models'][$modelName])->get();
+                            ${'protocols'} = $model::withoutGlobalScopes()
+                                ->where('language', '=', $request['locale'])
+                                ->with($modelName . '.evidence')
+                                ->whereIn($modelName . '_id', $result['models'][$modelName])
+                                ->get();
                         } else
                             if ($modelName == "remedy") {
                                 $modelName = 'remedie';
-                                ${'remedies'} = $model::withoutGlobalScopes()->where('language', '=', $request['locale'])->with("remedy")->whereIn('remedy_id', $result['models']['remedy'])->get();
+                                ${'remedies'} = $model::withoutGlobalScopes()
+                                    ->where('language', '=', $request['locale'])
+                                    ->with("remedy")
+                                    ->whereIn('remedy_id', $result['models']['remedy'])
+                                    ->get();
                             } else
                                 if ($modelName == "marker") {
-                                    ${$modelName . 's'} = $model::withoutGlobalScopes()->where('language', '=', $request['locale'])->with('marker.methods.methodLanguage')->whereIn($modelName . '_id', $result['models'][$modelName])->get();
+                                    ${$modelName . 's'} = $model::withoutGlobalScopes()
+                                        ->where('language', '=', $request['locale'])
+                                        ->with('marker.methods.methodLanguage')
+                                        ->whereIn($modelName . '_id', $result['models'][$modelName])
+                                        ->get();
                                 }
                 if ($modelName != "marker") {
                     $view[$modelName] = view('main.main-left.main-tabs.' . $modelName . 's', [$modelName . 's' => ${$modelName . 's'}]);
@@ -317,15 +333,17 @@ class MainController extends Controller
     }
 
     /**
-     * Filter model data
-     *
-     * @return model
+     * @param $model
+     * @param $with
+     * @param $array
+     * @param $resultStartArray
+     * @return mixed
      */
     public function withWhereIn($model, $with, $array, $resultStartArray)
     {
         if (count($array) > 0) {
-            return $model::whereIn('id', $resultStartArray)->with($with . 's')->whereHas(
-                $with . 's', function ($query) use ($with, $array) {
+            return $model::whereIn('id', $resultStartArray)->with($with . 's')
+                ->whereHas($with . 's', function ($query) use ($with, $array) {
                 $query->whereIn($with . '_id', $array);
             }
             )->get();

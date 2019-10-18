@@ -81,15 +81,15 @@ class Page extends Section
         ]);
         $columns2 = AdminFormElement::columns([
             [
-                AdminFormElement::text('pageEng.h1', 'Заголовок h1 ENG'),
-                AdminFormElement::text('pageEng.title', 'Title ENG'),
+                AdminFormElement::text('pageEng.h1', 'Заголовок h1 ENG')->required(),
+                AdminFormElement::text('pageEng.title', 'Title ENG')->required(),
                 AdminFormElement::textarea('pageEng.short_description', 'Описание короткое ENG'),
                 AdminFormElement::textarea('pageEng.puzzles_description', 'Текст под баннером ENG'),
                 AdminFormElement::textarea('pageEng.description', 'Главный текст на странице ENG'),
             ],
             [
-                AdminFormElement::text('pageRu.h1', 'Заголовок h1 RU'),
-                AdminFormElement::text('pageRu.title', 'Title RU'),
+                AdminFormElement::text('pageRu.h1', 'Заголовок h1 RU')->required(),
+                AdminFormElement::text('pageRu.title', 'Title RU')->required(),
                 AdminFormElement::textarea('pageRu.short_description', 'Описание короткое RU'),
                 AdminFormElement::textarea('pageRu.puzzles_description', 'Текст под баннером RU'),
                 AdminFormElement::textarea('pageRu.description', 'Главный текст на странице RU'),
