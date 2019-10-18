@@ -58,4 +58,9 @@ class Book extends Model
         return $this->hasOne(BookLanguage::class)
             ->where('language', 'eng');
     }
+
+    public function bookLang()
+    {
+        return $this->hasOne(BookLanguage::class);
+    }
 }

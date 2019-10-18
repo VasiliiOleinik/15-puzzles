@@ -11,6 +11,8 @@ AdminSection::registerModel(Article::class, function (ModelConfiguration $model)
         $article = $data->articlesRu;
         $data->alias = URLify::filter($article->title.' '.$article->article->created_at.' '.$article->article->id, 190);
         $data->save();
+
+        Cache::clear();
     });
 });
 
@@ -19,6 +21,8 @@ AdminSection::registerModel(CategoryForNews::class, function (ModelConfiguration
         $category = $data->categoryRu;
         $data->alias = URLify::filter($category->name.' '.$category->created_at.' s'.$category->id, 190);
         $data->save();
+
+        Cache::clear();
     });
 });
 
@@ -27,6 +31,8 @@ AdminSection::registerModel(CategoryForBooks::class, function (ModelConfiguratio
         $dataItem = $data->bookRu;
         $data->alias = URLify::filter($dataItem->name.' '.$dataItem->created_at.' '.$dataItem->id, 190);
         $data->save();
+
+        Cache::clear();
     });
 });
 
@@ -35,5 +41,7 @@ AdminSection::registerModel(MemberCase::class, function (ModelConfiguration $mod
         $dataItem = $data->casesRu;
         $data->alias = URLify::filter($dataItem->name.' '.$dataItem->created_at.' '.$dataItem->id, 190);
         $data->save();
+
+        Cache::clear();
     });
 });
