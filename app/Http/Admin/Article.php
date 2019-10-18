@@ -89,8 +89,10 @@ class Article extends Section
                     ->setModelForOptions(\App\Models\Tag::class)
                     ->setDisplay('tagRu.name'),
                 AdminFormElement::multiselect('categoriesForNews', 'Категории этой статьи')
-                    ->setModelForOptions(\App\Models\Protocol\Protocol::class)
+                    ->setModelForOptions(\App\Models\Category\CategoryForNews::class)
                     ->setDisplay('categoryRu.name'),
+
+                AdminFormElement::text('author')->setLabel('Автор')->required(),
             ]
         ]);
 

@@ -26,8 +26,9 @@ class ArticlesTableSeeder extends Seeder
         Article::all()->each(function ($article) use ($tags) {
             $article->tags()->attach(
                 $tags->random(
-                    rand(6,  22))->pluck('id')->toArray()
-
+                    rand(6, 22))
+                    ->pluck('id')
+                    ->toArray()
             );
         });
 
@@ -35,7 +36,7 @@ class ArticlesTableSeeder extends Seeder
         Article::all()->each(function ($article) use ($categoriesForNews) {
             $article->categoriesForNews()->sync(
                 $categoriesForNews->random(
-                    rand(1,  3))->pluck('id')->toArray()
+                    rand(1, 3))->pluck('id')->toArray()
             );
         });
     }
