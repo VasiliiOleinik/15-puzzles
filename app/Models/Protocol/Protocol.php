@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property FactorProtocol[] $factorProtocols
  * @property ProtocolMarker[] $protocolMarkers
  * @property ProtocolRemedy[] $protocolRemedies
+ *  * @mixin \Eloquent
  */
 class Protocol extends Model
 {

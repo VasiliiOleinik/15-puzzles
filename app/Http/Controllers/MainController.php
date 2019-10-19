@@ -23,6 +23,7 @@ use App\Models\Article\Article;
 use App\Models\Article\ArticleLanguage;
 use App\Models\Evidence;
 use App\Repository\FilterMainPageRepository;
+use App\Service\FilterMainPageService;
 use Illuminate\Support\Facades\Cache;
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -58,6 +59,7 @@ class MainController extends Controller
     public $modelRemedyLanguage = "App\\Models\\RemedyLanguage";
     public $modelMarkerLanguage = "App\\Models\\Marker\\MarkerLanguage";
     private $repository;
+    private $service;
 
     const FILTER_BY_FACTOR = 'factor';
     const FILTER_BY_DISEASE = 'disease';
@@ -66,10 +68,12 @@ class MainController extends Controller
     /**
      * MainController constructor.
      * @param FilterMainPageRepository $repository
+     * @param FilterMainPageService $service
      */
-    public function __construct(FilterMainPageRepository $repository)
+    public function __construct(FilterMainPageRepository $repository, FilterMainPageService $service)
     {
         $this->repository = $repository;
+        $this->service = $service;
     }
 
     /**
@@ -188,40 +192,7 @@ class MainController extends Controller
      */
     public function filter(Request $request): array
     {
-        $filterResult = array();
-
-        //$filterResult = $this->repository->filterByFactor([10,12]);
-
-
-        $raw = <<<RAW
-       factors.id                                                      as id,
-       GROUP_CONCAT(DISTINCT fd.id ORDER BY fd.id)               as fd_disease,
-       GROUP_CONCAT(DISTINCT dp.protocol_id ORDER BY dp.protocol_id) as protocols,
-       GROUP_CONCAT(DISTINCT pm.marker_id ORDER BY pm.marker_id)    as markers,
-       GROUP_CONCAT(DISTINCT pr.remedy_id ORDER BY pr.remedy_id )   as  remedy
-RAW;
-        $factor = Factor::selectRaw($raw)
-            ->join('factor_diseases as fd', 'factors.id', 'fd.factor_id')
-            ->join('disease_protocols as dp', 'fd.disease_id', 'dp.disease_id')
-            ->join('protocol_markers as pm', 'dp.protocol_id', 'pm.protocol_id')
-            ->join('protocol_remedies as pr', 'dp.protocol_id', 'pr.protocol_id')
-            ->when($request->factor, function (Builder $query, $factor) {
-                return $query->whereIn('factors.id', $factor);
-            })
-            ->when($request->disease, function (Builder $query, $disease) {
-                return $query->whereIn('dp.disease_id', $disease);
-            })
-            ->when($request->protocol, function (Builder $query, $protocol) {
-                return $query->whereIn('pm.protocol_id', $protocol);
-            })
-            ->groupBy(['factors.id'])
-            ->get();
-
-
-        $factorsProtocols = implode(',', $factor->pluck('protocols')->all());
-        $factorsProtocols = explode(',', $factorsProtocols);
-        $factorsProtocols = array_unique($factorsProtocols);
-        return $filterResult;
+        $filterResult = $this->repository->filter($request);
     }
 
     /**
@@ -230,114 +201,19 @@ RAW;
      */
     public function modelPartial(Request $request)
     {
-        $resultFiltering = $this->filter($request);
-        $resultFiltering = $this->mergeCollect($resultFiltering);
-
-        $tabActive = 0;
-        $view = [];
-        $views = [];
-
-
-        foreach ($resultFiltering as $model) {
-            $x = $model;
-            //$view[$modelName] = view('main.main-left.main-tabs.' . $modelName . 's', [$modelName . 's' => ${$modelName . 's'}]);
-
-
+        //$view = array();
+        $resultFiltering = $this->repository->filter($request);
+        $resultFilteringValidArray = $this->service->uniqFilteredData($resultFiltering);
+        foreach ($this->service->getNameFilteringModels() as $item) {
+            $modeIds= $resultFilteringValidArray[$item];
+            $modelItems = $this->repository->getModels($item, $modeIds);
+            $view = view
+            (
+               'main.main-left.main-tabs.' . $item,
+                [$item => $modelItems]
+            );
         }
-        return json_encode(['views' => $views, 'models' => $result['models']/*, 'diseaseFactors' => $diseaseFactors*/]);
+        return json_encode(['views' => $view]);
     }
-
-    /**
-     * Return lowercase model name
-     *
-     * @return string
-     */
-    public function getModelNameLowercase($model)
-    {
-        return strtolower(substr($model, strrpos($model, '\\') + 1));
-    }
-
-    /**
-     * Return lowercase model name without "Language"
-     *
-     * @return string
-     */
-    public function getModelNameLowercaseWithoutLanguage($model)
-    {
-        $model = str_replace("Language", "", $model);
-        return strtolower(substr($model, strrpos($model, '\\') + 1));
-    }
-
-    /**
-     * Filter model data
-     *
-     * @return model
-     */
-    public function withWhereIn($model, $with, $array, $resultStartArray)
-    {
-        if (count($array) > 0) {
-            return $model::whereIn('id', $resultStartArray)->with($with . 's')->whereHas(
-                $with . 's', function ($query) use ($with, $array) {
-                $query->whereIn($with . '_id', $array);
-            }
-            )->get();
-        } else {
-            return $model::whereIn('id', $resultStartArray)->with($with . 's')->get();
-        }
-    }
-
-    /**
-     * Return 'with' model array
-     *
-     * @return int []
-     */
-    public function getStartModelIdArray($with, $result, $array)
-    {
-        $resultStartArray = [];
-        foreach ($result as $element) {
-            $matches = 0;
-            if (count($element[$with . 's']) >= count($array)) {
-                foreach ($element[$with . 's'] as $elem) {
-                    if (in_array($elem->id, $array)) {
-                        $matches++;
-                    }
-                }
-                if ($matches >= count($array)) {
-                    array_push($resultStartArray, $element->id);
-                }
-            }
-        }
-        return $resultStartArray;
-    }
-
-    public function mergeCollect(array $resultFiltering): array
-    {
-        $arr = array();
-        $dr = array();
-        foreach ($resultFiltering as $resultFiltering) {
-            foreach ($resultFiltering as $key => $item) {
-                $arr[$key][] = $item;
-            }
-        }
-        foreach ($arr as $key => $item) {
-            $dr[$key] = implode(',', array_unique($item));
-        }
-    }
-
 }
-/*
-SELECT f.id                                                      id,
-       GROUP_CONCAT(DISTINCT fd.id ORDER BY fd.id)               fd_deases,
-       GROUP_CONCAT(DISTINCT dp.protocol_id ORDER BY dp.protocol_id) protocol,
-       GROUP_CONCAT(DISTINCT pm.marker_id ORDER BY pm.marker_id)     marker,
-       GROUP_CONCAT(DISTINCT pr.remedy_id ORDER BY pr.remedy_id )     remedy
-FROM factors f
-         join factor_diseases fd on f.id = fd.factor_id
-         join disease_protocols dp
-              on fd.disease_id = dp.disease_id
-         join protocol_markers pm on dp.protocol_id = pm.protocol_id
-         join protocol_remedies pr on dp.protocol_id = pr.protocol_id
-WHERE f.id in (10, 12)
-GROUP BY f.id
 
- * */

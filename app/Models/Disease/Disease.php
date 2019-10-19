@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property DiseaseProtocol[] $diseaseProtocols
  * @property DiseaseRemedy[] $diseaseRemedies
  * @property FactorDisease[] $factorDiseases
+ *  @mixin \Eloquent
  */
 class Disease extends Model
 {
@@ -92,5 +93,10 @@ class Disease extends Model
     {
         return $this->hasOne(DiseaseLanguage::class)
             ->where('language', 'eng');
+    }
+
+    public function diseaseLang()
+    {
+        return $this->hasOne(DiseaseLanguage::class);
     }
 }

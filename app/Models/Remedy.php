@@ -79,4 +79,10 @@ class Remedy extends Model
         return $this->hasOne(RemedyLanguage::class)
             ->where('language', 'eng');
     }
+
+    public function remedyLang()
+    {
+        return $this->hasOne(RemedyLanguage::class);
+
+    }
 }
