@@ -8,8 +8,10 @@ use App\Models\Disease\Disease;
 use App\Models\Disease\DiseaseLanguage;
 use App\Models\Factor\Factor;
 use App\Models\Factor\FactorLanguage;
+use App\Models\Marker\MarkerLanguage;
 use App\Models\Protocol\Protocol;
 use App\Models\Protocol\ProtocolLanguage;
+use App\Models\RemedyLanguage;
 use App\Service\Properties;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -62,6 +64,12 @@ RAW;
         }
         if($nameModels == Properties::NAME_FACTOR_MODEL){
             return FactorLanguage::whereIn('factor_id', $ids)->get();
+        }
+        if($nameModels == Properties::NAME_MARKERS_MODEL){
+            return MarkerLanguage::whereIn('marker_id', $ids)->get();
+        }
+        if($nameModels == Properties::NAME_REMEDIES_MODEL){
+            return RemedyLanguage::whereIn('remedy_id', $ids)->get();
         }
     }
 }

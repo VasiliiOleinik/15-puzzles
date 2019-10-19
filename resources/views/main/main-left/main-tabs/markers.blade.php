@@ -13,7 +13,7 @@
           <h3 class="content-markers-title">@lang('main.subtitle_markers')</h3>
           <span class="methods">@lang('main.methods')</span>
           <div class="method-list">
-          @foreach($markerMethods[$count]->marker->methods as $method)
+          @foreach($marker->marker->methods as $method)
               <div class="method-item">
                 <label class="method-item__head">
                   <input class="checkbox" type="radio" name="method"><span class="checkbox-custom"></span>

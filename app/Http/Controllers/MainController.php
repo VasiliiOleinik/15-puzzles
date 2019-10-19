@@ -201,19 +201,19 @@ class MainController extends Controller
      */
     public function modelPartial(Request $request)
     {
-        //$view = array();
         $resultFiltering = $this->repository->filter($request);
         $resultFilteringValidArray = $this->service->uniqFilteredData($resultFiltering);
         foreach ($this->service->getNameFilteringModels() as $item) {
             $modeIds= $resultFilteringValidArray[$item];
             $modelItems = $this->repository->getModels($item, $modeIds);
-            $view = view
+            $view[$item] = view
             (
                'main.main-left.main-tabs.' . $item,
                 [$item => $modelItems]
             );
+            $views[$item] = (string)$view[$item];
         }
-        return json_encode(['views' => $view]);
+        return json_encode(['views' => $views, 'models' => $resultFilteringValidArray]);
     }
 }
 
