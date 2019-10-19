@@ -29,7 +29,7 @@ class FilterMainPageRepository
     {
         $raw = <<<RAW
        factors.id                                                      as factors,
-       GROUP_CONCAT(DISTINCT fd.id ORDER BY fd.id)               as diseases,
+       GROUP_CONCAT(DISTINCT fd.disease_id ORDER BY fd.disease_id)               as diseases,
        GROUP_CONCAT(DISTINCT dp.protocol_id ORDER BY dp.protocol_id) as protocols,
        GROUP_CONCAT(DISTINCT pm.marker_id ORDER BY pm.marker_id)    as markers,
        GROUP_CONCAT(DISTINCT pr.remedy_id ORDER BY pr.remedy_id )   as  remedies
