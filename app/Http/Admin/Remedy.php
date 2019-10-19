@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin;
 
+use Composer\Cache;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
@@ -56,6 +57,7 @@ class Remedy extends Section
      */
     public function onEdit($id)
     {
+        \Cache::clear();
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('remedyEng.name')->setLabel('Название лекарства ENG'),
@@ -97,6 +99,7 @@ class Remedy extends Section
      */
     public function onCreate()
     {
+        \Cache::clear();
         return $this->onEdit(null);
     }
 

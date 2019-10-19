@@ -58,6 +58,9 @@ class Laboratory extends Section
                 \AdminFormElement::text('name')->setLabel('Имя лаборатории'),
                 \AdminFormElement::text('lat')->setLabel('Lat'),
                 \AdminFormElement::text('lng')->setLabel('Long'),
+
+                \AdminFormElement::multiselect('markers', 'Анализы')
+                   ->setModelForOptions(\App\Models\Marker\Marker::class, 'markerRu.name'),
             ]
         ]);
 

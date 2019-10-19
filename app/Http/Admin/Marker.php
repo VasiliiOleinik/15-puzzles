@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin;
 
+use Composer\Cache;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
@@ -54,6 +55,7 @@ class Marker extends Section
      */
     public function onEdit($id)
     {
+        \Cache::clear();
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('markerEng.name')->setLabel('Название анализа ENG'),
@@ -69,16 +71,16 @@ class Marker extends Section
         ]);
         $columns2 = \AdminFormElement::columns([
             [
-                \AdminFormElement::multiselect('methods', 'Методы лечения')
+                \AdminFormElement::multiselect('methods', 'Методы')
                     ->setModelForOptions(\App\Models\Method::class)
                     ->setDisplay('methodRu.name'),
 
-                \AdminFormElement::multiselect('protocols', 'Протоколы')
-                    ->setModelForOptions(\App\Models\Protocol\Protocol::class, 'protocolRu.name'),
-                \AdminFormElement::multiselect('diseases', 'Болезни')
-                    ->setModelForOptions(\App\Models\Disease\Disease::class, 'diseaseRu.name'),
-                \AdminFormElement::multiselect('factors', 'Факторы')
-                    ->setModelForOptions(\App\Models\Factor\Factor::class, 'factorRu.name')
+//                \AdminFormElement::multiselect('protocols', 'Протоколы')
+//                    ->setModelForOptions(\App\Models\Protocol\Protocol::class, 'protocolRu.name'),
+//                \AdminFormElement::multiselect('diseases', 'Болезни')
+//                    ->setModelForOptions(\App\Models\Disease\Disease::class, 'diseaseRu.name'),
+//                \AdminFormElement::multiselect('factors', 'Факторы')
+//                    ->setModelForOptions(\App\Models\Factor\Factor::class, 'factorRu.name')
 
             ]
         ]);
@@ -96,6 +98,7 @@ class Marker extends Section
      */
     public function onCreate()
     {
+        \Cache::clear();
         return $this->onEdit(null);
     }
 

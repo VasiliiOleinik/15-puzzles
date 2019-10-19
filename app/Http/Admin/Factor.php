@@ -4,6 +4,7 @@ namespace App\Http\Admin;
 
 use App\Models\Type;
 use App\Models\TypesLanguage;
+use Composer\Cache;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
@@ -57,6 +58,7 @@ class Factor extends Section
      */
     public function onEdit($id)
     {
+        \Cache::clear();
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('factorEng.name')->setLabel('Название ENG'),
@@ -75,17 +77,17 @@ class Factor extends Section
             [
                 \AdminFormElement::image('img')->setLabel('Изображение'),
 
-                \AdminFormElement::multiselect('diseases', 'Болезни которые вызывает фактор')
+                \AdminFormElement::multiselect('diseases', 'Болезни')
                     ->setModelForOptions(\App\Models\Disease\Disease::class, 'diseaseRu.name'),
 
-                \AdminFormElement::multiselect('protocols', 'Протоколы описывающие фактор')
-                    ->setModelForOptions(\App\Models\Protocol\Protocol::class, 'protocolRu.name'),
-
-                \AdminFormElement::multiselect('remedies', 'Лекарства')
-                    ->setModelForOptions(\App\Models\Remedy::class, 'remedyRu.name'),
-
-                \AdminFormElement::multiselect('markers', 'Анализы')
-                    ->setModelForOptions(\App\Models\Marker\Marker::class, 'markerRu.name')
+//                \AdminFormElement::multiselect('protocols', 'Протоколы описывающие фактор')
+//                    ->setModelForOptions(\App\Models\Protocol\Protocol::class, 'protocolRu.name'),
+//
+//                \AdminFormElement::multiselect('remedies', 'Лекарства')
+//                    ->setModelForOptions(\App\Models\Remedy::class, 'remedyRu.name'),
+//
+//                \AdminFormElement::multiselect('markers', 'Анализы')
+//                    ->setModelForOptions(\App\Models\Marker\Marker::class, 'markerRu.name')
 
             ]
         ]);
@@ -103,6 +105,7 @@ class Factor extends Section
      */
     public function onCreate()
     {
+        \Cache::clear();
         return $this->onEdit(null);
     }
 
