@@ -22,6 +22,7 @@ use App\Models\Marker\MarkerLanguage;
 use App\Models\Article\Article;
 use App\Models\Article\ArticleLanguage;
 use App\Models\Evidence;
+use App\Repository\FilterMainPageRepository;
 use Illuminate\Support\Facades\Cache;
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -55,14 +56,18 @@ class MainController extends Controller
     public $modelProtocolLanguage = "App\\Models\\Protocol\\ProtocolLanguage";
     public $modelRemedyLanguage = "App\\Models\\RemedyLanguage";
     public $modelMarkerLanguage = "App\\Models\\Marker\\MarkerLanguage";
+    private $repository;
 
+    const FILTER_BY_FACTOR = 'factor';
+    const FILTER_BY_DISEASE = 'disease';
+    const FILTER_BY_PROTOCOL = 'protocol';
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * MainController constructor.
+     * @param FilterMainPageRepository $repository
      */
-    public function __construct()
+    public function __construct(FilterMainPageRepository $repository)
     {
+        $this->repository = $repository;
     }
 
     /**
@@ -78,37 +83,25 @@ class MainController extends Controller
             return ArticleLanguage::with('article')->whereIn('article_id', $latest)
                 ->orderBy('id', 'desc')->paginate(3);
         });
-        $factors = Cache::remember('factor_' . app()->getLocale(), now()->addDay(1), function () {
-            return FactorLanguage::with('factor.type')->get();
-        });
-        $diseases = Cache::remember('disease_' . app()->getLocale(), now()->addDay(1), function () {
-            return DiseaseLanguage::with('disease')->get();
-        });
-        $protocols = Cache::remember('protocol_' . app()->getLocale(), now()->addDay(1), function () {
-            return ProtocolLanguage::with('protocol.evidence')->get();
-        });
-        $remedies = Cache::remember('remedy_' . app()->getLocale(), now()->addDay(1), function () {
-            return RemedyLanguage::with('remedy')->get();
-        });
-        $markers = Cache::remember('marker_' . app()->getLocale(), now()->addDay(1), function () {
-            return MarkerLanguage::with('marker.methods.methodLanguage')->get();
-        });
-        $markerMethods = Cache::remember('markerMethod_' . app()->getLocale(), now()->addDay(1),
-            function () use ($markers) {
-                return $markers;
-            });
-        $methods = Cache::remember('methods_' . app()->getLocale(), now()->addDay(1), function () {
-            return MethodLanguage::with('method')->get();
-        });
-        $evidences = Cache::remember('evidences_' . app()->getLocale(), now()->addDay(1), function () {
-            return Evidence::all();
-        });
-        $countries = Cache::remember('country', now()->addDay(1), function () {
-            return Country::all();
-        });
-        $laboratories = Cache::remember('laboratory', now()->addDay(1), function () {
-            return Laboratory::all();
-        });
+        $factors = FactorLanguage::with('factor.type')->get();
+
+        $diseases =  DiseaseLanguage::with('disease')->get();
+
+        $protocols =  ProtocolLanguage::with('protocol.evidence')->get();
+
+        $remedies =  RemedyLanguage::with('remedy')->get();
+
+        $markers =  MarkerLanguage::with('marker.methods.methodLanguage')->get();
+
+        $markerMethods = $markers;
+
+        $methods =  MethodLanguage::with('method')->get();
+
+        $evidences =  Evidence::all();
+
+        $countries =  Country::all();
+
+        $laboratories =  Laboratory::all();
         //$map = $this->initMap($laboratories);
         //$mapJs = $map['js'];
         $lits = BookLanguage::with('book')
@@ -188,69 +181,33 @@ class MainController extends Controller
     }
 
     /**
-     * Main tabs filter
-     *
-     * @return JSON
+     * @param Request $request
+     * @return array
      */
-    public function filter(Request $request)
+    public function filter(Request $request): array
     {
-        $json = [];
-        $models = [$this->modelFactor, $this->modelDisease, $this->modelProtocol, $this->modelRemedy, $this->modelMarker];
-
-        foreach ($models as $model) {
-
-            $table = $this->getModelNameLowercase($model);
-            //если фильтр не задан => берем значения таблиц из кэша
-            if (!$request['factor'] && !$request['disease'] && !$request['protocol']) {
-                $modelResults = Cache::get($table . '_' . $request['locale']);
-                $json[$table] = $modelResults;
-            } else {
-                $resultStartArray = Cache::get($table . '_' . $request['locale'])->pluck($table . '_id')->toArray();
-                $withArray = ['factor', 'disease', 'protocol'];
-
-                //фильтр по таблице не задан => ищем
-                if (!$request[$table]) {
-                    //проходим по всем фильтры: 'factor', 'disease', 'protocol'
-                    foreach ($withArray as $with) {
-                        //проверка чтобы имя таблицы и with() не совпадали
-                        if ($with != $table) {
-                            if ($request[$with]) {
-                                $result = $this->withWhereIn($model, $with, $request[$with], $resultStartArray);
-                                $resultStartArray = $this->getStartModelIdArray($with, $result, $request[$with]);
-                            }
-                        }
-                    }
-                    //фильтр по таблице задан => возвращаем значения фильтра
-                } else {
-                    $resultStartArray = $request[$table];
-                }
-                $json[$table] = $resultStartArray;
-            }
+        $filterResult = array();
+        if($request->filter == self::FILTER_BY_FACTOR){
+            $filterResult = $this->repository->filterByFactor([10,12]);
         }
-        if ($request['disease']) {
-            return ([
-                "models" => $json,
-                /*"diseaseFactors" => Disease::with('factors')
-                                            ->find($request['disease'][0])
-                                            ->factors()->get()
-                                            ->pluck('id')->toArray()*/
-            ]);
-        } else {
-            return (["models" => $json]);
+        if($request->filter == self::FILTER_BY_DISEASE){
+            $filterResult = $this->repository->filterByDiseases([10,12]);
         }
+        if($request->filter == self::FILTER_BY_PROTOCOL){
+            $filterResult = $this->repository->filterByProtocol([10,12]);
+        }
+
+        return $filterResult;
     }
 
     /**
-     * Return array of rendered views and array of models data
-     *
-     * @return JSON
+     * @param Request $request
+     * @return false|string
      */
     public function modelPartial(Request $request)
     {
+        $resultFiltering = $this->filter($request);
 
-        $report = new MainController();
-        $result = $report->filter($request);
-        //return $result;
         $tabActive = 0;
         $view = [];
         $views = [];
