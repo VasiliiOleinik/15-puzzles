@@ -75,6 +75,8 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::get('member_cases/comment/create', 'CommentController@create')->name('comment_create');
 });
 
+Route::get('subscriber/create', 'SubscriberController@create')->name('subscriber_create'); // фикс для работы формы подписки на главной странице
+
 // Email Verification Routes...
 Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
 Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');

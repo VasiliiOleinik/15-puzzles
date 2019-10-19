@@ -545,7 +545,7 @@ $(function () {
         });
     });
 
-    // Отправка формы подписки на страницах Member's cases, News, Literature
+    // Отправка формы подписки на странице Literature
     $('#literature-subscribe-form').on('submit', function (e) {
         e.preventDefault();
 
@@ -580,7 +580,7 @@ $(function () {
             }
         });
     });
-
+    // Отправка формы подписки на странице Member's cases
     $('#member-cases-subscribe-form').on('submit', function (e) {
         e.preventDefault();
 
@@ -615,7 +615,7 @@ $(function () {
             }
         });
     });
-
+    // Отправка формы подписки на странице News
     $('#news-subscribe-form').on('submit', function (e) {
         e.preventDefault();
 
@@ -647,6 +647,41 @@ $(function () {
                 }
                 $('#news-subscribe-form button').prop("disabled", false);
                 $('#news-subscribe-form button').removeClass('disabled-button');
+            }
+        });
+    });
+    // Отправка формы подписки в Footer
+    $('#footer-subscribe-form').on('submit', function (e) {
+        e.preventDefault();
+
+        $('#footer-email-subscribe-error').text('');
+        $('#footer-subscribe-form button').prop("disabled", true);
+        $('#footer-subscribe-form button').addClass('disabled-button');
+
+        $.ajax({
+            type: 'GET',
+            url: 'subscriber/create',
+            data: $('#footer-subscribe-form').serialize(),
+            success: function (data) {
+                $('#footer-subscribe-form input').val('');
+                $('#footer-subscribe-form button').prop("disabled", false);
+                $('#footer-subscribe-form button').removeClass('disabled-button');
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
+            },
+            error: function (data) {
+                $("#preloader").css("display", "none");
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $('#footer-' + key + '-error').text(element[0]);
+                    }
+                }
+                $('#footer-subscribe-form button').prop("disabled", false);
+                $('#footer-subscribe-form button').removeClass('disabled-button');
             }
         });
     });

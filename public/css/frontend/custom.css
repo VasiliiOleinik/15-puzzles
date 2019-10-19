@@ -319,9 +319,29 @@ body .main .diagram__info-table .table_row .table-column {
     transform: translate(0, -50%);
 }
 
-body .footer__subscribe input[type="email"] {
+body .footer__subscribe input[name="email-subscribe"] {
     line-height: 50px;
     padding: 0px 30px;
+    font-size: 18px;
+}
+
+.footer__subscribe input[name="email-subscribe"] {
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    padding: 18px 29px 17px;
+    line-height: 1;
+    background-color: #f5f7fa;
+    color: rgba(2,2,2,.6);
+}
+
+.footer__subscribe {
+    margin-bottom: 0px;
+}
+
+.footer__h6.evidence-title {
+    margin-top: 45px;
 }
 
 .faq-left-sticky {
