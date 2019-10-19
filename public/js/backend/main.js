@@ -193,15 +193,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     //console.log(data.activeTab)
                     refreshTabsCounts(response.responseJSON.models);
                     if (data.activeTab != 0)
-                        $('#tabListFactors').html(response.responseJSON.views.factor);
+                        $('#tabListFactors').html(response.responseJSON.views.factors);
                     if (data.activeTab != 1)
-                        $('#tabListDiseases').html(response.responseJSON.views.disease);
+                        $('#tabListDiseases').html(response.responseJSON.views.diseases);
                     if (data.activeTab != 2)
-                        $('#tabListProtocols').html(response.responseJSON.views.protocol);
+                        $('#tabListProtocols').html(response.responseJSON.views.protocols);
                     if (data.activeTab != 3)
-                        $('#tabListRemedies').html(response.responseJSON.views.remedie);
+                        $('#tabListRemedies').html(response.responseJSON.views.remedies);
                     if (data.activeTab != 4)
-                        $('#tabListMarkers').html(response.responseJSON.views.marker);
+                        $('#tabListMarkers').html(response.responseJSON.views.markers);
                 }
             },
             error: function (err) {
@@ -265,8 +265,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     function refreshTabsCounts(models) {
         let length = Object.keys(modelNames).length;
-        for (let i = 0; i < length; i++) {
-            $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]].length + ']');
+
+        for (key in models) {
+            $('#count' + key).html('[' +  models[key].length + ']');
         }
     }
 
