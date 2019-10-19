@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Country;
 use App\Models\Laboratory\Laboratory;
+use Illuminate\Database\Eloquent\Builder;
 
 //use GMaps;
 
@@ -61,6 +62,7 @@ class MainController extends Controller
     const FILTER_BY_FACTOR = 'factor';
     const FILTER_BY_DISEASE = 'disease';
     const FILTER_BY_PROTOCOL = 'protocol';
+
     /**
      * MainController constructor.
      * @param FilterMainPageRepository $repository
@@ -85,23 +87,23 @@ class MainController extends Controller
         });
         $factors = FactorLanguage::with('factor.type')->get();
 
-        $diseases =  DiseaseLanguage::with('disease')->get();
+        $diseases = DiseaseLanguage::with('disease')->get();
 
-        $protocols =  ProtocolLanguage::with('protocol.evidence')->get();
+        $protocols = ProtocolLanguage::with('protocol.evidence')->get();
 
-        $remedies =  RemedyLanguage::with('remedy')->get();
+        $remedies = RemedyLanguage::with('remedy')->get();
 
-        $markers =  MarkerLanguage::with('marker.methods.methodLanguage')->get();
+        $markers = MarkerLanguage::with('marker.methods.methodLanguage')->get();
 
         $markerMethods = $markers;
 
-        $methods =  MethodLanguage::with('method')->get();
+        $methods = MethodLanguage::with('method')->get();
 
-        $evidences =  Evidence::all();
+        $evidences = Evidence::all();
 
-        $countries =  Country::all();
+        $countries = Country::all();
 
-        $laboratories =  Laboratory::all();
+        $laboratories = Laboratory::all();
         //$map = $this->initMap($laboratories);
         //$mapJs = $map['js'];
         $lits = BookLanguage::with('book')
@@ -187,16 +189,38 @@ class MainController extends Controller
     public function filter(Request $request): array
     {
         $filterResult = array();
-        if($request->filter == self::FILTER_BY_FACTOR){
-            $filterResult = $this->repository->filterByFactor([10,12]);
-        }
-        if($request->filter == self::FILTER_BY_DISEASE){
-            $filterResult = $this->repository->filterByDiseases([10,12]);
-        }
-        if($request->filter == self::FILTER_BY_PROTOCOL){
-            $filterResult = $this->repository->filterByProtocol([10,12]);
-        }
 
+        //$filterResult = $this->repository->filterByFactor([10,12]);
+
+
+        $raw = <<<RAW
+       factors.id                                                      as id,
+       GROUP_CONCAT(DISTINCT fd.id ORDER BY fd.id)               as fd_disease,
+       GROUP_CONCAT(DISTINCT dp.protocol_id ORDER BY dp.protocol_id) as protocols,
+       GROUP_CONCAT(DISTINCT pm.marker_id ORDER BY pm.marker_id)    as markers,
+       GROUP_CONCAT(DISTINCT pr.remedy_id ORDER BY pr.remedy_id )   as  remedy
+RAW;
+        $factor = Factor::selectRaw($raw)
+            ->join('factor_diseases as fd', 'factors.id', 'fd.factor_id')
+            ->join('disease_protocols as dp', 'fd.disease_id', 'dp.disease_id')
+            ->join('protocol_markers as pm', 'dp.protocol_id', 'pm.protocol_id')
+            ->join('protocol_remedies as pr', 'dp.protocol_id', 'pr.protocol_id')
+            ->when($request->factor, function (Builder $query, $factor) {
+                return $query->whereIn('factors.id', $factor);
+            })
+            ->when($request->disease, function (Builder $query, $disease) {
+                return $query->whereIn('dp.disease_id', $disease);
+            })
+            ->when($request->protocol, function (Builder $query, $protocol) {
+                return $query->whereIn('pm.protocol_id', $protocol);
+            })
+            ->groupBy(['factors.id'])
+            ->get();
+
+
+        $factorsProtocols = implode(',', $factor->pluck('protocols')->all());
+        $factorsProtocols = explode(',', $factorsProtocols);
+        $factorsProtocols = array_unique($factorsProtocols);
         return $filterResult;
     }
 
@@ -207,48 +231,18 @@ class MainController extends Controller
     public function modelPartial(Request $request)
     {
         $resultFiltering = $this->filter($request);
+        $resultFiltering = $this->mergeCollect($resultFiltering);
 
         $tabActive = 0;
         $view = [];
         $views = [];
-        //$diseaseFactors = [];
-        /*if(count($result) > 1){
-            $diseaseFactors = $result['diseaseFactors'];
-        }*/
-        if (count($result['models']['factor']) == Factor::count() &&
-            count($result['models']['disease']) == Disease::count() &&
-            count($result['models']['protocol']) == Protocol::count()) {
 
-            return json_encode(['views' => $views, 'models' => $result['models']/*, 'diseaseFactors' => $diseaseFactors*/]);
-        } else {
-            $models = [$this->modelFactorLanguage, $this->modelDiseaseLanguage, $this->modelProtocolLanguage, $this->modelRemedyLanguage, $this->modelMarkerLanguage];
-            foreach ($models as $model) {// example: 'App\\Models\\Protocol\\Protocol'
-                $modelName = $this->getModelNameLowercaseWithoutLanguage($model);// example: 'protocol'
 
-                //добавляем связанную таблицу
-                if ($modelName == "factor") {
-                    ${'factors'} = $model::withoutGlobalScopes()->where('language', '=', $request['locale'])->with($modelName . '.type')->whereIn($modelName . '_id', $result['models'][$modelName])->get();
-                } else
-                    if ($modelName == "disease") {
-                        ${'diseases'} = $model::withoutGlobalScopes()->where('language', '=', $request['locale'])->with($modelName)->whereIn($modelName . '_id', $result['models'][$modelName])->get();
-                    } else
-                        if ($modelName == "protocol") {
-                            ${'protocols'} = $model::withoutGlobalScopes()->where('language', '=', $request['locale'])->with($modelName . '.evidence')->whereIn($modelName . '_id', $result['models'][$modelName])->get();
-                        } else
-                            if ($modelName == "remedy") {
-                                $modelName = 'remedie';
-                                ${'remedies'} = $model::withoutGlobalScopes()->where('language', '=', $request['locale'])->with("remedy")->whereIn('remedy_id', $result['models']['remedy'])->get();
-                            } else
-                                if ($modelName == "marker") {
-                                    ${$modelName . 's'} = $model::withoutGlobalScopes()->where('language', '=', $request['locale'])->with('marker.methods.methodLanguage')->whereIn($modelName . '_id', $result['models'][$modelName])->get();
-                                }
-                if ($modelName != "marker") {
-                    $view[$modelName] = view('main.main-left.main-tabs.' . $modelName . 's', [$modelName . 's' => ${$modelName . 's'}]);
-                } else {
-                    $view[$modelName] = view('main.main-left.main-tabs.' . $modelName . 's', [$modelName . 's' => ${$modelName . 's'}, 'markerMethods' => Cache::get('markerMethod_' . $request['locale'])]);
-                }
-                $views[$modelName] = (string)$view[$modelName];
-            }
+        foreach ($resultFiltering as $model) {
+            $x = $model;
+            //$view[$modelName] = view('main.main-left.main-tabs.' . $modelName . 's', [$modelName . 's' => ${$modelName . 's'}]);
+
+
         }
         return json_encode(['views' => $views, 'models' => $result['models']/*, 'diseaseFactors' => $diseaseFactors*/]);
     }
@@ -316,4 +310,34 @@ class MainController extends Controller
         return $resultStartArray;
     }
 
+    public function mergeCollect(array $resultFiltering): array
+    {
+        $arr = array();
+        $dr = array();
+        foreach ($resultFiltering as $resultFiltering) {
+            foreach ($resultFiltering as $key => $item) {
+                $arr[$key][] = $item;
+            }
+        }
+        foreach ($arr as $key => $item) {
+            $dr[$key] = implode(',', array_unique($item));
+        }
+    }
+
 }
+/*
+SELECT f.id                                                      id,
+       GROUP_CONCAT(DISTINCT fd.id ORDER BY fd.id)               fd_deases,
+       GROUP_CONCAT(DISTINCT dp.protocol_id ORDER BY dp.protocol_id) protocol,
+       GROUP_CONCAT(DISTINCT pm.marker_id ORDER BY pm.marker_id)     marker,
+       GROUP_CONCAT(DISTINCT pr.remedy_id ORDER BY pr.remedy_id )     remedy
+FROM factors f
+         join factor_diseases fd on f.id = fd.factor_id
+         join disease_protocols dp
+              on fd.disease_id = dp.disease_id
+         join protocol_markers pm on dp.protocol_id = pm.protocol_id
+         join protocol_remedies pr on dp.protocol_id = pr.protocol_id
+WHERE f.id in (10, 12)
+GROUP BY f.id
+
+ * */

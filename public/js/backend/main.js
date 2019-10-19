@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let tab2 = $('#tabListDiseases').html();
     let tab3 = $('#tabListProtocols').html();
     let tab4 = $('#tabListRemedies').html();
-    let tab5 = $('#tabListMarkers').html();    
+    let tab5 = $('#tabListMarkers').html();
 
     /* ------------------ */
     /* ------------------ */
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //инициализация карты
     let mapInitAttempts = 0;
-    let mapInit = setInterval(function () {        
+    let mapInit = setInterval(function () {
         if ($('#map_canvas').find('div').length > 0 ||
             mapInitAttempts > 10) {
             clearInterval(mapInit);
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             mapInitAttempts ++;
         }
     }, 1);
-    
+
     //Поменялось значение чекбокса
     $(".tab-list.main-scroll").delegate('.checkbox', 'change', function () {
         syncCheckedElements('checkbox', $(this).attr('obj-id'), $(this).attr('obj-type'));
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     //Кликнули на 'найти лаборатории'
-    $('.methods-btn').bind('click', function () {        
+    $('.methods-btn').bind('click', function () {
         try {
             laboratories_ajax.abort();
         } catch (err) {
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 laboratories.forEach(function (item) {
                     addMarker(new google.maps.LatLng(parseFloat(item.lat),
                                                      parseFloat(item.lng) ) );
-                });                
+                });
             },
             error: function (err) {
             }
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             data: data,
             dataType: 'json',
             complete: function (response) {
-                //console.log(response.responseJSON.views);                
+                //console.log(response.responseJSON.views);
                 if (data.factor.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
                     refreshTabsCounts(response.responseJSON.models);
                     $('#tabListFactors').html(tab1);
@@ -234,10 +234,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     };
 
     function getTagsData() {
-        let factor = [], disease = [], protocol = [];
+        let factor = [], disease = [], protocol = [], filter = "";
         $(".tag-item").each(function () {
             let objId = $(this).attr('obj-id');
             let objType = $(this).attr('obj-type');
+            filter = objType;
             if (objType === "factor") {
                 factor.push(objId);
             }
@@ -256,6 +257,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             "activeTab": activeTab,
             "locale": locale,
             "_token": $('meta[name="csrf-token"]').attr('content'),
+            "filter": filter
         };
         return data;
     }
@@ -332,8 +334,8 @@ function addTagToTagsList(objId, objName, objType) {
         removeTag(objId, objType);
     } else {
         if (objType === 'protocol') {
-            let elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
-            name = elem.parent().find('.title').html().split('<span')[0].trim();
+            let elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]"),
+            name = elem.parent().parent().find('.title').html().split('<span')[0].trim();
             html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + name + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
         } else {
             html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + objName + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
