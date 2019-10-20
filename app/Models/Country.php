@@ -17,6 +17,12 @@ class Country extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'lat', 'lng'];
+    protected $guarded = [];
+
+    public function labaratories()
+    {
+        return $this->belongsToMany(Laboratory\Laboratory::class);
+    }
+
 
 }

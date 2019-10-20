@@ -23,6 +23,7 @@ use App\Models\Article\Article;
 use App\Models\Article\ArticleLanguage;
 use App\Models\Evidence;
 use App\Repository\FilterMainPageRepository;
+use App\Repository\LaboratoryRepository;
 use App\Service\FilterMainPageService;
 use Illuminate\Support\Facades\Cache;
 use Auth;
@@ -60,6 +61,7 @@ class MainController extends Controller
     public $modelMarkerLanguage = "App\\Models\\Marker\\MarkerLanguage";
     private $repository;
     private $service;
+    private $laboratoryRepository;
 
     const FILTER_BY_FACTOR = 'factor';
     const FILTER_BY_DISEASE = 'disease';
@@ -70,10 +72,11 @@ class MainController extends Controller
      * @param FilterMainPageRepository $repository
      * @param FilterMainPageService $service
      */
-    public function __construct(FilterMainPageRepository $repository, FilterMainPageService $service)
+    public function __construct(FilterMainPageRepository $repository, FilterMainPageService $service, LaboratoryRepository $laboratoryRepository)
     {
         $this->repository = $repository;
         $this->service = $service;
+        $this->laboratoryRepository = $laboratoryRepository;
     }
 
     /**
@@ -90,23 +93,14 @@ class MainController extends Controller
                 ->orderBy('id', 'desc')->paginate(3);
         });
         $factors = FactorLanguage::with('factor.type')->get();
-
         $diseases = DiseaseLanguage::with('disease')->get();
-
         $protocols = ProtocolLanguage::with('protocol.evidence')->get();
-
         $remedies = RemedyLanguage::with('remedy')->get();
-
         $markers = MarkerLanguage::with('marker.methods.methodLanguage')->get();
-
         $markerMethods = $markers;
-
         $methods = MethodLanguage::with('method')->get();
-
         $evidences = Evidence::all();
-
         $countries = Country::all();
-
         $laboratories = Laboratory::all();
         //$map = $this->initMap($laboratories);
         //$mapJs = $map['js'];
@@ -172,18 +166,9 @@ class MainController extends Controller
      */
     public function mapRefresh(Request $request)
     {
-        $laboratories =  Laboratory::all();
-        $country = null;
-        if ($request['country']) {
-            $country = Country::find($request['country']);
-        }
-        if ($request['method']) {
-            $laboratories = $this->checkIfMethodInLaboratory($laboratories, $request['method']);
-        }
-
-
-        $json = ['laboratories' => $laboratories, 'country' => $country];
-        return $json;
+        $filteredData = $this->laboratoryRepository->findLaboratory($request->country, $request->method);
+        //$json = ['laboratories' => $laboratories, 'country' => $country];
+       // return $json;
     }
 
 

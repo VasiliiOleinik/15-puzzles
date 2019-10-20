@@ -70,6 +70,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     $('.list_country').on('click', function(){
+        $('.list_country').removeClass('selected');
         $(this).addClass('selected');
     });
     //тэги обновились
@@ -98,8 +99,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         let country = $('#select-country').find('li.selected').eq(0).attr('obj-id');
         let method = $('#select-method').find('.current-value').text();
-        if (country == "Your country") {
+        if (country === "Your country") {
             country = "";
+        }
+        if (method === "Select method") {
+            method = "";
         }
         /*
         let zipcode = $('.methods-input').val();
@@ -115,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         */
         let data = {
             "country": country,
+            "local": locale,
             "method": method,
             "_token": $('meta[name="csrf-token"]').attr('content'),
         };

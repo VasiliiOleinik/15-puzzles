@@ -13,7 +13,7 @@ class CreateCountryLaboratories extends Migration
      */
     public function up()
     {
-        Schema::create('country_laboratories', function (Blueprint $table) {
+        Schema::create('country_laboratory', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('country_id');
             $table->integer('laboratory_id');

@@ -37,7 +37,13 @@ class Сountry extends Section
      */
     public function onDisplay()
     {
-        // remove if unused
+        $display = \AdminDisplay::datatablesAsync()->setColumns([
+            \AdminColumn::text('name')->setLabel('Название'),
+            \AdminColumn::text('lat')->setLabel('lat'),
+            \AdminColumn::text('lng')->setLabel('long')
+        ]);
+
+        return $display;
     }
 
     /**
@@ -47,13 +53,22 @@ class Сountry extends Section
      */
     public function onEdit($id)
     {
-        $display = \AdminDisplay::datatablesAsync()->setColumns([
-            \AdminColumn::text('name')->setLabel('Название'),
-            \AdminColumn::text('lat')->setLabel('lat'),
-            \AdminColumn::text('lng')->setLabel('long')
+        $columns1 = \AdminFormElement::columns([
+            [
+                \AdminFormElement::text('name')->setLabel('Название'),
+                \AdminFormElement::text('lat')->setLabel('lat'),
+                \AdminFormElement::textarea('lng')->setLabel('long'),
+                \AdminFormElement::multiselect('labaratories', 'Лабаратории в этой стране')
+                    ->setModelForOptions(\App\Models\Laboratory\Laboratory::class, 'name'),
+            ]
         ]);
 
-        return $display;
+        $form = \AdminForm::panel()->addBody([
+            $columns1,
+        ]);
+
+        return $form;
+
     }
 
     /**
