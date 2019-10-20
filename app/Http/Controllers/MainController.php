@@ -201,6 +201,7 @@ class MainController extends Controller
      */
     public function modelPartial(Request $request)
     {
+        app()->setLocale($request->local);
         $resultFiltering = $this->repository->filter($request);
         $resultFilteringValidArray = $this->service->uniqFilteredData($resultFiltering);
         foreach ($this->service->getNameFilteringModels() as $item) {

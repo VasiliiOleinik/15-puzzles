@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         filter_ajax = $.ajax({
             type: "post",
-            url: "/model_partial",
+            url: "model_partial",
             data: data,
             dataType: 'json',
             complete: function (response) {
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             "disease": disease,
             "protocol": protocol,
             "activeTab": activeTab,
-            "locale": locale,
+            "local": locale,
             "_token": $('meta[name="csrf-token"]').attr('content'),
             "filter": filter
         };

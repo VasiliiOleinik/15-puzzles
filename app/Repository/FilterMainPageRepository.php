@@ -56,20 +56,31 @@ RAW;
 
     public function getModels($nameModels, $ids)
     {
+        $x =  app()->getLocale();
         if($nameModels == Properties::NAME_PROTOCOLS_MODEL){
-            return ProtocolLanguage::whereIn('protocol_id', $ids)->get();
+            return ProtocolLanguage::whereIn('protocol_id', $ids)
+                ->where('language', app()->getLocale())
+                ->get();
         }
         if($nameModels == Properties::NAME_DISEASE_MODEL){
-            return DiseaseLanguage::whereIn('disease_id', $ids)->get();
+            return DiseaseLanguage::whereIn('disease_id', $ids)
+                ->where('language', app()->getLocale())
+                ->get();
         }
         if($nameModels == Properties::NAME_FACTOR_MODEL){
-            return FactorLanguage::whereIn('factor_id', $ids)->get();
+            return FactorLanguage::whereIn('factor_id', $ids)
+                ->where('language', app()->getLocale())
+                ->get();
         }
         if($nameModels == Properties::NAME_MARKERS_MODEL){
-            return MarkerLanguage::whereIn('marker_id', $ids)->get();
+            return MarkerLanguage::whereIn('marker_id', $ids)
+                ->where('language', app()->getLocale())
+                ->get();
         }
         if($nameModels == Properties::NAME_REMEDIES_MODEL){
-            return RemedyLanguage::whereIn('remedy_id', $ids)->get();
+            return RemedyLanguage::whereIn('remedy_id', $ids)
+                ->where('language', app()->getLocale())
+                ->get();
         }
     }
 }
