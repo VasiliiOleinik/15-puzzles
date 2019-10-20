@@ -23,8 +23,8 @@ class FilterMainPageService
         $factorsProtocolsArr = array();
         foreach ($this->getNameFilteringModels() as $item){
             $factorsProtocols = implode(',', $filteredData->pluck($item)->all());
-            $factorsProtocols = explode(',', $factorsProtocols);
-            $factorsProtocolsArr[$item] = array_unique($factorsProtocols);
+            $factorsProtocols = $factorsProtocols !='' ? explode(',', $factorsProtocols): false;
+            $factorsProtocolsArr[$item] = $factorsProtocols ? array_unique($factorsProtocols) : false;
         }
         return $factorsProtocolsArr;
     }

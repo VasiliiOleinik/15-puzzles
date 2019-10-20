@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             clearInterval(mapInit);
         } else {
             $('.methods-btn').click();
-            mapInitAttempts ++;
+            mapInitAttempts++;
         }
     }, 1);
 
@@ -139,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
                 //инициализакция карты
                 var map = new google.maps.Map(document.getElementById("map_canvas"), mapProp);
+
                 //функция добавления маркера
                 function addMarker(location) {
                     marker = new google.maps.Marker({
@@ -146,11 +147,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         map: map
                     });
                 }
+
                 //добавление маркера
                 laboratories = response.responseJSON.laboratories;
                 laboratories.forEach(function (item) {
                     addMarker(new google.maps.LatLng(parseFloat(item.lat),
-                                                     parseFloat(item.lng) ) );
+                        parseFloat(item.lng)));
                 });
             },
             error: function (err) {
@@ -160,7 +162,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     /* ------------------ */
     /* ------------------ */
-
 
 
     /* ------------------ */
@@ -216,9 +217,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
 
-
     /* ------------------ */
     /*     FUNCTIONS      */
+
     /* ------------------ */
 
     function getUrlParameter(sParam) {
@@ -269,7 +270,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let length = Object.keys(modelNames).length;
 
         for (key in models) {
-            $('#count' + key).html('[' +  models[key].length + ']');
+            if (models[key]) {
+                $('#count' + key).html('[' + models[key].length + ']');
+            } else {
+                $('#count' + key).html('[0]');
+            }
+
         }
     }
 
@@ -281,9 +287,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /* ------------------ */
 
 
-
 /* ------------------ */
 /*     FUNCTIONS      */
+
 /* ------------------ */
 
 function checkActiveTab() {
@@ -328,7 +334,7 @@ function checkCheckbox(objId, objType) {
 function checkPuzzle(objId, objType) {
     if (objType == 'factor') {
         var elem = $('.puzzle-15__item-outer[obj-id=' + objId + ']').children();
-       elem.toggleClass('active');
+        elem.toggleClass('active');
     }
 }
 
@@ -338,7 +344,7 @@ function addTagToTagsList(objId, objName, objType) {
     } else {
         if (objType === 'protocol') {
             let elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]"),
-            name = elem.parent().parent().find('.title').html().split('<span')[0].trim();
+                name = elem.parent().parent().find('.title').html().split('<span')[0].trim();
             html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + name + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
         } else {
             html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + objName + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
@@ -402,5 +408,6 @@ function startObserver(selector, callback, params) {
     // Pass in the target node, as well as the observer options
     observer.observe(target, config);
 }
+
 /* ------------------ */
 /* ------------------ */

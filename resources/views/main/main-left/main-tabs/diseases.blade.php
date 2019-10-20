@@ -1,4 +1,5 @@
-    @foreach($diseases as $disease)
+@if($diseases)
+@foreach($diseases as $disease)
       <div class="tab-item">
         <div class="tab-item__head">
           <label class="tab_head_check">
@@ -18,3 +19,4 @@
         </div>
       </div>
     @endforeach
+@endif

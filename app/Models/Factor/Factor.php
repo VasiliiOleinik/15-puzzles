@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Factor extends Model
 {
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * @var array

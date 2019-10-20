@@ -205,7 +205,7 @@ class MainController extends Controller
         $resultFilteringValidArray = $this->service->uniqFilteredData($resultFiltering);
         foreach ($this->service->getNameFilteringModels() as $item) {
             $modeIds= $resultFilteringValidArray[$item];
-            $modelItems = $this->repository->getModels($item, $modeIds);
+            $modelItems = $modeIds ? $this->repository->getModels($item, $modeIds) : false;
             $view[$item] = view
             (
                'main.main-left.main-tabs.' . $item,

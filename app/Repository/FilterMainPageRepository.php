@@ -36,9 +36,9 @@ class FilterMainPageRepository
 RAW;
         $factor = Factor::selectRaw($raw)
             ->join('factor_diseases as fd', 'factors.id', 'fd.factor_id')
-            ->join('disease_protocols as dp', 'fd.disease_id', 'dp.disease_id')
-            ->join('protocol_markers as pm', 'dp.protocol_id', 'pm.protocol_id')
-            ->join('protocol_remedies as pr', 'dp.protocol_id', 'pr.protocol_id')
+            ->leftJoin('disease_protocols as dp', 'fd.disease_id', 'dp.disease_id')
+            ->leftJoin('protocol_markers as pm', 'dp.protocol_id', 'pm.protocol_id')
+            ->leftJoin('protocol_remedies as pr', 'dp.protocol_id', 'pr.protocol_id')
             ->when($request->factor, function (Builder $query, $factor) {
                 return $query->whereIn('factors.id', $factor);
             })

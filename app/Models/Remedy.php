@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Remedy extends Model
 {
-	public $timestamps = false;
+	public $timestamps = true;
 
     /**
      * @var array
