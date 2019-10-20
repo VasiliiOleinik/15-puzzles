@@ -59,11 +59,11 @@ class Marker extends Section
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('markerEng.name')->setLabel('Название анализа ENG'),
-                \AdminFormElement::textarea('markerEng.content')->setLabel('Описание анализа ENG'),
+                \AdminFormElement::ckeditor('markerEng.content')->setLabel('Описание анализа ENG'),
             ],
             [
                 \AdminFormElement::text('markerRu.name')->setLabel('Название анализа Ru'),
-                \AdminFormElement::textarea('markerRu.content')->setLabel('Описание анализа RU'),
+                \AdminFormElement::ckeditor('markerRu.content')->setLabel('Описание анализа RU'),
 
                 \AdminFormElement::hidden('markerRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('markerEng.language')->setDefaultValue('eng')

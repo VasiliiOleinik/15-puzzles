@@ -118,11 +118,11 @@ class RemedyLanguages extends Section implements Initializable
                     return $scripts;
                 }),
             AdminFormElement::text('name')->setName('nameEng')->setLabel('Название лекарства')->required(),
-            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Описание лекарства')->required()
+            AdminFormElement::ckeditor('content')->setName('contentEng')->setLabel('Описание лекарства')->required()
         ]);
         $formRu = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название лекарства')->required(),
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание лекарства')->required()
+            AdminFormElement::ckeditor('content')->setName('contentRu')->setLabel('Описание лекарства')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([
             AdminFormElement::text('url')->setLabel('Ссылка на лекарство'),   
