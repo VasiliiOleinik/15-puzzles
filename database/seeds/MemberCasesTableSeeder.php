@@ -16,17 +16,17 @@ class MemberCasesTableSeeder extends Seeder
         DB::table('member_cases')->delete();
         DB::update("ALTER TABLE member_cases AUTO_INCREMENT = 0;");
 
-        factory(MemberCase::class, 20)->create();
+        factory(MemberCase::class, 2)->create();
 
         $tags = Tag::all();
 
         // Populate the pivot table
-        MemberCase::all()->each(function ($memberCase) use ($tags) { 
+        MemberCase::all()->each(function ($memberCase) use ($tags) {
             $memberCase->tags()->attach(
                 $tags->random(
-                    rand(1,  4))->pluck('id')->toArray()
-                
-            ); 
+                    rand(1,  2))->pluck('id')->toArray()
+
+            );
         });
     }
 }

@@ -30,7 +30,7 @@ class MarkerLanguagesTableSeeder extends Seeder
         for($i = 0; $i < Marker::count(); $i++){
             factory(MarkerLanguage::class, 1 )->create();
         }
-        for($i = Marker::count() + 1; $i < Marker::count()*2 + 1; $i++){
+        for($i = Marker::count() + 1; $i < Marker::count()+2; $i++){
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - Marker::count()] );
@@ -40,7 +40,7 @@ class MarkerLanguagesTableSeeder extends Seeder
         MarkerLanguage::withoutGlobalScopes()->where('id','<',Marker::count() + 1)->each(function ($marker) use ($methods) {
             $marker->methods()->attach(
                 $methods->where('language','=','eng')->random(
-                    rand(1,  4 ))->pluck('id')->toArray()
+                    rand(1,  2 ))->pluck('id')->toArray()
 
             );
         });
@@ -48,7 +48,7 @@ class MarkerLanguagesTableSeeder extends Seeder
         MarkerLanguage::withoutGlobalScopes()->where('id','>',Marker::count())->each(function ($marker) use ($methods, $count) {
             $marker->methods()->attach(
                 $methods->where('language','=','ru')->random(
-                    rand(1,  4 ))->pluck('id')->toArray()
+                    rand(1,  2 ))->pluck('id')->toArray()
 
             );
         });

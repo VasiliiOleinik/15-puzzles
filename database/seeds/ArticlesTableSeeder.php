@@ -17,7 +17,7 @@ class ArticlesTableSeeder extends Seeder
         DB::table('articles')->delete();
         DB::update("ALTER TABLE articles AUTO_INCREMENT = 0;");
 
-        factory(Article::class, 77)->create();
+        factory(Article::class, 2)->create();
 
         $tags = Tag::all();
         $categoriesForNews = CategoryForNews::all();
@@ -26,7 +26,7 @@ class ArticlesTableSeeder extends Seeder
         Article::all()->each(function ($article) use ($tags) {
             $article->tags()->attach(
                 $tags->random(
-                    rand(6, 22))
+                    rand(1, 2))
                     ->pluck('id')
                     ->toArray()
             );
@@ -36,7 +36,7 @@ class ArticlesTableSeeder extends Seeder
         Article::all()->each(function ($article) use ($categoriesForNews) {
             $article->categoriesForNews()->sync(
                 $categoriesForNews->random(
-                    rand(1, 3))->pluck('id')->toArray()
+                    rand(1,2))->pluck('id')->toArray()
             );
         });
     }

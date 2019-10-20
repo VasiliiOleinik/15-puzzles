@@ -15,15 +15,11 @@ class TypesTableSeeder extends Seeder
         DB::table('types')->delete();
         DB::update("ALTER TABLE types AUTO_INCREMENT = 0;");
 
-        factory(Type::class, 4)->create();
+        factory(Type::class, 2)->create();
 
         $img = [
             ['img' => '/img/svg/oxygen_metabolism.svg'],
             ['img' => '/img/svg/dna.svg'],
-            ['img' => '/img/svg/etiology.svg'],
-            ['img' => '/img/svg/hand.svg'],
-            ['img' => '/img/svg/detox.svg'],
-            ['img' => '/img/svg/voltage.svg'],
         ];
     }
 }

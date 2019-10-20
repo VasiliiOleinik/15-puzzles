@@ -26,7 +26,7 @@ class QuestionLanguagesTableSeeder extends Seeder
         for ($i = 0; $i < Question::count(); $i++) {
             factory(QuestionLanguage::class, 1)->create();
         }
-        for ($i = Question::count() + 1; $i < Question::count() * 2 + 1; $i++) {
+        for ($i = Question::count() + 1; $i < Question::count()  + 2; $i++) {
             DB::table($table)
                 ->where('id', $i)
                 ->update([$tableShort . '_id' => $i - Question::count()]);

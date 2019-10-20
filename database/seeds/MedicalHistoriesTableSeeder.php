@@ -15,6 +15,6 @@ class MedicalHistoriesTableSeeder extends Seeder
         DB::table('medical_histories')->delete();
         DB::update("ALTER TABLE medical_histories AUTO_INCREMENT = 0;");
 
-        factory(MedicalHistory::class, 50)->create();
+        factory(MedicalHistory::class, 2)->create();
     }
 }
