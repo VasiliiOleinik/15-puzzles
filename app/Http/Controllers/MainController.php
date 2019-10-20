@@ -25,6 +25,7 @@ use App\Models\Evidence;
 use App\Repository\FilterMainPageRepository;
 use App\Repository\LaboratoryRepository;
 use App\Service\FilterMainPageService;
+use App\Service\LaboratoryService;
 use Illuminate\Support\Facades\Cache;
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -62,6 +63,7 @@ class MainController extends Controller
     private $repository;
     private $service;
     private $laboratoryRepository;
+    private $laboratoriService;
 
     const FILTER_BY_FACTOR = 'factor';
     const FILTER_BY_DISEASE = 'disease';
@@ -72,11 +74,15 @@ class MainController extends Controller
      * @param FilterMainPageRepository $repository
      * @param FilterMainPageService $service
      */
-    public function __construct(FilterMainPageRepository $repository, FilterMainPageService $service, LaboratoryRepository $laboratoryRepository)
+    public function __construct(FilterMainPageRepository $repository,
+                                FilterMainPageService $service,
+                                LaboratoryRepository $laboratoryRepository,
+                                LaboratoryService $laboratoriService)
     {
         $this->repository = $repository;
         $this->service = $service;
         $this->laboratoryRepository = $laboratoryRepository;
+        $this->laboratoriService = $laboratoriService;
     }
 
     /**
@@ -167,8 +173,9 @@ class MainController extends Controller
     public function mapRefresh(Request $request)
     {
         $filteredData = $this->laboratoryRepository->findLaboratory($request->country, $request->method);
-        //$json = ['laboratories' => $laboratories, 'country' => $country];
-       // return $json;
+        $validResponseArray = $this->laboratoriService->getValidResponseArray($filteredData);
+        $json = json_encode($validResponseArray);
+        return $json;
     }
 
 

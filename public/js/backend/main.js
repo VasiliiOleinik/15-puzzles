@@ -131,9 +131,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 data: data,
                 dataType: 'json',
                 complete: function (response) {
+                    result = response.responseJSON;
                     $("#preloader").css("display", "none");
                     //console.log(response.responseJSON);
-
                     //очистка карты
                     $('#map_canvas').html('');
                     //выставляем центр карты в зависимости от выбранной страны
@@ -143,8 +143,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     };
                     if (country) {
                         mapProp = {
-                            center: new google.maps.LatLng(parseFloat(response.responseJSON.country.lat),
-                                parseFloat(response.responseJSON.country.lng)),
+                            center: new google.maps.LatLng(parseFloat(result.laboratories[0].lat),
+                                parseFloat(result.laboratories[0].lng)),
                             zoom: 0,
                         };
                     }
@@ -160,8 +160,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     }
 
                     //добавление маркера
-                    laboratories = response.responseJSON.laboratories;
-                    laboratories.forEach(function (item) {
+                    result.laboratories.forEach(function (item) {
+                        фду
                         addMarker(new google.maps.LatLng(parseFloat(item.lat),
                             parseFloat(item.lng)));
                     });
