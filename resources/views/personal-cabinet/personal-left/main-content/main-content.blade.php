@@ -1,6 +1,6 @@
               <div class="main-content">
                 <h1 class="title">@lang('personal_cabinet.personal_cabinet')</h1>
-                <form class="personal-main-info" id="personal-main-info" method="POST" action="{{ route('user.update',$user)}}">
+                <form class="personal-main-info" id="personal-main-info" method="POST" action="{{ route('user.update', $user)}}">
                   @csrf
                   <input name="_method" type="hidden" value="PUT">
 

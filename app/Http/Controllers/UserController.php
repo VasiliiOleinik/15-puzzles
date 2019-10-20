@@ -71,15 +71,14 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
-    {       
+    {
+
         $validatedData = $request->validate([
-        'nickname' => ['required', 'string', 'max:191', Rule::unique('users')->ignore($user)],
-        'first_name' => ['max:191'],
-        'middle_name' => ['max:191'],
-        'last_name' => ['max:191'],
-        'email' => ['required', 'string', 'email', 'max:191', Rule::unique('users')->ignore($user)],
-        'password' => ['nullable','regex:/^[a-zA-Z]+$/u','min:8', 'max:191'],
-        'img' => ['nullable'],
+            'first_name' => ['max:191'],
+            'middle_name' => ['max:191'],
+            'last_name' => ['max:191'],
+            'password' => ['nullable','regex:/^[a-zA-Z]+$/u','min:8', 'max:191'],
+            'img' => ['nullable'],
         ]);
 
         if($request->password != null){         

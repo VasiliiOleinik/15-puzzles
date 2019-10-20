@@ -380,3 +380,6 @@ body .footer__subscribe input[name="email-subscribe"] {
     background-color: #efefef;
     color: #fff;
 }
+.personal-left .personal-main-info .profile-labels .label:nth-of-type(odd){
+    margin-right: 20px;
+}

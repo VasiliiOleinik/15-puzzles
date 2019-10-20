@@ -1,28 +1,17 @@
                   <div class="profile-labels">
-                     <!-- avatar -->
-                     <input id="img" type="hidden" name="img">
+                      <input id="img" type="hidden" name="img">
                     <!-- nickname -->
                     <div class="label">
                       <input id="nickname" type="text"class="form-control @error('nickname') is-invalid @enderror" name="nickname" value="{{Auth::user()->nickname}}" disabled>
                       <label for="nickname">@lang('personal_cabinet.nickname')</label>
-                      @error('nickname')
-                        <label class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                        </label>
-                      @enderror
                     </div>
-                    <div class="label required">
 
+                    <div class="label required">
                       <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{Auth::user()->email}}" disabled>
                       <label for="email">@lang('personal_cabinet.email')<span>*</span></label>
-                      @error('email')
-                        <label class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                        </label>
-                      @enderror
                     </div>
-                    <div class="label required">
 
+                    <div class="label required">
                       <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{Auth::user()->first_name}}" autocomplete="first_name" autofocus>
                       <label for="name">@lang('personal_cabinet.name')<span>*</span></label>
                       @error('first_name')
@@ -71,8 +60,9 @@
                         </label>
                       @enderror
                     </div>
-                    <!- - ->
+
                     <div class="message">
                       <p><span>*</span>@lang('personal_cabinet.non_public_info')</p>
                     </div>
+
                   </div>
