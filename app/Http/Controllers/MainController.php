@@ -172,9 +172,7 @@ class MainController extends Controller
      */
     public function mapRefresh(Request $request)
     {
-        $laboratories = Cache::remember('laboratory', now()->addDay(1), function () {
-            return Laboratory::all();
-        });
+        $laboratories =  Laboratory::all();
         $country = null;
         if ($request['country']) {
             $country = Country::find($request['country']);
@@ -186,14 +184,6 @@ class MainController extends Controller
         return $json;
     }
 
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function filter(Request $request): array
-    {
-        $filterResult = $this->repository->filter($request);
-    }
 
     /**
      * @param Request $request
