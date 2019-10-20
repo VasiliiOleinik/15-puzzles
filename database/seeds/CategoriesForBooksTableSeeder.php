@@ -15,10 +15,10 @@ class CategoriesForBooksTableSeeder extends Seeder
     {
         $tableName = 'categories_for_books';
         DB::table($tableName)->delete();
-        DB::update("ALTER TABLE ".$tableName." AUTO_INCREMENT = 0;");  
-        
-        $countModel = 8;
+        DB::update("ALTER TABLE ".$tableName." AUTO_INCREMENT = 0;");
+
+        $countModel = 2;
         factory(CategoryForBooks::class, $countModel)->create();
-       
+
     }
 }

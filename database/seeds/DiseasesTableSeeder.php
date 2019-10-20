@@ -16,13 +16,13 @@ class DiseasesTableSeeder extends Seeder
         DB::table('diseases')->delete();
         DB::update("ALTER TABLE diseases AUTO_INCREMENT = 0;");
 
-        factory(Disease::class, 7)->create();                
+        factory(Disease::class, 2)->create();
 
         $factors = Factor::all();
         $countFactors = Factor::count();
         $diseases = Disease::with('factors')->get();
         foreach ($diseases as $disease) {
-            $disease->factors()->attach($factors->random( rand(1,  8 ) ) );
+            $disease->factors()->attach($factors->random( rand(1,  2 ) ) );
         }
     }
 }

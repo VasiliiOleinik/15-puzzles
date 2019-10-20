@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Remedy extends Model
 {
-	public $timestamps = false;
+	public $timestamps = true;
 
     /**
      * @var array
@@ -78,5 +78,11 @@ class Remedy extends Model
     {
         return $this->hasOne(RemedyLanguage::class)
             ->where('language', 'eng');
+    }
+
+    public function remedyLang()
+    {
+        return $this->hasOne(RemedyLanguage::class);
+
     }
 }

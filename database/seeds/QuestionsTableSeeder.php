@@ -15,6 +15,6 @@ class QuestionsTableSeeder extends Seeder
         DB::table('questions')->delete();
         DB::update("ALTER TABLE questions AUTO_INCREMENT = 0;");
 
-        factory(Question::class, 10)->create();
+        factory(Question::class, 2)->create();
     }
 }

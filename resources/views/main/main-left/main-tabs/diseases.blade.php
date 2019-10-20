@@ -1,4 +1,8 @@
-    @foreach($diseases as $disease)
+@if($diseases)
+    @php
+    $count = 1;
+    @endphp
+@foreach($diseases as $disease)
       <div class="tab-item">
         <div class="tab-item__head">
           <label class="tab_head_check">
@@ -6,7 +10,7 @@
                     class="checkbox-custom"></span>
           </label>
           <div class="tab-name">
-            <p class="title">@lang('main.tabs_title_diseases') #{{$disease->disease_id}}: {{$disease->name}}</p>
+            <p class="title">@lang('main.tabs_title_diseases') #{{$count}}: {{$disease->name}}</p>
             <div class="arrow"><img src="img/svg/dropdown-ico.svg" alt=""></div>
           </div>
         </div>
@@ -17,4 +21,8 @@
           <a class="show-more" href="javascript:void(0)">@lang('main.show_more')</a>
         </div>
       </div>
+    @php
+        $count++
+    @endphp
     @endforeach
+@endif

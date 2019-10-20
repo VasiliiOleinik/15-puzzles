@@ -18,10 +18,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property FactorProtocol[] $protocols
  * @property FactorRemedy[] $remedies
  * @property FactorMarker[] $markers
+ * @mixin \Eloquent
  */
 class Factor extends Model
 {
-    public $timestamps = false;
+    public $timestamps = true;
 
     /**
      * @var array

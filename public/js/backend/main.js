@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let tab2 = $('#tabListDiseases').html();
     let tab3 = $('#tabListProtocols').html();
     let tab4 = $('#tabListRemedies').html();
-    let tab5 = $('#tabListMarkers').html();    
+    let tab5 = $('#tabListMarkers').html();
 
     /* ------------------ */
     /* ------------------ */
@@ -49,16 +49,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //инициализация карты
     let mapInitAttempts = 0;
-    let mapInit = setInterval(function () {        
+    let mapInit = setInterval(function () {
         if ($('#map_canvas').find('div').length > 0 ||
             mapInitAttempts > 10) {
             clearInterval(mapInit);
         } else {
             $('.methods-btn').click();
-            mapInitAttempts ++;
+            mapInitAttempts++;
         }
     }, 1);
-    
+
     //Поменялось значение чекбокса
     $(".tab-list.main-scroll").delegate('.checkbox', 'change', function () {
         syncCheckedElements('checkbox', $(this).attr('obj-id'), $(this).attr('obj-type'));
@@ -69,6 +69,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         syncCheckedElements('puzzle', $(this).parent().attr('obj-id'), "factor");
     });
 
+    $('.list_country').on('click', function(){
+        $(this).addClass('selected');
+    });
     //тэги обновились
     startObserver('.tags__list', dataFilter, getTagsData);
 
@@ -88,13 +91,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
 
     //Кликнули на 'найти лаборатории'
-    $('.methods-btn').bind('click', function () {        
+    $('.methods-btn').bind('click', function () {
         try {
             laboratories_ajax.abort();
         } catch (err) {
         }
         let country = $('#select-country').find('li.selected').eq(0).attr('obj-id');
-        let method = $('#select-method').find('li.selected').eq(0).attr('obj-id');
+        let method = $('#select-method').find('.current-value').text();
         if (country == "Your country") {
             country = "";
         }
@@ -139,6 +142,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
                 //инициализакция карты
                 var map = new google.maps.Map(document.getElementById("map_canvas"), mapProp);
+
                 //функция добавления маркера
                 function addMarker(location) {
                     marker = new google.maps.Marker({
@@ -146,12 +150,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         map: map
                     });
                 }
+
                 //добавление маркера
                 laboratories = response.responseJSON.laboratories;
                 laboratories.forEach(function (item) {
                     addMarker(new google.maps.LatLng(parseFloat(item.lat),
-                                                     parseFloat(item.lng) ) );
-                });                
+                        parseFloat(item.lng)));
+                });
             },
             error: function (err) {
             }
@@ -162,14 +167,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
 
-
     /* ------------------ */
     /*   AJAX FUNCTIONS   */
     /* ------------------ */
 
     //главный фильтр табов
     function dataFilter(data) {
-
+        $("#preloader").css("display", "flex");
         try {
             filter_ajax.abort();
         } catch (err) {
@@ -177,34 +181,37 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
         filter_ajax = $.ajax({
             type: "post",
-            url: "/model_partial",
+            url: "model_partial",
             data: data,
             dataType: 'json',
             complete: function (response) {
-                //console.log(response.responseJSON.views);                
+                $("#preloader").css("display", "none");
+                //console.log(response.responseJSON.views);
                 if (data.factor.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
-                    refreshTabsCounts(response.responseJSON.models);
-                    $('#tabListFactors').html(tab1);
-                    $('#tabListDiseases').html(tab2);
-                    $('#tabListProtocols').html(tab3);
-                    $('#tabListRemedies').html(tab4);
-                    $('#tabListMarkers').html(tab5);
+                    location.reload()
+                    // refreshTabsCounts(response.responseJSON.models);
+                    // $('#tabListFactors').html(tab1);
+                    // $('#tabListDiseases').html(tab2);
+                    // $('#tabListProtocols').html(tab3);
+                    // $('#tabListRemedies').html(tab4);
+                    // $('#tabListMarkers').html(tab5);
                 } else {
                     //console.log(data.activeTab)
-                    refreshTabsCounts(response.responseJSON.models);
+                    refreshTabsCounts(response.responseJSON.models, data);
                     if (data.activeTab != 0)
-                        $('#tabListFactors').html(response.responseJSON.views.factor);
+                        $('#tabListFactors').html(response.responseJSON.views.factors);
                     if (data.activeTab != 1)
-                        $('#tabListDiseases').html(response.responseJSON.views.disease);
+                        $('#tabListDiseases').html(response.responseJSON.views.diseases);
                     if (data.activeTab != 2)
-                        $('#tabListProtocols').html(response.responseJSON.views.protocol);
+                        $('#tabListProtocols').html(response.responseJSON.views.protocols);
                     if (data.activeTab != 3)
-                        $('#tabListRemedies').html(response.responseJSON.views.remedie);
+                        $('#tabListRemedies').html(response.responseJSON.views.remedies);
                     if (data.activeTab != 4)
-                        $('#tabListMarkers').html(response.responseJSON.views.marker);
+                        $('#tabListMarkers').html(response.responseJSON.views.markers);
                 }
             },
             error: function (err) {
+                $("#preloader").css("display", "none");
             }
         });
     }
@@ -213,9 +220,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
 
 
-
     /* ------------------ */
     /*     FUNCTIONS      */
+
     /* ------------------ */
 
     function getUrlParameter(sParam) {
@@ -234,10 +241,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
     };
 
     function getTagsData() {
-        let factor = [], disease = [], protocol = [];
+        let factor = [], disease = [], protocol = [], filter = "";
         $(".tag-item").each(function () {
             let objId = $(this).attr('obj-id');
             let objType = $(this).attr('obj-type');
+            filter = objType;
             if (objType === "factor") {
                 factor.push(objId);
             }
@@ -249,22 +257,28 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         });
         let activeTab = checkActiveTab();
-        let data = {
+        return {
             "factor": factor,
             "disease": disease,
             "protocol": protocol,
             "activeTab": activeTab,
-            "locale": locale,
+            "local": locale,
             "_token": $('meta[name="csrf-token"]').attr('content'),
+            "filter": filter
         };
-        return data;
     }
 
 
     function refreshTabsCounts(models) {
         let length = Object.keys(modelNames).length;
-        for (let i = 0; i < length; i++) {
-            $('#count' + modelSelectors[i]).html('[' + models[modelNames[i]].length + ']');
+
+        for (key in models) {
+            if (models[key]) {
+                $('#count' + key).html('[' + models[key].length + ']');
+            } else {
+                $('#count' + key).html('[0]');
+            }
+
         }
     }
 
@@ -276,9 +290,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /* ------------------ */
 
 
-
 /* ------------------ */
 /*     FUNCTIONS      */
+
 /* ------------------ */
 
 function checkActiveTab() {
@@ -323,7 +337,7 @@ function checkCheckbox(objId, objType) {
 function checkPuzzle(objId, objType) {
     if (objType == 'factor') {
         var elem = $('.puzzle-15__item-outer[obj-id=' + objId + ']').children();
-       elem.toggleClass('active');
+        elem.toggleClass('active');
     }
 }
 
@@ -332,8 +346,8 @@ function addTagToTagsList(objId, objName, objType) {
         removeTag(objId, objType);
     } else {
         if (objType === 'protocol') {
-            let elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]");
-            name = elem.parent().find('.title').html().split('<span')[0].trim();
+            let elem = $("input[type='checkbox'][obj-id=" + objId + "][obj-type=" + objType + "]"),
+                name = elem.parent().parent().find('.title').html().split('<span')[0].trim();
             html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + name + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
         } else {
             html = '<li class="tag-item" obj-id="' + objId + '" obj-type="' + objType + '"><a class="tag-name" href="javascript:void(0)">' + objName + '</a><img class="tag-remove" src="img/delete_item_ico.png" alt="Delete Item"></li>';
@@ -397,5 +411,6 @@ function startObserver(selector, callback, params) {
     // Pass in the target node, as well as the observer options
     observer.observe(target, config);
 }
+
 /* ------------------ */
 /* ------------------ */

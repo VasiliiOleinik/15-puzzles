@@ -73,6 +73,7 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::get('news/subscriber/create', 'SubscriberController@create')->name('subscriber_create'); // фикс для работы формы подписки на странице с открытой новостью
 
     Route::get('member_cases/comment/create', 'CommentController@create')->name('comment_create');
+    Route::post('model_partial', 'MainController@modelPartial')->name('model_partial');
 });
 
 Route::get('subscriber/create', 'SubscriberController@create')->name('subscriber_create'); // фикс для работы формы подписки на главной странице

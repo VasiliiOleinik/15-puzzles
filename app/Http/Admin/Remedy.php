@@ -2,7 +2,9 @@
 
 namespace App\Http\Admin;
 
+use Composer\Cache;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
+use SleepingOwl\Admin\Contracts\Display\Extension\FilterInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
@@ -46,6 +48,9 @@ class Remedy extends Section
             $query->where('language', 'ru');
             $query->orderBy('created_at', 'desc');
         });
+        $display->setColumnFilters([
+            \AdminColumnFilter::text()->setPlaceholder('Введите название')->setOperator(FilterInterface::CONTAINS),
+        ]);
         return $display;
     }
 
@@ -56,6 +61,7 @@ class Remedy extends Section
      */
     public function onEdit($id)
     {
+        \Cache::clear();
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('remedyEng.name')->setLabel('Название лекарства ENG'),
@@ -97,6 +103,7 @@ class Remedy extends Section
      */
     public function onCreate()
     {
+        \Cache::clear();
         return $this->onEdit(null);
     }
 

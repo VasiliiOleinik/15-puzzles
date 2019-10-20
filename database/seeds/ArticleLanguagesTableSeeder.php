@@ -28,7 +28,7 @@ class ArticleLanguagesTableSeeder extends Seeder
         for($i = 0; $i < Article::count(); $i++){
             factory(ArticleLanguage::class, 1 )->create();
         }
-        for($i = Article::count() + 1; $i < Article::count()*2 + 1; $i++){
+        for($i = Article::count() + 1; $i < Article::count()+2; $i++){
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - Article::count()] );

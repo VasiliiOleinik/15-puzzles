@@ -16,7 +16,8 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "laravelrus/sleepingowl": "5.6.*",
-        "unisender/api-wrapper": "^1.6"
+        "unisender/api-wrapper": "^1.6",
+        "ext-json": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

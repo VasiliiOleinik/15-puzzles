@@ -26,7 +26,7 @@ class RemedyLanguagesTableSeeder extends Seeder
         for($i = 0; $i < Remedy::count(); $i++){
             factory(RemedyLanguage::class, 1 )->create();
         }
-        for($i = Remedy::count() + 1; $i < Remedy::count()*2 + 1; $i++){
+        for($i = Remedy::count() + 1; $i < Remedy::count()+2; $i++){
             DB::table($table)
                 ->where('id', $i)
                 ->update( [$tableShort.'_id' => $i - Remedy::count()] );

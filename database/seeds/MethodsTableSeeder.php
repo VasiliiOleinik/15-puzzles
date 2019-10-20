@@ -15,7 +15,7 @@ class MethodsTableSeeder extends Seeder
         DB::table('methods')->delete();
         DB::update("ALTER TABLE methods AUTO_INCREMENT = 0;");
 
-        $countMethods = 20;
+        $countMethods = 2;
         factory(Method::class, $countMethods)->create();
     }
 }

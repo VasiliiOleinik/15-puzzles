@@ -2,6 +2,7 @@
 
 namespace App\Models\Laboratory;
 
+use App\Models\Marker\Marker;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,7 +19,7 @@ class Laboratory extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'lat', 'lng'];
+    protected $guarded =  [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -33,6 +34,11 @@ class Laboratory extends Model
      */
     public function methods()
     {
-    return $this->belongsToMany('App\Models\Method', 'laboratory_methods');
+        return $this->belongsToMany('App\Models\Method', 'laboratory_methods');
+    }
+
+    public function markers()
+    {
+        return $this->belongsToMany(Marker::class, 'laboratory_markers', 'laboratory_id', 'marker_id');
     }
 }

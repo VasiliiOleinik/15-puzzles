@@ -17,27 +17,27 @@ class BooksTableSeeder extends Seeder
         DB::table('books')->delete();
         DB::update("ALTER TABLE books AUTO_INCREMENT = 0;");
 
-        factory(Book::class, 17)->create();
+        factory(Book::class, 2)->create();
 
         $tags = Tag::all();
         $categoriesForBooks = CategoryForBooks::all();
 
         // Populate the pivot table
-        Book::all()->each(function ($book) use ($tags) { 
+        Book::all()->each(function ($book) use ($tags) {
             $book->tags()->sync(
                 $tags->random(
-                    rand(6,  22))->pluck('id')->toArray()
-                
-            ); 
+                    rand(1,  2))->pluck('id')->toArray()
+
+            );
         });
 
         // Populate the pivot table
-        Book::all()->each(function ($book) use ($categoriesForBooks) { 
+        Book::all()->each(function ($book) use ($categoriesForBooks) {
             $book->categoriesForBooks()->sync(
                 $categoriesForBooks->random(
-                    rand(1,  3))->pluck('id')->toArray()
-                
-            ); 
+                    rand(1,  2))->pluck('id')->toArray()
+
+            );
         });
     }
 }

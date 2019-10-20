@@ -18,14 +18,14 @@ class RemediesTableSeeder extends Seeder
         DB::table('remedies')->delete();
         DB::update("ALTER TABLE remedies AUTO_INCREMENT = 0;");
 
-        factory(Remedy::class, 150)->create();
+        factory(Remedy::class, 2)->create();
 
         $remedies = Remedy::all();
         $diseases = Disease::with('factors')->get();
         $skip = [];
 
         foreach($diseases as $disease){
-            $attach = $remedies->random(rand(4,6));
+            $attach = $remedies->random(rand(1,2));
             if($disease->factors()->count() > 0){
                 foreach($disease->factors()->get() as $factor){
                     foreach($factor->protocols()->get() as $protocol){
@@ -38,7 +38,7 @@ class RemediesTableSeeder extends Seeder
                 }
             }
             $disease->remedies()->attach($attach);
-            $remedies = $remedies->whereNotIn('id', $attach->pluck('id'));
-        }        
+            //$remedies = $remedies->whereNotIn('id', $attach->pluck('id'));
+        }
     }
 }

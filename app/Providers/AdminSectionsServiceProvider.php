@@ -40,6 +40,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Factor\FactorDiagram::class => 'App\Http\Admin\FactorDiagram',
         \App\Models\Type::class => 'App\Http\Admin\Type',
         \App\Models\SocialNetwork::class => 'App\Http\Admin\SocialNetwork',
+        \App\Models\Country::class => 'App\Http\Admin\Сountry',
     ];
 
     //protected $router->get('/factorLanguages/create', ['as' => 'admin.factorLanguages.create', 'uses' => '\App\Http\Controllers\MainController@index']);

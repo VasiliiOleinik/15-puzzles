@@ -1,4 +1,5 @@
-    @foreach($protocols as $protocol)
+@if($protocols)
+@foreach($protocols as $protocol)
       <div class="tab-item">
         <div class="tab-item__head">
           <label class="tab_head_check">
@@ -21,3 +22,4 @@
         </div>
       </div>
   @endforeach
+    @endif

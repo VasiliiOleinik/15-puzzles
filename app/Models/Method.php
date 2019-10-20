@@ -35,6 +35,11 @@ class Method extends Model
         return $this->HasMany('App\Models\MethodLanguage');
     }
 
+    public function methodLang()
+    {
+        return $this->hasOne('App\Models\MethodLanguage');
+    }
+
     public function methodRu()
     {
         return $this->hasOne(MethodLanguage::class)

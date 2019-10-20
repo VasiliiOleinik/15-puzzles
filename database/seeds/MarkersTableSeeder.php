@@ -16,21 +16,21 @@ class MarkersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('markers')->delete();        
+        DB::table('markers')->delete();
         DB::update("ALTER TABLE markers AUTO_INCREMENT = 0;");
 
-        factory(Marker::class, 40)->create();
+        factory(Marker::class, 2)->create();
 
 
         $methods = Method::all();
 
         // Populate the pivot table
-        Marker::all()->each(function ($marker) use ($methods) { 
+        Marker::all()->each(function ($marker) use ($methods) {
             $marker->methods()->attach(
                 $methods->random(
-                    rand(1,  4 ))->pluck('id')->toArray()
-                
-            ); 
+                    rand(1, 2 ))->pluck('id')->toArray()
+
+            );
         });
 
         /*$c1 = DB::table('marker_methods')->select("SELECT * from table")
@@ -46,7 +46,7 @@ class MarkersTableSeeder extends Seeder
         $skip = [];
 
         foreach($diseases as $disease){
-            $attach = $markers->random(rand(1,4));
+            $attach = $markers->random(rand(1,2));
             if($disease->factors()->count() > 0){
                 foreach($disease->factors()->get() as $factor){
                     foreach($factor->protocols()->get() as $protocol){
@@ -59,7 +59,7 @@ class MarkersTableSeeder extends Seeder
                 }
             }
             $disease->markers()->attach($attach);
-            $markers = $markers->whereNotIn('id', $attach->pluck('id'));
+            ;
         }
     }
 }

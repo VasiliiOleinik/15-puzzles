@@ -2,6 +2,7 @@
 
 namespace App\Http\Admin;
 
+use Composer\Cache;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
@@ -38,8 +39,8 @@ class Method extends Section
     public function onDisplay()
     {
         $display = \AdminDisplay::datatablesAsync()->setColumns([
-           \AdminColumn::text('methodRu.name')->setLabel('Название метода лечения'),
-           \AdminColumn::text('methodRu.content')->setLabel('Полное описание метода лечения'),
+           \AdminColumn::text('methodRu.name')->setLabel('Название метода'),
+           \AdminColumn::text('methodRu.content')->setLabel('Полное описание метода'),
         ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
@@ -54,14 +55,15 @@ class Method extends Section
      */
     public function onEdit($id)
     {
+        \Cache::clear();
         $columns1 = \AdminFormElement::columns([
             [
-                \AdminFormElement::text('methodEng.name')->setLabel('Название метода лечения ENG'),
-                \AdminFormElement::textarea('methodEng.content')->setLabel('Полное описание метода лечения ENG'),
+                \AdminFormElement::text('methodEng.name')->setLabel('Название метода  ENG'),
+                \AdminFormElement::textarea('methodEng.content')->setLabel('Полное описание метода  ENG'),
             ],
             [
-                \AdminFormElement::text('methodRu.name')->setLabel('Название метода лечения RU'),
-                \AdminFormElement::textarea('methodRu.content')->setLabel('Полное описание метода лечения RU'),
+                \AdminFormElement::text('methodRu.name')->setLabel('Название метода  RU'),
+                \AdminFormElement::textarea('methodRu.content')->setLabel('Полное описание метода  RU'),
 
                 \AdminFormElement::hidden('methodRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('methodEng.language')->setDefaultValue('eng')
@@ -79,6 +81,7 @@ class Method extends Section
      */
     public function onCreate()
     {
+        \Cache::clear();
         return $this->onEdit(null);
     }
 

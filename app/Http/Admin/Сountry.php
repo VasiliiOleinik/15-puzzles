@@ -7,13 +7,13 @@ use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
 /**
- * Class Disease
+ * Class Сountry
  *
- * @property \App\Models\Disease\Disease $model
+ * @property \App\Models\Country $model
  *
  * @see http://sleepingowladmin.ru/docs/model_configuration_section
  */
-class Disease extends Section
+class Сountry extends Section
 {
     /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
@@ -47,7 +47,13 @@ class Disease extends Section
      */
     public function onEdit($id)
     {
-        // remove if unused
+        $display = \AdminDisplay::datatablesAsync()->setColumns([
+            \AdminColumn::text('name')->setLabel('Название'),
+            \AdminColumn::text('lat')->setLabel('lat'),
+            \AdminColumn::text('lng')->setLabel('long')
+        ]);
+
+        return $display;
     }
 
     /**

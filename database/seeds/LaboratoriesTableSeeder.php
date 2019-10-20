@@ -17,12 +17,12 @@ class LaboratoriesTableSeeder extends Seeder
        DB::table($table)->delete();
        DB::update("ALTER TABLE ".$table." AUTO_INCREMENT = 0;");
 
-       factory(Laboratory::class, 20)->create();
+       factory(Laboratory::class, 2)->create();
 
        $laboratories = Laboratory::with('methods')->get();
        $methods = Method::all();
        foreach ($laboratories as $laboratory) {
-           $laboratory->methods()->attach($methods->random( rand(1,  5 ) ) );
+           $laboratory->methods()->attach($methods->random( rand(1,  2) ) );
        }
     }
 }
