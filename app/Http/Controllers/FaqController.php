@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PageLang;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\QuestionLanguage;
@@ -24,12 +25,16 @@ class FaqController extends Controller
      */
     public function index()
     {
+        $page = PageLang::with('page')
+            ->where('pages_id', 3)
+            ->first();
+
         Cache::clear();
         $questions = Cache::remember('question_'.app()->getLocale(), now()->addDay(1), function(){
                 return QuestionLanguage::with('question')->where('language', app()->getLocale())->get();
         });
         $user = Auth::user();
-        return view('faq.faq', compact(['questions', 'user']));
+        return view('faq.faq', compact(['questions', 'user', 'page']));
     }
 
     /**

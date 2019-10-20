@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book\Book;
 use App\Models\Book\BookLanguage;
+use App\Models\PageLang;
 use App\Models\User\User;
 use App\Models\Permission;
 use App\Models\Factor\Factor;
@@ -84,6 +85,10 @@ class MainController extends Controller
     public function index(Request $request)
     {
 
+
+        $page = PageLang::with('page')->where('pages_id', 5)->first();
+
+
         $newsLatest = Cache::remember('newsLatest_' . app()->getLocale(), now()->addDay(1), function () {
             $latest = Article::orderBy('id', 'desc')->paginate(3)->pluck('id');
             return ArticleLanguage::with('article')->whereIn('article_id', $latest)
@@ -115,7 +120,7 @@ class MainController extends Controller
             ->take(5)->get();
         $data = [
             'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods',
-            'newsLatest', 'markerMethods', 'countries', 'lits'
+            'newsLatest', 'markerMethods', 'countries', 'lits', 'page'
         ];
         return view('main.main', compact($data));
     }
