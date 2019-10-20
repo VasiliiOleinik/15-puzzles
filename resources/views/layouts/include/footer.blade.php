@@ -37,8 +37,8 @@
   <div class="box">
     <div class="footer__copirate">@lang('footer.copyright')
       <div class="footer__socs">
-          @foreach(app('social') as $social)
-          <a class="footer__soc" href="#" target="_blank"><img src="{{asset($social->img)}}"></a>
+        @foreach(app('social') as $social)
+          <a class="footer__soc" href="{{ $social->link }}" target="_blank"><img src="{{asset($social->img)}}"></a>
         @endforeach
     </div>
   </div>
