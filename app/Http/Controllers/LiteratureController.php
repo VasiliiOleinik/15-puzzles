@@ -56,10 +56,10 @@ class LiteratureController extends Controller
             $collection = Book::with('tags')->whereIn('id',$books_id)->get()->pluck('id')->toArray();
         }
         if($request->route()->getname() != "literature_category" && !$request->tag){
-            $books = BookLanguage::with('book')->where('language', app()->getLocale())->orderBy('book_id', 'DESC')->paginate(4);
+            $books = BookLanguage::with('book')->where('language', app()->getLocale())->orderBy('book_id', 'DESC')->paginate(5);
         }else{
             $books = BookLanguage::with('book')->where('language', app()->getLocale())->whereIn('book_id',$collection)
-                                                   ->orderBy('book_id', 'DESC')->paginate(4);
+                                                   ->orderBy('book_id', 'DESC')->paginate(5);
         }
         return view('literature.literature', compact(['books','categoriesForBooks']));
     }

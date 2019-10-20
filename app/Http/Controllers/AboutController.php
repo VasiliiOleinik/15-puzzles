@@ -6,6 +6,7 @@ use App\Models\Factor\FactorLanguage;
 use App\Repository\AboutRepository;
 use App\Service\Properties;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Book\BookLanguage;
 
 class AboutController extends Controller
 {
@@ -31,10 +32,14 @@ class AboutController extends Controller
                 return FactorLanguage::with('factor', 'type')->get();
             }
         );
+        $lits = BookLanguage::with('book')
+            ->latest('id')
+            ->take(5)->get();
         return view('about.about',
             compact([
                 'factors',
-                'dataPage'
+                'dataPage',
+                'lits'
             ]));
     }
 }
