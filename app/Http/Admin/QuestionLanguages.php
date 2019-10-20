@@ -76,7 +76,7 @@ class QuestionLanguages extends Section implements Initializable
             ->setColumns(
                 //AdminColumn::text('question_id')->setLabel('question_id'),
                 AdminColumnEditable::text('name')->setLabel('Название вопроса'),
-                AdminColumnEditable::textarea('content')->setLabel('Ответ'),                
+                AdminColumnEditable::textarea('content')->setLabel('Ответ'),
                 AdminColumn::text('language')->setLabel('Язык')
             )
             ->setApply(function($query) {
@@ -103,11 +103,11 @@ class QuestionLanguages extends Section implements Initializable
                     return $scripts;
                 }),
             AdminFormElement::text('title')->setName('titleEng')->setLabel('Название вопроса')->required(),
-            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Ответ')->required(),           
+            AdminFormElement::ckeditor('content')->setName('contentEng')->setLabel('Ответ')->required(),
         ]);
         $formRu = AdminForm::panel()->addBody([           
             AdminFormElement::text('title')->setName('titleRu')->setLabel('Название вопроса')->required(),
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Ответ')->required()
+            AdminFormElement::ckeditor('content')->setName('contentRu')->setLabel('Ответ')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([            
 

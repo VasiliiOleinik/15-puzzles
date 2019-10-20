@@ -59,12 +59,12 @@ class Question extends Section
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('questEng.name')->setLabel('Название ENG'),
-                \AdminFormElement::textarea('questEng.content')->setLabel('Контент ENG'),
+                \AdminFormElement::ckeditor('questEng.content')->setLabel('Контент ENG'),
 
             ],
             [
                 \AdminFormElement::text('questRu.name')->setLabel('Название RU'),
-                \AdminFormElement::textarea('questRu.content')->setLabel('Контент RU'),
+                \AdminFormElement::ckeditor('questRu.content')->setLabel('Контент RU'),
 
                 \AdminFormElement::hidden('questRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('questEng.language')->setDefaultValue('eng')

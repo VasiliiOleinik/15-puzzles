@@ -99,11 +99,11 @@ class MethodLanguages extends Section implements Initializable
                     return $scripts;
                 }),
             AdminFormElement::text('name')->setName('nameEng')->setLabel('Название метода')->required(),
-            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Полное описание метода')->required()
+            AdminFormElement::ckeditor('content')->setName('contentEng')->setLabel('Полное описание метода')->required()
         ]);
         $formRu = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название метода')->required(),
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Полное описание метода')->required()
+            AdminFormElement::ckeditor('content')->setName('contentRu')->setLabel('Полное описание метода')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([        
             AdminFormElement::hidden('nameEng'),

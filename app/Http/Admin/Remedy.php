@@ -65,11 +65,11 @@ class Remedy extends Section
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('remedyEng.name')->setLabel('Название лекарства ENG'),
-                \AdminFormElement::textarea('remedyEng.content')->setLabel('Описание лекарства ENG'),
+                \AdminFormElement::ckeditor('remedyEng.content')->setLabel('Описание лекарства ENG'),
             ],
             [
                 \AdminFormElement::text('remedyRu.name')->setLabel('Название лекарства RU'),
-                \AdminFormElement::textarea('remedyRu.content')->setLabel('Описание лекарства RU'),
+                \AdminFormElement::ckeditor('remedyRu.content')->setLabel('Описание лекарства RU'),
             ]
         ]);
         $columns2 = \AdminFormElement::columns([

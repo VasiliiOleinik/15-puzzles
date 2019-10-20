@@ -76,12 +76,12 @@ class Article extends Section
             [
                 AdminFormElement::text('articlesEng.title')->setLabel('Название новости ENG')->required(),
                 AdminFormElement::textarea('articlesEng.description')->setLabel('Краткое описание новости ENG')->required(),
-                AdminFormElement::textarea('articlesEng.content')->setLabel('Полное описание новости ENG')->required(),
+                AdminFormElement::ckeditor('articlesEng.content')->setLabel('Полное описание новости ENG')->required(),
             ],
             [
                 AdminFormElement::text('articlesRu.title')->setLabel('Название новости RU')->required(),
                 AdminFormElement::textarea('articlesRu.description')->setLabel('Краткое описание новости RU')->required(),
-                AdminFormElement::textarea('articlesRu.content')->setLabel('Полное описание новости RU')->required(),
+                AdminFormElement::ckeditor('articlesRu.content')->setLabel('Полное описание новости RU')->required(),
                 AdminFormElement::hidden('articlesRu.language')->setDefaultValue('ru'),
                 AdminFormElement::hidden('articlesEng.language')->setDefaultValue('eng')
             ]

@@ -69,12 +69,12 @@ class Protocol extends Section
             [
                 \AdminFormElement::text('protocolEng.name')->setLabel('Название протокола ENG'),
                 \AdminFormElement::text('protocolEng.subtitle')->setLabel('Заголовок описания протокола ENG'),
-                \AdminFormElement::textarea('protocolEng.content')->setLabel('Описание протокола ENG'),
+                \AdminFormElement::ckeditor('protocolEng.content')->setLabel('Описание протокола ENG'),
             ],
             [
                 \AdminFormElement::text('protocolRu.name')->setLabel('Название протокола RU'),
                 \AdminFormElement::text('protocolRu.subtitle')->setLabel('Заголовок описания протокола RU'),
-                \AdminFormElement::textarea('protocolRu.content')->setLabel('Описание протокола RU'),
+                \AdminFormElement::ckeditor('protocolRu.content')->setLabel('Описание протокола RU'),
 
                 \AdminFormElement::hidden('protocolRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('protocolEng.language')->setDefaultValue('eng')

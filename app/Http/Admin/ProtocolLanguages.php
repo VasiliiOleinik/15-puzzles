@@ -136,12 +136,12 @@ class ProtocolLanguages extends Section implements Initializable
                 }),
             AdminFormElement::text('name')->setName('nameEng')->setLabel('Название протокола')->required(),
             AdminFormElement::text('subtitle')->setName('subtitleEng')->setLabel('Заголовок описания протокола')->required(),
-            AdminFormElement::textarea('content')->setName('contentEng')->setLabel('Описание протокола')->required()            
+            AdminFormElement::ckeditor('content')->setName('contentEng')->setLabel('Описание протокола')->required()
         ]);
         $formRu = AdminForm::panel()->addBody([           
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название протокола')->required(),
             AdminFormElement::text('subtitle')->setName('subtitleRu')->setLabel('Заголовок описания протокола')->required(),
-            AdminFormElement::textarea('content')->setName('contentRu')->setLabel('Описание протокола')->required(),
+            AdminFormElement::ckeditor('content')->setName('contentRu')->setLabel('Описание протокола')->required(),
             AdminFormElement::text('protocol.url')->setLabel('Ссылка на протокол')
         ]);
         $formRelations = AdminForm::panel()->addBody([

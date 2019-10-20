@@ -119,13 +119,13 @@ class MemberCases extends Section implements Initializable
             [
                 AdminFormElement::text('casesEng.title')->setLabel('Title ENG')->setValidationRules($rules),
                 AdminFormElement::textarea('casesEng.description')->setLabel('Описание ENG')->setValidationRules($rules),
-                AdminFormElement::textarea('casesEng.content', 'история болезни ENG'),
+                AdminFormElement::ckeditor('casesEng.content', 'история болезни ENG'),
 
             ],
             [
                 AdminFormElement::text('casesRu.title')->setLabel('Title RU')->setValidationRules($rules),
                 AdminFormElement::textarea('casesRu.description')->setLabel('Описание RU')->setValidationRules($rules),
-                AdminFormElement::textarea('casesRu.content', 'история болезни RU'),
+                AdminFormElement::ckeditor('casesRu.content', 'история болезни RU'),
             ]
         ]);
         $columns2 = \AdminFormElement::columns([

@@ -59,11 +59,11 @@ class Method extends Section
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('methodEng.name')->setLabel('Название метода  ENG'),
-                \AdminFormElement::textarea('methodEng.content')->setLabel('Полное описание метода  ENG'),
+                \AdminFormElement::ckeditor('methodEng.content')->setLabel('Полное описание метода  ENG'),
             ],
             [
                 \AdminFormElement::text('methodRu.name')->setLabel('Название метода  RU'),
-                \AdminFormElement::textarea('methodRu.content')->setLabel('Полное описание метода  RU'),
+                \AdminFormElement::ckeditor('methodRu.content')->setLabel('Полное описание метода  RU'),
 
                 \AdminFormElement::hidden('methodRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('methodEng.language')->setDefaultValue('eng')

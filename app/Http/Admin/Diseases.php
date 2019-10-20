@@ -73,11 +73,11 @@ class Diseases extends Section
         $columns1 = \AdminFormElement::columns([
             [
                 AdminFormElement::text('diseaseEng.name')->setLabel('Имя Eng'),
-                AdminFormElement::textarea('diseaseEng.content')->setLabel('Контент Eng'),
+                AdminFormElement::ckeditor('diseaseEng.content')->setLabel('Контент Eng'),
             ],
             [
                 AdminFormElement::text('diseaseRu.name')->setLabel('Имя Ru'),
-                AdminFormElement::textarea('diseaseRu.content')->setLabel('Контент Ru'),
+                AdminFormElement::ckeditor('diseaseRu.content')->setLabel('Контент Ru'),
 
                 \AdminFormElement::hidden('diseaseRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('diseaseEng.language')->setDefaultValue('eng')

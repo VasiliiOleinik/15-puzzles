@@ -62,12 +62,12 @@ class Factor extends Section
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('factorEng.name')->setLabel('Название ENG'),
-                \AdminFormElement::textarea('factorEng.content')->setLabel('Контент ENG'),
+                \AdminFormElement::ckeditor('factorEng.content')->setLabel('Контент ENG'),
 
             ],
             [
                 \AdminFormElement::text('factorRu.name')->setLabel('Название RU'),
-                \AdminFormElement::textarea('factorRu.content')->setLabel('Контент RU'),
+                \AdminFormElement::ckeditor('factorRu.content')->setLabel('Контент RU'),
 
                 \AdminFormElement::hidden('factorRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('factorEng.language')->setDefaultValue('eng')
