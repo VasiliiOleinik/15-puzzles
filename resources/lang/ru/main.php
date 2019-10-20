@@ -42,7 +42,7 @@ return [
     'tabs_head_markers' => 'АНАЛИЗЫ',
     'tabs_title_factors' => 'Фактор',
     'tabs_title_diseases' => 'Болезнь',
-    'select_methods' => "Выберите метод",    
+    'select_methods' => "Выберите метод",
     'select_country' => "Ваша страна",
     'select_zip_code' => "Ваш ZIP код",
     'button_find_lab' => "Найти",
@@ -51,4 +51,5 @@ return [
     'dangers' => 'ОПАСНОСТИ',
     'defence' => 'ЗАЩИТА',
     'close' => 'Закрыть',
+    'error_find_lab' => 'Ошибка нужно выбрать страну и метод'
 ];

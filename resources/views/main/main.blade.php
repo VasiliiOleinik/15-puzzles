@@ -17,8 +17,25 @@
       @include('main.tabs-modal')
     </div>
   </main>
+  <div style="display: none;" id="hidden-content">
+      <div class="factor-diagrams_modal">
+          <div class="factor-diagrams_modal-content">
+              <h2>@lang('error_find_lab')</h2>
+              <p>Malignant cell recognition by immune system cells (NK-cell, T-cytotoxic cells, macrophages
+                  and neutrophils) Malignant cell recognition by
+                  immune system cells (NK-cell, T-cytotoxic cells, macrophages and neutrophils) Malignant cell
+                  recognition by immune system cells
+                  (NK-cell, T-cytotoxic cells, macrophages and neutrophils) Malignant cell recognition by
+                  immune system cells (NK-cell,
+                  T-cytotoxic cells, macrophages and neutrophils) Malignant cell recognition by immune system
+                  cells (NK-cell, T-cytotoxic cells,
+                  macrophages and neutrophils)
+              </p>
+          </div>
+      </div>
+  </div>
 @endsection
-@section('main-js')  
+@section('main-js')
   <script src="{{ asset('js/backend/main.js') }}" defer></script>
 @endsection
 

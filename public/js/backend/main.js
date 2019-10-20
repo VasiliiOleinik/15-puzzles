@@ -99,11 +99,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         let country = $('#select-country').find('li.selected').eq(0).attr('obj-id');
         let method = $('#select-method').find('.current-value').text();
-        if (country === "Your country") {
-            country = "";
+        if (country === "Your country" || country===undefined) {
+            country = null;
         }
         if (method === "Select method") {
-            method = "";
+            method = null;
         }
         /*
         let zipcode = $('.methods-input').val();
@@ -123,49 +123,54 @@ document.addEventListener("DOMContentLoaded", function (event) {
             "method": method,
             "_token": $('meta[name="csrf-token"]').attr('content'),
         };
-        laboratories_ajax = $.ajax({
-            type: "post",
-            url: "/map_refresh",
-            data: data,
-            dataType: 'json',
-            complete: function (response) {
-                //console.log(response.responseJSON);
+        if(country!=null && method!=null) {
+            $("#preloader").css("display", "flex");
+            laboratories_ajax = $.ajax({
+                type: "post",
+                url: "/map_refresh",
+                data: data,
+                dataType: 'json',
+                complete: function (response) {
+                    $("#preloader").css("display", "none");
+                    //console.log(response.responseJSON);
 
-                //очистка карты
-                $('#map_canvas').html('');
-                //выставляем центр карты в зависимости от выбранной страны
-                let mapProp = {
-                    center: new google.maps.LatLng(45.0, 45.0),//USA
-                    zoom: 0,
-                };
-                if (country) {
-                    mapProp = {
-                        center: new google.maps.LatLng(parseFloat(response.responseJSON.country.lat),
-                            parseFloat(response.responseJSON.country.lng)),
+                    //очистка карты
+                    $('#map_canvas').html('');
+                    //выставляем центр карты в зависимости от выбранной страны
+                    let mapProp = {
+                        center: new google.maps.LatLng(45.0, 45.0),//USA
                         zoom: 0,
                     };
-                }
-                //инициализакция карты
-                var map = new google.maps.Map(document.getElementById("map_canvas"), mapProp);
+                    if (country) {
+                        mapProp = {
+                            center: new google.maps.LatLng(parseFloat(response.responseJSON.country.lat),
+                                parseFloat(response.responseJSON.country.lng)),
+                            zoom: 0,
+                        };
+                    }
+                    //инициализакция карты
+                    var map = new google.maps.Map(document.getElementById("map_canvas"), mapProp);
 
-                //функция добавления маркера
-                function addMarker(location) {
-                    marker = new google.maps.Marker({
-                        position: location,
-                        map: map
+                    //функция добавления маркера
+                    function addMarker(location) {
+                        marker = new google.maps.Marker({
+                            position: location,
+                            map: map
+                        });
+                    }
+
+                    //добавление маркера
+                    laboratories = response.responseJSON.laboratories;
+                    laboratories.forEach(function (item) {
+                        addMarker(new google.maps.LatLng(parseFloat(item.lat),
+                            parseFloat(item.lng)));
                     });
+                },
+                error: function (err) {
+                    $("#preloader").css("display", "none");
                 }
-
-                //добавление маркера
-                laboratories = response.responseJSON.laboratories;
-                laboratories.forEach(function (item) {
-                    addMarker(new google.maps.LatLng(parseFloat(item.lat),
-                        parseFloat(item.lng)));
-                });
-            },
-            error: function (err) {
-            }
-        });
+            });
+        }
     });
 
     /* ------------------ */

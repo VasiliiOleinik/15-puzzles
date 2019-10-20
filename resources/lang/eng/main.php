@@ -41,7 +41,7 @@ return [
     'tabs_head_remedies' => 'REMEDIES',
     'tabs_head_markers' => 'MARKERS',
     'tabs_title_factors' => 'Factor',
-    'tabs_title_diseases' => 'Disease',    
+    'tabs_title_diseases' => 'Disease',
     'select_methods' => "Select method",
     'select_country' => "Your country",
     'select_zip_code' => "Your ZIP code",
@@ -52,4 +52,5 @@ return [
     'defence' => 'DEFENCE',
     'dangers' => 'DANGERS',
     'close' => 'Close',
+    'error_find_lab' => 'Error you need choose country and method'
 ];
