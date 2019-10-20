@@ -16,6 +16,9 @@ class CreateLaboratoriesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name', 191)->nullable();
+			$table->string('phone', 191)->nullable();
+			$table->string('address', 191)->nullable();
+			$table->string('link', 191)->nullable();
 			$table->string('lat', 191)->nullable();
 			$table->string('lng', 191)->nullable();
 		});

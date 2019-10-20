@@ -56,11 +56,17 @@ class Laboratory extends Section
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('name')->setLabel('Имя лаборатории'),
+                \AdminFormElement::text('address')->setLabel('Адресс лаборатории'),
+                \AdminFormElement::text('link')->setLabel('Сайт лаборатории'),
+                \AdminFormElement::text('phone')->setLabel('Телефон лаборатории'),
                 \AdminFormElement::text('lat')->setLabel('Lat'),
                 \AdminFormElement::text('lng')->setLabel('Long'),
-
                 \AdminFormElement::multiselect('markers', 'Анализы')
-                   ->setModelForOptions(\App\Models\Marker\Marker::class, 'markerRu.name'),
+                    ->setModelForOptions(\App\Models\Marker\Marker::class, 'markerRu.name'),
+
+                \AdminFormElement::multiselect('methods', 'Методы сдачи которые есть в лаборатории')
+                    ->setModelForOptions(\App\Models\Method::class, 'methodRu.name'),
+
             ]
         ]);
 

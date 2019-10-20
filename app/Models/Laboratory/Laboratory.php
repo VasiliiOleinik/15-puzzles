@@ -19,7 +19,7 @@ class Laboratory extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'lat', 'lng'];
+    protected $guarded =  [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
