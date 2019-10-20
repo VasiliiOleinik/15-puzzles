@@ -161,7 +161,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
                     //добавление маркера
                     result.laboratories.forEach(function (item) {
-                        фду
                         addMarker(new google.maps.LatLng(parseFloat(item.lat),
                             parseFloat(item.lng)));
                     });
