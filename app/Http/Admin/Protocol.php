@@ -4,6 +4,7 @@ namespace App\Http\Admin;
 
 use Composer\Cache;
 use SleepingOwl\Admin\Contracts\Display\DisplayInterface;
+use SleepingOwl\Admin\Contracts\Display\Extension\FilterInterface;
 use SleepingOwl\Admin\Contracts\Form\FormInterface;
 use SleepingOwl\Admin\Section;
 
@@ -50,6 +51,9 @@ class Protocol extends Section
             $query->where('language', 'ru');
 
         });
+        $display->setColumnFilters([
+            \AdminColumnFilter::text()->setPlaceholder('Введите название')->setOperator(FilterInterface::CONTAINS),
+        ]);
         return $display;
     }
 

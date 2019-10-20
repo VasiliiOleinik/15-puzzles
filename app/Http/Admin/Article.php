@@ -62,7 +62,6 @@ class Article extends Section
         });
 
 
-
         return $display;
     }
 
