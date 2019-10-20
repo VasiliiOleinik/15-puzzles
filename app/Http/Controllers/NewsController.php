@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PageLang;
 use App\Models\Tag;
 use App\Models\TagLanguage;
 use App\Models\Article\Article;
@@ -27,6 +28,11 @@ class NewsController extends Controller
     public function index(Request $request, $locale, $name = null)
     {
         //категории для новостей
+
+        $page = PageLang::with('page')
+            ->where('pages_id', 7)
+            ->first();
+
         $categoriesForNews = Cache::remember(
             'categoryForNews_'.app()->getLocale(),
             now()->addDay(1),
@@ -42,31 +48,45 @@ class NewsController extends Controller
                     break;
                 }
             }
-            $categoriesForNewsActive = [$categoryId];
-            $collection = Article::with('categoriesForNews')->whereHas(
-                'categoriesForNews', function ($query) use ( $categoriesForNewsActive ) {
-                $query->whereIn('category_for_news_id', $categoriesForNewsActive);
-            })->get()->pluck('id')->toArray();
+            $categoriesForNewsActive = [ $categoryId ];
+            $collection = Article::with('categoriesForNews')
+                ->whereHas(
+                    'categoriesForNews', function ($query) use ( $categoriesForNewsActive ) {
+                    $query->whereIn('category_for_news_id', $categoriesForNewsActive);
+                })->get()->pluck('id')
+                ->toArray();
         }
         //Выбран тэг
         if($request->tag){
             $articles_id = array();
-            $tags = Tag::with('articles')->whereIn('id', [$request->tag])->get();
+            $tags = Tag::with('articles')
+                ->whereIn('id', [$request->tag])
+                ->get();
             foreach ($tags as $tag) {
                 foreach ($tag->articles as $obj) {
                     array_push($articles_id, $obj->id);
                 }
             }
-            $collection = Article::with('tags')->whereIn('id', $articles_id)->get()->pluck('id')->toArray();
+            $collection = Article::with('tags')
+                ->whereIn('id', $articles_id)
+                ->get()
+                ->pluck('id')
+                ->toArray();
         }
         if($request->route()->getname() != "news_category" && !$request->tag){
-            $articles = ArticleLanguage::with('article')->where('language', app()->getLocale())->orderBy('article_id', 'DESC')->paginate(4);
+            $articles = ArticleLanguage::with('article')
+                ->where('language', app()->getLocale())
+                ->orderBy('article_id', 'DESC')
+                ->paginate(4);
         }else{
 
-            $articles = ArticleLanguage::with('article')->where('language', app()->getLocale())->whereIn('article_id',$collection)
-                                                            ->orderBy('article_id', 'DESC')->paginate(4);
+            $articles = ArticleLanguage::with('article')
+                ->where('language', app()->getLocale())
+                ->whereIn('article_id', $collection)
+                ->orderBy('article_id', 'DESC')
+                ->paginate(4);
         }
-        return view('news.news', compact(['articles','categoriesForNews']));
+        return view('news.news', compact(['articles', 'categoriesForNews', 'page']));
     }
 
     /**

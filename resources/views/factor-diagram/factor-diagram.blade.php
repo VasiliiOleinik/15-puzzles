@@ -33,7 +33,7 @@
                     @endforeach
                 </div>
                 <div class="diagram__center">
-                    <h2 class="diagram__center-title">Reasons of cancer development</h2>
+                    <h2 class="diagram__center-title">{{ $page->h1 }}</h2>
                     <div class="diagram__center-circle-container">
                         <div class="circle" id="organ_system">
                             <img class="grey" src="/../img/diagram_ico/bg-grey.jpg" alt="">

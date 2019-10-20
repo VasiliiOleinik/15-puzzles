@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PageLang;
 use App\Models\Tag;
 use App\Models\Book\Book;
 use App\Models\Book\BookLanguage;
@@ -21,6 +22,10 @@ class LiteratureController extends Controller
      */
     public function index(Request $request, $locale, $name = null)
     {
+        $page = PageLang::with('page')
+            ->where('pages_id', 4)
+            ->first();
+
         //категории для новостей
         $categoriesForBooks = Cache::remember(
             'categoryForBooks_'.app()->getLocale(),
@@ -61,7 +66,7 @@ class LiteratureController extends Controller
             $books = BookLanguage::with('book')->where('language', app()->getLocale())->whereIn('book_id',$collection)
                                                    ->orderBy('book_id', 'DESC')->paginate(5);
         }
-        return view('literature.literature', compact(['books','categoriesForBooks']));
+        return view('literature.literature', compact(['books','categoriesForBooks', 'page']));
     }
 
     /**

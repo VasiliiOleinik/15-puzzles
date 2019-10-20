@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-    <title>{{ config('puzzles.faq.title_'.app()->getLocale()) }}</title>
+    <title>{{ $page->title }}</title>
 @endsection
 @section('description')
     <meta content="{{ config('puzzles.faq._description_'.app()->getLocale()) }}" name="description">

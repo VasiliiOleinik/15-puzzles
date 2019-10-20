@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PageLang;
 use App\Models\Tag;
 use App\Models\TagLanguage;
 use App\Models\MemberCase;
@@ -18,6 +19,10 @@ class MemberCaseController extends Controller
      */
     public function index(Request $request)
     {
+        $page = PageLang::with('page')
+            ->where('pages_id', 6)
+            ->first();
+
         $memberCases = Cache::remember(
             'memberCases',
             now()->addDay(1),
@@ -28,18 +33,29 @@ class MemberCaseController extends Controller
         //Выбраны тэги
         if($request->tag){
             $memberCasesId = array();
-            $tags = Tag::with('memberCases')->whereIn('id', [$request->tag])->get();
+            $tags = Tag::with('memberCases')
+                ->whereIn('id', [$request->tag])
+                ->get();
+
             foreach ($tags as $tag) {
                 foreach ($tag->memberCases as $obj) {
                     array_push($memberCasesId, $obj->id);
                 }
             }
-            $memberCases = MemberCase::with('tags')->whereIn('id', $memberCasesId)->where('status','=','show')
-                                                    ->orderBy('id', 'DESC')->paginate(4);
-            return view('member-cases.member-cases', compact(['memberCases']));
+            $memberCases = MemberCase::with('tags')
+                ->whereIn('id', $memberCasesId)
+                ->where('status','=','show')
+                ->orderBy('id', 'DESC')
+                ->paginate(4);
+
+            return view('member-cases.member-cases', compact(['memberCases', 'page']));
         }
-        $memberCases = MemberCase::with('user')->where('status','=','show')->orderBy('id', 'DESC')->paginate(4);
-        return view('member-cases.member-cases',compact(['memberCases']));
+        $memberCases = MemberCase::with('user')
+            ->where('status','=','show')
+            ->orderBy('id', 'DESC')
+            ->paginate(4);
+
+        return view('member-cases.member-cases', compact(['memberCases', 'page']));
 
     }
 
@@ -155,11 +171,20 @@ class MemberCaseController extends Controller
         );
         $id = MemberCase::where('alias', $alias)->first()->id;
 
-        $tags = MemberCase::with('tags')->find($id)->tags()->get()->pluck('id');
+        $tags = MemberCase::with('tags')
+            ->find($id)
+            ->tags()
+            ->get()
+            ->pluck('id');
+
         $tagLanguages = TagLanguage::whereIn('tag_id',$tags)->get();
-        return view('member-cases.single.member-case', ['memberCase' => MemberCase::with('user', 'tags')->find($id),
-                                     'comments' => Comment::with('user')->where('member_case_id','=',$id)->get(),
-                                     'tags' => $tagLanguages]);
+        return view('member-cases.single.member-case',
+            [
+                'memberCase' => MemberCase::with('user', 'tags')->find($id),
+                'comments' => Comment::with('user')->where('member_case_id','=',$id)->get(),
+                'tags' => $tagLanguages
+            ]
+        );
     }
 
     /**

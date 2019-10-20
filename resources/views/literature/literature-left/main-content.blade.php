@@ -1,4 +1,4 @@
-                <h1 class="title">@lang('literature.title_literature')</h1>
+                <h1 class="title">{{ $page->h1 }}</h1>
                 <div class="post_container">
                   @foreach($books as $book)
                     <div class="book" obj-id="{{$book->book_id}}">

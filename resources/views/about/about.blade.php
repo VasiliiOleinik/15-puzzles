@@ -13,7 +13,7 @@
                   @if(isset($dataPage->page->img))
                     <img src="{{ asset($dataPage->page->img)  }}" alt="About BG">
                   @endif
-                <h2 class="main__left-title">@lang('about.title_about')<span class="title-line"></span><span class="title-text">@lang('about.title_text_about')</span></h2>
+                <h2 class="main__left-title">{{ $dataPage->h1 }}<span class="title-line"></span><span class="title-text">{{ $dataPage->short_description }}</span></h2>
               </div>
 
               <div class="main__left-text">{!! isset($dataPage->description) ? $dataPage->description : false  !!}</div>
