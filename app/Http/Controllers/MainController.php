@@ -180,6 +180,8 @@ class MainController extends Controller
         if ($request['method']) {
             $laboratories = $this->checkIfMethodInLaboratory($laboratories, $request['method']);
         }
+
+
         $json = ['laboratories' => $laboratories, 'country' => $country];
         return $json;
     }

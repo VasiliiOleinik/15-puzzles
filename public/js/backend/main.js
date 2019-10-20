@@ -69,6 +69,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         syncCheckedElements('puzzle', $(this).parent().attr('obj-id'), "factor");
     });
 
+    $('.list_country').on('click', function(){
+        $(this).addClass('selected');
+    });
     //тэги обновились
     startObserver('.tags__list', dataFilter, getTagsData);
 
@@ -94,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         } catch (err) {
         }
         let country = $('#select-country').find('li.selected').eq(0).attr('obj-id');
-        let method = $('#select-method').find('li.selected').eq(0).attr('obj-id');
+        let method = $('#select-method').find('.current-value').text();
         if (country == "Your country") {
             country = "";
         }

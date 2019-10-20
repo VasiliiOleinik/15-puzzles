@@ -11,7 +11,7 @@
     <div class="methods-select" id="select-country" name="country"><span class="current-value country">@lang('main.select_country')</span>
       <ul class="methods-select-list">@lang('main.select_country')
         @foreach($countries as $country)
-        <li obj-id="{{$country->id}}">{{$country->name}}</li>
+        <li obj-id="{{$country->id}}" class="list_country">{{$country->name}}</li>
         @endforeach
       </ul>
     </div>
