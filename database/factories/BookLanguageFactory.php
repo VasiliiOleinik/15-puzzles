@@ -19,14 +19,14 @@ $factory->define(BookLanguage::class, function (Faker $faker) {
         $locale = "eng";
         $title = $faker->realText(rand(15, 35));//Protocol::find($protocol_id)->name;
         $description = $faker->realText(90);
-        $tableId = BookLanguage::count() + 1;
+        $tableId = BookLanguage::withoutGlobalScopes()->count() + 1;
         $author = $faker->name($gender);
     } else {
         $locale = "ru";
         $title = $russian["title"][rand(0, 21)]; //$faker->realText(30);
         $author = $russian["authors"][rand(0, 21)]; //$faker->realText(30);
         $description = iconv_substr($russian["text"][rand(0, 21)], 0, 100, "UTF-8");
-        $tableId = BookLanguage::count() + 1 - Book::count();
+        $tableId = BookLanguage::withoutGlobalScopes()->count() + 1 - Book::count();
     }
 
     return [
