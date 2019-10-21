@@ -15,23 +15,20 @@ class PagesSeeder extends Seeder
             [
                 [
                     'lang' => 'eng',
-                'title' => 'About',
-                'description' =>
-                    '
-                    Theory behind this project is that there are total of 15 "pieces" (systemic factors) of the cancer "puzzle" that are parts of different conventional medical science cancer treatment protocols and ones known in naturopathic or holistic medicine.
+                    'title' => 'About',
+                    'description' =>
+                    'Theory behind this project is that there are total of 15 "pieces" (systemic factors) of the cancer "puzzle" that are parts of different conventional medical science cancer treatment protocols and ones known in naturopathic or holistic medicine.
                     We take the position of looking at cancer not as a tumor that has to be removed, but rather as a consequence of number of individual systemic imbalances in different organs leading to formation of a malignant tumor. (see \'holistic approach to cancer\').
                     The international team of doctors, researchers and medical students who keep their names and accreditations private, are working on this web site, trying to systematize existing knowledge and medical expertise to understand, how exactly one\'s body gets \'confused\' in the process of developing the cancer and look at different diagnostic and treatment approaches related to every of these 15 systemic factors.
                     We are gladly accepting scientific input from web site audience who can contribute their expertise to understanding cancer pathogenesis or approaches to treating its influential factors, or treatment results.
-                    Mind that the information is given for research purposes only, evaluating this theory or drawing the conclusions about its practical implementation is ones own responsibility. This is not a replacement of a conventional oncology treatment or a visit to a skilled naturopathic doctor.
-                    ',
-                'name_page' => 'about',
-                'short_description'=>null,
-                'img' => 'img/about_bg.jpg',
-                'puzzles_description' => '
-                    The 15 pieces of the cancer process may look confusing at a first glance. But keep in mind that there are evidences of the riddle in 1-2 moves only. It might be necessary to move as much as 4 or 6 pieces to fix your body, feel free to explore the puzzle and sort it out!
-                ',
-                'h1'=>null,
-                    ],
+                    Mind that the information is given for research purposes only, evaluating this theory or drawing the conclusions about its practical implementation is ones own responsibility. This is not a replacement of a conventional oncology treatment or a visit to a skilled naturopathic doctor.',
+                    'name_page' => 'about',
+                    'short_description'=>null,
+                    'img' => 'img/about_bg.jpg',
+                    'puzzles_description' => 'The 15 pieces of the cancer process may look confusing at a first glance. But keep in mind that there are evidences of the riddle in 1-2 moves only. It might be necessary to move as much as 4 or 6 pieces to fix your body, feel free to explore the puzzle and sort it out!',
+                    'h1'=>null,
+                    'video' => '<iframe width="100%" height="370" src="https://www.youtube.com/embed/eYzskoKQgko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                ],
                 [
                     'lang' => 'ru',
                     'title' => 'О нас',
@@ -40,13 +37,13 @@ class PagesSeeder extends Seeder
                     Мы занимаем позицию, рассматривая рак не как опухоль, которая должна быть удалена, а скорее как                       следствием ряда индивидуальных системных дисбалансов в разных органах, приводящих к образованию злокачественная опухоль. (см. «целостный подход к раку»). 
                     Международная команда врачей, исследователи и студенты-медики, которые держат свои имена и аккредитации в тайне, работают над этот веб-сайт, пытаясь систематизировать существующие знания и медицинский опыт, чтобы понять, как                       в процессе развития рака человек «запутывается» и смотрит на разные диагностические и лечебные подходы, связанные с каждым из этих 15 системных факторов. 
                     Мы являемся с удовольствием принимаю научный вклад от аудитории веб-сайта, которая может внести свой вклад в понимание патогенеза рака или подходов к лечению его влиятельных факторов или лечения результаты.
-                    Помните, что информация предоставляется только для исследовательских целей, оценивая эта теория или делать выводы о ее практической реализации является собственным обязанность. Это не замена традиционного лечения онкологии или посещение опытный врач-натуропат.
-                ',
+                    Помните, что информация предоставляется только для исследовательских целей, оценивая эта теория или делать выводы о ее практической реализации является собственным обязанность. Это не замена традиционного лечения онкологии или посещение опытный врач-натуропат.',
                     'name_page' => 'about',
                     'short_description'=>null,
                     'img' => 'img/about_bg.jpg',
                     'puzzles_description' => 'На первый взгляд 15 частей ракового процесса могут показаться странными. Но имейте в виду, что свидетельства загадки есть только в 1-2 ходах. Может потребоваться переместить целых 4 или 6 частей, чтобы исправить свое тело, не стесняйтесь исследовать головоломку и разобраться с ней!',
                     'h1'=>null,
+                    'video' => '<iframe width="100%" height="370" src="https://www.youtube.com/embed/eYzskoKQgko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                 ]
             ],
             [
@@ -57,6 +54,7 @@ class PagesSeeder extends Seeder
                     'name_page' => 'factor_diagram',
                     'short_description' => 'факторная диаграмма описание',
                     'h1'=>null,
+                    'video' => null,
                 ],
                 [
                     'lang' => 'eng',
@@ -67,6 +65,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'factor diagram description',
                     'puzzles_description'=>null,
                     'h1'=>null,
+                    'video' => null,
                 ]
 
             ],
@@ -80,6 +79,7 @@ class PagesSeeder extends Seeder
                     'short_description' => null,
                     'puzzles_description'=>null,
                     'h1'=>null,
+                    'video' => null,
                 ],
                 [
                     'lang' => 'eng',
@@ -90,6 +90,7 @@ class PagesSeeder extends Seeder
                     'short_description' => null,
                     'puzzles_description'=>null,
                     'h1'=>null,
+                    'video' => null,
                 ],
 
 
@@ -104,6 +105,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'Literature description',
                     'puzzles_description'=>null,
                     'h1'=>null,
+                    'video' => null,
                 ],
                 [
                     'lang' => 'ru',
@@ -113,6 +115,7 @@ class PagesSeeder extends Seeder
                     'img' => null,
                     'short_description' => 'Литература описание',
                     'puzzles_description'=>null,
+                    'video' => null,
                 ]
 
             ],
@@ -127,6 +130,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'Главная описание',
                     'puzzles_description' => 'На первый взгляд 15 частей ракового процесса могут показаться странными. Но имейте в виду, что свидетельства загадки есть только в 1-2 ходах. Может потребоваться переместить целых 4 или 6 частей, чтобы исправить свое тело, не стесняйтесь исследовать головоломку и разобраться с ней!',
                     'h1' => 'Протоколы лечения рака  целостной медицины',
+                    'video' => '<iframe width="100%" height="400" src="https://www.youtube.com/embed/eYzskoKQgko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                 ],
                 [
                     'lang' => 'eng',
@@ -138,7 +142,8 @@ class PagesSeeder extends Seeder
                     'img' => null,
                     'short_description' => 'Main description',
                     'puzzles_description'=>'The 15 pieces of the cancer process may look confusing at a first glance. But keep in mind that there are evidences of the riddle in 1-2 moves only. It might be necessary to move as much as 4 or 6 pieces to fix your body, feel free to explore the puzzle and sort it out!',
-                    'h1'=>'Cancer reversal protocols  of holistic medicine'
+                    'h1'=>'Cancer reversal protocols  of holistic medicine',
+                    'video' => '<iframe width="100%" height="400" src="https://www.youtube.com/embed/eYzskoKQgko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                 ]
 
                ],
@@ -152,6 +157,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'истории болезни описание',
                     'puzzles_description'=>null,
                     'h1'=>null,
+                    'video' => null,
                 ],
                 [
                     'lang' => 'eng',
@@ -162,6 +168,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'member cases description',
                     'puzzles_description'=>null,
                     'h1'=>null,
+                    'video' => null,
                 ]
 
             ],
@@ -175,6 +182,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'Новости описание',
                     'puzzles_description'=>null,
                     'h1'=>null,
+                    'video' => null,
                 ],
                 [
                     'lang' => 'eng',
@@ -185,6 +193,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'News description',
                     'puzzles_description'=>null,
                     'h1'=>null,
+                    'video' => null,
                 ]
 
             ],
@@ -198,6 +207,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'Личный кабинет описание',
                     'puzzles_description'=>null,
                     'h1'=>null,
+                    'video' => null,
                 ],
                 [
                     'lang' => 'eng',
@@ -208,6 +218,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'Personal cabinet description',
                     'puzzles_description'=>null,
                     'h1'=>null,
+                    'video' => null,
                 ]
 
 
@@ -217,7 +228,7 @@ class PagesSeeder extends Seeder
             $pageItem = \App\Models\Page::create([
                 'name_page'=>$page[0]['name_page'],
                 'img'=>isset($page[0]['img']) ? $page[0]['img']: null,
-                'video'=>null,
+                'video'=>$page[0]['video'],
             ]);
             foreach ($page as $item){
                 \App\PagesLang::create([
