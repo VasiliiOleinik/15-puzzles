@@ -42,7 +42,6 @@ class Factor extends Section
     {
         $display = \AdminDisplay::datatablesAsync()->setColumns([
             \AdminColumn::text('factorRu.name')->setLabel('Имя фактора'),
-            \AdminColumn::text('factorRu.content')->setLabel('Описание Фактора'),
         ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');
