@@ -73,12 +73,17 @@ class FactorDiagram extends Section
 
         $columns2 = \AdminFormElement::columns([
             [
+                \AdminFormElement::textarea('typeRu.name', 'Имя')->required(),
                 \AdminFormElement::textarea('typeRu.normal_condition', 'Нормальная кондиция Ru'),
                 \AdminFormElement::textarea('typeRu.abnormal_condition', 'Нормальная кондиция Ru')
             ],
             [
+                \AdminFormElement::textarea('typeEng.name', 'Имя')->required(),
                 \AdminFormElement::textarea('typeEng.normal_condition', 'Нормальная кондиция Eng'),
-                \AdminFormElement::textarea('typeEng.abnormal_condition', 'Ненормальная кондиция Eng')
+                \AdminFormElement::textarea('typeEng.abnormal_condition', 'Ненормальная кондиция Eng'),
+
+                \AdminFormElement::hidden('typeRu.language')->setDefaultValue('ru'),
+                \AdminFormElement::hidden('typeEng.language')->setDefaultValue('eng')
             ]
         ]);
 

@@ -159,8 +159,8 @@ class NewsController extends Controller
         //для input "add story tags" показываем все тэги
         if($request['with'] == "memberCases"){
             $tag_with = array();
-            $tags = Tag::with($request->with)->get();
 
+            $tags = Tag::with($request->with)->get();
             //find tags which have some relations with model
             foreach($tags as $tag) {
 
@@ -173,6 +173,7 @@ class NewsController extends Controller
                     $query->where('status','=','show');
                 }
             )->get();*/
+
             $tags_id = Tag::with('memberCases')->whereIn('id',$tag_with)->whereHas(
                 'memberCases', function ($query) {
                     $query->where('status','=','show');
