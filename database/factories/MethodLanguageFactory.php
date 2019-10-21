@@ -17,12 +17,12 @@ $factory->define(MethodLanguage::class, function (Faker $faker) {
         $locale = "eng";
         $name = str_replace(".", "", $faker->word) . " method";
         $content = $faker->realText(600);
-        $tableId = MethodLanguage::count() + 1;
+        $tableId = MethodLanguage::withoutGlobalScopes()->count() + 1;
     } else {
         $locale = "ru";
         $name = str_replace(".", "", $faker->word) . " метод";
         $content = $russian["text"][rand(0, 21)];
-        $tableId = 1;
+        $tableId = MethodLanguage::withoutGlobalScopes()->count() + 1 - Method::count();
     }
 
     return [

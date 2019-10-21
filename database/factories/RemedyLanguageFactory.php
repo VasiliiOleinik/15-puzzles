@@ -3,6 +3,7 @@
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 
 use App\Models\Marker\Marker;
+use App\Models\Remedy;
 use App\Models\RemedyLanguage;
 use Faker\Generator as Faker;
 use Faker\Factory as Factory;
@@ -22,18 +23,18 @@ $factory->define(RemedyLanguage::class, function (Faker $faker) {
         $locale = "eng";
         $name = $medicine["drugs"][ rand( 0, 999) ];
         $content = $faker->realText(600);
-        $tableId = remedyLanguage::count() + 1;
+        $tableId = remedyLanguage::withoutGlobalScopes()->count() + 1;
     }else{
         $locale = "ru";
         $name = $medicine["drugsRussian"][ rand( 0, 100) ];
         $content = $russian["text"][ rand( 0, 21) ];
-        $tableId = 1;
+        $tableId = remedyLanguage::withoutGlobalScopes()->count() + 1 - Remedy::count();
     }
 
     return [
         'language' => $locale,
         $tableShort.'_id' => $tableId,
         'name' => $name,
-        'content' => $content,        
+        'content' => $content,
     ];
 });
