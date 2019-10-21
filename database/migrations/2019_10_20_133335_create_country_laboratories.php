@@ -27,6 +27,6 @@ class CreateCountryLaboratories extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('country_laboratories');
+        Schema::dropIfExists('country_laboratory');
     }
 }
