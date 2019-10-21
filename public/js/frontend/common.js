@@ -1,6 +1,6 @@
 $(document).ready(function() {
   // preloader();//Fade preloader when page loaded
-  setCategoryPosition(); // Позиционирование названия групп в секции puzzle-15
+  //setCategoryPosition();  Позиционирование названия групп в секции puzzle-15
   var maintabsProps = {
     startCollapsed: "accordion"
   };
@@ -30,16 +30,16 @@ function tabsInit(item, props) {
   $(item).responsiveTabs(props);
 }
 
-function setCategoryPosition() {
-  var step = $(".puzzle-15__item-outer").height(),
-    position = step;
-  $(".puzzle-15__category").each(function(index, item) {
-    $(item).css({
-      top: position + "px"
-    });
-    position += step + 10;
-  });
-}
+// function setCategoryPosition() {
+//   var step = $(".puzzle-15__item-outer").height(),
+//     position = step;
+//   $(".puzzle-15__category").each(function(index, item) {
+//     $(item).css({
+//       top: position + "px"
+//     });
+//     position += step + 10;
+//   });
+// }
 
 function preloader() {
   $(window).on("load", function() {
@@ -1045,5 +1045,10 @@ hoverFactor();
 // Прелоадер на главной
 
 $(window).on("load", function() {
-  ($preloader = $(".main-page-preloader")), $preloader.delay(350).remove();
+  ($preloader = $(".main-page-preloader")),
+    $preloader.delay(350).remove(),
+    $("html, body").css({
+      overflow: "auto",
+      height: "auto"
+    });
 });
