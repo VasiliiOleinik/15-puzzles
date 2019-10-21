@@ -27,7 +27,7 @@ class PagesSeeder extends Seeder
                     'img' => 'img/about_bg.jpg',
                     'puzzles_description' => 'The 15 pieces of the cancer process may look confusing at a first glance. But keep in mind that there are evidences of the riddle in 1-2 moves only. It might be necessary to move as much as 4 or 6 pieces to fix your body, feel free to explore the puzzle and sort it out!',
                     'h1'=>null,
-                    'video' => '<iframe width="100%" height="370" src="https://www.youtube.com/embed/eYzskoKQgko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
+                    'video' => 'https://www.youtube.com/embed/eYzskoKQgko'
                 ],
                 [
                     'lang' => 'ru',
@@ -43,7 +43,7 @@ class PagesSeeder extends Seeder
                     'img' => 'img/about_bg.jpg',
                     'puzzles_description' => 'На первый взгляд 15 частей ракового процесса могут показаться странными. Но имейте в виду, что свидетельства загадки есть только в 1-2 ходах. Может потребоваться переместить целых 4 или 6 частей, чтобы исправить свое тело, не стесняйтесь исследовать головоломку и разобраться с ней!',
                     'h1'=>null,
-                    'video' => '<iframe width="100%" height="370" src="https://www.youtube.com/embed/eYzskoKQgko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                    'video' => 'https://www.youtube.com/embed/eYzskoKQgko',
                 ]
             ],
             [
@@ -130,7 +130,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'Главная описание',
                     'puzzles_description' => 'На первый взгляд 15 частей ракового процесса могут показаться странными. Но имейте в виду, что свидетельства загадки есть только в 1-2 ходах. Может потребоваться переместить целых 4 или 6 частей, чтобы исправить свое тело, не стесняйтесь исследовать головоломку и разобраться с ней!',
                     'h1' => 'Протоколы лечения рака  целостной медицины',
-                    'video' => '<iframe width="100%" height="400" src="https://www.youtube.com/embed/eYzskoKQgko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                    'video' => 'https://www.youtube.com/embed/eYzskoKQgko',
                 ],
                 [
                     'lang' => 'eng',
@@ -143,7 +143,7 @@ class PagesSeeder extends Seeder
                     'short_description' => 'Main description',
                     'puzzles_description'=>'The 15 pieces of the cancer process may look confusing at a first glance. But keep in mind that there are evidences of the riddle in 1-2 moves only. It might be necessary to move as much as 4 or 6 pieces to fix your body, feel free to explore the puzzle and sort it out!',
                     'h1'=>'Cancer reversal protocols  of holistic medicine',
-                    'video' => '<iframe width="100%" height="400" src="https://www.youtube.com/embed/eYzskoKQgko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+                    'video' => 'https://www.youtube.com/embed/eYzskoKQgko',
                 ]
 
                ],

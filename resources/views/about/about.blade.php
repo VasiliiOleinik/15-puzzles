@@ -20,7 +20,15 @@
             </div>
             <div class="main__right">
               <div class="">
-                {!! $dataPage->page->video !!}
+                <iframe
+                      width="100%"
+                      height="450px"
+                      src="{{ $dataPage->page->video }}"
+                      frameborder="0"
+                      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                >
+                </iframe>
               </div>
               <div class="puzzle-15">
                 <div class="puzzle-15__category resons"><span></span>@lang('main.reasons')</div>
