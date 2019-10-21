@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let data = {
             "country": country,
             "local": locale,
-            "method": method,
+            "methode": method,
             "_token": $('meta[name="csrf-token"]').attr('content'),
         };
         if(country!=null && method!=null) {

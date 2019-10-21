@@ -56,13 +56,35 @@ class Type extends Section
     {
         $columns1 = \AdminFormElement::columns([
             [
+                \AdminFormElement::image('img')->setLabel('Изображение фактора'),
                 \AdminFormElement::multiselect('factors', 'Факторы')
                     ->setModelForOptions(\App\Models\Factor\Factor::class)
                     ->setDisplay('factorRu.name'),
             ],
         ]);
+        $columns2 = \AdminFormElement::columns([
+            [
+                \AdminFormElement::text('typeRu.name')->setLabel('Название группы RU'),
+            ],
+            [
+                \AdminFormElement::text('typeEng.name')->setLabel('Название группы ENG'),
+            ]
+        ]);
+
+        $columns3 = \AdminFormElement::columns([
+            [
+                \AdminFormElement::text('typeRu.normal_condition')->setLabel('Нормальная кондиция RU'),
+                \AdminFormElement::text('typeRu.abnormal_condition')->setLabel('Не нормальная кондиция RU'),
+            ],
+            [
+                \AdminFormElement::text('typeEng.normal_condition')->setLabel('Нормальная кондиция ENG'),
+                \AdminFormElement::text('typeEng.abnormal_condition')->setLabel('Не нормальная кондиция ENG'),
+            ]
+        ]);
         $form = \AdminForm::panel()->addBody([
             $columns1,
+            $columns2,
+            $columns3
         ]);
 
         return $form;
