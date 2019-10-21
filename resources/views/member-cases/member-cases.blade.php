@@ -36,14 +36,14 @@
                       @if( $memberCase->img==null )
                         <img class="post__img" src="/img/med-history.png" alt="">
                       @else
-                        <img class="post__img" src="{{$memberCase->img}}" alt="" >
+                        <img class="post__img" src="{{ asset($memberCase->img) }}" alt="" >
                       @endif
                     </a>
                     <a class="post__date" href="javascript:void(0)">{{$memberCase->updated_at->format('d.m.Y')}}</a>
-                    <a class="post__title" href="{{ url(app()->getLocale().'/member_cases') }}/{{ $memberCase->alias }}">{!!$memberCase->casesLanguage(app()->getLocale())->title!!}
+                    <a class="post__title" href="{{ url(app()->getLocale().'/member_cases') }}/{{ $memberCase->alias }}">{!!$memberCase->title!!}
                       <span class="post__arrow"></span>
                     </a>
-                    <p class="post__description">{!!$memberCase->casesLanguage(app()->getLocale())->description!!}</p>
+                    <p class="post__description">{!!$memberCase->description!!}</p>
                   </div>
                   @endforeach
                 </div>
@@ -69,7 +69,7 @@
               @auth
               <div class="add-story">
                 <h3 class="add-story__title">@lang('member_cases.add_your_story')</h3>
-                <form class="add-story__form"  method="post" action="{{ route('create_post', app()->getLocale()) }}">
+                <form class="add-story__form"  method="post" action="{{ route('create_post', app()->getLocale()) }}" enctype="multipart/form-data">
                   @csrf
 
                   <input id="img" type="hidden" name="img">
@@ -87,7 +87,7 @@
                       <div class="item-img">
                         <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                         <button class="file-upload">
-                          <input class="file-input" type="file" placeholder="Choose Image" >
+                          <input name="image-file" class="file-input" type="file" placeholder="Choose Image" >
                         </button>
                       </div>
                     </div>

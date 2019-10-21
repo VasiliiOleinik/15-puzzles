@@ -9,6 +9,7 @@ use App\Models\MemberCase;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 class MemberCaseController extends Controller
 {
@@ -44,14 +45,16 @@ class MemberCaseController extends Controller
             }
             $memberCases = MemberCase::with('tags')
                 ->whereIn('id', $memberCasesId)
-                ->where('status','=','show')
+                //->where('status','=','show')
+                ->where('is_active', true)
                 ->orderBy('id', 'DESC')
                 ->paginate(4);
 
             return view('member-cases.member-cases', compact(['memberCases', 'page']));
         }
         $memberCases = MemberCase::with('user')
-            ->where('status','=','show')
+            //->where('status','=','show')
+            ->where('is_active', true)
             ->orderBy('id', 'DESC')
             ->paginate(4);
 
@@ -86,18 +89,31 @@ class MemberCaseController extends Controller
         $tags = explode(",",$request['story-tags']);
         $memberCase = new MemberCase;
 
-        if($request->img != null){
-          $memberCase->img = $request['img'];
-        }
+        $memberCase->user_id = Auth::id();
+        // if($request->img != null){
+        //   $memberCase->img = $request['img'];
+        // }
         $memberCase->title = $request['headline'];
         $memberCase->content = $request['your-story'];
         $memberCase->description = substr($memberCase->content,0,186);
         $memberCase->status = "moderating";
-        if($request->anonim == null){
-          $memberCase->anonym = 0;
-        }else{
-          $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+        // if($request->anonim == null){
+        //   $memberCase->anonym = 0;
+        // }else{
+        //   $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+        // }
+        $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+
+        if($request->has('image-file'))
+        {
+            $image = $request->file('image-file');
+            $name = str_random(32).'.' . $image->getClientOriginalExtension();
+            $folder = '/images/uploads';
+            $memberCase->img = $image->storeAs($folder, $name, 'public');
         }
+
+        $memberCase->save();
+        $memberCase->alias = \URLify::filter($memberCase->title.' '.$memberCase->created_at.' '.$memberCase->id, 190);
         $memberCase->save();
         $memberCase->tags()->attach($tags);
 

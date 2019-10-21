@@ -32,13 +32,13 @@
                     @if( $memberCase->img==null )
                       <img class="case-container__img" src="/img/med-history.png" alt="">
                     @else
-                      <img class="case-container__img" src="{{$memberCase->img}}" alt="">
+                      <img class="case-container__img" src="{{ asset($memberCase->img) }}" alt="">
                     @endif
                     <p class="case-container__title">
-                      {!!$memberCase->casesLanguage(app()->getLocale())->description!!}
+                      {!!$memberCase->description!!}
                     </p>
                     <span class="case-container__text">
-                      {!!$memberCase->casesLanguage(app()->getLocale())->content!!}
+                      {!!$memberCase->content!!}
                     </span>
                   </div>
                 </div>

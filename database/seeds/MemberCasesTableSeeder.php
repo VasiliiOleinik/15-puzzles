@@ -16,7 +16,8 @@ class MemberCasesTableSeeder extends Seeder
         DB::table('member_cases')->delete();
         DB::update("ALTER TABLE member_cases AUTO_INCREMENT = 0;");
 
-        factory(MemberCase::class, 2)->create();
+        //factory(MemberCase::class, 2)->create();
+        factory(MemberCase::class, 5)->create();
 
         $tags = Tag::all();
 

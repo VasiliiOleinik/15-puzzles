@@ -63,8 +63,10 @@ class MemberCases extends Section implements Initializable
         $display
             //->with(['roles'])
             ->setColumns(
-                AdminColumnEditable::text('casesRu.title')->setLabel('заголовок'),
-                AdminColumn::text('status')->setLabel('статус')
+                AdminColumnEditable::text('title')->setLabel('заголовок'),
+                /* AdminColumn::text('status')->setLabel('статус')
+                    ->setOrderable(false), */
+                AdminColumnEditable::checkbox('is_active')->setLabel('показывать?')
                     ->setOrderable(false),
                 AdminColumnEditable::checkbox('anonym')->setLabel('анонимная публикация')
                     ->setOrderable(false),
@@ -87,9 +89,10 @@ class MemberCases extends Section implements Initializable
                 AdminColumnFilter::text()
                     ->setPlaceholder('Введите заголовок')
                     ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
-                AdminColumnFilter::text()
+                null,
+                /* AdminColumnFilter::text()
                     ->setPlaceholder('Введите статус')
-                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS), */
                 null,
                 // Поиск по диапазону дат
                 AdminColumnFilter::range()->setFrom(
@@ -116,7 +119,7 @@ class MemberCases extends Section implements Initializable
     {
         $rules = ['required', 'string', 'max:191'];
         $columns1 = \AdminFormElement::columns([
-            [
+            /* [
                 AdminFormElement::text('casesEng.title')->setLabel('Title ENG')->setValidationRules($rules),
                 AdminFormElement::textarea('casesEng.description')->setLabel('Описание ENG')->setValidationRules($rules),
                 AdminFormElement::ckeditor('casesEng.content', 'история болезни ENG'),
@@ -126,11 +129,27 @@ class MemberCases extends Section implements Initializable
                 AdminFormElement::text('casesRu.title')->setLabel('Title RU')->setValidationRules($rules),
                 AdminFormElement::textarea('casesRu.description')->setLabel('Описание RU')->setValidationRules($rules),
                 AdminFormElement::ckeditor('casesRu.content', 'история болезни RU'),
+            ] */
+            [
+                AdminFormElement::text('title')->setLabel('Заголовок')->setValidationRules($rules),
+                AdminFormElement::textarea('description')->setLabel('Описание')->setValidationRules($rules),
+                AdminFormElement::ckeditor('content', 'История болезни'),
+                //AdminFormElement::select('status', 'статус')->setOptions(['show' => 'show', 'hide' => 'hide', 'moderating' => 'moderating']),
+                AdminFormElement::checkbox('is_active')->setLabel('Публикация доступна?'),
+                AdminFormElement::checkbox('anonym')->setLabel('Анонимная публикация'),
+                AdminFormElement::text('user.nickname')->setLabel('Пользователь')->setReadonly(1),
+                AdminFormElement::image('img')->setLabel('картинка'),
+
+                AdminFormElement::multiselect('tags', 'Тэги этой истории болезни')
+                    ->setModelForOptions(\App\Models\Tag::class)
+                    ->setDisplay('tagRu.name'),
+                AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1)
             ]
         ]);
-        $columns2 = \AdminFormElement::columns([
+        /* $columns2 = \AdminFormElement::columns([
             [
                 AdminFormElement::select('status', 'статус')->setOptions(['show' => 'show', 'hide' => 'hide', 'moderating' => 'moderating']),
+                AdminFormElement::checkbox('is_active')->setLabel('публикация доступна'),
                 AdminFormElement::text('user.nickname')->setLabel('пользователь')->setReadonly(1),
                 AdminFormElement::checkbox('anonym')->setLabel('анонимная публикация'),
                 AdminFormElement::image('img')->setLabel('картинка'),
@@ -140,10 +159,10 @@ class MemberCases extends Section implements Initializable
                     ->setDisplay('tagRu.name'),
                 AdminFormElement::text('created_at')->setLabel('создано')->setReadonly(1)
             ]
-        ]);
+        ]); */
         return AdminForm::panel()->addBody([
-            $columns1,
-            $columns2
+            $columns1/* ,
+            $columns2 */
         ]);
     }
 
