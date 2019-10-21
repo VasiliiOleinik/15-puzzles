@@ -45,7 +45,7 @@ class LinkForBooks extends Section implements Initializable
         });*/
     }
 
-   /**
+    /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
      *
      * @var bool
@@ -68,7 +68,7 @@ class LinkForBooks extends Section implements Initializable
                 AdminColumn::text('title')->setLabel('Название магазина'),
                 AdminColumn::text('url')->setLabel('Ссылка на магазин')
             )
-            ->setApply(function($query) {
+            ->setApply(function ($query) {
                 $query->orderBy('id', 'desc');
             });
     }
@@ -80,13 +80,18 @@ class LinkForBooks extends Section implements Initializable
     {
         return AdminForm::panel()->addBody([
             AdminFormElement::text('title')->setName('title')->setLabel('Название магазина')->required(),
-            AdminFormElement::text('url')->setName('url')->setLabel('Ссылка на магазин')->required()
+            AdminFormElement::text('url')->setName('url')->setLabel('Ссылка на магазин')->required(),
+            AdminFormElement::multiselect('books', 'Книги в этом магазине')
+                ->setModelForOptions(\App\Models\Book\Book::class)
+                ->setDisplay('bookRu.title')
         ]);
     }
 
-    public function onEdit(){
+    public function onEdit()
+    {
         return $this->onCreate(null);
     }
+
     /**
      * @return void
      */
