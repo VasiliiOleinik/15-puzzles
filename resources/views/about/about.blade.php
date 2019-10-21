@@ -19,16 +19,8 @@
               <div class="main__left-text">{!! isset($dataPage->description) ? $dataPage->description : false  !!}</div>
             </div>
             <div class="main__right">
-              <div class="main__video">
-                <div class="main__video-overlay"></div>
-                  @if(isset($dataPage->page->video))
-
-                  <iframe width="640" height="360" src="{{$dataPage->page->video}}" frameborder="0" autoplay=0
-                          allow="autoplay=0; encrypted-media" allowfullscreen>
-                  </iframe>
-
-
-                  @endif
+              <div class="">
+                {!! $dataPage->page->video !!}
               </div>
               <div class="puzzle-15">
                 <div class="puzzle-15__category resons"><span></span>@lang('main.reasons')</div>

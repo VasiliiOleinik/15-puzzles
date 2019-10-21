@@ -17,7 +17,7 @@ class CreatePagesTable extends Migration
             $table->bigIncrements('id')->unsigned();
             $table->string('name_page')->nullable();
             $table->string('img')->nullable();
-            $table->string('video')->nullable();
+            $table->text('video')->nullable();
             $table->integer('is_active')->default(1);
             $table->timestamps();
         });
