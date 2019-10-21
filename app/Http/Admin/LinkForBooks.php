@@ -81,9 +81,6 @@ class LinkForBooks extends Section implements Initializable
         return AdminForm::panel()->addBody([
             AdminFormElement::text('title')->setName('title')->setLabel('Название магазина')->required(),
             AdminFormElement::text('url')->setName('url')->setLabel('Ссылка на магазин')->required(),
-            AdminFormElement::multiselect('books', 'Книги в этом магазине')
-                ->setModelForOptions(\App\Models\Book\Book::class)
-                ->setDisplay('bookRu.title')
         ]);
     }
 
