@@ -31,4 +31,16 @@ class Type extends Model
     {
         return $this->hasOne(TypesLanguage::class);
     }
+
+    public function typeRu()
+    {
+        return $this->hasOne(TypesLanguage::class)
+            ->where('language', 'ru');
+    }
+
+    public function typeEng()
+    {
+        return $this->hasOne(TypesLanguage::class)
+            ->where('language', 'eng');
+    }
 }

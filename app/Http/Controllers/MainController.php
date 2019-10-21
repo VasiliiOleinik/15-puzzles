@@ -175,7 +175,7 @@ class MainController extends Controller
      */
     public function mapRefresh(Request $request)
     {
-        $filteredData = $this->laboratoryRepository->findLaboratory($request->country, $request->method);
+        $filteredData = $this->laboratoryRepository->findLaboratory($request->country, $request->methode);
         $validResponseArray = $this->laboratoriService->getValidResponseArray($filteredData);
         $json = json_encode($validResponseArray);
         return $json;
