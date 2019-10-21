@@ -56,7 +56,7 @@ class Type extends Section
     {
         $columns1 = \AdminFormElement::columns([
             [
-                \AdminFormElement::image('img')->setLabel('Изображение фактора'),
+                \AdminFormElement::image('img')->setLabel('Изображение фактора')->required(),
                 \AdminFormElement::multiselect('factors', 'Факторы')
                     ->setModelForOptions(\App\Models\Factor\Factor::class)
                     ->setDisplay('factorRu.name'),
