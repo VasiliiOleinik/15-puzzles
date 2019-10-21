@@ -18,13 +18,13 @@ $factory->define(QuestionLanguage::class, function (Faker $faker) {
         $locale = "eng";
         $name = $faker->realText( rand(80,110) );//Protocol::find($protocol_id)->name;
         $content = $faker->realText(600);
-        $tableId = QuestionLanguage::count() + 1;
+        $tableId = QuestionLanguage::withoutGlobalScopes()->count() + 1;
         $title = $faker->realText( rand(10,20) );
     }else{
         $locale = "ru";
         $name = iconv_substr($russian["questions"][ rand( 0, 21) ],0,191 , "UTF-8");
         $content = iconv_substr($russian["text"][ rand( 0, 21) ],0,191 , "UTF-8");
-        $tableId = QuestionLanguage::count() + 1 - Question::count();
+        $tableId = QuestionLanguage::withoutGlobalScopes()->count() + 1 - Question::count();
         $title = iconv_substr($russian["text"][ rand( 0, 21) ],0,191 , "UTF-8");
     }
 
