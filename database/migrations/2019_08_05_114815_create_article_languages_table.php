@@ -17,9 +17,9 @@ class CreateArticleLanguagesTable extends Migration {
 			$table->increments('id');
 			$table->string('language', 10)->default('eng');
 			$table->integer('article_id')->unsigned()->default(1)->index('FK_article_languages_articles');
-			$table->string('title', 191)->nullable();
-			$table->string('description', 191)->nullable();
-			$table->text('content', 65535)->nullable();
+			$table->string('title')->nullable();
+			$table->longText('description')->nullable();
+			$table->longText('content')->nullable();
 		});
 	}
 

@@ -15,8 +15,8 @@ class CreateSubscribersTable extends Migration {
 		Schema::create('subscribers', function(Blueprint $table)
 		{
 			$table->bigInteger('id', true)->unsigned();
-			$table->string('email', 191)->nullable();
-			$table->string('language', 10)->default('eng');
+			$table->string('email')->nullable();
+			$table->string('language')->default('eng');
 		});
 	}
 

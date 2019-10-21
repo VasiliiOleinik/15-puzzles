@@ -15,8 +15,8 @@ class CreateEvidencesTable extends Migration {
 		Schema::create('evidences', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 50)->nullable();
-			$table->string('color', 50)->nullable();
+			$table->string('name')->nullable();
+			$table->string('color')->nullable();
 		});
 	}
 

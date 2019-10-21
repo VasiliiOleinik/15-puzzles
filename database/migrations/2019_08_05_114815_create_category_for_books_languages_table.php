@@ -15,9 +15,9 @@ class CreateCategoryForBooksLanguagesTable extends Migration {
 		Schema::create('category_for_books_languages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('language', 10)->default('eng');
+			$table->string('language')->default('eng');
 			$table->integer('category_for_books_id')->unsigned()->default(1)->index('FK_category_for_books_languages_categories_for_books');
-			$table->string('name', 50)->nullable();
+			$table->string('name')->nullable();
 		});
 	}
 

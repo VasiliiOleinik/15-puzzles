@@ -15,9 +15,9 @@ class CreateTagLanguagesTable extends Migration {
 		Schema::create('tag_languages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('language', 10)->default('eng');
+			$table->string('language')->default('eng');
 			$table->integer('tag_id')->unsigned()->default(1)->index('FK_tag_languages_tags');
-			$table->string('name', 50)->nullable();
+			$table->string('name')->nullable();
 		});
 	}
 

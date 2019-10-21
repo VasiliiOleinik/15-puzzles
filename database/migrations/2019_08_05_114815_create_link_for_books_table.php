@@ -15,8 +15,8 @@ class CreateLinkForBooksTable extends Migration {
 		Schema::create('links_for_books', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title', 50)->nullable();
-			$table->string('url', 191)->nullable();
+			$table->string('title')->nullable();
+			$table->string('url')->nullable();
             $table->integer('is_active')->default(1);
 		});
 	}

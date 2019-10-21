@@ -15,9 +15,9 @@ class CreateCountriesTable extends Migration {
 		Schema::create('countries', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 191)->nullable();
-			$table->string('lat', 191)->nullable();
-			$table->string('lng', 191)->nullable();
+			$table->string('name')->nullable();
+			$table->string('lat')->nullable();
+			$table->string('lng')->nullable();
 		});
 	}
 

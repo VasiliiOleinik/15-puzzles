@@ -15,9 +15,9 @@ class CreateMedicalHistoriesTable extends Migration {
 		Schema::create('medical_histories', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title', 191)->nullable();
-			$table->text('content', 65535)->nullable();
-			$table->longText('img', 65535)->nullable();
+			$table->string('title')->nullable();
+			$table->longText('content')->nullable();
+			$table->longText('img')->nullable();
 			$table->bigInteger('user_id')->unsigned()->default(1)->index('FK_medical_histories_users');
 			$table->timestamps();
 		});

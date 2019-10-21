@@ -15,10 +15,10 @@ class CreateQuestionLanguagesTable extends Migration {
 		Schema::create('question_languages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('language', 10)->default('eng');
+			$table->string('language')->default('eng');
 			$table->integer('question_id')->unsigned()->default(1)->index('FK_question_languages_questions');
-			$table->string('name', 191)->nullable();
-            $table->string('title', 191)->nullable();
+			$table->string('name')->nullable();
+            $table->string('title')->nullable();
 			$table->text('content')->nullable();
 		});
 	}

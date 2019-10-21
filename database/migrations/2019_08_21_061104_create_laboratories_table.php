@@ -15,12 +15,12 @@ class CreateLaboratoriesTable extends Migration {
 		Schema::create('laboratories', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('name', 191)->nullable();
-			$table->string('phone', 191)->nullable();
-			$table->string('address', 191)->nullable();
-			$table->string('link', 191)->nullable();
-			$table->string('lat', 191)->nullable();
-			$table->string('lng', 191)->nullable();
+			$table->string('name')->nullable();
+			$table->string('phone')->nullable();
+			$table->string('address')->nullable();
+			$table->string('link')->nullable();
+			$table->string('lat')->nullable();
+			$table->string('lng')->nullable();
 		});
 	}
 

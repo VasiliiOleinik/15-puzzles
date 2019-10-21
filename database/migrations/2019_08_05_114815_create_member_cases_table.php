@@ -18,7 +18,7 @@ class CreateMemberCasesTable extends Migration {
             $table->string('alias')->nullable();
 			$table->bigInteger('user_id')->unsigned()->default(1)->index('FK_cases_users');
 			$table->longText('img')->nullable();
-			$table->string('status', 25)->default('moderating');
+			$table->string('status')->default('moderating');
 			$table->boolean('anonym')->default(0);
 			$table->timestamps();
 		});

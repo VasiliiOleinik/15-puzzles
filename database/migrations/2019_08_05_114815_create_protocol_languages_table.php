@@ -15,12 +15,12 @@ class CreateProtocolLanguagesTable extends Migration {
 		Schema::create('protocol_languages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('language', 10)->default('eng');
+			$table->string('language')->default('eng');
 			$table->integer('protocol_id')->unsigned()->default(1)->index('FK_protocol_languages_protocols');
 			$table->integer('evidence_id')->unsigned()->default(1)->index('FK_protocol_languages_evidences');
-			$table->string('name', 50)->nullable();
-			$table->text('content', 65535)->nullable();
-			$table->string('subtitle', 191)->nullable();
+			$table->string('name')->nullable();
+			$table->longText('content')->nullable();
+			$table->longText('subtitle')->nullable();
 		});
 	}
 

@@ -16,7 +16,7 @@ class CreateRemediesTable extends Migration {
 		{
 			$table->increments('id');
             $table->integer('is_active')->default(1);
-			$table->string('url', 191)->nullable();
+			$table->string('url')->nullable();
             $table->timestamps();
 		});
 	}

@@ -16,7 +16,7 @@ class CreateProtocolsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('evidence_id')->unsigned()->default(1)->index('FK_protocols_evidences');
-			$table->string('url', 191)->nullable();
+			$table->string('url')->nullable();
             $table->integer('is_active')->default(1);
             $table->timestamps();
 		});

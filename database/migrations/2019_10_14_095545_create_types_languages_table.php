@@ -16,8 +16,8 @@ class CreateTypesLanguagesTable extends Migration
         Schema::create('types_languages', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('type_id');
-            $table->string('language', 50);
-            $table->string('name', 50);
+            $table->string('language');
+            $table->string('name');
             $table->text('abnormal_condition');
             $table->text('normal_condition');
             $table->timestamps();

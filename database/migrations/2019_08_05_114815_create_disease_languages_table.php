@@ -15,10 +15,10 @@ class CreateDiseaseLanguagesTable extends Migration {
 		Schema::create('disease_languages', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('language', 10)->default('eng');
+			$table->string('language')->default('eng');
 			$table->integer('disease_id')->unsigned()->default(1)->index('FK_disease_languages_diseases');
-			$table->string('name', 50)->nullable();
-			$table->text('content', 65535)->nullable();
+			$table->string('name')->nullable();
+			$table->longText('content')->nullable();
 		});
 	}
 
