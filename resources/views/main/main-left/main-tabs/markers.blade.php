@@ -18,11 +18,11 @@
                         <div class="method-item">
                             <label class="method-item__head">
                                 <input class="checkbox" type="radio" name="method"><span class="checkbox-custom"></span>
-                                <p class="title">{{$method->methodLanguage->first()->name}}</p>
+                                <p class="title">{{isset($method->methodLanguage->first()->name) ? $method->methodLanguage->first()->name : false}}</p>
                             </label>
                             <div class="method-item__content">
                                 <div class="text markers">
-                                    <p>{{$method->methodLanguage->first()->content}}</p>
+                                    <p>{{isset($method->methodLanguage->first()->content) ? $method->methodLanguage->first()->content : false}}</p>
                                 </div>
                             </div>
                         </div>

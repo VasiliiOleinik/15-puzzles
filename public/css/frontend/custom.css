@@ -136,14 +136,12 @@ label.invalid {
     max-width: 20px;
     margin-right: 10px;
 }
-
 .diagram__center {
-    max-width: 900px;
     padding: 0;
 }
 
 .diagram__center-circle-container {
-    width: 900px;
+    max-width: 900px;
     height: 725px;
     z-index: 1;
     display: flex;
@@ -154,7 +152,6 @@ label.invalid {
 
 @media (max-width: 1280px) {
     .diagram__center-circle-container {
-        height: auto;
         background-size: cover;
     }
 }
@@ -207,7 +204,17 @@ label.invalid {
 
 .organ_system {
     top: 70px;
-    left: 349px;
+    left: 180px;
+}
+@media (max-width: 1440px) {
+    .organ_system {
+        top: 65px;
+    }
+}
+@media (max-width: 1280px) {
+    .organ_system {
+        top: -15px;
+    }
 }
 
 .target__span {
