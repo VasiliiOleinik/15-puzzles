@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\LanguageScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Page extends Model
@@ -17,6 +18,7 @@ class Page extends Model
     public function pageEng()
     {
         return $this->hasOne(PageLang::class, 'pages_id')
+
             ->where('lang', 'eng');
     }
 

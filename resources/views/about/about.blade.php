@@ -32,7 +32,7 @@
                 @foreach($factors as $factor)
                   <div class="puzzle-15__item-outer" obj-id="{{$factor->factor_id}}">
                     <a href="{{ url('/?factor='.$factor->factor_id, app()->getLocale() )}}">
-                        <div class="puzzle-15__item {{$factor->type->name}}">
+                        <div class="puzzle-15__item {{isset($factor->type->name) ? $factor->type->name : false}}">
                           <img class="factors-check" src="/img/svg/factors-check.svg" alt="">
                           <img src="{{$factor->factor->img}}">
                           <h6 class="puzzle-15__item-title">{{$factor->name}}</h6>
