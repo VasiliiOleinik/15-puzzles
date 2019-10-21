@@ -12,14 +12,14 @@ class Page extends Model
     public function pageRu()
     {
         return $this->hasOne(PageLang::class, 'pages_id')
-            ->where('lang', 'ru');
+            ->where('language', 'ru');
     }
 
     public function pageEng()
     {
         return $this->hasOne(PageLang::class, 'pages_id')
 
-            ->where('lang', 'eng');
+            ->where('language', 'eng');
     }
 
     public function pageLang()
@@ -29,6 +29,6 @@ class Page extends Model
 
     public function scopeSetLocaleRu($query)
     {
-        return $query->where('lang', 'ru');
+        return $query->where('language', 'ru');
     }
 }

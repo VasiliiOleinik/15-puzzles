@@ -14,7 +14,7 @@ class PagesSeeder extends Seeder
         $pages =[
             [
                 [
-                    'lang' => 'eng',
+                    'language' => 'eng',
                     'title' => 'About',
                     'description' =>
                     'Theory behind this project is that there are total of 15 "pieces" (systemic factors) of the cancer "puzzle" that are parts of different conventional medical science cancer treatment protocols and ones known in naturopathic or holistic medicine.
@@ -30,7 +30,7 @@ class PagesSeeder extends Seeder
                     'video' => 'https://www.youtube.com/embed/eYzskoKQgko'
                 ],
                 [
-                    'lang' => 'ru',
+                    'language' => 'ru',
                     'title' => 'О нас',
                     'description' => '
                     Теория, лежащая в основе этого проекта, состоит в том, что всего 15 «кусочков» (системных факторов) рака «пазлов», которые являются частью различных традиционных протоколов лечения рака медицинской науки и известные в натуропатической или холистической медицине.
@@ -48,7 +48,7 @@ class PagesSeeder extends Seeder
             ],
             [
                 [
-                    'lang' => 'ru',
+                    'language' => 'ru',
                     'title' => '15 пазлов факторная диаграмма',
                     'description'=>null,
                     'name_page' => 'factor_diagram',
@@ -57,7 +57,7 @@ class PagesSeeder extends Seeder
                     'video' => null,
                 ],
                 [
-                    'lang' => 'eng',
+                    'language' => 'eng',
                     'title' => '15 puzzles factor diagram',
                     'description'=>null,
                     'name_page' => 'factor_diagram',
@@ -71,7 +71,7 @@ class PagesSeeder extends Seeder
             ],
             [
                 [
-                    'lang' => 'ru',
+                    'language' => 'ru',
                     'title' => 'Faq описание',
                     'description'=>null,
                     'name_page' => 'FAQ',
@@ -82,7 +82,7 @@ class PagesSeeder extends Seeder
                     'video' => null,
                 ],
                 [
-                    'lang' => 'eng',
+                    'language' => 'eng',
                     'title' => 'Faq description',
                     'description'=>null,
                     'name_page' => 'FAQ',
@@ -97,7 +97,7 @@ class PagesSeeder extends Seeder
             ],
             [
                 [
-                    'lang' => 'eng',
+                    'language' => 'eng',
                     'title' => 'Literature',
                     'description'=>null,
                     'name_page' => 'literature',
@@ -108,7 +108,7 @@ class PagesSeeder extends Seeder
                     'video' => null,
                 ],
                 [
-                    'lang' => 'ru',
+                    'language' => 'ru',
                     'title' => 'Литература',
                     'description'=>null,
                     'name_page' => 'literature',
@@ -121,7 +121,7 @@ class PagesSeeder extends Seeder
             ],
             [
                 [
-                    'lang' => 'ru',
+                    'language' => 'ru',
                     'title' => '15 puzzles - Главная',
                     'description' => 'Есть 15 известных «пазлов» головоломки рака, которые участвуют в известных протоколах лечения естественного рака.
                     Этот веб-сайт является вашей исследовательской базой, чтобы узнать, как именно ваше тело «запуталось» в процессе развития рака, и попытаться разработать собственный план обращения процесса канцерогенеза, основанный на лучших известных методах лечения натуропатического рака. Этот веб-сайт является вашей исследовательской базой, чтобы узнать, как именно ваше тело «запуталось» в процессе развития рака, и попытаться разработать собственный план обращения процесса канцерогенеза, основанный на лучших известных методах лечения натуропатического рака.',
@@ -133,7 +133,7 @@ class PagesSeeder extends Seeder
                     'video' => 'https://www.youtube.com/embed/eYzskoKQgko',
                 ],
                 [
-                    'lang' => 'eng',
+                    'language' => 'eng',
                     'title' => '15 puzzles - Main',
                     'description' => 'There are 15 known "pieces" of the cancer puzzle that are involved in known natural cancer treatment protocols.
                     This web site is your research base to find out how exactly your body got "confused" in the process of developing the cancer and try develop your own plan of reversing the cancerogenesis process based on the best known practices in naturopathic cancer treatment.
@@ -149,7 +149,7 @@ class PagesSeeder extends Seeder
                ],
             [
                 [
-                    'lang' => 'ru',
+                    'language' => 'ru',
                     'title' => 'Истории болезни',
                     'description'=>null,
                     'name_page' => 'member_cases',
@@ -160,7 +160,7 @@ class PagesSeeder extends Seeder
                     'video' => null,
                 ],
                 [
-                    'lang' => 'eng',
+                    'language' => 'eng',
                     'title' => 'Истории болезни',
                     'description'=>null,
                     'name_page' => 'member_cases',
@@ -174,7 +174,7 @@ class PagesSeeder extends Seeder
             ],
             [
                 [
-                    'lang' => 'ru',
+                    'language' => 'ru',
                     'title' => 'Новости',
                     'description'=>null,
                     'name_page' => 'news',
@@ -185,7 +185,7 @@ class PagesSeeder extends Seeder
                     'video' => null,
                 ],
                 [
-                    'lang' => 'eng',
+                    'language' => 'eng',
                     'title' => 'News',
                     'description'=>null,
                     'name_page' => 'news',
@@ -199,7 +199,7 @@ class PagesSeeder extends Seeder
             ],
             [
                 [
-                    'lang' => 'ru',
+                    'language' => 'ru',
                     'title' => '15 пазлов Личный кабинет',
                     'description'=>null,
                     'name_page' => 'personal_cabinet',
@@ -210,7 +210,7 @@ class PagesSeeder extends Seeder
                     'video' => null,
                 ],
                 [
-                    'lang' => 'eng',
+                    'language' => 'eng',
                     'title' => '15 puzzles Personal cabinet',
                     'description'=>null,
                     'name_page' => 'personal_cabinet',
@@ -226,18 +226,18 @@ class PagesSeeder extends Seeder
         ];
         foreach ($pages as $page) {
             $pageItem = \App\Models\Page::create([
-                'name_page'=>$page[0]['name_page'],
-                'img'=>isset($page[0]['img']) ? $page[0]['img']: null,
-                'video'=>$page[0]['video'],
+                'name_page' => $page[0]['name_page'],
+                'img' => isset($page[0]['img']) ? $page[0]['img']: null,
+                'video' => $page[0]['video'],
             ]);
             foreach ($page as $item){
                 \App\PagesLang::create([
-                    'pages_id'=>$pageItem->id,
-                    'lang'=>$item['lang'],
-                    'title'=>isset($item['title']) ? $item['title'] : null ,
-                    'short_description'=>isset($item['short_description']) ? $item['short_description'] : null,
-                    'puzzles_description'=>isset($item['puzzles_description']) ? $item['puzzles_description'] : null,
-                    'h1'=>isset($item['h1']) ? $item['h1'] : null ,
+                    'pages_id' => $pageItem->id,
+                    'language' => $item['language'],
+                    'title' => isset($item['title']) ? $item['title'] : null ,
+                    'short_description' => isset($item['short_description']) ? $item['short_description'] : null,
+                    'puzzles_description' => isset($item['puzzles_description']) ? $item['puzzles_description'] : null,
+                    'h1' => isset($item['h1']) ? $item['h1'] : null ,
                 ]);
             }
         }

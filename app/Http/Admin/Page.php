@@ -59,7 +59,7 @@ class Page extends Section
             AdminColumnFilter::text()->setPlaceholder('Введите название')->setOperator(FilterInterface::CONTAINS),
         ]);
         $display->setApply(function ($query) {
-            $query->where('pages_langs.lang', "ru");
+            $query->where('pages_langs.language', "ru");
         });
         $display->getColumnFilters()->setPlacement('table.header');
         return $display;
@@ -94,8 +94,8 @@ class Page extends Section
                 AdminFormElement::textarea('pageRu.puzzles_description', 'Текст под баннером RU'),
                 AdminFormElement::ckeditor('pageRu.description', 'Главный текст на странице RU'),
 
-                \AdminFormElement::hidden('pageRu.lang')->setDefaultValue('ru'),
-                \AdminFormElement::hidden('pageEng.lang')->setDefaultValue('eng')
+                \AdminFormElement::hidden('pageRu.language')->setDefaultValue('ru'),
+                \AdminFormElement::hidden('pageEng.language')->setDefaultValue('eng')
             ],
 
         ]);

@@ -15,7 +15,7 @@ class CreatePagesLangsTable extends Migration
     {
         Schema::create('pages_langs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('lang');
+            $table->string('language');
             $table->string('title');
             $table->bigInteger('pages_id')->unsigned()->index('FK_pages_langs');
             $table->longText('description')->nullable();
