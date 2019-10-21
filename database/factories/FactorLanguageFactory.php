@@ -8,10 +8,10 @@ use Faker\Generator as Faker;
 use Faker\Factory as Factory;
 
 $factory->define(FactorLanguage::class, function () {
-    if( FactorLanguage::count() < Factor::count() ){
+    if( FactorLanguage::withoutGlobalScopes()->count() < Factor::count() ){
         $locale = "eng";
         $faker = Factory::create('en_EN');
-    }else{       
+    }else{
         $locale = "ru";
         $faker = Factory::create('ru_RU');
     }

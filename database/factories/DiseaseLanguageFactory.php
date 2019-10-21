@@ -9,10 +9,10 @@ use Faker\Factory as Factory;
 
 $factory->define(DiseaseLanguage::class, function (Faker $faker) {
 
-    if( DiseaseLanguage::count() < Disease::count() ){
+    if( DiseaseLanguage::withoutGlobalScopes()->count() < Disease::count() ){
         $locale = "eng";
         $faker = Factory::create('en_EN');
-    }else{       
+    }else{
         $locale = "ru";
         $faker = Factory::create('ru_RU');
     }
