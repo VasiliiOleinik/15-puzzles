@@ -5,8 +5,11 @@
         <div class="footer__logo logo"><img src="/img/svg/logo.svg"></div>
         <ul class="footer__list">
           <li class="footer__li"><a class="footer__link" href="{{ url(app()->getLocale().'/faq') }}" target="_blank">@lang('footer.letter')</a></li>
-          <li class="footer__li"><a class="footer__link" href="#" target="_blank">@lang('footer.privacy')</a></li>
-          <li class="footer__li"><a class="footer__link" href="#" target="_blank">@lang('footer.terms')</a></li>
+          @foreach(app('police') as $item)
+            <li class="footer__li">
+              <a class="footer__link" href="{{ url(app()->getLocale().'/police') }}/{{ $item->police->alias }}" target="_blank">{{ $item->title }}</a>
+            </li>
+          @endforeach
         </ul>
       </div>
       <div class="footer__middle footer__item">
