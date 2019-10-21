@@ -5,9 +5,24 @@ namespace App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Category\CategoryForNews
+ *
  * @property int $id
  * @property string $name
  * @property Artile[] $articles
+ * @property string|null $alias
+ * @property int $is_active
+ * @property-read int|null $articles_count
+ * @property-read \App\Models\Category\CategoryForNewsLanguage $categoryEng
+ * @property-read \App\Models\Category\CategoryForNewsLanguage $categoryNames
+ * @property-read \App\Models\Category\CategoryForNewsLanguage $categoryRu
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category\CategoryForNews newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category\CategoryForNews newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category\CategoryForNews query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category\CategoryForNews whereAlias($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category\CategoryForNews whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category\CategoryForNews whereIsActive($value)
+ * @mixin \Eloquent
  */
 class CategoryForNews extends Model
 {

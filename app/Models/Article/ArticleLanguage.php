@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Scopes\LanguageScope;
 
 /**
+ * App\Models\Article\ArticleLanguage
+ *
  * @property int $id
  * @property int $article_id
  * @property string $language
@@ -13,6 +15,16 @@ use App\Scopes\LanguageScope;
  * @property string $description
  * @property string $content
  * @property Article $article
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleLanguage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleLanguage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleLanguage query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleLanguage whereArticleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleLanguage whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleLanguage whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleLanguage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleLanguage whereLanguage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleLanguage whereTitle($value)
+ * @mixin \Eloquent
  */
 class ArticleLanguage extends Model
 {

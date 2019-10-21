@@ -6,12 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 use App\Scopes\LanguageScope;
 
 /**
+ * App\Models\MethodLanguage
+ *
  * @property int $id
  * @property int $method_id
  * @property string $language
  * @property string $name
  * @property string $content
  * @property Method $method
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MethodLanguage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MethodLanguage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MethodLanguage query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MethodLanguage whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MethodLanguage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MethodLanguage whereLanguage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MethodLanguage whereMethodId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MethodLanguage whereName($value)
+ * @mixin \Eloquent
  */
 class MethodLanguage extends Model
 {

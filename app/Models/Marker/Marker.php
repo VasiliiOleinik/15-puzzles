@@ -6,6 +6,8 @@ use App\Models\MethodLanguage;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Marker\Marker
+ *
  * @property int $id
  * @property string $name
  * @property string $content
@@ -14,6 +16,32 @@ use Illuminate\Database\Eloquent\Model;
  * @property MarkerMethod[] $markerMethods
  * @property FactorMarker[] $factorMarkers
  * @property ProtocolMarker[] $protocolMarkers
+ * @property int $is_active
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ * @property-read int|null $disease_markers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Disease\Disease[] $diseases
+ * @property-read int|null $diseases_count
+ * @property-read int|null $factor_markers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Factor\Factor[] $factors
+ * @property-read int|null $factors_count
+ * @property-read \App\Models\Marker\MarkerLanguage $markerEng
+ * @property-read \App\Models\Marker\MarkerLanguage $markerLanguage
+ * @property-read int|null $marker_methods_count
+ * @property-read \App\Models\Marker\MarkerLanguage $markerRu
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Method[] $methods
+ * @property-read int|null $methods_count
+ * @property-read int|null $protocol_markers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Protocol\Protocol[] $protocols
+ * @property-read int|null $protocols_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\Marker newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\Marker newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\Marker query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\Marker whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\Marker whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\Marker whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\Marker whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Marker extends Model
 {

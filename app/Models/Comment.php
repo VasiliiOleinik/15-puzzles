@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Comment
+ *
  * @property int $id
  * @property int $member_case_id
  * @property integer $user_id
@@ -13,6 +15,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property MemberCase $memberCase
  * @property User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereMemberCaseId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Comment whereUserId($value)
+ * @mixin \Eloquent
  */
 class Comment extends Model
 {

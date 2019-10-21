@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\MemberCase
+ *
  * @property int $id
  * @property integer $user_id
  * @property string $title
@@ -17,6 +19,27 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property MemberCaseTag[] $tags
  * @property User $user
+ * @property string|null $alias
+ * @property int $is_active
+ * @property-read \App\Models\MemberCaseLanguage $casesEng
+ * @property-read \App\Models\MemberCaseLanguage $casesRu
+ * @property-read int|null $tags_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereAlias($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereAnonym($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereImg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MemberCase whereUserId($value)
+ * @mixin \Eloquent
  */
 class MemberCase extends Model
 {

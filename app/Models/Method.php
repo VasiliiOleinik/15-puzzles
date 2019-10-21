@@ -5,10 +5,29 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Method
+ *
  * @property int $id
  * @property string $name
  * @property string $content
  * @property MarkerMethod[] $markerMethods
+ * @property int $is_active
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ * @property-read int|null $marker_methods_count
+ * @property-read \App\Models\MethodLanguage $methodEng
+ * @property-read \App\Models\MethodLanguage $methodLang
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MethodLanguage[] $methodLanguage
+ * @property-read int|null $method_language_count
+ * @property-read \App\Models\MethodLanguage $methodRu
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Method newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Method newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Method query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Method whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Method whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Method whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Method whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Method extends Model
 {

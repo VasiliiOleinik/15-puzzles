@@ -5,11 +5,20 @@ namespace App\Models\Article;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Article\ArticleTag
+ *
  * @property int $id
  * @property int $article_id
  * @property int $tag_id
  * @property Article $article
  * @property Tag $tag
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleTag newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleTag newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleTag query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleTag whereArticleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleTag whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\ArticleTag whereTagId($value)
+ * @mixin \Eloquent
  */
 class ArticleTag extends Model
 {

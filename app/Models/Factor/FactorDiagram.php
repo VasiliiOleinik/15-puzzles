@@ -6,6 +6,35 @@ use App\Models\Organ;
 use App\Models\TypesLanguage;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Factor\FactorDiagram
+ *
+ * @property int $id
+ * @property string|null $img
+ * @property int $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Factor\FactorLanguage $factorEng
+ * @property-read \App\Models\Factor\FactorLanguage $factorLanguage
+ * @property-read \App\Models\Factor\FactorLanguage $factorRu
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Marker\Marker[] $markers
+ * @property-read int|null $markers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Organ[] $organ
+ * @property-read int|null $organ_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Protocol\Protocol[] $protocols
+ * @property-read int|null $protocols_count
+ * @property-read \App\Models\TypesLanguage $typeEng
+ * @property-read \App\Models\TypesLanguage $typeRu
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorDiagram newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorDiagram newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorDiagram query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorDiagram whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorDiagram whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorDiagram whereImg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorDiagram whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorDiagram whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class FactorDiagram extends Model
 {
     protected $table = 'factors';

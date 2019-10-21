@@ -6,12 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 use App\Scopes\LanguageScope;
 
 /**
+ * App\Models\QuestionLanguage
+ *
  * @property int $id
  * @property int $question_id
  * @property string $language
  * @property string $name
  * @property string $content
  * @property Question $question
+ * @property string|null $title
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuestionLanguage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuestionLanguage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuestionLanguage query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuestionLanguage whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuestionLanguage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuestionLanguage whereLanguage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuestionLanguage whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuestionLanguage whereQuestionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\QuestionLanguage whereTitle($value)
+ * @mixin \Eloquent
  */
 class QuestionLanguage extends Model
 {

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 
 /**
+ * App\Models\Factor\FactorLanguageS
+ *
  * @property int $id
  * @property int $language_id
  * @property int $factor_id
@@ -18,6 +20,16 @@ use Illuminate\Support\Facades\Config;
  * @property FactorProtocol[] $protocols
  * @property FactorRemedy[] $remedies
  * @property FactorMarker[] $markers
+ * @property-read int|null $diseases_count
+ * @property-read int|null $markers_count
+ * @property-read int|null $protocols_count
+ * @property-read int|null $remedies_count
+ * @property-read \App\Models\Type $type
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguageS newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguageS newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguageS query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguageS setLocale()
+ * @mixin \Eloquent
  */
 class FactorLanguageS extends Model
 {

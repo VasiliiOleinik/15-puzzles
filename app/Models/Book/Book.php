@@ -5,6 +5,8 @@ namespace App\Models\Book;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Book\Book
+ *
  * @property int $id
  * @property string $title
  * @property string $author
@@ -13,6 +15,20 @@ use Illuminate\Database\Eloquent\Model;
  * @property LinkForBooks[] $linksForBooks
  * @property CategoryForBooks[] $categoriesForBooks
  * @property BookTag[] $tags
+ * @property int $is_active
+ * @property-read \App\Models\Book\BookLanguage $bookEng
+ * @property-read \App\Models\Book\BookLanguage $bookLang
+ * @property-read \App\Models\Book\BookLanguage $bookRu
+ * @property-read int|null $categories_for_books_count
+ * @property-read int|null $links_for_books_count
+ * @property-read int|null $tags_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book\Book newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book\Book newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book\Book query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book\Book whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book\Book whereImg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book\Book whereIsActive($value)
+ * @mixin \Eloquent
  */
 class Book extends Model
 {

@@ -6,12 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 use App\Scopes\LanguageScope;
 
 /**
+ * App\Models\Marker\MarkerLanguage
+ *
  * @property int $id
  * @property int $marker_id
  * @property string $language
  * @property string $name
  * @property string $content
  * @property Marker $marker
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\MethodLanguage[] $methods
+ * @property-read int|null $methods_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\MarkerLanguage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\MarkerLanguage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\MarkerLanguage query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\MarkerLanguage whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\MarkerLanguage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\MarkerLanguage whereLanguage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\MarkerLanguage whereMarkerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Marker\MarkerLanguage whereName($value)
+ * @mixin \Eloquent
  */
 class MarkerLanguage extends Model
 {

@@ -6,12 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 use App\Scopes\LanguageScope;
 
 /**
+ * App\Models\RemedyLanguage
+ *
  * @property int $id
  * @property int $remedy_id
  * @property string $language
  * @property string $name
  * @property string $content
  * @property Remedy $remedy
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RemedyLanguage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RemedyLanguage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RemedyLanguage query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RemedyLanguage whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RemedyLanguage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RemedyLanguage whereLanguage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RemedyLanguage whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RemedyLanguage whereRemedyId($value)
+ * @mixin \Eloquent
  */
 class RemedyLanguage extends Model
 {

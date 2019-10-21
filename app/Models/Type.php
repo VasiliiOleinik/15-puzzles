@@ -5,10 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Type
+ *
  * @property int $id
  * @property string $abnormal_condition
  * @property string $normal_condition
  * @property Factor[] $factors
+ * @property string $img
+ * @property-read int|null $factors_count
+ * @property-read \App\Models\TypesLanguage $typeEng
+ * @property-read \App\Models\TypesLanguage $typeRu
+ * @property-read \App\Models\TypesLanguage $typesLang
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Type whereImg($value)
+ * @mixin \Eloquent
  */
 class Type extends Model
 {
@@ -20,11 +33,11 @@ class Type extends Model
     protected $guarded = [];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function factors()
     {
-        return $this->hasMany('App\Models\Factor\Factor', 'type_id', 'id');
+        return $this->belongsToMany('App\Models\Factor\Factor', 'factor_types');
     }
 
     public function typesLang()

@@ -5,12 +5,40 @@ namespace App\Models\Disease;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Disease\Disease
+ *
  * @property int $id
  * @property DiseaseMarker[] $diseaseMarkers
  * @property DiseaseProtocol[] $diseaseProtocols
  * @property DiseaseRemedy[] $diseaseRemedies
  * @property FactorDisease[] $factorDiseases
  *  @mixin \Eloquent
+ * @property int $is_active
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ * @property-read \App\Models\Disease\DiseaseLanguage $diseaseEng
+ * @property-read \App\Models\Disease\DiseaseLanguage $diseaseLang
+ * @property-read int|null $disease_markers_count
+ * @property-read int|null $disease_protocols_count
+ * @property-read int|null $disease_remedies_count
+ * @property-read \App\Models\Disease\DiseaseLanguage $diseaseRu
+ * @property-read int|null $factor_diseases_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Factor\Factor[] $factors
+ * @property-read int|null $factors_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Marker\Marker[] $markers
+ * @property-read int|null $markers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Protocol\Protocol[] $protocols
+ * @property-read int|null $protocols_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Remedy[] $remedies
+ * @property-read int|null $remedies_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Disease\Disease newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Disease\Disease newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Disease\Disease query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Disease\Disease whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Disease\Disease whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Disease\Disease whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Disease\Disease whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Disease extends Model
 {

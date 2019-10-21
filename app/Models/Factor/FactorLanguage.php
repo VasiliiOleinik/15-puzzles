@@ -8,6 +8,8 @@ use App\Scopes\LanguageScope;
 use Illuminate\Support\Facades\Config;
 
 /**
+ * App\Models\Factor\FactorLanguage
+ *
  * @property int $id
  * @property int $language_id
  * @property int $factor_id
@@ -20,6 +22,23 @@ use Illuminate\Support\Facades\Config;
  * @property FactorProtocol[] $protocols
  * @property FactorRemedy[] $remedies
  * @property FactorMarker[] $markers
+ * @property-read int|null $diseases_count
+ * @property-read int|null $markers_count
+ * @property-read int|null $protocols_count
+ * @property-read int|null $remedies_count
+ * @property-read \App\Models\Type $type
+ * @property-read \App\Models\TypesLanguage $typeLanguage
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguage newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguage newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguage query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguage setLocale()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguage whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguage whereFactorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguage whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguage whereLanguage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguage whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\FactorLanguage whereTypeId($value)
+ * @mixin \Eloquent
  */
 class FactorLanguage extends Model
 {

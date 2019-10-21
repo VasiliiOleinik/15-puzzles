@@ -6,6 +6,8 @@ use App\Models\Organ;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Factor\Factor
+ *
  * @property int $id
  * @property int $type_id
  * @property string $img
@@ -19,6 +21,32 @@ use Illuminate\Database\Eloquent\Model;
  * @property FactorRemedy[] $remedies
  * @property FactorMarker[] $markers
  * @mixin \Eloquent
+ * @property int $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read int|null $diseases_count
+ * @property-read int|null $factor_diseases_count
+ * @property-read \App\Models\Factor\FactorLanguage $factorEng
+ * @property-read \App\Models\Factor\FactorLanguage $factorLanguage
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Factor\FactorLanguage[] $factorLanguages
+ * @property-read int|null $factor_languages_count
+ * @property-read int|null $factor_markers_count
+ * @property-read int|null $factor_protocols_count
+ * @property-read int|null $factor_remedies_count
+ * @property-read \App\Models\Factor\FactorLanguage $factorRu
+ * @property-read int|null $markers_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Organ[] $organ
+ * @property-read int|null $organ_count
+ * @property-read int|null $protocols_count
+ * @property-read int|null $remedies_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\Factor newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\Factor newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\Factor query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\Factor whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\Factor whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\Factor whereImg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\Factor whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Factor\Factor whereUpdatedAt($value)
  */
 class Factor extends Model
 {

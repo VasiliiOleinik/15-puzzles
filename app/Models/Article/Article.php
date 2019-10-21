@@ -7,6 +7,8 @@ use App\Scopes\LanguageScope;
 use Illuminate\Database\Eloquent\Model;
 
 /**
+ * App\Models\Article\Article
+ *
  * @property int $id
  * @property string $title
  * @property string $description
@@ -17,6 +19,27 @@ use Illuminate\Database\Eloquent\Model;
  * @property ArticleTag[] $articleTags
  * @property ArticleTag[] $tags
  * @property CategoryForNews[] $categories
+ * @property string|null $alias
+ * @property string|null $author
+ * @property string|null $img
+ * @property int $is_active
+ * @property-read int|null $article_tags_count
+ * @property-read \App\Models\Article\ArticleLanguage $articlesEng
+ * @property-read \App\Models\Article\ArticleLanguage $articlesRu
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Category\CategoryForNews[] $categoriesForNews
+ * @property-read int|null $categories_for_news_count
+ * @property-read int|null $tags_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\Article newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\Article newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\Article query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\Article whereAlias($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\Article whereAuthor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\Article whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\Article whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\Article whereImg($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\Article whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article\Article whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Article extends Model
 {
