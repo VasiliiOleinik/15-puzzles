@@ -20,8 +20,8 @@ class FactorsTableSeeder extends Seeder
         factory(Factor::class, 2)->create();
 
         $factor_names = [
-            ['img' => '/img/svg/oxygen_metabolism.svg', 'type_id' => 1],
-            ['img' => '/img/svg/dna.svg', 'type_id' => 1],
+            ['img' => '/img/svg/oxygen_metabolism.svg'],
+            ['img' => '/img/svg/dna.svg'],
         ];
 
         for ($i = 0; $i < count($factor_names); $i++) {

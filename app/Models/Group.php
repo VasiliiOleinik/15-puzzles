@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\LanguageScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
@@ -22,6 +23,7 @@ class Group extends Model
    public function groupEng()
    {
        return $this->hasOne(GroupLanguage::class)
+           ->withoutGlobalScope(new LanguageScope())
            ->where('language', 'eng');
    }
 

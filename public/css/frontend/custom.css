@@ -402,7 +402,7 @@ body .footer__subscribe input[name="email-subscribe"] {
   display: flex;
   width: 100%;
   position: relative;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 .puzzle-15 .wrapp-for_category .wrapp-for_cat-items {
   width: calc(100% - 15px);
@@ -420,6 +420,8 @@ body .footer__subscribe input[name="email-subscribe"] {
   -webkit-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   transform: rotate(180deg);
+  position: relative;
+  font-weight: 600;
 }
 
 .puzzle-15 .wrapp-for_category .category > span {
@@ -427,6 +429,8 @@ body .footer__subscribe input[name="email-subscribe"] {
   border: 5px solid transparent;
   margin-bottom: 5px;
   margin-right: 5px;
+  position: absolute;
+  bottom: 100%;
 }
 .puzzle-15 .wrapp-for_category.resons .category > span {
   border-top: 5px solid #f76577;

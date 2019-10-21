@@ -65,14 +65,12 @@ class Book extends Section
                 \AdminFormElement::text('bookEng.title')->setLabel('Название ENG'),
                 \AdminFormElement::text('bookEng.author')->setLabel('Автор ENG'),
                 \AdminFormElement::text('bookEng.description')->setLabel('Описание ENG'),
-                \AdminFormElement::text('bookEng.author')->setLabel('Автор ENG')->required(),
 
             ],
             [
                 \AdminFormElement::text('bookRu.title')->setLabel('Название RU')->required(),
                 \AdminFormElement::text('bookRu.author')->setLabel('Автор RU'),
                 \AdminFormElement::text('bookRu.description')->setLabel('Описание RU'),
-                \AdminFormElement::text('bookRu.author')->setLabel('Автор ENG')->required(),
 
                 \AdminFormElement::hidden('bookRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('bookEng.language')->setDefaultValue('eng')
