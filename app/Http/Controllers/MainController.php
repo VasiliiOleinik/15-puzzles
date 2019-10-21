@@ -28,6 +28,7 @@ use App\Repository\FilterMainPageRepository;
 use App\Repository\LaboratoryRepository;
 use App\Service\FilterMainPageService;
 use App\Service\LaboratoryService;
+use App\Service\PazzlesService;
 use Illuminate\Support\Facades\Cache;
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -66,25 +67,25 @@ class MainController extends Controller
     private $service;
     private $laboratoryRepository;
     private $laboratoriService;
+    private $pazzlesService;
 
     const FILTER_BY_FACTOR = 'factor';
     const FILTER_BY_DISEASE = 'disease';
     const FILTER_BY_PROTOCOL = 'protocol';
 
-    /**
-     * MainController constructor.
-     * @param FilterMainPageRepository $repository
-     * @param FilterMainPageService $service
-     */
+
     public function __construct(FilterMainPageRepository $repository,
                                 FilterMainPageService $service,
                                 LaboratoryRepository $laboratoryRepository,
-                                LaboratoryService $laboratoriService)
+                                LaboratoryService $laboratoriService,
+                                PazzlesService $pazzlesService
+    )
     {
         $this->repository = $repository;
         $this->service = $service;
         $this->laboratoryRepository = $laboratoryRepository;
         $this->laboratoriService = $laboratoriService;
+        $this->pazzlesService = $pazzlesService;
     }
 
     /**
@@ -111,7 +112,7 @@ class MainController extends Controller
         $evidences = Evidence::all();
         $countries = Country::all();
         $laboratories = Laboratory::all();
-        $typeFactors = Group::all();
+        $typeFactors = $this->pazzlesService->chunkCollect(Group::all());
         //$map = $this->initMap($laboratories);
         //$mapJs = $map['js'];
         $lits = BookLanguage::with('book')

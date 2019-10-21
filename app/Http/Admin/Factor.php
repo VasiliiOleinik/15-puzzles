@@ -79,16 +79,6 @@ class Factor extends Section
 
                 \AdminFormElement::multiselect('diseases', 'Болезни')
                     ->setModelForOptions(\App\Models\Disease\Disease::class, 'diseaseRu.name'),
-
-//                \AdminFormElement::multiselect('protocols', 'Протоколы описывающие фактор')
-//                    ->setModelForOptions(\App\Models\Protocol\Protocol::class, 'protocolRu.name'),
-//
-//                \AdminFormElement::multiselect('remedies', 'Лекарства')
-//                    ->setModelForOptions(\App\Models\Remedy::class, 'remedyRu.name'),
-//
-//                \AdminFormElement::multiselect('markers', 'Анализы')
-//                    ->setModelForOptions(\App\Models\Marker\Marker::class, 'markerRu.name')
-
             ]
         ]);
 

@@ -37,6 +37,7 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
     Route::get('literature/category/{name}', 'LiteratureController@index')->name('literature_category');
     Route::get('faq', 'FaqController@index')->name('faq');
     Route::post('faq', 'FaqController@letter')->name('letter');
+    Route::get('police/{alias}', 'PoliceController@show')->name('police.show');
     Route::resource('personal_cabinet', 'FileController', ['as' => 'file']); //file.personal_cabinet
 
 
