@@ -64,4 +64,5 @@ return [
     (new Page(\App\Models\Type::class))->setTitle('Группы факторов'),
     (new Page(\App\Models\SocialNetwork::class))->setTitle('Социальные Сети'),
     (new Page(\App\Models\Country::class))->setTitle('Страны'),
+    (new Page(\App\Models\Group::class))->setTitle('Типы факторов'),
 ];

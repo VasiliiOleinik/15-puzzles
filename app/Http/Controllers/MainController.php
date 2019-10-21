@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book\Book;
 use App\Models\Book\BookLanguage;
+use App\Models\Group;
 use App\Models\PageLang;
 use App\Models\User\User;
 use App\Models\Permission;
@@ -87,17 +88,14 @@ class MainController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
 
 
         $page = PageLang::with('page')->where('pages_id', 5)->first();
-
-
         $newsLatest = Cache::remember('newsLatest_' . app()->getLocale(), now()->addDay(1), function () {
             $latest = Article::orderBy('id', 'desc')->paginate(3)->pluck('id');
             return ArticleLanguage::with('article')->whereIn('article_id', $latest)
@@ -113,6 +111,7 @@ class MainController extends Controller
         $evidences = Evidence::all();
         $countries = Country::all();
         $laboratories = Laboratory::all();
+        $typeFactors = Group::all();
         //$map = $this->initMap($laboratories);
         //$mapJs = $map['js'];
         $lits = BookLanguage::with('book')
@@ -120,16 +119,16 @@ class MainController extends Controller
             ->take(5)->get();
         $data = [
             'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods',
-            'newsLatest', 'markerMethods', 'countries', 'lits', 'page'
+            'newsLatest', 'markerMethods', 'countries', 'lits', 'page', 'typeFactors'
         ];
         return view('main.main', compact($data));
     }
 
     /**
-     * Initialize google maps
-     *
-     * @params integer[], string
-     * @return obj
+     * @param $laboratories
+     * @param null $countryName
+     * @param null $method
+     * @return mixed
      */
     public function initMap($laboratories, $countryName = null, $method = null)
     {
@@ -154,9 +153,9 @@ class MainController extends Controller
     }
 
     /**
-     * Check if method in laboratories
-     *
-     * @return []
+     * @param $laboratories
+     * @param $method
+     * @return array
      */
     public function checkIfMethodInLaboratory($laboratories, $method)
     {
@@ -171,9 +170,8 @@ class MainController extends Controller
     }
 
     /**
-     * Refresh map
-     *
-     * @return view
+     * @param Request $request
+     * @return false|string
      */
     public function mapRefresh(Request $request)
     {
