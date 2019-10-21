@@ -6,7 +6,8 @@
     <meta content="{{ config('puzzles.personal_cabinet._description_'.app()->getLocale()) }}" name="description">
 @endsection
 @section('personal_cabinet-css')
-    <link href="{{ asset('css/backend/personal_cabinet.css') }}" rel="stylesheet">    
+    <link href="{{ asset('css/backend/personal_cabinet.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('vendor/laraberg/css/laraberg.css')}}">
 @endsection
 @section('content')
         <main class="main">
@@ -17,5 +18,6 @@
         </main>
 @endsection
 @section('news-js')
+
     <script src="{{ asset('js/backend/personal_cabinet.js') }}" defer></script>
 @endsection

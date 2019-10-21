@@ -1045,6 +1045,7 @@ hoverFactor();
 // Прелоадер на главной
 
 $(window).on("load", function() {
+
   ($preloader = $(".main-page-preloader")),
     $preloader.delay(350).remove(),
     $("html, body").css({
