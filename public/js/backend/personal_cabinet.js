@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let img = $(this).parent().parent().parent().find('.med-history__img').attr('src');
         $('#edit-story__form').find('[name=id]').val(id);
         $('#edit-story__form').find('.headline.inp').val(title);
-        $('#edit-story__form').find('.story.inp').val(content);
+        $('#edit-story__form').find('#ckeditor').text(content);
         $('#edit-story__form').find('.image').attr('src',img);
         $('#med-history-js, #edit-story-js').slideToggle();
     });
@@ -94,6 +94,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $('#edit-story-item-image').find('.image').on('load', function () {
         setMedicalHistoryAvatar('#edit-story-item-image', '#edit-story-img');
     });
+
+
+
 
     function setMedicalHistoryAvatar(selector1, selector2) {
         let img = $(selector1).find('.image').attr('src');
