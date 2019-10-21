@@ -22,16 +22,12 @@ class TypeLanguageSeeder extends Seeder
                 'language'=>'eng',
                 'type_id' => $type->id,
                 'name' => $faker->name,
-                'abnormal_condition' => $faker->realText(10),
-                'normal_condition' => $faker->realText(10),
             ]);
 
             \App\Models\TypesLanguage::create([
                 'language'=>'ru',
                 'type_id' => $type->id,
                 'name' => $russian['title'][rand(0, 8)],
-                'abnormal_condition' => $russian['text'][rand(0, 21)],
-                'normal_condition' =>$russian['text'][rand(0, 21)],
             ]);
         }
     }

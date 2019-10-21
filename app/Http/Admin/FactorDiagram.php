@@ -60,37 +60,28 @@ class FactorDiagram extends Section
                 \AdminFormElement::multiselect('organ', 'На какой орган действует')
                     ->setModelForOptions(\App\Models\Organ::class)
                     ->setDisplay('name'),
-
-                \AdminFormElement::multiselect('protocols', 'Протоколы')
-                    ->setModelForOptions(\App\Models\Protocol\Protocol::class)
-                    ->setDisplay('protocolRu.name'),
-
-                \AdminFormElement::multiselect('markers', 'Анализы')
-                    ->setModelForOptions(\App\Models\Marker\Marker::class)
-                    ->setDisplay('markerRu.name'),
             ],
         ]);
 
-//        $columns2 = \AdminFormElement::columns([
-//            [
-//                \AdminFormElement::textarea('typeRu.name', 'Имя')->required(),
-//                \AdminFormElement::textarea('typeRu.normal_condition', 'Нормальная кондиция Ru'),
-//                \AdminFormElement::textarea('typeRu.abnormal_condition', 'Нормальная кондиция Ru')
-//            ],
-//            [
-//                \AdminFormElement::textarea('typeEng.name', 'Имя')->required(),
-//                \AdminFormElement::textarea('typeEng.normal_condition', 'Нормальная кондиция Eng'),
-//                \AdminFormElement::textarea('typeEng.abnormal_condition', 'Ненормальная кондиция Eng'),
-//
-//                \AdminFormElement::hidden('typeRu.language')->setDefaultValue('ru'),
-//                \AdminFormElement::hidden('typeEng.language')->setDefaultValue('eng')
-//            ]
-//        ]);
+        $columns2 = \AdminFormElement::columns([
+            [
+                \AdminFormElement::textarea('factorRu.normal_condition', 'Нормальная кондиция Ru'),
+                \AdminFormElement::textarea('factorRu.abnormal_condition', 'Нормальная кондиция Ru')
+            ],
+            [
+                \AdminFormElement::textarea('factorEng.normal_condition', 'Нормальная кондиция Eng'),
+                \AdminFormElement::textarea('factorEng.abnormal_condition', 'Ненормальная кондиция Eng'),
+
+                \AdminFormElement::hidden('factorRu.language')->setDefaultValue('ru'),
+                \AdminFormElement::hidden('factorRu.language')->setDefaultValue('eng')
+            ]
+        ]);
 
 
 
         $form = \AdminForm::panel()->addBody([
             $columns1,
+            $columns2
         ]);
 
         return $form;

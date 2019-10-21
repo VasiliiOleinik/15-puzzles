@@ -19,6 +19,8 @@ class CreateFactorLanguagesTable extends Migration {
 			$table->integer('factor_id')->unsigned()->default(1)->index('FK_factor_languages_factors');
 			$table->integer('type_id')->unsigned()->default(1)->index('FK_factor_languages_types');
 			$table->string('name')->nullable();
+            $table->text('abnormal_condition')->nullable();
+            $table->text('normal_condition')->nullable();
 			$table->longText('content')->nullable();
 		});
 	}

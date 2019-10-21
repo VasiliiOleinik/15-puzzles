@@ -18,8 +18,6 @@ class CreateTypesLanguagesTable extends Migration
             $table->integer('type_id');
             $table->string('language');
             $table->string('name');
-            $table->text('abnormal_condition');
-            $table->text('normal_condition');
             $table->timestamps();
         });
     }
