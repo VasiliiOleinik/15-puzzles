@@ -21,7 +21,7 @@ $factory->define(ProtocolLanguage::class, function (Faker $faker){
     if( Config::get('app.faker_locale') == "en_US" ){
         $locale = "eng";
         $content = $faker->realText(600);
-        $tableId = ProtocolLanguage::count() + 1;
+        $tableId = ProtocolLanguage::withoutGlobalScopes()->count() + 1;
         $name = $faker->name."'s "." protocol";//Protocol::find($protocol_id)->name;
     }else{
         $locale = "ru";

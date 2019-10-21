@@ -19,18 +19,18 @@ $factory->define(MarkerLanguage::class, function (Faker $faker) {
         $locale = "eng";
         $name = str_replace( ".", "", $faker->word )." test";
         $content = $faker->realText(600);
-        $tableId = MarkerLanguage::count() + 1;
+        $tableId = MarkerLanguage::withoutGlobalScopes()->count() + 1;
     }else{
         $locale = "ru";
         $name = str_replace( ".", "", $faker->word )." анализ";
         $content = $russian["text"][ rand( 0, 21) ];
-        $tableId = 1;
+        $tableId = MarkerLanguage::withoutGlobalScopes()->count() + 1 - Marker::count();
     }
 
     return [
         'language' => $locale,
         $tableShort.'_id' => $tableId,
         'name' => $name,
-        'content' => $content,        
+        'content' => $content,
     ];
 });
