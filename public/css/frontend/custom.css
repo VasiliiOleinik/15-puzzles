@@ -403,6 +403,7 @@ body .footer__subscribe input[name="email-subscribe"] {
   width: 100%;
   position: relative;
   align-items: flex-end;
+  justify-content: flex-end;
 }
 .puzzle-15 .wrapp-for_category .wrapp-for_cat-items {
   width: calc(100% - 15px);
@@ -467,3 +468,4 @@ body .footer__subscribe input[name="email-subscribe"] {
     width: 170px;
   }
 }
+
