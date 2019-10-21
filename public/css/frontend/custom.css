@@ -461,3 +461,9 @@ body .footer__subscribe input[name="email-subscribe"] {
 .puzzle-15 .wrapp-for_category.dangers .puzzle-15__item {
   border-bottom: 2px solid #f39200;
 }
+
+@media (max-width: 1600px) {
+  .personal-left .personal-main-info .profile-labels .label {
+    width: 170px;
+  }
+}
