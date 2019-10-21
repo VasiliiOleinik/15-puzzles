@@ -1,0 +1,40 @@
+.verify-content {
+	flex: 0 0 40%;
+    max-width: 40%;
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    -webkit-box-shadow: 0 2px 8px rgba(91,156,167,.3);
+    box-shadow: 0 2px 8px rgba(91,156,167,.3);
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #fff;
+    border-bottom: 2px solid #599ba7;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    padding: 10px;
+    transform: translateY(50%);
+}
+.verify-content .verify-content-header {
+	color: #364458;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.verify-content .verify-content-body {
+	color: #59596a;
+    font-size: 16px;
+    font-weight: 400;
+}
+.verify-content .verify-content-body-link {
+	color: #599ba7;
+}
+.verify-content .verify-content-body-link:hover {
+	color: #49808a;
+}
