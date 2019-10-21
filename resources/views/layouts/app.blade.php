@@ -5,7 +5,7 @@
   @include('layouts.include.css')
 </head>
 <body>
-<div id="preloader">
+<div id="preloader" class="{{ 'main' === Route::currentRouteName() ? 'main-page-preloader' : ''}}">
     <img src="/img/preloader.svg" alt="preloader">
 </div>
 <div class="content-wrapper" id="contentWrapper">

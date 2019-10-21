@@ -306,7 +306,9 @@ body .main .diagram__info-table .table_row .table-column {
     background: rgba(88, 155, 167, 0.2);
     display: none;
 }
-
+.main-page-preloader {
+    display: block !important;
+}
 #preloader img {
     position: absolute;
     top: 50%;
@@ -390,3 +392,4 @@ body .footer__subscribe input[name="email-subscribe"] {
 .personal-left .personal-main-info .profile-labels .label:nth-of-type(odd){
     margin-right: 20px;
 }
+
