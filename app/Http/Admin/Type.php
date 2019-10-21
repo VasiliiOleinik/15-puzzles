@@ -64,10 +64,10 @@ class Type extends Section
         ]);
         $columns2 = \AdminFormElement::columns([
             [
-                \AdminFormElement::text('typeRu.name')->setLabel('Название группы RU'),
+                \AdminFormElement::text('typeRu.name')->setLabel('Название группы RU')->required(),
             ],
             [
-                \AdminFormElement::text('typeEng.name')->setLabel('Название группы ENG'),
+                \AdminFormElement::text('typeEng.name')->setLabel('Название группы ENG')->required(),
             ]
         ]);
 
@@ -79,6 +79,9 @@ class Type extends Section
             [
                 \AdminFormElement::ckeditor('typeEng.normal_condition')->setLabel('Нормальная кондиция ENG'),
                 \AdminFormElement::ckeditor('typeEng.abnormal_condition')->setLabel('Не нормальная кондиция ENG'),
+
+                \AdminFormElement::hidden('typeRu.language')->setDefaultValue('ru'),
+                \AdminFormElement::hidden('typeEng.language')->setDefaultValue('eng')
             ]
         ]);
         $form = \AdminForm::panel()->addBody([
