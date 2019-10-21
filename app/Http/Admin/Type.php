@@ -73,12 +73,12 @@ class Type extends Section
 
         $columns3 = \AdminFormElement::columns([
             [
-                \AdminFormElement::text('typeRu.normal_condition')->setLabel('Нормальная кондиция RU'),
-                \AdminFormElement::text('typeRu.abnormal_condition')->setLabel('Не нормальная кондиция RU'),
+                \AdminFormElement::ckeditor('typeRu.normal_condition')->setLabel('Нормальная кондиция RU'),
+                \AdminFormElement::ckeditor('typeRu.abnormal_condition')->setLabel('Не нормальная кондиция RU'),
             ],
             [
-                \AdminFormElement::text('typeEng.normal_condition')->setLabel('Нормальная кондиция ENG'),
-                \AdminFormElement::text('typeEng.abnormal_condition')->setLabel('Не нормальная кондиция ENG'),
+                \AdminFormElement::ckeditor('typeEng.normal_condition')->setLabel('Нормальная кондиция ENG'),
+                \AdminFormElement::ckeditor('typeEng.abnormal_condition')->setLabel('Не нормальная кондиция ENG'),
             ]
         ]);
         $form = \AdminForm::panel()->addBody([
