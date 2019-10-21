@@ -71,7 +71,7 @@
                             <label class="group_title"><img src="{{$type->img}}" alt="Elimination"
                                                             width="50px">
                                 <input class="group_title_checkbox" type="checkbox"><span
-                                    class="checkbox-custom"></span><span class="label">{{$type->typesLang->name}}</span>
+                                    class="checkbox-custom"></span><span class="label">{{isset($type->typesLang->name) ? $type->typesLang->name : false}}</span>
                             </label>
                             <div class="group_content">
                                 @foreach($type->factors as $factor)
