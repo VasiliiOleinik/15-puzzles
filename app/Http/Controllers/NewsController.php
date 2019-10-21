@@ -181,7 +181,12 @@ class NewsController extends Controller
             )->get()->pluck('id');
             return view($request->view, ['tags' => TagLanguage::whereIn('tag_id',$tags_id)->get()]);
         }
-        return view($request->view, ['tags' => TagLanguage::whereIn('tag_id',$request['tags'])->get()]);
+        $tags = TagLanguage::all();
+
+        if($request['tags']){
+            $tags = TagLanguage::whereIn('tag_id',$request['tags'])->get();
+        }
+        return view($request->view, ['tags' => $tags]);
     }
 
     /**
