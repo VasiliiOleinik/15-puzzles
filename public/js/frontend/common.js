@@ -94,29 +94,38 @@ $(function() {
 
   // Скрываю label когда input активен (personal page)
 
-  $(function() {
-    $(".dinamic-input-js").each(function() {
-      if ($(this).val().length != "") {
-        $(this).addClass("active");
-        $(this)
+  $(window).on("load", function() {
+    $(".dinamic-input-js").each(function(index, item) {
+      if ($(item).val().length != "") {
+        $(item).addClass("active");
+        $(item)
           .siblings(".dinamic-label-js")
           .addClass("active");
       }
     });
-    $(".dinamic-input-js").on("click", function() {
-      $(this).addClass("active");
+  });
+  $(".dinamic-input-js").on("click", function() {
+    $(this).addClass("active");
+    $(this)
+      .siblings(".dinamic-label-js")
+      .addClass("active");
+  });
+  $(".dinamic-input-js").on("blur", function() {
+    if ($(this).val().length == "") {
+      $(this).removeClass("active");
       $(this)
         .siblings(".dinamic-label-js")
-        .addClass("active");
-    });
-    $(".dinamic-input-js").on("blur", function() {
-      if ($(this).val().length == "") {
-        $(this).removeClass("active");
-        $(this)
-          .siblings(".dinamic-label-js")
-          .removeClass("active");
-      }
-    });
+        .removeClass("active");
+    }
+  });
+  $(".dinamic-input-js").on("focus", function() {
+    if ($(this).val().length == "") {
+      $(this).removeClass("active");
+      $(this)
+        .siblings(".dinamic-label-js")
+        .removeClass("active");
+    }
+    console.log('focus');
   });
 
   $(".upload-file input").on("change", function(e) {
