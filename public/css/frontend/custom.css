@@ -201,12 +201,13 @@ label.invalid {
 }
 
 .organ_system {
-  top: 70px;
+  top: -30px;
   left: 180px;
 }
 @media (max-width: 1440px) {
   .organ_system {
-    top: 65px;
+    top: -30px;
+    left: 160px;
   }
 }
 @media (max-width: 1280px) {
