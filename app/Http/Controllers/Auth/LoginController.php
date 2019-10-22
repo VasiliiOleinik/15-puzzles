@@ -33,18 +33,18 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');        
+        $this->middleware('guest')->except('logout');
     }
 
     public function login(Request $request)
     {
         $this->validate($request, [
-            'login'           => 'required|max:255',
+           'login'           => 'required|max:255',
             'password'           => 'required',
         ]);
         //dd(Auth::attempt(['nickname' => $request->login, 'password' => $request->password]));
-        if (Auth::attempt(['nickname' => $request->login, 'password' => $request->password])) {            
-            // Success            
+        if (Auth::attempt(['email' => $request->login, 'password' => $request->password])) {
+            // Success
             return json_encode(["auth"=>"success", "admin"=>json_encode(Auth::user()->isAdmin()) ]);//redirect()->intended();
         } else {
             // Go back on error (or do what you want)

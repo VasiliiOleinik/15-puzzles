@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Notifications\Notifiable;
@@ -29,7 +30,7 @@ use App\Notifications\LocaleResetPassword;
  * @property MemberCase[] $memberCases
  * @property MedicalHistory[] $medicalHistories
  */
- 
+
 class User extends Authenticatable implements MustVerifyEmail
 {
 	use Notifiable;
@@ -47,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -55,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * @var array
      */
-    protected $fillable = ['role_id', 'nickname', 'first_name', 'middle_name', 'last_name', 'email', 'email_verified_at', 'password', 'remember_token', 'img', 'birthday', 'created_at', 'updated_at'];
+   protected  $guarded = [];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -101,7 +102,17 @@ class User extends Authenticatable implements MustVerifyEmail
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function isAdmin()
-    {    
+    {
         return $this->role->name == "admin";
+    }
+
+    public function createHash($request)
+    {
+        $hash = str_random(5);
+        $hash_expire = Carbon::now()->addMinutes(5);
+        $cryptStr = \Crypt::encrypt($hash . '_' . $hash_expire . '_' . $request->email);
+        $this->update([
+            'hash' => $cryptStr,
+        ]);
     }
 }

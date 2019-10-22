@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Jobs\SendNewPassword;
+use App\Mail\VerificationEmail;
 use App\Models\User\User;
 use App\Http\Controllers\Controller;
+use App\Service\VerificationService;
+use Egulias\EmailValidator\Validation\EmailValidation;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -39,9 +43,11 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    private  $service;
+    public function __construct(VerificationService $service)
     {
         $this->middleware('guest');
+        $this->service = $service;
     }
 
     /**
@@ -67,20 +73,27 @@ class RegisterController extends Controller
             return response()->json(["errorsRegister" => $validation->errors()->toArray()]);
         }
         else{
-           $user = $this->create($request->all());           
+           $user = $this->create($request->all());
+           $hash = str_random(9);
            Auth::login($user);
-           VerifyEmail::toMailUsing(function ($notifiable) {
-                $verifyUrl = URL::temporarySignedRoute(
-                    'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
-                );
-
-                return (new MailMessage)
-                    ->subject(__('app.name').' - '.__('verify.subject'))
-                    ->markdown('vendor.notifications.emails', ['actionUrl' => $verifyUrl]);
-            });
-           $user->sendEmailVerificationNotification();
+            $user->update([
+                'hash'=>$hash
+            ]);
+            $link = $this->service->getLink($request, $user);
+            \Mail::to($user)
+                ->send(new VerificationEmail($link));
+            //Ema($link, $user)
+//           VerifyEmail::toMailUsing(function ($notifiable) {
+//                $verifyUrl = URL::temporarySignedRoute(
+//                    'verification.verify', Carbon::now()->addMinutes(60), ['id' => $notifiable->getKey()]
+//                );
+////                return (new MailMessage)
+////                    ->subject(__('app.name').' - '.__('verify.subject'))
+////                    ->markdown('vendor.notifications.emails', ['actionUrl' => $verifyUrl]);
+//               'test';
+//            });
+           //$user->sendEmailVerificationNotification();
            return json_encode(["auth"=>"success"]);
-            
         }
     }
 
