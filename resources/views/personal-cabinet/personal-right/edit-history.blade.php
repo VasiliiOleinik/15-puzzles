@@ -12,7 +12,7 @@
 
 <div class="add-story" id="edit-story-js">
     <h3 class="add-story__title">@lang('personal_cabinet.change_your_story')</h3>
-    <form class="add-story__form" id="edit-story__form" method="post" action="{{ route('medical_history_update_post') }}">
+    <form class="add-story__form" id="edit-story__form" method="post" action="{{ route('personal_update_post') }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="id" value="">
         <div class="labels">
@@ -42,6 +42,9 @@
             </div>
         </div>
         <div class="footer-form">
+            <label>
+                <input class="checkbox" name="anonym" type="checkbox"><span class="checkbox-custom"></span><span class="label">@lang('member_cases.do_not_publish')</span>
+            </label>
             <input class="submit-form" type="submit" value="@lang('personal_cabinet.save_note')">
             <input class="cancel-form" type="button" value="@lang('personal_cabinet.cancel')" id="cancel-edit-form-js">
         </div>

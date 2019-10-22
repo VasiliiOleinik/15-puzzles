@@ -10,6 +10,7 @@ use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class MemberCaseController extends Controller
 {
@@ -82,11 +83,15 @@ class MemberCaseController extends Controller
         $validatedData = $request->validate([
         'headline' => ['required', 'string', 'max:191'],
         'your-story' => ['required'],
-        'img' => ['nullable'],
+        //'img' => ['nullable'],
         'story-tags' => ['required'],
         ]);
 
         $tags = explode(",",$request['story-tags']);
+
+        // временно
+        //$tags = Tag::all();
+
         $memberCase = new MemberCase;
 
         $memberCase->user_id = Auth::id();
@@ -132,25 +137,36 @@ class MemberCaseController extends Controller
         $validatedData = $request->validate([
         'headline' => ['required', 'string', 'max:191'],
         'your-story' => ['required'],
-        'img' => ['nullable'],
+        //'img' => ['nullable'],
         'story-tags' => ['required'],
         ]);
 
         $tags = explode(",",$request['story-tags']);
-        $memberCase = new MemberCase;
+        $memberCase = MemberCase::find($request['id']);
 
-        if($request->img != null){
+        /*if($request->img != null){
           $memberCase->img = $request['img'];
-        }
+        }*/
         $memberCase->title = $request['headline'];
         $memberCase->content = $request['your-story'];
         $memberCase->description = substr($memberCase->content,0,186);
         $memberCase->status = "moderating";
-        if($request->anonim == null){
-          $memberCase->anonym = 0;
-        }else{
-          $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+        $memberCase->is_active = false;
+//        if($request->anonim == null){
+//          $memberCase->anonym = 0;
+//        }else{
+//          $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+//        }
+        $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+
+        if($request->has('image-file'))
+        {
+            $image = $request->file('image-file');
+            $name = str_random(32).'.' . $image->getClientOriginalExtension();
+            $folder = '/images/uploads';
+            $memberCase->img = $image->storeAs($folder, $name, 'public');
         }
+
         $memberCase->save();
         $memberCase->tags()->attach($tags);
 
@@ -232,8 +248,10 @@ class MemberCaseController extends Controller
      * @param  \App\Models\MemberCase  $memberCase
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MemberCase $memberCase)
+    public function destroy(Request $request, $id)
     {
-        //
+        $memberCase = MemberCase::findOrFail($id);
+        Storage::disk('public')->delete($memberCase->img);
+        $memberCase->delete();
     }
 }
