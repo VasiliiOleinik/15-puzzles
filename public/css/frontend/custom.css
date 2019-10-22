@@ -142,7 +142,6 @@ label.invalid {
 
 .diagram__center-circle-container {
   max-width: 900px;
-  height: 725px;
   z-index: 1;
   display: flex;
   justify-content: center;
@@ -631,4 +630,13 @@ body .header-login-modal__container .label label.errors {
 .news-right .subscribe__input .subscribe-field {
   background: transparent;
   z-index: 2;
+}
+
+.group_title img {
+    display: none;
+}
+@media(max-width:1440px){
+    .diagram__center {
+        padding: 0 20px;
+    }
 }
