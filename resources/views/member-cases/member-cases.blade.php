@@ -56,12 +56,16 @@
               <div class="subscribe">
                 <h3 class="news-right__title">@lang('member_cases.title_subscribe')</h3>
                 <form id="member-cases-subscribe-form" class="subscribe__input" method="get">
-                  @auth
-                  <input class="subscribe-field" type="text" name="email-subscribe" placeholder="@lang('member_cases.placeholder_subscribe')" value="{{ Auth::user()->email }}">
-                  @endauth
-                  @guest
-                  <input class="subscribe-field" type="text" name="email-subscribe" placeholder="@lang('member_cases.placeholder_subscribe')">
-                  @endguest
+                  <div class="labels">
+                    @auth
+                    <input class="subscribe-field dinamic-input-js" type="text" name="email-subscribe" value="{{ Auth::user()->email }}">
+                    <label for="email-subscribe" class="dinamic-label-js">@lang('member_cases.placeholder_subscribe')</label>
+                    @endauth
+                    @guest
+                    <input class="subscribe-field dinamic-input-js" type="text" name="email-subscribe">
+                    <label for="email-subscribe" class="dinamic-label-js">@lang('member_cases.placeholder_subscribe')</label>
+                    @endguest
+                  </div>
                   <button class="subscribe-btn" type="submit" id="send-form-btn"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                   <label id="member-cases-email-subscribe-error" class="invalid" for="email-subscribe"></label>
                 </form>
@@ -74,12 +78,12 @@
 
                   <input id="img" type="hidden" name="img">
                   <div class="labels">
-                    <input class="headline inp" type="text" name="headline" required>
-                    <label for="headline">@lang('member_cases.headline') <span class="required">*</span></label>
+                    <input class="headline inp dinamic-input-js" type="text" name="headline" required>
+                    <label for="headline" class="dinamic-label-js">@lang('member_cases.headline') <span class="required">*</span></label>
                   </div>
                   <div class="labels">
-                    <textarea class="story inp" name="your-story" required></textarea>
-                    <label class="textarea" for="your-story">@lang('member_cases.your_story') <span class="required">*</span></label>
+                    <textarea class="story inp dinamic-input-js" name="your-story" required></textarea>
+                    <label class="textarea dinamic-label-js" for="your-story">@lang('member_cases.your_story') <span class="required">*</span></label>
                   </div>
                   <div class="add-images">
                     <h3 class="add-images__title">@lang('member_cases.add_image')</h3>

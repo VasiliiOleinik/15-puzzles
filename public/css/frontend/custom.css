@@ -328,7 +328,7 @@ body .main .diagram__info-table .table_row .table-column {
   max-width: 210px;
   position: relative;
 }
-.main .arrow-link::after{
+.main .arrow-link::after {
   position: absolute;
   margin: 0 auto;
   right: 35px;
@@ -492,4 +492,143 @@ body .footer__subscribe input[name="email-subscribe"] {
 .news-left .main-content .post_container .post__title,
 .news-left .main-content .post_container .post__description {
   width: 100%;
+}
+
+body .content-wrapper .page-wrapper .main .box .dinamic-input-js,
+body
+  .header-login-modal__container
+  .container-authorization__login
+  .login-inputs
+  form
+  .dinamic-input-js,
+body
+  .header-login-modal__container
+  .container-authorization__reg
+  .reg-inputs
+  form
+  .dinamic-input-js,
+body
+  .header-login-modal__container
+  .container-recovery-pass
+  .recovery-pass-inputs
+  form
+  .dinamic-input-js {
+  box-shadow: none;
+  border: 1px solid #d6dbde;
+  transition: 0.1s ease-in-out;
+}
+body .content-wrapper .page-wrapper .main .box .dinamic-label-js,
+body
+  .header-login-modal__container
+  .container-authorization__login
+  .login-inputs
+  form
+  .dinamic-label-js,
+body
+  .header-login-modal__container
+  .container-authorization__reg
+  .reg-inputs
+  form
+  .dinamic-label-js,
+body
+  .header-login-modal__container
+  .container-recovery-pass
+  .recovery-pass-inputs
+  form
+  .dinamic-label-js {
+  transition: 0.1s ease-in-out;
+  top: 15px;
+  z-index: 1;
+  padding: 0px;
+  background: transparent;
+  left: 30px;
+  font-size: 15px;
+  box-shadow: none;
+  position: absolute;
+}
+body .content-wrapper .page-wrapper .main .box .dinamic-input-js.active,
+body
+  .header-login-modal__container
+  .container-authorization__login
+  .login-inputs
+  form
+  .dinamic-input-js.active,
+body
+  .header-login-modal__container
+  .container-authorization__reg
+  .reg-inputs
+  form
+  .dinamic-input-js.active,
+body
+  .header-login-modal__container
+  .container-recovery-pass
+  .recovery-pass-inputs
+  form
+  .dinamic-input-js.active {
+  box-shadow: rgba(91, 156, 167, 0.32) 0px 1px 6px;
+  border: 1px solid rgba(91, 156, 167, 0.5);
+  transition: 0.1s ease-in-out;
+}
+body .content-wrapper .page-wrapper .main .box .dinamic-label-js.active,
+body
+  .header-login-modal__container
+  .container-authorization__login
+  .login-inputs
+  form
+  .dinamic-label-js.active,
+body
+  .header-login-modal__container
+  .container-authorization__reg
+  .reg-inputs
+  form
+  .dinamic-label-js.active,
+body
+  .header-login-modal__container
+  .container-recovery-pass
+  .recovery-pass-inputs
+  form
+  .dinamic-label-js.active {
+  transition: 0.1s ease-in-out;
+  top: -7px;
+  z-index: 5;
+  padding: 0px 10px;
+  background: #fff;
+  left: 15px;
+  font-size: 10px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+  position: absolute;
+}
+
+.header-login-modal__container .label.required span {
+  color: red;
+}
+body .label.required span.errors {
+  position: absolute;
+  top: calc(100% + 12px);
+  font-size: 9px;
+  left: 0;
+}
+
+body .header-login-modal__container .label label.errors {
+  font-size: 9px;
+  top: calc(100% + 12px);
+  width: 100%;
+  left: 0;
+  color: red;
+}
+
+.labels {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+  background: #fff;
+}
+
+.cases-right .subscribe__input .subscribe-field,
+.news-right .subscribe__input .subscribe-field {
+  background: transparent;
+  z-index: 2;
 }

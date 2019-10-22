@@ -23,16 +23,19 @@
               <div class="subscribe">
                 <p class="news-right__title">@lang('literature.title_subscribe')</p>
                 <form id="literature-subscribe-form" class="subscribe__input" method="get">
-                  @auth
-                  <input class="subscribe-field" type="text" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')" value="{{ Auth::user()->email }}">
-                  @endauth
-                  @guest
-                  <input class="subscribe-field" type="text" name="email-subscribe" placeholder="@lang('literature.placeholder_subscribe')">
-                  @endguest
+                  <div class="labels">
+                    @auth
+                      <input class="subscribe-field dinamic-input-js" type="text" name="email-subscribe" value="{{ Auth::user()->email }}">
+                      <label for="email-subscribe" class="dinamic-label-js">@lang('literature.placeholder_subscribe')</label>
+                    @endauth
+                    @guest
+                      <input class="subscribe-field dinamic-input-js" type="text" name="email-subscribe">
+                      <label for="email-subscribe" class="dinamic-label-js">@lang('literature.placeholder_subscribe')</label>
+                    @endguest
+                  </div>
                   <button class="subscribe-btn" type="submit" id="send-form-btn"><img src="/img/svg/envelope.svg" alt="Subscribe"></button>
                   <label id="literature-email-subscribe-error" class="invalid" for="email-subscribe"></label>
                 </form>
-
               </div>
               <div class="tags" obj-route="literature">
                 <p class="news-right__title">@lang('literature.title_tags_cloud')</p>

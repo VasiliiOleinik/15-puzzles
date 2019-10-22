@@ -1,6 +1,4 @@
 $(document).ready(function() {
-  // preloader();//Fade preloader when page loaded
-  //setCategoryPosition();  Позиционирование названия групп в секции puzzle-15
   var maintabsProps = {
     startCollapsed: "accordion"
   };
@@ -30,17 +28,6 @@ function tabsInit(item, props) {
   $(item).responsiveTabs(props);
 }
 
-// function setCategoryPosition() {
-//   var step = $(".puzzle-15__item-outer").height(),
-//     position = step;
-//   $(".puzzle-15__category").each(function(index, item) {
-//     $(item).css({
-//       top: position + "px"
-//     });
-//     position += step + 10;
-//   });
-// }
-
 function preloader() {
   $(window).on("load", function() {
     $(".loader-outer").fadeOut();
@@ -58,17 +45,6 @@ $(function() {
   // Подсветка одного элемента
   groupItem.on("click", function() {
     $(this).toggleClass("active");
-    // Добавление в список выбранного
-    // if ($(this).hasClass("active")) {
-    //   itemContent = $(this).html();
-    //   selectedList.append(
-    //     '<div class="selected-item">' +
-    //       itemContent +
-    //       '<div class="delete-item"><img src="/img/delete_item_ico.png" alt="Delete Item"></div></div>'
-    //   );
-    // } else {
-    //   itemContent = " ";
-    // }
   });
 
   // Подсветка всей группы
@@ -117,49 +93,30 @@ $(function() {
   });
 
   // Скрываю label когда input активен (personal page)
-  $(
-    ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
-  ).on("click", function() {
-    $(this).css({
-      "box-shadow": "rgba(91, 156, 167, 0.32) 0px 1px 6px",
-      border: "1px solid rgba(91, 156, 167, .5)",
-      transition: ".1s ease-in-out"
+
+  $(function() {
+    $(".dinamic-input-js").each(function() {
+      if ($(this).val().length != "") {
+        $(this).addClass("active");
+        $(this)
+          .siblings(".dinamic-label-js")
+          .addClass("active");
+      }
     });
-    $(this)
-      .siblings("label")
-      .css({
-        transition: ".1s ease-in-out",
-        top: "-7px",
-        "z-index": "5",
-        padding: "0px 10px",
-        background: "#ffff",
-        left: "15px",
-        "font-size": "10px",
-        "box-shadow": "0px 0px 3px 0px rgba(0,0,0,0.1)"
-      });
-  });
-  $(
-    ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
-  ).on("blur", function() {
-    if ($(this).val().length == "") {
-      $(this).css({
-        "box-shadow": "none",
-        border: "1px solid #d6dbde",
-        transition: ".1s ease-in-out"
-      });
+    $(".dinamic-input-js").on("click", function() {
+      $(this).addClass("active");
       $(this)
-        .siblings("label")
-        .css({
-          transition: ".1s ease-in-out",
-          top: "15px",
-          "z-index": "1",
-          padding: "0px",
-          background: "transparent",
-          left: "30px",
-          "font-size": "15px",
-          "box-shadow": "none"
-        });
-    }
+        .siblings(".dinamic-label-js")
+        .addClass("active");
+    });
+    $(".dinamic-input-js").on("blur", function() {
+      if ($(this).val().length == "") {
+        $(this).removeClass("active");
+        $(this)
+          .siblings(".dinamic-label-js")
+          .removeClass("active");
+      }
+    });
   });
 
   $(".upload-file input").on("change", function(e) {
@@ -251,20 +208,6 @@ $(function() {
       $(".tabs-modal").hide();
     });
   });
-  // Подсветка выбранного таба на странице home page
-  // $(".tab_head_check input").on("click", function() {
-  //   console.log('Parent: ' + $(this).parent().parent().html());
-  //   $('.tab-item__head').toggleClass('toggle');
-  //   $(this)
-  //     .parent()
-  //     .parent()
-  //     .toggleClass("checked-tab");
-  // });
-
-  // Делаю фактор активным
-  // $(".puzzle-15__item").on("click", function() {
-  //   $(this).toggleClass("active");
-  // });
 
   $(".evidence").hover(
     function() {
@@ -423,32 +366,6 @@ $(function() {
     $(this)
       .find(".control-block")
       .css({ display: "flex" });
-  });
-});
-
-$(function() {
-  $(
-    ".profile-labels .label input, .header-login-modal__container .label input, .add-story .labels input, .add-story .labels textarea, .search__top .label input, .case-add-comm .label textarea, .add-faq-letter .label input, .add-faq-letter .label textarea"
-  ).each(function() {
-    if ($(this).val().length != "") {
-      $(this).css({
-        "box-shadow": "rgba(91, 156, 167, 0.32) 0px 1px 6px",
-        border: "1px solid rgba(91, 156, 167, .5)",
-        transition: ".1s ease-in-out"
-      });
-      $(this)
-        .siblings("label")
-        .css({
-          transition: ".1s ease-in-out",
-          top: "-7px",
-          "z-index": "5",
-          padding: "0px 10px",
-          background: "#ffff",
-          left: "15px",
-          "font-size": "10px",
-          "box-shadow": "0px 0px 3px 0px rgba(0,0,0,0.1)"
-        });
-    }
   });
 });
 
@@ -756,87 +673,6 @@ $(function() {
   });
 });
 
-// function diagramDraw(id) {
-//
-//     var position = [];
-//
-//     var item = $('#45').data('json');
-//     console.log(item);
-//     //arr = item.data('position').parseJSON();
-//     var canvas = document.getElementById("diagram"),
-//         ctx = canvas.getContext("2d");
-//     // var position = [
-//     //     {
-//     //         start: [0, 40],
-//     //         finish: [450, 40],
-//     //         circle: []
-//     //     },
-//     //     {
-//     //         start: [450, 40],
-//     //         finish: [450, 340],
-//     //         circle: [450, 340]
-//     //     },
-//     //     {
-//     //         start: [350, 40],
-//     //         finish: [350, 140],
-//     //         circle: [350, 140]
-//     //     },
-//     //     {
-//     //         start: [300, 40],
-//     //         finish: [300, 140],
-//     //         circle: [300, 140]
-//     //     },
-//     //     {
-//     //         start: [250, 40],
-//     //         finish: [250, 240],
-//     //         circle: [250, 240]
-//     //     }
-//     // ];
-//     position.map(function (item) {
-//         if (i.start && i.circle) {
-//             ctx.moveTo(i.start[0], i.start[1]);
-//             ctx.lineTo(i.finish[0], i.finish[1]);
-//             ctx.strokeStyle = 'red';
-//             ctx.stroke();
-//         }
-//         if (p.finish && p.circle) {
-//             ctx.moveTo(i.start[0], i.start[1]);
-//             ctx.lineTo(i.finish[0], i.finish[1]);
-//             ctx.strokeStyle = 'red';
-//             ctx.stroke();
-//         }
-//         if (p.circle) {
-//             ctx.beginPath();
-//             ctx.arc(i.circle[0], i.circle[1], 4, 0, 2 * Math.PI, false);
-//             ctx.fillStyle = 'red';
-//             ctx.fill();
-//             ctx.lineWidth = 1;
-//             ctx.strokeStyle = 'red';
-//             ctx.stroke();
-//         }
-//         ctx.stroke();
-//     });
-// }
-//
-// function clearCanvas() {
-//     var canvas = document.getElementById("diagram"),
-//         ctx = canvas.getContext("2d");
-//     canvas.width = canvas.width;
-// }
-//
-// hoverItem();
-//
-// function hoverItem() {
-//     var item = $('.js-item'),
-//     id = item.data('id');
-//     item.hover(function () {
-//         $(this).addClass('show');
-//         diagramDraw(id);
-//     }, function () {
-//         $(this).removeClass('show');
-//         clearCanvas();
-//     });
-// }
 
 $(function() {
   $(".group_item").on("click", function() {
@@ -1045,7 +881,6 @@ hoverFactor();
 // Прелоадер на главной
 
 $(window).on("load", function() {
-
   ($preloader = $(".main-page-preloader")),
     $preloader.delay(350).remove(),
     $("html, body").css({

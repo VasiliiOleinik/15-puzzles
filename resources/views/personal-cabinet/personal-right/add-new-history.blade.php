@@ -3,12 +3,12 @@
     <form class="add-story__form" method="post" action="{{ route('medical_history_create_post') }}">
         @csrf
         <div class="labels">
-            <input class="headline inp" type="text" name="headline" required>
-            <label for="headline">@lang('personal_cabinet.headline')</label>
+            <input class="headline inp dinamic-input-js" type="text" name="headline" required>
+            <label for="headline" class="dinamic-label-js">@lang('personal_cabinet.headline')</label>
         </div>
         <div class="labels">
-            <textarea id="elfinder1" class="story inp" name="your-story" required></textarea>
-            <label class="textarea" for="your-story">@lang('personal_cabinet.your_story')</label>
+            <textarea id="elfinder1" class="story inp dinamic-input-js" name="your-story" required></textarea>
+            <label class="textarea" for="your-story" class="dinamic-label-js">@lang('personal_cabinet.your_story')</label>
         </div>
         <div class="add-images">
             <h3 class="add-images__title">@lang('personal_cabinet.add_image')</h3>

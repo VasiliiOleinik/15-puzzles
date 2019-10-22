@@ -4,8 +4,8 @@
         @csrf
         <input type="hidden" name="id" value="">
         <div class="labels">
-            <input class="headline inp" type="text" name="headline" required>
-            <label for="headline">@lang('personal_cabinet.headline')</label>
+            <input class="headline inp dinamic-input-js" type="text" name="headline" required>
+            <label for="headline" class="dinamic-label-js">@lang('personal_cabinet.headline')</label>
         </div>
         <div class="labels">
             <textarea id="ckeditor" class="story inp" name="your-story" required ></textarea>
