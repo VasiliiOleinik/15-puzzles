@@ -30,7 +30,7 @@ class VerificationEmail extends Mailable
     public function build()
     {
         return
-            $this->from('puzzle15.devteam@gmail.com')
+            $this->from('trikaka12@gmail.com')
                 ->view('verification_email', ['link'=>$this->link]);
     }
 }
