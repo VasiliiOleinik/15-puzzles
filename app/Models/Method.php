@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Laboratory\Laboratory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -69,4 +70,10 @@ class Method extends Model
         return $this->hasOne(MethodLanguage::class)
             ->where('language', 'eng');
     }
+
+    public function laboratories()
+    {
+        return $this->belongsToMany(Laboratory::class, 'laboratory_methods');
+    }
+
 }

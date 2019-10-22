@@ -75,6 +75,7 @@ Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '(eng|ru)'], 'mid
 
     Route::get('member_cases/comment/create', 'CommentController@create')->name('comment_create');
     Route::post('model_partial', 'MainController@modelPartial')->name('model_partial');
+    Route::post('get_laboratory', 'FactorDiagramController@showLaboratory')->name('model_partial');
     Route::get('confirm_email', 'Auth\VerificationController@confirmEmail')->name('model_partial');
 });
 

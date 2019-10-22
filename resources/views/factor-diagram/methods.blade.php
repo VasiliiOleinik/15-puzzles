@@ -10,8 +10,8 @@
             <div class="method-list">
                 @foreach($marker->methods as $method)
                     <div class="method-item">
-                        <label class="method-item__head">
-                            <input class="checkbox" type="radio" name="method"><span class="checkbox-custom"></span>
+                        <label class="method-item__head" >
+                            <input class="checkbox" type="radio" name="method" id="method_check" data-id="{{$method->method_id}}"><span class="checkbox-custom"></span>
                             <p class="title">{{$method->name}}</p>
                         </label>
                         <div class="method-item__content">

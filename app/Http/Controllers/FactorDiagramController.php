@@ -7,6 +7,7 @@ use App\Models\Factor\Factor;
 
 //use App\Models\Type;
 use App\Models\Factor\FactorLanguage;
+use App\Models\Method;
 use App\Models\PageLang;
 use App\Models\Type;
 use App\Scopes\LanguageScope;
@@ -24,12 +25,12 @@ class FactorDiagramController extends Controller
             ->first();
 
         $type1 = Type::with('factors', 'typesLang')
-            ->limit(2)
+            ->limit(3)
             ->get();
 
         $type2 = Type::with('factors', 'typesLang')
-            ->limit(2)
-            ->offset(2)
+            ->limit(3)
+            ->offset(3)
             ->get();
 
         return view(
@@ -51,5 +52,16 @@ class FactorDiagramController extends Controller
     public function showRelation(Request $request)
     {
         $factorLang = FactorLanguage::find($request->id)->factor;
+    }
+
+    public function showLaboratory(Request $request)
+    {
+        $laboratory = Method::find($request->id);
+        if(isset($laboratory)){
+
+            return view('main.table_labs', ['labs'=>$laboratory->laboratories]);
+        }
+
+        return trans('main.error_find');
     }
 }

@@ -4,7 +4,9 @@
 namespace App\Repository;
 
 
+use App\Http\Admin\Laboratory;
 use App\Models\Country;
+use App\Models\Method;
 
 class LaboratoryRepository
 {
@@ -22,4 +24,5 @@ class LaboratoryRepository
 
         return $result;
     }
+
 }
