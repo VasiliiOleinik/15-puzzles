@@ -1,6 +1,6 @@
 <div class="add-story" id="add-story-js">
     <h3 class="add-story__title">@lang('personal_cabinet.add_your_story')</h3>
-    <form class="add-story__form" method="post" action="{{ route('medical_history_create_post') }}">
+    <form class="add-story__form" method="post" action="{{ route('personal_create_post') }}" enctype="multipart/form-data">
         @csrf
         <div class="labels">
             <input class="headline inp dinamic-input-js" type="text" name="headline" required>
@@ -17,7 +17,7 @@
                     <input id="add-story-img" type="hidden" name="img-medical-history">
                     <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                     <button class="file-upload">
-                        <input class="file-input" type="file" placeholder="@lang('personal_cabinet.choose_file')">
+                        <input name="image-file" class="file-input" type="file" placeholder="@lang('personal_cabinet.choose_file')">
                     </button>
                 </div>
             </div>
