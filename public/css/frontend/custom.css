@@ -486,3 +486,6 @@ body .footer__subscribe input[name="email-subscribe"] {
 .main__video {
   max-height: 340px;
 }
+.puzzle-15__item-title {
+  word-break: break-word;
+}
