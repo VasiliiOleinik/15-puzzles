@@ -96,6 +96,17 @@
                       </div>
                     </div>
                   </div>
+                    <div class="member-case-tags">
+                        @foreach($member_cases_tags as $member_cases_tag)
+                            <div class="member-case-tags__elem">
+                                <label class="member-case-tags__label">
+                                    <input type="checkbox" name="story-tags" value="{{ $member_cases_tag->tag_id }}">
+                                    <span class="member-case-tags__text">{{ $member_cases_tag->name }}</span>
+                                    <span class="member-case-tags__checkbox-custom"></span>
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
                   <div class="tag-search">
                       <div class="labels" style="padding: 0; min-height:48px;">
                           <input id="story-tags" required>
