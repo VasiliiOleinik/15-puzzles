@@ -30,6 +30,9 @@
             </div>
         </div>
         <div class="footer-form">
+            <label>
+                <input class="checkbox" name="anonym" type="checkbox"><span class="checkbox-custom"></span><span class="label">@lang('member_cases.do_not_publish')</span>
+            </label>
             <input class="submit-form" type="submit" value="@lang('personal_cabinet.submit_note')">
             <input class="cancel-form" type="button" value="@lang('personal_cabinet.cancel')" id="cancel-form-js">
         </div>

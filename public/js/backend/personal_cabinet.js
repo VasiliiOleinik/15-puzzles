@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $(this).parent().parent().parent().remove();
         $.ajax({
             type: "DELETE",
-            url: '/medical_history/' + id,// '{{ route('file.personal_cabinet.destroy','id')}}',
+            //url: '/medical_history/' + id,// '{{ route('file.personal_cabinet.destroy','id')}}',
+            url: '/member_cases/' + id,
             data: {
                 "_token": $('meta[name="csrf-token"]').attr('content'),
             },

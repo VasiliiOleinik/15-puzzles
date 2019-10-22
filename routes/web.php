@@ -100,6 +100,11 @@ Route::resource('user', 'UserController');
 Route::get('download/{id}', 'FileController@download');
 /* ---- */
 
+/* MEMBER CASES FROM PERSONAL CABINET */
+Route::delete('member_cases/{id}', 'MemberCaseController@destroy');
+Route::post('member_cases/create_post', 'MemberCaseController@createPost')->name('personal_create_post');//без этого не работает сохранение нового кейса с картинкой
+Route::post('member_cases/update_post', 'MemberCaseController@updatePost')->name('personal_update_post');
+
 /* MEDICAL HISTORY */
 Route::delete('medical_history/{id}', 'MedicalHistoryController@destroy');
 Route::post('medical_history/create_post', 'MedicalHistoryController@createPost')->name('medical_history_create_post');//без этого не работает сохранение новой мед истории с картинкой
