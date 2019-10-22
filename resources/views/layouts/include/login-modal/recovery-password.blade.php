@@ -2,9 +2,12 @@
   <div class="recovery-pass-header"><span>recovery password</span></div>
   <div class="recovery-pass-inputs">
     <form action="">
-      <input name="email-reset" type="email" placeholder="Email"
-             class="@error('email-reset') is-invalid @enderror" value="{{ old('email-reset') }}" autocomplete="email-reset"
-             autofocus>     
+      <div class="label required">
+        <input name="email-reset" type="email"
+              class="dinamic-input-js @error('email-reset') is-invalid @enderror" value="{{ old('email-reset') }}" autocomplete="email-reset"
+              autofocus>
+        <label for="email-reset" class="dinamic-label-js">Email <span>*</span></label>
+      </div>  
       <button class="recovery-pass-btn" id="recovery-pass-js">Recovery</button>
       @error('email-reset')
       <label for="email-reset" class="invalid-feedback" role="alert">
