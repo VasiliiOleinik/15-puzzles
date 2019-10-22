@@ -58,8 +58,9 @@ class MemberCaseController extends Controller
             ->where('is_active', true)
             ->orderBy('id', 'DESC')
             ->paginate(4);
+        $member_cases_tags = TagLanguage::all();
 
-        return view('member-cases.member-cases', compact(['memberCases', 'page']));
+        return view('member-cases.member-cases', compact(['memberCases', 'page', 'member_cases_tags']));
 
     }
 
