@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MemberCase;
 use Illuminate\Http\Request;
 use App\Models\MedicalHistory;
 use Auth;

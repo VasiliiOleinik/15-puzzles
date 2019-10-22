@@ -18,7 +18,7 @@ class FileController extends Controller
      * @return void
      */
     public function __construct()
-    {        
+    {
         $this->middleware(['auth','verified']);
     }
 
@@ -41,7 +41,7 @@ class FileController extends Controller
         $user_files = File::with('user')->where('user_id','=',Auth::id())->orderBy('updated_at','desc');
 
         if($search_file['name']){
-            $user_files = $user_files->where('name', 'like', '%'.$search_file['name'].'%');                  
+            $user_files = $user_files->where('name', 'like', '%'.$search_file['name'].'%');
         }
         if($search_file['date_from']){
             $user_files = $user_files->where('updated_at', '>', $date_from->startOfDay());
@@ -53,10 +53,11 @@ class FileController extends Controller
         $user_files = $user_files->get();
 
         $user = Auth::user();
-        $medicalHistories = $user->medicalHistories()->orderBy('created_at', 'DESC')->paginate(2);
+        //$medicalHistories = $user->medicalHistories()->orderBy('created_at', 'DESC')->paginate(2);
+        $memberCases = $user->memberCases()->orderBy('created_at', 'DESC')->paginate(2);
         $img_width = 40;//width of file icon
 
-        return view('personal-cabinet.personal_cabinet', compact(['user_files','user','medicalHistories', 'search_file',
+        return view('personal-cabinet.personal_cabinet', compact(['user_files','user',/*'medicalHistories'*/ 'memberCases', 'search_file',
                                                                   'img_width']));
     }
 
@@ -77,41 +78,41 @@ class FileController extends Controller
      * @return redirect
      */
     public function store(Request $request)
-    {        
+    {
         $validatedData = $request->validate([
             //'upload_file' => ['mimes:docx,doc,pdf'],
             'file_name' => ['required', 'string', 'max:191'],
             'file_type' => ['required', 'max:191'],
             'file_size' => ['required', 'max:191'],
-        ]);    
-        
+        ]);
+
         $file_name = $request['file_name'];
         $file_type = $request['file_type'];
         $file_size = $request['file_size'];
         $file_path = 'files/users_id/'.Auth::id();
         $file_full_name = $file_name.".".$file_type;
-        
+
         $file_full_name =  self::checkUniqueFileName($file_path, $file_name, $file_full_name);
-        $file_name = explode('.',$file_full_name)[0];        
+        $file_name = explode('.',$file_full_name)[0];
         $request->file('file')->move(public_path( $file_path ), $file_full_name);
-        
+
         $file = new File;
-        
+
         $file->name = $file_name;
         $file->path = $file_path;
         $file->type = $file_type;
         $file->size = $file_size;
         $file->user_id =  Auth::id();
-        
+
         $file->save();
 
         $user_files = File::with('user')->where('user_id','=',Auth::id())->get();
- 
+
         $request->session()->flash('status-file_upload', 'You have successfully upload your file.');
 
         $request->file = null;
-        
-        return redirect()->back();        
+
+        return redirect()->back();
     }
 
     /**
@@ -133,7 +134,7 @@ class FileController extends Controller
      */
     public function edit(File $file)
     {
-        
+
     }
 
     /**
@@ -145,7 +146,7 @@ class FileController extends Controller
      */
     public function update(Request $request, File $file)
     {
-        
+
     }
 
     /**
@@ -180,24 +181,24 @@ class FileController extends Controller
         $file_type = $file->type;
         $file_path = $file->path;
 
-        $file= public_path()."/".$file_path."/".$file_name.".".$file->type;     
-        return response()->download($file, $file_name.".".$file_type);        
+        $file= public_path()."/".$file_path."/".$file_name.".".$file->type;
+        return response()->download($file, $file_name.".".$file_type);
     }
 
     /**
      * Remove file from server
      */
     public function removeFileFromFolder($file_name, $file_type, $file_path){
-        $data= $file_name.".".$file_type;    
-        $dir = $file_path."/";    
-        $dirHandle = opendir($dir);    
-        while ($file = readdir($dirHandle)) {    
+        $data= $file_name.".".$file_type;
+        $dir = $file_path."/";
+        $dirHandle = opendir($dir);
+        while ($file = readdir($dirHandle)) {
             if($file==$data) {
                 unlink($dir."/".$file);//give correct path,
             }
-        }    
+        }
         closedir($dirHandle);
-    }   
+    }
 
     /**
      * Return file name
@@ -217,7 +218,7 @@ class FileController extends Controller
                 }
                 //add (n)
                 $file_name .= "(".$count.")";
-                $file_full_name = $file_name.".".$file->type;  
+                $file_full_name = $file_name.".".$file->type;
                 break;
             }
         }
