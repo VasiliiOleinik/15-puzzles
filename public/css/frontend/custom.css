@@ -489,3 +489,7 @@ body .footer__subscribe input[name="email-subscribe"] {
 .puzzle-15__item-title {
   word-break: break-word;
 }
+.news-left .main-content .post_container .post__title,
+.news-left .main-content .post_container .post__description {
+  width: 100%;
+}
