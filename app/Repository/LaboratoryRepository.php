@@ -17,6 +17,7 @@ class LaboratoryRepository
             ->where('ml.name', $name)
             ->where('ml.language', app()->getLocale())
             ->where('countries.id', $id)
+            ->select(['lab.*'])
             ->get();
 
         return $result;

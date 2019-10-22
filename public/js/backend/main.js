@@ -144,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 complete: function (response) {
                     result = response.responseJSON;
                     $("#preloader").css("display", "none");
+                    $('#table_laboratory').html(result.laboratoryTable)
                     //console.log(response.responseJSON);
                     //очистка карты
                     $('#map_canvas').html('');

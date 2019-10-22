@@ -19,28 +19,7 @@
     <button class="methods-btn">@lang('main.button_find_lab') </button>
   </div>
    @include('main.main-left.map')
-   <div class="methods-laboratories-table">
-      <div class="methods-laboratories-table__head">
-        <div class="methods-table-cell name">Название лаборатории</div>
-        <div class="methods-table-cell adress">Адрес</div>
-        <div class="methods-table-cell site">Сайт</div>
-        <div class="methods-table-cell phone">Телефон</div>
-      </div>
-      <div class="methods-laboratories-table__body">
-        <div class="table__body-row">
-          <div class="methods-table-cell name">Payton O'Connell</div>
-          <div class="methods-table-cell adress">860 Fairfield St.Zanesville, OH 43701</div>
-          <div class="methods-table-cell site"><a href="/link" class="methods-table-cell__link" target="_blank">Site</a></div>
-          <div class="methods-table-cell phone">919319697947</div>
-        </div>
-        <div class="table__body-row">
-          <div class="methods-table-cell name">Payton O'Connell</div>
-          <div class="methods-table-cell adress">860 Fairfield St.Zanesville, OH 43701</div>
-          <div class="methods-table-cell site"><a href="/link" class="methods-table-cell__link" target="_blank">Site</a></div>
-          <div class="methods-table-cell phone">919319697947</div>
-        </div>
-      </div>
-    </div>
+  <div id="table_laboratory"></div>
 </div>
 <div class="markers-message">
   <h3 class="methods-laboratories__title">По вашим критериям не найдено ни одной лаборатории</h3>

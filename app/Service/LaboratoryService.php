@@ -17,4 +17,10 @@ class LaboratoryService
         }
         return $result;
     }
+
+    public function printTableLaboratories($laboratories)
+    {
+        return view('main.table_labs', ['labs'=>$laboratories])->render();
+    }
+
 }

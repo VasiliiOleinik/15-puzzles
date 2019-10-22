@@ -178,6 +178,7 @@ class MainController extends Controller
     {
         $filteredData = $this->laboratoryRepository->findLaboratory($request->country, $request->methode);
         $validResponseArray = $this->laboratoriService->getValidResponseArray($filteredData);
+        $validResponseArray['laboratoryTable'] = $this->laboratoriService->printTableLaboratories($filteredData);
         $json = json_encode($validResponseArray);
         return $json;
     }

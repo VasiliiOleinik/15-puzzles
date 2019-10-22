@@ -52,5 +52,9 @@ return [
     'defence' => 'DEFENCE',
     'dangers' => 'DANGERS',
     'close' => 'Close',
-    'error_find_lab' => 'Error you need choose country and method'
+    'error_find_lab' => 'Error you need choose country and method',
+    'name_lab' => 'Name Laboratory',
+    'address_lab' => 'Address Laboratory',
+    'site' => 'Site',
+    'phone_lab' => 'Phone',
 ];
