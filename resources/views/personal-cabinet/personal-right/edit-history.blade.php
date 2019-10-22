@@ -1,3 +1,15 @@
+@section('literature-js')
+    <!--  scripts you need to search for tags   -->
+    <script src="{{ asset('js/backend/tags search/typeahead.js') }}" defer></script>
+    <script src="{{ asset('js/backend/tags search/bootstrap-tagsinput.js') }}" defer></script>
+    <script src="{{ asset('js/backend/memberCases.js') }}" defer></script>
+@endsection
+@section('literature-css')
+    <link href="{{ asset('css/backend/tags search/bootstrap-tagsinput.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/backend/tags search/typeaheadjs.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/backend/memberCases.css') }}" rel="stylesheet">
+@endsection
+
 <div class="add-story" id="edit-story-js">
     <h3 class="add-story__title">@lang('personal_cabinet.change_your_story')</h3>
     <form class="add-story__form" id="edit-story__form" method="post" action="{{ route('medical_history_update_post') }}">
@@ -20,6 +32,13 @@
                         <input class="file-input" type="file" placeholder="@lang('personal_cabinet.choose_file')">
                     </button>
                 </div>
+            </div>
+        </div>
+        <div class="tag-search">
+            <div class="labels" style="padding: 0; min-height:48px;">
+                <input id="story-tags" required>
+                <input class="add-tags inp" type="text" name="story-tags" id="tags">
+                <label class="place">@lang('member_cases.your_story_tags') <span class="required">*</span></label>
             </div>
         </div>
         <div class="footer-form">
