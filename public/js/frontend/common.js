@@ -673,7 +673,6 @@ $(function() {
   });
 });
 
-
 $(function() {
   $(".group_item").on("click", function() {
     $("#preloader").css("display", "flex");
