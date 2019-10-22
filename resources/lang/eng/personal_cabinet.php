@@ -41,4 +41,6 @@ return [
     'cancel' => 'Cancel',
     'change_your_story' => 'Change your story',
     'save_note' => 'Save note',
+    'member_case_published' => 'Published',
+    'member_case_on_moderation' => 'On moderation',
 ];
