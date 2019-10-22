@@ -634,10 +634,62 @@ body .header-login-modal__container .label label.errors {
 }
 
 .group_title img {
-    display: none;
+  display: none;
 }
-@media(max-width:1440px){
-    .diagram__center {
-        padding: 0 20px;
-    }
+@media (max-width: 1440px) {
+  .diagram__center {
+    padding: 0 20px;
+  }
+}
+
+.methods-laboratories-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border: 1px solid #e9edf3;
+  margin: 20px 0px;
+}
+.methods-laboratories-table .methods-laboratories-table__head {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  background: #599ba7;
+  color: #fff;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  -webkit-border-radius: 5px 5px 0px 0px;
+  border-radius: 5px 5px 0px 0px;
+  padding: 2px;
+}
+.methods-laboratories-table .methods-table-cell {
+  width: 25%;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 10px;
+  border-right: 1px solid #e9edf3;
+  font-size: 14px;
+}
+.methods-laboratories-table .methods-table-cell:last-of-type {
+  border-right: none;
+}
+.methods-laboratories-table .methods-laboratories-table__body {
+  display: flex;
+  width: 100%;
+  border-radius: 0px 0px 5px 5px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+.methods-laboratories-table .methods-laboratories-table__body .table__body-row {
+  border-bottom: 1px solid #e9edf3;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.methods-laboratories-table .methods-table-cell__link {
+  color: #599ba7;
 }
