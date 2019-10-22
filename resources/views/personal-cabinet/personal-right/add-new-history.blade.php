@@ -22,6 +22,13 @@
                 </div>
             </div>
         </div>
+        <div class="tag-search">
+            <div class="labels" style="padding: 0; min-height:48px;">
+                <input id="story-tags" required>
+                <input class="add-tags inp" type="text" name="story-tags" id="tags">
+                <label class="place">@lang('member_cases.your_story_tags') <span class="required">*</span></label>
+            </div>
+        </div>
         <div class="footer-form">
             <input class="submit-form" type="submit" value="@lang('personal_cabinet.submit_note')">
             <input class="cancel-form" type="button" value="@lang('personal_cabinet.cancel')" id="cancel-form-js">
