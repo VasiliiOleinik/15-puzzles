@@ -17,7 +17,7 @@
                     @foreach($type1 as $type)
                         <div class="diagram__group">
                             <label class="group_title"><img src="{{$type->img}}"
-                                                            alt="Cancerogenesis" width="50px">
+                                                            alt="img" width="50px">
                                 <input class="group_title_checkbox" type="checkbox"><span
                                     class="checkbox-custom"></span><span class="label">{{isset($type->typesLang->name) ? $type->typesLang->name : false }}</span>
                             </label>
@@ -68,15 +68,16 @@
                 <div class="diagram__right">
                     @foreach($type2 as $type)
                         <div class="diagram__group">
-                            <label class="group_title"><img src="{{$type->img}}" alt="Elimination"
-                                                            width="50px">
+                            <label class="group_title"><img src="{{$type->img}}"
+                                                            alt="img" width="50px">
                                 <input class="group_title_checkbox" type="checkbox"><span
-                                    class="checkbox-custom"></span><span class="label">{{isset($type->typesLang->name) ? $type->typesLang->name : false}}</span>
+                                    class="checkbox-custom"></span><span class="label">{{isset($type->typesLang->name) ? $type->typesLang->name : false }}</span>
                             </label>
                             <div class="group_content">
                                 @foreach($type->factors as $factor)
-                                    <div class="group_item js-item reverse" id="{{isset($factor->factorLanguage->id) ? $factor->factorLanguage->id : false }}" data-json='{{$factor->organ}}'>
-                                        <p>{{$factor->factorLanguage->name}}</p>
+                                    <div class="group_item js-item reverse" id="{{isset($factor->factorLanguage->id) ? $factor->factorLanguage->id : false}}"
+                                         data-json=@foreach($factor->organ as $organ){!!$organ->name!!},@endforeach>
+                                        <p>{{isset($factor->factorLanguage->name) ? $factor->factorLanguage->name : false}}</p>
                                     </div>
                                 @endforeach
                             </div>
