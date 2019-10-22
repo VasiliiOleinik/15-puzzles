@@ -90,9 +90,20 @@ document.addEventListener("DOMContentLoaded", function (event) {
         checkCheckbox($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
         checkPuzzle($(this).parent().attr('obj-id'), $(this).parent().attr('obj-type'));
     });
+    $( document ).ready(function() {
+    let mapProp = {
+        center: new google.maps.LatLng(45.0, 45.0),//USA
+        zoom: 0,
+    };
 
+        var map = new google.maps.Map(document.getElementById("map_canvas"), mapProp);
+        $('#tabMarkers').on('click', function () {
+
+        });
+    });
     //Кликнули на 'найти лаборатории'
     $('.methods-btn').bind('click', function () {
+        $("#preloader").css("display", "flex");
         try {
             laboratories_ajax.abort();
         } catch (err) {
@@ -124,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             "_token": $('meta[name="csrf-token"]').attr('content'),
         };
         if(country!=null && method!=null) {
-            $("#preloader").css("display", "flex");
+
             laboratories_ajax = $.ajax({
                 type: "post",
                 url: "/map_refresh",
@@ -141,13 +152,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         center: new google.maps.LatLng(45.0, 45.0),//USA
                         zoom: 0,
                     };
-                    if (country) {
+                    if (country&&result.laboratories!==undefined) {
                         mapProp = {
                             center: new google.maps.LatLng(parseFloat(result.laboratories[0].lat),
                                 parseFloat(result.laboratories[0].lng)),
                             zoom: 0,
                         };
-                    }
+
                     //инициализакция карты
                     var map = new google.maps.Map(document.getElementById("map_canvas"), mapProp);
 
@@ -164,6 +175,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
                         addMarker(new google.maps.LatLng(parseFloat(item.lat),
                             parseFloat(item.lng)));
                     });
+                    }else{
+                        $('#map_canvas').html('not found laboratory');
+                    }
                 },
                 error: function (err) {
                     $("#preloader").css("display", "none");
