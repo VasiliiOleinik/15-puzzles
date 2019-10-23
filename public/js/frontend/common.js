@@ -125,7 +125,6 @@ $(function() {
         .siblings(".dinamic-label-js")
         .removeClass("active");
     }
-    console.log('focus');
   });
 
   $(".upload-file input").on("change", function(e) {
@@ -895,4 +894,9 @@ $(window).on("load", function() {
       overflow: "auto",
       height: "auto"
     });
+});
+
+// Member cases multi-seselc
+$(function() {
+  $('.js-example-basic-multiple').select2();
 });

@@ -8,6 +8,7 @@
       integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/main.css') }}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/css/select2.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="{{ asset('css/frontend/custom.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/backend/auth.css') }}">
 @yield('verify-css')
