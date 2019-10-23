@@ -29,7 +29,149 @@ document.addEventListener("DOMContentLoaded", function (event) {
             error: function (result) {
             }
         });
+    });
 
+    // Получить список историй
+    // function loadMemberCasesList() {
+    //     $.ajax({
+    //         type: "GET",
+    //         url: "/member_cases/load_posts",
+    //         success: function(data) {
+    //             //$("#preloader").css("display", "none");
+    //
+    //             $('.med-history').find('[name="member-cases-list"]').empty();
+    //             for (const item of data) {
+    //                 let publishedStatusClass = '';
+    //                 let publishedStatusText = '';
+    //                 let imgSrc = '';
+    //                 if(item.is_active) {
+    //                     publishedStatusClass = "member_case_published";
+    //                     publishedStatusText = item.member_case_published;
+    //                 }
+    //                 else {
+    //                     publishedStatusClass = "member_case_on_moder";
+    //                     publishedStatusText = item.member_case_on_moder;
+    //                 }
+    //                 if (item.img == null) {
+    //                     imgSrc = "/img/med-history.png";
+    //                 }
+    //                 else {
+    //                     imgSrc = item.img;
+    //                 }
+    //
+    //                 $('.med-history').find('[name="member-cases-list"]').append(`
+    //                     <div class="med-history-item">
+    //                         <div class="member_case_title">
+    //                             <h3 class="med-history__name">` + item.title + `</h3>
+    //                             <label class="` + publishedStatusClass + `">` + publishedStatusText + `</label>
+    //                         </div>
+    //                         <img class="med-history__img" src="` + imgSrc + `" alt="">
+    //                         <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">` + item.updated_at_format + `</a>
+    //                             <div class="med-history__settings-right" obj-id="` + item.id + `" data-tags="{{ $memberCase->tags->pluck('id')->implode(',') }}">
+    //                                 <a class="edit-artile" id="edit-article-js" href="javascript:void(0)">` + item.edit_article + `</a>
+    //                                 <a class="delete-artile" id="delete-article-js" href="javascript:void(0)">` + item.delete_article + `</a>
+    //                             </div>
+    //                         </div>
+    //                         <p class="med-history__info">` + item.content + `</p>
+    //                     </div>
+    //                 `);
+    //             }
+    //         },
+    //         error: function(data) {
+    //             // $("#preloader").css("display", "none");
+    //             // for (const key in data.responseJSON.errors) {
+    //             //     if (data.responseJSON.errors.hasOwnProperty(key)) {
+    //             //         const element = data.responseJSON.errors[key];
+    //             //         $("#" + key + "-error").text(element[0]);
+    //             //     }
+    //             // }
+    //             // $("#add-comment-form button").prop("disabled", false);
+    //             // $("#send-comment").removeClass("disabled-button");
+    //         }
+    //     });
+    // }
+
+    // Отправка истории
+    $(".add-story__form").on("submit", function(e) {
+        e.preventDefault();
+
+        let formData = new FormData();
+        let image_file = $(e.target).find('[name="image-file"]').prop('files')[0];
+        formData.append('headline', $(e.target).find('[name="headline"]').val());
+        formData.append('your-story', $(e.target).find('[name="your-story"]').val());
+        formData.append('anonym', $(e.target).find('[name="anonym"]').val());
+        formData.append('story-tags', $(e.target).find('[name="story-tags"]').val());
+        formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+        if (typeof image_file != "undefined") {
+            formData.append('image-file', image_file);
+        }
+        // $("#add-comm-error").text("");
+        // $("#send-comment").prop("disabled", true);
+        // $("#send-comment").addClass("disabled-button");
+
+        $.ajax({
+            type: "POST",
+            url: "/member_cases/create_post",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
+
+//             $('.med-history').find('[name="member-cases-list"]').empty();
+                //             for (const item of data) {
+                //                 let publishedStatusClass = '';
+                //                 let publishedStatusText = '';
+                //                 let imgSrc = '';
+                //                 if(item.is_active) {
+                //                     publishedStatusClass = "member_case_published";
+                //                     publishedStatusText = item.member_case_published;
+                //                 }
+                //                 else {
+                //                     publishedStatusClass = "member_case_on_moder";
+                //                     publishedStatusText = item.member_case_on_moder;
+                //                 }
+                //                 if (item.img == null) {
+                //                     imgSrc = "/img/med-history.png";
+                //                 }
+                //                 else {
+                //                     imgSrc = item.img;
+                //                 }
+                //
+                //                 $('.med-history').find('[name="member-cases-list"]').append(`
+                //                     <div class="med-history-item">
+                //                         <div class="member_case_title">
+                //                             <h3 class="med-history__name">` + item.title + `</h3>
+                //                             <label class="` + publishedStatusClass + `">` + publishedStatusText + `</label>
+                //                         </div>
+                //                         <img class="med-history__img" src="` + imgSrc + `" alt="">
+                //                         <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">` + item.updated_at_format + `</a>
+                //                             <div class="med-history__settings-right" obj-id="` + item.id + `" data-tags="{{ $memberCase->tags->pluck('id')->implode(',') }}">
+                //                                 <a class="edit-artile" id="edit-article-js" href="javascript:void(0)">` + item.edit_article + `</a>
+                //                                 <a class="delete-artile" id="delete-article-js" href="javascript:void(0)">` + item.delete_article + `</a>
+                //                             </div>
+                //                         </div>
+                //                         <p class="med-history__info">` + item.content + `</p>
+                //                     </div>
+                //                 `);
+                //             }
+            },
+            error: function(data) {
+                // $("#preloader").css("display", "none");
+                // for (const key in data.responseJSON.errors) {
+                //     if (data.responseJSON.errors.hasOwnProperty(key)) {
+                //         const element = data.responseJSON.errors[key];
+                //         $("#" + key + "-error").text(element[0]);
+                //     }
+                // }
+                // $("#add-comment-form button").prop("disabled", false);
+                // $("#send-comment").removeClass("disabled-button");
+            }
+        });
     });
 
     //если поля поиска Search by analysis history пусты, то очищаем url от get параметров

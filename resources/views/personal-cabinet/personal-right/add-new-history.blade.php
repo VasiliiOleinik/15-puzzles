@@ -1,6 +1,6 @@
 <div class="add-story" id="add-story-js">
     <h3 class="add-story__title">@lang('personal_cabinet.add_your_story')</h3>
-    <form class="add-story__form" method="post" action="{{ route('personal_create_post') }}" enctype="multipart/form-data">
+    <form class="add-story__form" method="post" enctype="multipart/form-data">
         @csrf
         <div class="labels">
             <input class="headline inp dinamic-input-js" type="text" name="headline" required>
@@ -33,7 +33,7 @@
             <label>
                 <input class="checkbox" name="anonym" type="checkbox"><span class="checkbox-custom"></span><span class="label">@lang('member_cases.do_not_publish')</span>
             </label>
-            <input class="submit-form" type="submit" value="@lang('personal_cabinet.submit_note')">
+            <input class="submit-form" type="submit" value="@lang('personal_cabinet.submit_note')" id="submit-button-form-js">
             <input class="cancel-form" type="button" value="@lang('personal_cabinet.cancel')" id="cancel-form-js">
         </div>
     </form>

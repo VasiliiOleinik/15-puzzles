@@ -32,6 +32,7 @@ class MemberCaseController extends Controller
                 return MemberCase::with('tags')->get();
             }
         );
+        $member_cases_tags = TagLanguage::all();
         //Выбраны тэги
         if($request->tag){
             $memberCasesId = array();
@@ -51,17 +52,36 @@ class MemberCaseController extends Controller
                 ->orderBy('id', 'DESC')
                 ->paginate(4);
 
-            return view('member-cases.member-cases', compact(['memberCases', 'page']));
+            return view('member-cases.member-cases', compact(['memberCases', 'page', 'member_cases_tags']));
         }
         $memberCases = MemberCase::with('user')
             //->where('status','=','show')
             ->where('is_active', true)
             ->orderBy('id', 'DESC')
             ->paginate(4);
-        $member_cases_tags = TagLanguage::all();
 
         return view('member-cases.member-cases', compact(['memberCases', 'page', 'member_cases_tags']));
 
+    }
+
+    public function loadPosts()
+    {
+//        $memberCases = MemberCase::with('user')
+//            //->where('status','=','show')
+//            ->where('is_active', true)
+//            ->orderBy('id', 'DESC')
+//            ->get();
+//            //->paginate(4);
+//        foreach ($memberCases as $memberCase) {
+//            $memberCase->img = asset($memberCase->img);
+//            $memberCase->updated_at_format = $memberCase->updated_at->format('d.m.Y');
+//            $memberCase->member_case_published = trans('personal_cabinet.member_case_published');
+//            $memberCase->member_case_on_moderation = trans('personal_cabinet.member_case_on_moderation');
+//            $memberCase->edit_article = trans('personal_cabinet.edit_article');
+//            $memberCase->delete_article = trans('personal_cabinet.delete_article');
+//        }
+//
+//        return $memberCases;
     }
 
     /**
@@ -113,7 +133,7 @@ class MemberCaseController extends Controller
         if($request->has('image-file'))
         {
             $image = $request->file('image-file');
-            $name = str_random(32).'.' . $image->getClientOriginalExtension();
+            $name = str_random(32).'.'.$image->getClientOriginalExtension();
             $folder = '/images/uploads';
             $memberCase->img = $image->storeAs($folder, $name, 'public');
         }
@@ -125,7 +145,9 @@ class MemberCaseController extends Controller
 
         $request->session()->flash('status-member_case', 'You have successfully created your member case.');
 
-        return redirect()->back();
+        return response()->json([
+            'status' => 'Ok',
+        ]);
     }
 
     /**

@@ -101,6 +101,7 @@ Route::get('download/{id}', 'FileController@download');
 /* ---- */
 
 /* MEMBER CASES FROM PERSONAL CABINET */
+Route::get('member_cases/load_posts', 'MemberCaseController@loadPosts')->name('personal_load_posts');
 Route::delete('member_cases/{id}', 'MemberCaseController@destroy');
 Route::post('member_cases/create_post', 'MemberCaseController@createPost')->name('personal_create_post');//без этого не работает сохранение нового кейса с картинкой
 Route::post('member_cases/update_post', 'MemberCaseController@updatePost')->name('personal_update_post');

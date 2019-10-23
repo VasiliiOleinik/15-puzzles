@@ -378,6 +378,10 @@ $(function() {
     $("#med-history-js, #add-story-js").slideToggle();
   });
 
+    $("#submit-button-form-js").on("click", function() {
+        $("#med-history-js, #add-story-js").slideToggle();
+    });
+
   $("#cancel-edit-form-js").on("click", function() {
     $("#med-history-js, #edit-story-js").slideToggle();
   });
