@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TagLanguage;
 use Auth;
 use App\Models\File;
 use App\Models\User\User;
@@ -53,12 +54,12 @@ class FileController extends Controller
         $user_files = $user_files->get();
 
         $user = Auth::user();
-        //$medicalHistories = $user->medicalHistories()->orderBy('created_at', 'DESC')->paginate(2);
         $memberCases = $user->memberCases()->orderBy('created_at', 'DESC')->paginate(2);
         $img_width = 40;//width of file icon
+        $member_cases_tags = TagLanguage::all();
 
-        return view('personal-cabinet.personal_cabinet', compact(['user_files','user',/*'medicalHistories'*/ 'memberCases', 'search_file',
-                                                                  'img_width']));
+        return view('personal-cabinet.personal_cabinet', compact(['user_files','user', 'memberCases', 'search_file',
+                                                                  'img_width', 'member_cases_tags']));
     }
 
     /**

@@ -6,9 +6,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         let title = $(this).parent().parent().parent().find('.med-history__name').html();
         let content = $(this).parent().parent().parent().find('.med-history__info').html();
         let img = $(this).parent().parent().parent().find('.med-history__img').attr('src');
+        let editor = CKEDITOR.instances.ckeditor_edit;
         $('#edit-story__form').find('[name=id]').val(id);
         $('#edit-story__form').find('.headline.inp').val(title);
-        $('#edit-story__form').find('#ckeditor').text(content);
+        //$('#edit-story__form').find('#ckeditor').text(content);
+        editor.setData(content);
         $('#edit-story__form').find('.image').attr('src',img);
         $('#med-history-js, #edit-story-js').slideToggle();
     });

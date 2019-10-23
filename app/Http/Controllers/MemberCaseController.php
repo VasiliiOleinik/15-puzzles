@@ -108,7 +108,9 @@ class MemberCaseController extends Controller
         'story-tags' => ['required'],
         ]);
 
-        $tags = explode(",",$request['story-tags']);
+        //dd($request['story-tags']);
+        //$tags = explode(",",$request['story-tags']);
+        $tags = $request['story-tags'];
 
         // временно
         //$tags = Tag::all();
@@ -116,18 +118,10 @@ class MemberCaseController extends Controller
         $memberCase = new MemberCase;
 
         $memberCase->user_id = Auth::id();
-        // if($request->img != null){
-        //   $memberCase->img = $request['img'];
-        // }
         $memberCase->title = $request['headline'];
         $memberCase->content = $request['your-story'];
         $memberCase->description = substr($memberCase->content,0,186);
         $memberCase->status = "moderating";
-        // if($request->anonim == null){
-        //   $memberCase->anonym = 0;
-        // }else{
-        //   $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
-        // }
         $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
 
         if($request->has('image-file'))
@@ -164,7 +158,8 @@ class MemberCaseController extends Controller
         'story-tags' => ['required'],
         ]);
 
-        $tags = explode(",",$request['story-tags']);
+        //$tags = explode(",",$request['story-tags']);
+        $tags = $request['story-tags'];
         $memberCase = MemberCase::find($request['id']);
 
         /*if($request->img != null){
@@ -175,11 +170,6 @@ class MemberCaseController extends Controller
         $memberCase->description = substr($memberCase->content,0,186);
         $memberCase->status = "moderating";
         $memberCase->is_active = false;
-//        if($request->anonim == null){
-//          $memberCase->anonym = 0;
-//        }else{
-//          $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
-//        }
         $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
 
         if($request->has('image-file'))
