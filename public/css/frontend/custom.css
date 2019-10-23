@@ -265,9 +265,9 @@ label.invalid {
 }
 
 .factor-diagrams_modal {
-  width: 600px;
-  height: auto;
-  max-height: 500px;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   border: 1px solid #e9edf3;
@@ -284,8 +284,11 @@ label.invalid {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   padding: 30px 29px 60px;
+  line-height: 150%;
 }
-
+.factor-diagrams_modal .factor-diagrams_modal-content h1 {
+  margin-bottom: 20px;
+}
 .factor-diagrams_modal .tab-item__content.markers .methods {
   color: #364458;
   font-weight: 600;
@@ -931,4 +934,9 @@ body .header-login-modal__container .label label.errors {
 }
 .puzzle-15__item>img {
   object-fit: cover;
+}
+
+.more-info-book-modal .book-modal-container {
+  padding: 24px 10px 10px 10px;
+  line-height: 150%;
 }
