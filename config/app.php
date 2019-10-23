@@ -172,7 +172,6 @@ return [
          */
 		Krlove\EloquentModelGenerator\Provider\GeneratorServiceProvider::class,
         Chencha\Share\ShareServiceProvider::class,
-        Barryvdh\Elfinder\ElfinderServiceProvider::class,
         /*
          * Application Service Providers...
          */
