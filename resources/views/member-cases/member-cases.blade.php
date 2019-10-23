@@ -96,12 +96,20 @@
                       </div>
                     </div>
                   </div>
-                  <div class="tag-search">
-                      <div class="labels" style="padding: 0; min-height:48px;">
-                          <input id="story-tags" required>
-                          <input class="add-tags inp" type="text" name="story-tags" id="tags">
-                          <label class="place">@lang('member_cases.your_story_tags') <span class="required">*</span></label>
-                      </div>
+                  {{-- <div class="tag-search">
+                    <div class="labels" style="padding: 0; min-height:48px;">
+                        <input id="story-tags" required>
+                        <input class="add-tags inp" type="text" name="story-tags" id="tags">
+                        <label class="place">@lang('member_cases.your_story_tags') <span class="required">*</span></label>
+                    </div>
+                  </div> --}}
+                  <div class="member-case-tags__cloud">
+                    <span class="member-case-tags__cloud-text">Добавьте теги к вашей истории</span>
+                    <select class="js-example-basic-multiple" name="states[]" multiple="multiple" style="width: 100%">
+                      @foreach($member_cases_tags as $member_cases_tag)
+                        <option value='{{ $member_cases_tag->tag_id }}'>{{ $member_cases_tag->name }}</option>
+                      @endforeach
+                    </select>
                   </div>
                   <div class="footer-form">
                     <label>
