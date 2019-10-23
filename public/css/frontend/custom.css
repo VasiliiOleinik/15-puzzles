@@ -925,3 +925,10 @@ body .header-login-modal__container .label label.errors {
 .member-case-tags__cloud .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
   color: #fff;
 }
+
+.more-info-book-modal .book-modal-container__main-info .main-info-text .book-name {
+  width: 100%;
+}
+.puzzle-15__item>img {
+  object-fit: cover;
+}
