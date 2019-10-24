@@ -756,15 +756,71 @@ div.label {
   background: #fff;
 }
 
-  body .content-wrapper .page-wrapper .main .box .label .dinamic-input-js:not([disabled]):focus ~ .dinamic-label-js,
-  body .content-wrapper .page-wrapper .main .box .label.active .dinamic-input-js:not([disabled]) ~ .dinamic-label-js,
-  body .header-login-modal__container .container-authorization__login .login-inputs form .label .dinamic-input-js:not([disabled]):focus ~ .dinamic-label-js,
-  body .header-login-modal__container .container-authorization__login .login-inputs form .label.active .dinamic-input-js:not([disabled]) ~ .dinamic-label-js,
-  body .header-login-modal__container .container-authorization__reg .reg-inputs form .label .dinamic-input-js:not([disabled]):focus ~ .dinamic-label-js,
-  body .header-login-modal__container .container-authorization__reg .reg-inputs form .label.active .dinamic-input-js:not([disabled]) ~ .dinamic-label-js,
-  body .header-login-modal__container .container-recovery-pass .recovery-pass-inputs form .label .dinamic-input-js:not([disabled]):focus ~ .dinamic-label-js,
-  body .header-login-modal__container .container-recovery-pass .recovery-pass-inputs form .label.active .dinamic-input-js:not([disabled]) ~ .dinamic-label-js {
-    transition: 0.1s ease-in-out;
+body
+  .content-wrapper
+  .page-wrapper
+  .main
+  .box
+  .label
+  .dinamic-input-js:not([disabled]):focus
+  ~ .dinamic-label-js,
+body
+  .content-wrapper
+  .page-wrapper
+  .main
+  .box
+  .label.active
+  .dinamic-input-js:not([disabled])
+  ~ .dinamic-label-js,
+body
+  .header-login-modal__container
+  .container-authorization__login
+  .login-inputs
+  form
+  .label
+  .dinamic-input-js:not([disabled]):focus
+  ~ .dinamic-label-js,
+body
+  .header-login-modal__container
+  .container-authorization__login
+  .login-inputs
+  form
+  .label.active
+  .dinamic-input-js:not([disabled])
+  ~ .dinamic-label-js,
+body
+  .header-login-modal__container
+  .container-authorization__reg
+  .reg-inputs
+  form
+  .label
+  .dinamic-input-js:not([disabled]):focus
+  ~ .dinamic-label-js,
+body
+  .header-login-modal__container
+  .container-authorization__reg
+  .reg-inputs
+  form
+  .label.active
+  .dinamic-input-js:not([disabled])
+  ~ .dinamic-label-js,
+body
+  .header-login-modal__container
+  .container-recovery-pass
+  .recovery-pass-inputs
+  form
+  .label
+  .dinamic-input-js:not([disabled]):focus
+  ~ .dinamic-label-js,
+body
+  .header-login-modal__container
+  .container-recovery-pass
+  .recovery-pass-inputs
+  form
+  .label.active
+  .dinamic-input-js:not([disabled])
+  ~ .dinamic-label-js {
+  transition: 0.1s ease-in-out;
   top: -7px;
   z-index: 5;
   padding: 0px 10px;
@@ -772,25 +828,26 @@ div.label {
   left: 15px;
   font-size: 10px;
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
-  }
+}
 
-  .add-story__form .headline, .add-story__form .story,
-  .personal-left .search-byHistory__labels div {
-    margin: 0px;
-  }
-  .personal-left .search-byHistory__labels div {
-    border: none;
-  }
-  .personal-left .search-byHistory__labels div.label-search input {
-    border-radius: 5px;
-  }
-  .personal-left .search-byHistory__labels .label-search {
-    margin-right: 30px;
-  }
+.add-story__form .headline,
+.add-story__form .story,
+.personal-left .search-byHistory__labels div {
+  margin: 0px;
+}
+.personal-left .search-byHistory__labels div {
+  border: none;
+}
+.personal-left .search-byHistory__labels div.label-search input {
+  border-radius: 5px;
+}
+.personal-left .search-byHistory__labels .label-search {
+  margin-right: 30px;
+}
 
-  .personal-left .search-byHistory__labels div.label-date .dinamic-input-js{
-    width: auto;
-  }
+.personal-left .search-byHistory__labels div.label-date .dinamic-input-js {
+  width: auto;
+}
 .header-login-modal__container .label.required span,
 div.label span.required,
 .dinamic-label-js span {
@@ -977,7 +1034,7 @@ body .header-login-modal__container .label label.errors {
 }
 
 .more-info-book-modal .book-modal-container {
-  padding: 24px 10px 10px 10px;
+  padding: 25px 20px 15px 20px;
   line-height: 150%;
 }
 
@@ -986,4 +1043,10 @@ body .header-login-modal__container .label label.errors {
   height: 20px;
   object-fit: cover;
   border-radius: 50%;
+}
+.search__content-items .search-item {
+  padding: 15px;
+}
+.search__top .label {
+  margin-bottom: 0px;
 }

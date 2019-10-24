@@ -6,8 +6,8 @@
               <form action="{{ route( 'search', app()->getLocale() ) }}" method="GET">
                 <div class="search__top">
                   <div class="label">
-                    <input class="search__input" name="q" type="text" value="{{ $query }}">
-                    <label for="q">@lang('search.placeholder_search')</label>
+                    <input class="search__input dinamic-input-js" name="q" type="text" value="{{ $query }}">
+                    <label for="q" class="dinamic-label-js">@lang('search.placeholder_search')</label>
                   </div>
                   <button class="search__btn">@lang('search.title_search')</button>
                 </div>
