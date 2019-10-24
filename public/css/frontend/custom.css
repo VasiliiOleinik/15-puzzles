@@ -1040,8 +1040,8 @@ body .header-login-modal__container .label label.errors {
 }
 
 .header__login button img {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   object-fit: cover;
   border-radius: 50%;
 }
@@ -1050,4 +1050,7 @@ body .header-login-modal__container .label label.errors {
 }
 .search__top .label {
   margin-bottom: 0px;
+}
+.personal-left .personal-main-info .profile-labels .label input:disabled {
+  color: #888;
 }
