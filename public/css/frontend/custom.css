@@ -754,6 +754,7 @@ div.label {
   display: flex;
   margin-bottom: 20px;
   background: #fff;
+  border-radius: 5px;
 }
 
 body
