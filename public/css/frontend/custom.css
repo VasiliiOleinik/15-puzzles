@@ -980,3 +980,10 @@ body .header-login-modal__container .label label.errors {
   padding: 24px 10px 10px 10px;
   line-height: 150%;
 }
+
+.header__login button img {
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  border-radius: 50%;
+}
