@@ -96,36 +96,32 @@ $(function() {
 
   $(window).on("load", function() {
     $(".dinamic-input-js").each(function(index, item) {
-      if ($(item).val().length != "") {
-        $(item).addClass("active");
-        $(item)
-          .siblings(".dinamic-label-js")
-          .addClass("active");
+      var value = $.trim($(item).val());
+      if (value) {
+          $(item).closest(".label").addClass("active");
+          $(item).addClass("active");
+      } else {
+          $(item).closest(".label").removeClass("active");
+          $(item).removeClass("active");
       }
     });
   });
-  $(".dinamic-input-js").on("click", function() {
-    $(this).addClass("active");
-    $(this)
-      .siblings(".dinamic-label-js")
-      .addClass("active");
-  });
-  $(".dinamic-input-js").on("blur", function() {
-    if ($(this).val().length == "") {
-      $(this).removeClass("active");
-      $(this)
-        .siblings(".dinamic-label-js")
-        .removeClass("active");
-    }
-  });
-  $(".dinamic-input-js").on("focus", function() {
-    if ($(this).val().length == "") {
-      $(this).removeClass("active");
-      $(this)
-        .siblings(".dinamic-label-js")
-        .removeClass("active");
-    }
-  });
+
+  $(function () {
+    $(".label .dinamic-label-js").on("click", function () {
+        $(this).closest(".label").find(".dinamic-input-js").focus();
+    });
+    $(".label .dinamic-input-js").on("keyup", function () {
+      var value = $.trim($(this).val());
+      if (value) {
+          $(this).closest(".label").addClass("active");
+          $(this).addClass("active");
+      } else {
+          $(this).closest(".label").removeClass("active");
+          $(this).removeClass("active");
+      }
+    });
+});
 
   $(".upload-file input").on("change", function(e) {
     var fileName = $(this)[0].files[0].name;

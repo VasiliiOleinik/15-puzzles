@@ -56,7 +56,7 @@
               <div class="subscribe">
                 <h3 class="news-right__title">@lang('member_cases.title_subscribe')</h3>
                 <form id="member-cases-subscribe-form" class="subscribe__input" method="get">
-                  <div class="labels">
+                  <div class="label">
                     @auth
                     <input class="subscribe-field dinamic-input-js" type="text" name="email-subscribe" value="{{ Auth::user()->email }}">
                     <label for="email-subscribe" class="dinamic-label-js">@lang('member_cases.placeholder_subscribe')</label>
@@ -77,11 +77,11 @@
                   @csrf
 
                   <input id="img" type="hidden" name="img">
-                  <div class="labels">
+                  <div class="label">
                     <input class="headline inp dinamic-input-js" type="text" name="headline" required>
                     <label for="headline" class="dinamic-label-js">@lang('member_cases.headline') <span class="required">*</span></label>
                   </div>
-                  <div class="labels">
+                  <div class="label">
                     <textarea class="story inp dinamic-input-js" name="your-story" required></textarea>
                     <label class="textarea dinamic-label-js" for="your-story">@lang('member_cases.your_story') <span class="required">*</span></label>
                   </div>

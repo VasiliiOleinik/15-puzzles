@@ -23,7 +23,7 @@
               <div class="subscribe">
                 <p class="news-right__title">@lang('news.title_subscribe')</p>
                 <form id="news-subscribe-form" class="subscribe__input" method="get">
-                  <div class="labels">
+                  <div class="label">
                     @auth
                       <input class="subscribe-field dinamic-input-js" type="text" name="email-subscribe" value="{{ Auth::user()->email }}">
                       <label for="email-subscribe" class="dinamic-label-js">@lang('news.placeholder_subscribe')</label>

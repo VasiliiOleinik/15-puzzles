@@ -13,16 +13,19 @@
                     </div>
                     <div class="upload-info">
                       <!-- file name -->
-                      <input id="personal_file_name" type="text" placeholder="@lang('personal_cabinet.file_name')" class="form-control @error('file_name') is-invalid @enderror" name="file_name" value="" autocomplete="file_name" autofocus required>
-                      <input id="personal_file_type" type="hidden" name="file_type" required>
-                      <input id="personal_file_size" type="hidden" name="file_size" required>
-                      @error('file_name')
-                        <label class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
-                        </label>
-                      @enderror
-                      <!- - ->
-                      <input class="add-file" type="submit" value="@lang('personal_cabinet.add_button')">
+                      <div class="label">
+                        <input id="personal_file_name" type="text" class="dinamic-input-js form-control @error('file_name') is-invalid @enderror" name="file_name" value="" autofocus required>
+                        <input id="personal_file_type" type="hidden" name="file_type" required>
+                        <input id="personal_file_size" type="hidden" name="file_size" required>
+                        <label for="file_name" class="dinamic-label-js">@lang('personal_cabinet.file_name')<span>*</span></label>
+                        @error('file_name')
+                          <label class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                          </label>
+                        @enderror
+                        <!- - ->
+                      </div>
+                        <input class="add-file" type="submit" value="@lang('personal_cabinet.add_button')">
                     </div>
                   </form>
                 </div>
