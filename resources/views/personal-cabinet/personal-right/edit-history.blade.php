@@ -37,7 +37,7 @@
             </div>
         </div>
         <div class="member-case-tags__cloud">
-            <span class="member-case-tags__cloud-text">Добавьте теги к вашей истории</span>
+            <span class="member-case-tags__cloud-text">@lang('member_cases.your_story_tags')</span>
             <select class="js-example-basic-multiple" name="story-tags[]" multiple="multiple" style="width: 100%">
                 @foreach($member_cases_tags as $member_cases_tag)
                     <option value='{{ $member_cases_tag->tag_id }}'>{{ $member_cases_tag->name }}</option>

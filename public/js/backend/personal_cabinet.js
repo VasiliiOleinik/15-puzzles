@@ -25,7 +25,7 @@ $( document ).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "/member_cases/create_post",
+            url: "member_cases/create_post",
             data: formData,
             contentType: false,
             processData: false,
@@ -98,7 +98,7 @@ $( document ).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "/member_cases/update_post",
+            url: "member_cases/update_post",
             data: formData,
             contentType: false,
             processData: false,

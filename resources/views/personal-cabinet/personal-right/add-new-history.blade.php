@@ -7,6 +7,7 @@
             <label for="headline" class="dinamic-label-js">@lang('personal_cabinet.headline')</label>
             <label id="add-story-headline-error" class="invalid" for="headline"></label>
         </div>
+        <h3 class="add-images__title">@lang('member_cases.your_story')</h3>
         <div class="labels">
             <textarea id="ckeditor_add" class="story inp dinamic-input-js" name="your-story"></textarea>
             <label id="add-story-your-story-error" class="invalid" for="your-story"></label>
@@ -24,7 +25,7 @@
             </div>
         </div>
         <div class="member-case-tags__cloud">
-            <span class="member-case-tags__cloud-text">Добавьте теги к вашей истории</span>
+            <span class="member-case-tags__cloud-text">@lang('member_cases.your_story_tags')</span>
             <select class="js-example-basic-multiple" name="story-tags[]" multiple="multiple" style="width: 100%">
                 @foreach($member_cases_tags as $member_cases_tag)
                     <option value='{{ $member_cases_tag->tag_id }}'>{{ $member_cases_tag->name }}</option>
