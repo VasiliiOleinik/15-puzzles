@@ -15,12 +15,13 @@
     <form class="add-story__form" id="edit-story__form" method="post" action="{{ route('personal_update_post') }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="id" value="">
-        <div class="labels">
+        <div class="label">
             <input class="headline inp dinamic-input-js" type="text" name="headline">
             <label for="headline" class="dinamic-label-js">@lang('personal_cabinet.headline')</label>
             <label id="edit-story-headline-error" class="invalid" for="headline"></label>
         </div>
-        <div class="labels">
+        <h3 class="add-images__title">@lang('member_cases.your_story')</h3>
+        <div class="label">
             <textarea id="ckeditor_edit" class="story inp" name="your-story"></textarea>
             <label id="edit-story-your-story-error" class="invalid" for="your-story"></label>
         </div>

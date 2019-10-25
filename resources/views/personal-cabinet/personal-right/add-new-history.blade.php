@@ -2,13 +2,13 @@
     <h3 class="add-story__title">@lang('personal_cabinet.add_your_story')</h3>
     <form class="add-story__form" id="add-story__form" method="post" enctype="multipart/form-data">
         @csrf
-        <div class="labels">
+        <div class="label">
             <input class="headline inp dinamic-input-js" type="text" name="headline">
             <label for="headline" class="dinamic-label-js">@lang('personal_cabinet.headline')</label>
             <label id="add-story-headline-error" class="invalid" for="headline"></label>
         </div>
         <h3 class="add-images__title">@lang('member_cases.your_story')</h3>
-        <div class="labels">
+        <div class="label">
             <textarea id="ckeditor_add" class="story inp dinamic-input-js" name="your-story"></textarea>
             <label id="add-story-your-story-error" class="invalid" for="your-story"></label>
         </div>
