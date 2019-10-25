@@ -48,8 +48,6 @@ AdminSection::registerModel(MemberCase::class, function (ModelConfiguration $mod
 
 AdminSection::registerModel(\App\Models\PageLang::class, function (ModelConfiguration $model) {
     $model->created(function ($model, \App\Models\PageLang $data) {
-       dd($data);
-
         Cache::clear();
     });
 });

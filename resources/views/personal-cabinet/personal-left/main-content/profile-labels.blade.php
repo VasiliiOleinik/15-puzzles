@@ -42,7 +42,7 @@
                     </div>
 
                     <div class="label required">
-                      <input class="date-inp" class="dinamic-input-js" id="birthday" name="birthday" value="{{Auth::user()->birthday}}" type="text">
+                      <input class="date-inp dinamic-input-js" id="birthday" name="birthday" value="{{Auth::user()->birthday}}" type="text">
                       <label for="dob" class="dinamic-label-js">@lang('personal_cabinet.date_of_birth')<span>*</span></label>
                       @error('birthday')
                         <span class="invalid-feedback" role="alert">

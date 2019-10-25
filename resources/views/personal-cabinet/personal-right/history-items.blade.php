@@ -1,7 +1,14 @@
 <div class="med-history" id="med-history-js">
     @foreach($memberCases as $memberCase)
         <div class="med-history-item">
-            <h3 class="med-history__name">{{$memberCase->title}}</h3>
+            <div class="member_case_title">
+                <h3 class="med-history__name">{{$memberCase->title}}</h3>
+                @if($memberCase->is_active)
+                    <label class="member_case_published">@lang('personal_cabinet.member_case_published')</label>
+                @else
+                    <label class="member_case_on_moder">@lang('personal_cabinet.member_case_on_moderation')</label>
+                @endif
+            </div>
             @if( $memberCase->img == null )
                 <img class="med-history__img" src="/img/med-history.png" alt="">
             @else

@@ -116,39 +116,34 @@ $(function () {
 
     // Скрываю label когда input активен (personal page)
 
-    $(window).on("load", function () {
-        $(".dinamic-input-js").each(function (index, item) {
-            if ($(item).val().length != "") {
-                $(item).addClass("active");
-                $(item)
-                    .siblings(".dinamic-label-js")
-                    .addClass("active");
-            }
-        });
+  $(window).on("load", function() {
+    $(".dinamic-input-js").each(function(index, item) {
+      var value = $.trim($(item).val());
+      if (value) {
+          $(item).closest(".label").addClass("active");
+          $(item).addClass("active");
+      } else {
+          $(item).closest(".label").removeClass("active");
+          $(item).removeClass("active");
+      }
     });
-    $(".dinamic-input-js").on("click", function () {
-        $(this).addClass("active");
-        $(this)
-            .siblings(".dinamic-label-js")
-            .addClass("active");
+  });
+
+  $(function () {
+    $(".label .dinamic-label-js").on("click", function () {
+        $(this).closest(".label").find(".dinamic-input-js").focus();
     });
-    $(".dinamic-input-js").on("blur", function () {
-        if ($(this).val().length == "") {
-            $(this).removeClass("active");
-            $(this)
-                .siblings(".dinamic-label-js")
-                .removeClass("active");
-        }
+    $(".label .dinamic-input-js").on("keyup", function () {
+      var value = $.trim($(this).val());
+      if (value) {
+          $(this).closest(".label").addClass("active");
+          $(this).addClass("active");
+      } else {
+          $(this).closest(".label").removeClass("active");
+          $(this).removeClass("active");
+      }
     });
-    $(".dinamic-input-js").on("focus", function () {
-        if ($(this).val().length == "") {
-            $(this).removeClass("active");
-            $(this)
-                .siblings(".dinamic-label-js")
-                .removeClass("active");
-        }
-        console.log('focus');
-    });
+});
 
     $(".upload-file input").on("change", function (e) {
         var fileName = $(this)[0].files[0].name;
@@ -861,7 +856,6 @@ function lazyScroll(anchor, speed) {
         $("html, body").animate({scrollTop: scrollRange}, speed);
     });
 }
-
 //hover
 
 function toggleColor(elem, isColor) {
@@ -887,7 +881,6 @@ function toggleColor(elem, isColor) {
             .removeClass("show");
     }
 }
-
 function hoverFactor() {
     $(".js-item").hover(
         function () {
@@ -912,7 +905,6 @@ function hoverFactor() {
         }
     );
 }
-
 hoverFactor();
 
 // Прелоадер на главной
@@ -924,4 +916,9 @@ $(window).on("load", function () {
             overflow: "auto",
             height: "auto"
         });
+});
+
+// Member cases multi-seselc
+$(function() {
+  $('.js-example-basic-multiple').select2();
 });

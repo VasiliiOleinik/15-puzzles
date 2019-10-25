@@ -1,5 +1,6 @@
 <script src="{{ asset('js/frontend/libs.min.js') }}"></script>
 <script src="{{ asset('js/frontend/anime.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
 <script src="{{ asset('js/frontend/common.js') }}"></script>
 <script src="{{ asset('js/frontend/jquery.mask.min.js') }}"></script>
 <script src="{{ asset('js/frontend/jquery-ui.min.js') }}"></script>

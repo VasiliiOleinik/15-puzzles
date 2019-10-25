@@ -41,4 +41,6 @@ return [
     'cancel' => 'Отмена',
     'change_your_story' => 'Измените вашу историю',
     'save_note' => 'Сохранить заметку',
+    'member_case_published' => 'Опубликовано',
+    'member_case_on_moderation' => 'На модерации',
 ];
