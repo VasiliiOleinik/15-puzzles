@@ -44,11 +44,12 @@
                             <span class="post__description">
                       {!!$article->content!!}
                     </span>
-                            <div class="post__footer"><a class="post__date" href="javascript:void(0)">
-                                    {{$article->article->updated_at->format('d.m.Y')}}</a>
-                                <a class="post__author" href="javascript:void(0)">
+                            <div class="post__footer">
+                                <span class="post__date" >
+                                    {{$article->article->updated_at->format('d.m.Y')}}</span>
+                                <span  class="post__author" >
                                     {{$article->article->author}}
-                                </a>
+                                </span>
                             </div>
                         </div>
                     </div>
