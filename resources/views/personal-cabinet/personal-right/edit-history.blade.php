@@ -16,11 +16,13 @@
         @csrf
         <input type="hidden" name="id" value="">
         <div class="labels">
-            <input class="headline inp dinamic-input-js" type="text" name="headline" required>
+            <input class="headline inp dinamic-input-js" type="text" name="headline">
             <label for="headline" class="dinamic-label-js">@lang('personal_cabinet.headline')</label>
+            <label id="edit-story-headline-error" class="invalid" for="headline"></label>
         </div>
         <div class="labels">
-            <textarea id="ckeditor_edit" class="story inp" name="your-story" required ></textarea>
+            <textarea id="ckeditor_edit" class="story inp" name="your-story"></textarea>
+            <label id="edit-story-your-story-error" class="invalid" for="your-story"></label>
         </div>
         <div class="add-images">
             <h3 class="add-images__title">@lang('personal_cabinet.add_image')</h3>
@@ -41,6 +43,7 @@
                     <option value='{{ $member_cases_tag->tag_id }}'>{{ $member_cases_tag->name }}</option>
                 @endforeach
             </select>
+            <label id="edit-story-story-tags-error" class="invalid" for="story-tags"></label>
         </div>
         <div class="footer-form">
             <label>

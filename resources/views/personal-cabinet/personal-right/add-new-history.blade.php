@@ -3,12 +3,14 @@
     <form class="add-story__form" id="add-story__form" method="post" enctype="multipart/form-data">
         @csrf
         <div class="labels">
-            <input class="headline inp dinamic-input-js" type="text" name="headline" required>
+            <input class="headline inp dinamic-input-js" type="text" name="headline">
             <label for="headline" class="dinamic-label-js">@lang('personal_cabinet.headline')</label>
+            <label id="add-story-headline-error" class="invalid" for="headline"></label>
         </div>
         <div class="labels">
-            <textarea id="ckeditor_add" class="story inp dinamic-input-js" name="your-story" required></textarea>
-            <label class="textarea" for="your-story" class="dinamic-label-js">@lang('personal_cabinet.your_story')</label>
+            <textarea id="ckeditor_add" class="story inp dinamic-input-js" name="your-story"></textarea>
+{{--            <label class="textarea" for="your-story" class="dinamic-label-js">@lang('personal_cabinet.your_story')</label>--}}
+            <label id="add-story-your-story-error" class="invalid" for="your-story"></label>
         </div>
         <div class="add-images">
             <h3 class="add-images__title">@lang('personal_cabinet.add_image')</h3>
@@ -29,6 +31,7 @@
                     <option value='{{ $member_cases_tag->tag_id }}'>{{ $member_cases_tag->name }}</option>
                 @endforeach
             </select>
+            <label id="add-story-story-tags-error" class="invalid" for="story-tags"></label>
         </div>
         <div class="footer-form">
             <label>

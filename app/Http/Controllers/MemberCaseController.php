@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MemberCaseRequest;
 use App\Models\PageLang;
 use App\Models\Tag;
 use App\Models\TagLanguage;
@@ -77,21 +78,6 @@ class MemberCaseController extends Controller
         {
             $memberCase->img = asset($memberCase->img);
         }
-        //$memberCase->img = asset($memberCase->img);
-//        $memberCases = MemberCase::with('user')
-//            //->where('status','=','show')
-//            ->where('is_active', true)
-//            ->orderBy('id', 'DESC')
-//            ->get();
-//            //->paginate(4);
-//        foreach ($memberCases as $memberCase) {
-//            $memberCase->img = asset($memberCase->img);
-//            $memberCase->updated_at_format = $memberCase->updated_at->format('d.m.Y');
-//            $memberCase->member_case_published = trans('personal_cabinet.member_case_published');
-//            $memberCase->member_case_on_moderation = trans('personal_cabinet.member_case_on_moderation');
-//            $memberCase->edit_article = trans('personal_cabinet.edit_article');
-//            $memberCase->delete_article = trans('personal_cabinet.delete_article');
-//        }
 
         return $memberCase;
     }
@@ -111,21 +97,9 @@ class MemberCaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createPost(Request $request)
+    public function createPost(MemberCaseRequest $request)
     {
-        $validatedData = $request->validate([
-        'headline' => ['required', 'string', 'max:191'],
-        'your-story' => ['required'],
-        //'img' => ['nullable'],
-        'story-tags' => ['required'],
-        ]);
-
-        //dd($request['story-tags']);
         $tags = explode(",",$request['story-tags']);
-        //$tags = $request['story-tags'];
-
-        // временно
-        //$tags = Tag::all();
 
         $memberCase = new MemberCase;
 
@@ -174,22 +148,12 @@ class MemberCaseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function updatePost(Request $request)
+    public function updatePost(MemberCaseRequest $request)
     {
-        $validatedData = $request->validate([
-        'headline' => ['required', 'string', 'max:191'],
-        'your-story' => ['required'],
-        //'img' => ['nullable'],
-        'story-tags' => ['required'],
-        ]);
-
         $tags = explode(",",$request['story-tags']);
-        //$tags = $request['story-tags'];
+
         $memberCase = MemberCase::find($request['id']);
 
-        /*if($request->img != null){
-          $memberCase->img = $request['img'];
-        }*/
         $memberCase->title = $request['headline'];
         $memberCase->content = $request['your-story'];
         $memberCase->description = substr($memberCase->content,0,186);

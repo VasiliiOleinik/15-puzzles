@@ -58,8 +58,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $("#add-story__form").on("submit", function (e) {
         e.preventDefault();
 
+        $("#add-story-headline-error").text("");
+        $("#add-story-your-story-error").text("");
+        $("#add-story-story-tags-error").text("");
         let formData = new FormData();
-        let image_file = $(e.target).find('[name="image-file"]').prop('files')[0];
         CKEDITOR.instances.ckeditor_add.updateElement();
         formData.append('headline', $(e.target).find('[name="headline"]').val());
         formData.append('your-story', $(e.target).find('[name="your-story"]').val());
@@ -106,15 +108,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 $("#med-history-js, #add-story-js").slideToggle();
             },
             error: function (data) {
-                // $("#preloader").css("display", "none");
-                // for (const key in data.responseJSON.errors) {
-                //     if (data.responseJSON.errors.hasOwnProperty(key)) {
-                //         const element = data.responseJSON.errors[key];
-                //         $("#" + key + "-error").text(element[0]);
-                //     }
-                // }
-                // $("#add-comment-form button").prop("disabled", false);
-                // $("#send-comment").removeClass("disabled-button");
+                $("#preloader").css("display", "none");
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $("#add-story-" + key + "-error").text(element[0]);
+                    }
+                }
             }
         });
     });
@@ -123,6 +123,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $("#edit-story__form").on("submit", function (e) {
         e.preventDefault();
 
+        $("#edit-story-headline-error").text("");
+        $("#edit-story-your-story-error").text("");
+        $("#edit-story-story-tags-error").text("");
         let formData = new FormData();
         CKEDITOR.instances.ckeditor_edit.updateElement();
         formData.append('id', $(e.target).find('[name=id]').val());
@@ -158,15 +161,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 $("#med-history-js, #edit-story-js").slideToggle();
             },
             error: function (data) {
-                // $("#preloader").css("display", "none");
-                // for (const key in data.responseJSON.errors) {
-                //     if (data.responseJSON.errors.hasOwnProperty(key)) {
-                //         const element = data.responseJSON.errors[key];
-                //         $("#" + key + "-error").text(element[0]);
-                //     }
-                // }
-                // $("#add-comment-form button").prop("disabled", false);
-                // $("#send-comment").removeClass("disabled-button");
+                $("#preloader").css("display", "none");
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $("#edit-story-" + key + "-error").text(element[0]);
+                    }
+                }
             }
         });
     });
