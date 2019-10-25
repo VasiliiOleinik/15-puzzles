@@ -1,4 +1,4 @@
-@foreach($factors as $factor )
+@foreach($factors as $factor)
     <div class="table_row" id="row{{$factor->id}}">
         <div class="table-column first">
             <p class="table-text cell-factor-name">{{isset($factor->name) ? $factor->name : false}}</p>
@@ -19,10 +19,14 @@
             @endif
         </div>
         <div class="table-column fourth">
-            @foreach($factor->factor->protocols as $protocol)
+            @foreach($factor->factor->diseases as $diseases)
+                {{dd($diseases->protocols)}}
+
+                @foreach($diseases->protocols as $protocol)
                 <a data-src="#hidden-content" href="javascript:;" class="table-method show_protocol" data-id="{{$protocol->protocolLanguages->id}}">
                     {{$protocol->protocolLanguages->name}}
                 </a>
+                @endforeach
             @endforeach
         </div>
         <div class="table-column fifth">

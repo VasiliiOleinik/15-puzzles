@@ -3,6 +3,7 @@
 namespace App\Models\Factor;
 
 use App\Models\Organ;
+use App\Scopes\LanguageScope;
 use Illuminate\Database\Eloquent\Model;
 
 /**

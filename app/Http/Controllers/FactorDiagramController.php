@@ -12,12 +12,21 @@ use App\Models\Page;
 use App\Models\Method;
 use App\Models\PageLang;
 use App\Models\Type;
+use App\Repository\FactorDiagramRepository;
 use App\Scopes\LanguageScope;
+use App\Service\HelperService;
 use App\Service\Properties;
 use Illuminate\Http\Request;
 
 class FactorDiagramController extends Controller
 {
+    private $repository;
+
+    public function __construct(FactorDiagramRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -47,7 +56,9 @@ class FactorDiagramController extends Controller
 
     public function printRowAboutFactor(Request $request)
     {
-        $factors = FactorLanguage::whereIn('id', $request->id)->get();
+        $factors = $this->repository->getProtocolsMarkers($request->id);
+        $factors = HelperService::uniqFilteredData($factors, ['factors', 'protocols', 'markers']);
+
         return view('factor-diagram.print_factor_row', compact('factors'));
     }
 
