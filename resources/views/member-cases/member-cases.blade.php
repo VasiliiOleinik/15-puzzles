@@ -73,17 +73,19 @@
               @auth
               <div class="add-story">
                 <h3 class="add-story__title">@lang('member_cases.add_your_story')</h3>
-                <form class="add-story__form"  method="post" action="{{ route('create_post', app()->getLocale()) }}" enctype="multipart/form-data">
+                <form class="add-story__form" id="add-member-case__form" method="post" enctype="multipart/form-data">
                   @csrf
 
                   <input id="img" type="hidden" name="img">
                   <div class="label">
-                    <input class="headline inp dinamic-input-js" type="text" name="headline" required>
-                    <label for="headline" class="dinamic-label-js">@lang('member_cases.headline') <span class="required">*</span></label>
+                      <input class="headline inp dinamic-input-js" type="text" name="headline">
+                      <label for="headline" class="dinamic-label-js">@lang('member_cases.headline') <span class="required">*</span></label>
+                      <label id="add-member-case-headline-error" class="invalid" for="headline"></label>
                   </div>
+                    <h3 class="add-images__title">@lang('member_cases.your_story')</h3>
                   <div class="label">
-                    <textarea class="story inp dinamic-input-js" name="your-story" required></textarea>
-                    <label class="textarea dinamic-label-js" for="your-story">@lang('member_cases.your_story') <span class="required">*</span></label>
+                      <textarea id="ckeditor_add_member_case" class="story inp dinamic-input-js" name="your-story"></textarea>
+                      <label id="add-member-case-your-story-error" class="invalid" for="your-story"></label>
                   </div>
                   <div class="add-images">
                     <h3 class="add-images__title">@lang('member_cases.add_image')</h3>
@@ -97,12 +99,13 @@
                     </div>
                   </div>
                   <div class="member-case-tags__cloud">
-                    <span class="member-case-tags__cloud-text">Добавьте теги к вашей истории</span>
-                    <select class="js-example-basic-multiple" name="story-tags[]" multiple="multiple" style="width: 100%">
-                      @foreach($member_cases_tags as $member_cases_tag)
-                        <option value='{{ $member_cases_tag->tag_id }}'>{{ $member_cases_tag->name }}</option>
-                      @endforeach
-                    </select>
+                      <span class="member-case-tags__cloud-text">@lang('member_cases.your_story_tags')</span>
+                      <select class="js-example-basic-multiple" name="story-tags[]" multiple="multiple" style="width: 100%">
+                          @foreach($member_cases_tags as $member_cases_tag)
+                              <option value='{{ $member_cases_tag->tag_id }}'>{{ $member_cases_tag->name }}</option>
+                          @endforeach
+                      </select>
+                      <label id="add-member-case-story-tags-error" class="invalid" for="your-story"></label>
                   </div>
                   <div class="footer-form">
                     <label>
@@ -121,4 +124,10 @@
             </div>
           </div>
         </main>
+
+        <script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+
+        <script>
+            CKEDITOR.replace( 'ckeditor_add_member_case' );
+        </script>
 @endsection
