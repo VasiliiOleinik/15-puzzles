@@ -66,4 +66,5 @@ return [
     (new Page(\App\Models\Country::class))->setTitle('Страны'),
     (new Page(\App\Models\Group::class))->setTitle('Типы факторов'),
     (new Page(\App\Models\Police\Police::class))->setTitle('Политики'),
+    (new Page(\App\Models\Footer::class))->setTitle('Футер'),
 ];

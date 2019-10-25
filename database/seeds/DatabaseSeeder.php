@@ -67,5 +67,7 @@ class DatabaseSeeder extends Seeder
         $this->call(GroupLanguageSeeder::class);
 
         $this->call(PoliceTableSeeder::class);
+        $this->call(FooterSeeder::class);
+        $this->call(FooterLangSeeder::class);
     }
 }
