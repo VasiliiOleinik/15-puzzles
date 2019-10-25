@@ -7,6 +7,7 @@ use App\Models\Tag;
 use App\Models\TagLanguage;
 use App\Models\MemberCase;
 use App\Models\Comment;
+use Debugbar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
@@ -64,8 +65,19 @@ class MemberCaseController extends Controller
 
     }
 
-    public function loadPosts()
+    public function loadPost($id)
     {
+        $memberCase = MemberCase::find($id);
+        $memberCase->story_tags = $memberCase->tags()->pluck('tag_id');
+        if($memberCase->img == null)
+        {
+            $memberCase->img = asset('/img/med-history.png');
+        }
+        else
+        {
+            $memberCase->img = asset($memberCase->img);
+        }
+        //$memberCase->img = asset($memberCase->img);
 //        $memberCases = MemberCase::with('user')
 //            //->where('status','=','show')
 //            ->where('is_active', true)
@@ -80,8 +92,8 @@ class MemberCaseController extends Controller
 //            $memberCase->edit_article = trans('personal_cabinet.edit_article');
 //            $memberCase->delete_article = trans('personal_cabinet.delete_article');
 //        }
-//
-//        return $memberCases;
+
+        return $memberCase;
     }
 
     /**
@@ -109,8 +121,8 @@ class MemberCaseController extends Controller
         ]);
 
         //dd($request['story-tags']);
-        //$tags = explode(",",$request['story-tags']);
-        $tags = $request['story-tags'];
+        $tags = explode(",",$request['story-tags']);
+        //$tags = $request['story-tags'];
 
         // временно
         //$tags = Tag::all();
@@ -123,6 +135,7 @@ class MemberCaseController extends Controller
         $memberCase->description = substr($memberCase->content,0,186);
         $memberCase->status = "moderating";
         $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+
 
         if($request->has('image-file'))
         {
@@ -138,10 +151,23 @@ class MemberCaseController extends Controller
         $memberCase->tags()->attach($tags);
 
         $request->session()->flash('status-member_case', 'You have successfully created your member case.');
+        // возвращаем созданную историю
+        if($memberCase->img == null)
+        {
+            $memberCase->img = asset('/img/med-history.png');
+        }
+        else
+        {
+            $memberCase->img = asset($memberCase->img);
+        }
+        $memberCase->img = asset($memberCase->img);
+        $memberCase->updated_at_format = $memberCase->updated_at->format('d.m.Y');
+        $memberCase->member_case_on_moderation = trans('personal_cabinet.member_case_on_moderation');
+        $memberCase->edit_article = trans('personal_cabinet.edit_article');
+        $memberCase->delete_article = trans('personal_cabinet.delete_article');
+        $memberCase->content = str_limit(strip_tags($memberCase->content), $limit = 400, $end = '...');
 
-        return response()->json([
-            'status' => 'Ok',
-        ]);
+        return $memberCase;
     }
 
     /**
@@ -158,8 +184,8 @@ class MemberCaseController extends Controller
         'story-tags' => ['required'],
         ]);
 
-        //$tags = explode(",",$request['story-tags']);
-        $tags = $request['story-tags'];
+        $tags = explode(",",$request['story-tags']);
+        //$tags = $request['story-tags'];
         $memberCase = MemberCase::find($request['id']);
 
         /*if($request->img != null){
@@ -171,9 +197,11 @@ class MemberCaseController extends Controller
         $memberCase->status = "moderating";
         $memberCase->is_active = false;
         $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
+        Debugbar::info($request['anonym']);
 
         if($request->has('image-file'))
         {
+            Storage::disk('public')->delete($memberCase->img);
             $image = $request->file('image-file');
             $name = str_random(32).'.' . $image->getClientOriginalExtension();
             $folder = '/images/uploads';
@@ -181,11 +209,28 @@ class MemberCaseController extends Controller
         }
 
         $memberCase->save();
+        $memberCase->tags()->detach();
         $memberCase->tags()->attach($tags);
 
         $request->session()->flash('status-member_case', 'You have successfully created your member case.');
 
-        return redirect()->back();
+        // возвращаем созданную историю
+        if($memberCase->img == null)
+        {
+            $memberCase->img = asset('/img/med-history.png');
+        }
+        else
+        {
+            $memberCase->img = asset($memberCase->img);
+        }
+        $memberCase->img = asset($memberCase->img);
+        $memberCase->updated_at_format = $memberCase->updated_at->format('d.m.Y');
+        $memberCase->member_case_on_moderation = trans('personal_cabinet.member_case_on_moderation');
+        $memberCase->edit_article = trans('personal_cabinet.edit_article');
+        $memberCase->delete_article = trans('personal_cabinet.delete_article');
+        $memberCase->content = str_limit(strip_tags($memberCase->content), $limit = 400, $end = '...');
+
+        return $memberCase;
     }
 
     /**

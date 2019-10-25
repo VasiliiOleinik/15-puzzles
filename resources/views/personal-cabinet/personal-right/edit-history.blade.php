@@ -29,7 +29,7 @@
                     <input id="edit-story-img"  type="hidden" name="img-medical-history">
                     <div class="imageWrapper"><img class="image" src="/img/upload.png"></div>
                     <button class="file-upload">
-                        <input class="file-input" type="file" placeholder="@lang('personal_cabinet.choose_file')">
+                        <input name="image-file" class="file-input" type="file" placeholder="@lang('personal_cabinet.choose_file')">
                     </button>
                 </div>
             </div>
@@ -46,7 +46,7 @@
             <label>
                 <input class="checkbox" name="anonym" type="checkbox"><span class="checkbox-custom"></span><span class="label">@lang('member_cases.do_not_publish')</span>
             </label>
-            <input class="submit-form" type="submit" value="@lang('personal_cabinet.save_note')">
+            <input class="submit-form" type="submit" value="@lang('personal_cabinet.save_note')" id="submit-edit-form-js">
             <input class="cancel-form" type="button" value="@lang('personal_cabinet.cancel')" id="cancel-edit-form-js">
         </div>
     </form>

@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     usedTags('memberCases', 'all');
 
-    function tagsEmpty() {
-        return $("#tags").val().split(',').length == 1 && $("#tags").val().split(',') == "";
-    };
+    // function tagsEmpty() {
+    //     return $("#tags").val().split(',').length == 1 && $("#tags").val().split(',') == "";
+    // };
 
     /* ------------------ */
     /* ------------------ */
@@ -42,11 +42,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $('#img').val(img);
     };
 
-    $('.submit-form').on('click', function (e) {
-        if (!tagsEmpty()) { 
-            $('#story-tags').val( $('#tags').val().split(',') );
-        }
-    });
+    // $('.submit-form').on('click', function (e) {
+    //     if (!tagsEmpty()) {
+    //         $('#story-tags').val( $('#tags').val().split(',') );
+    //     }
+    // });
 
     // Скрываю label когда input активен (personal page)
     $(
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 "font-size": "10px",
                 "box-shadow": "0px 0px 3px 0px rgba(0,0,0,0.1)"
             });
-            
+
     });
     $(
         ".labels"

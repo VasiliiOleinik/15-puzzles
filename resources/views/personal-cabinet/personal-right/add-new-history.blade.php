@@ -1,13 +1,13 @@
 <div class="add-story" id="add-story-js">
     <h3 class="add-story__title">@lang('personal_cabinet.add_your_story')</h3>
-    <form class="add-story__form" method="post" enctype="multipart/form-data">
+    <form class="add-story__form" id="add-story__form" method="post" enctype="multipart/form-data">
         @csrf
         <div class="labels">
             <input class="headline inp dinamic-input-js" type="text" name="headline" required>
             <label for="headline" class="dinamic-label-js">@lang('personal_cabinet.headline')</label>
         </div>
         <div class="labels">
-            <textarea id="elfinder1" class="story inp dinamic-input-js" name="your-story" required></textarea>
+            <textarea id="ckeditor_add" class="story inp dinamic-input-js" name="your-story" required></textarea>
             <label class="textarea" for="your-story" class="dinamic-label-js">@lang('personal_cabinet.your_story')</label>
         </div>
         <div class="add-images">
@@ -22,13 +22,6 @@
                 </div>
             </div>
         </div>
-        {{--<div class="tag-search">
-            <div class="labels" style="padding: 0; min-height:48px;">
-                <input id="story-tags" required>
-                <input class="add-tags inp" type="text" name="story-tags" id="tags">
-                <label class="place">@lang('member_cases.your_story_tags') <span class="required">*</span></label>
-            </div>
-        </div>--}}
         <div class="member-case-tags__cloud">
             <span class="member-case-tags__cloud-text">Добавьте теги к вашей истории</span>
             <select class="js-example-basic-multiple" name="story-tags[]" multiple="multiple" style="width: 100%">
@@ -50,5 +43,5 @@
 <script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 
 <script>
-    CKEDITOR.replace( 'your-story' );
+    CKEDITOR.replace( 'ckeditor_add' );
 </script>

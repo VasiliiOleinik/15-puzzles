@@ -15,12 +15,12 @@
                 <img class="med-history__img" src="{{ asset($memberCase->img) }}" alt="">
             @endif
             <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">{{$memberCase->updated_at->format('d.m.Y')}}</a>
-                <div class="med-history__settings-right" obj-id="{{$memberCase->id}}" data-tags="{{ $memberCase->tags->pluck('id')->implode(',') }}">
+                <div class="med-history__settings-right" obj-id="{{$memberCase->id}}">
                     <a class="edit-artile" id="edit-article-js" href="javascript:void(0)">@lang('personal_cabinet.edit_article')</a>
                     <a class="delete-artile" id="delete-article-js" href="javascript:void(0)">@lang('personal_cabinet.delete_article')</a>
                 </div>
             </div>
-            <p class="med-history__info">{!! $memberCase->content !!}</p>
+            <p class="med-history__info">{{ str_limit(strip_tags($memberCase->content), $limit = 400, $end = '...') }}</p>
         </div>
     @endforeach
     <div class="pagination">

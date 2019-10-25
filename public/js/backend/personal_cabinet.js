@@ -3,16 +3,39 @@ document.addEventListener("DOMContentLoaded", function (event) {
     //при нажатии на edit article заполняем поля формы
     $('.edit-artile').on('click', function () {
         let id = $(this).parent().attr('obj-id');
-        let title = $(this).parent().parent().parent().find('.med-history__name').html();
-        let content = $(this).parent().parent().parent().find('.med-history__info').html();
-        let img = $(this).parent().parent().parent().find('.med-history__img').attr('src');
-        let editor = CKEDITOR.instances.ckeditor_edit;
-        $('#edit-story__form').find('[name=id]').val(id);
-        $('#edit-story__form').find('.headline.inp').val(title);
-        //$('#edit-story__form').find('#ckeditor').text(content);
-        editor.setData(content);
-        $('#edit-story__form').find('.image').attr('src',img);
-        $('#med-history-js, #edit-story-js').slideToggle();
+        $.ajax({
+            type: "GET",
+            url: "/member_cases/load_post/" + id,
+            // data: {
+            //     "_token": $('meta[name="csrf-token"]').attr('content'),
+            // },
+            success: function (data) {
+                console.log(data);
+                let editor = CKEDITOR.instances.ckeditor_edit;
+                $('#edit-story__form').find('[name=id]').val(data.id);
+                $('#edit-story__form').find('.headline.inp').val(data.title);
+                $('#edit-story__form').find('.js-example-basic-multiple').val(data.story_tags).trigger('change');
+                $('#edit-story__form').find('[name="anonym"]').prop('checked', false);
+                if (data.anonym) {
+                    $('#edit-story__form').find('[name="anonym"]').prop('checked', true);
+                }
+
+                editor.setData(data.content);
+                $('#edit-story__form').find('.image').attr('src', data.img);
+                $('#med-history-js, #edit-story-js').slideToggle();
+            },
+            error: function (data) {
+                // $("#preloader").css("display", "none");
+                // for (const key in data.responseJSON.errors) {
+                //     if (data.responseJSON.errors.hasOwnProperty(key)) {
+                //         const element = data.responseJSON.errors[key];
+                //         $("#" + key + "-error").text(element[0]);
+                //     }
+                // }
+                // $("#add-comment-form button").prop("disabled", false);
+                // $("#send-comment").removeClass("disabled-button");
+            }
+        });
     });
 
     $(".delete-artile").unbind("click").click(function () {
@@ -33,83 +56,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     });
 
-    // Получить список историй
-    // function loadMemberCasesList() {
-    //     $.ajax({
-    //         type: "GET",
-    //         url: "/member_cases/load_posts",
-    //         success: function(data) {
-    //             //$("#preloader").css("display", "none");
-    //
-    //             $('.med-history').find('[name="member-cases-list"]').empty();
-    //             for (const item of data) {
-    //                 let publishedStatusClass = '';
-    //                 let publishedStatusText = '';
-    //                 let imgSrc = '';
-    //                 if(item.is_active) {
-    //                     publishedStatusClass = "member_case_published";
-    //                     publishedStatusText = item.member_case_published;
-    //                 }
-    //                 else {
-    //                     publishedStatusClass = "member_case_on_moder";
-    //                     publishedStatusText = item.member_case_on_moder;
-    //                 }
-    //                 if (item.img == null) {
-    //                     imgSrc = "/img/med-history.png";
-    //                 }
-    //                 else {
-    //                     imgSrc = item.img;
-    //                 }
-    //
-    //                 $('.med-history').find('[name="member-cases-list"]').append(`
-    //                     <div class="med-history-item">
-    //                         <div class="member_case_title">
-    //                             <h3 class="med-history__name">` + item.title + `</h3>
-    //                             <label class="` + publishedStatusClass + `">` + publishedStatusText + `</label>
-    //                         </div>
-    //                         <img class="med-history__img" src="` + imgSrc + `" alt="">
-    //                         <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">` + item.updated_at_format + `</a>
-    //                             <div class="med-history__settings-right" obj-id="` + item.id + `" data-tags="{{ $memberCase->tags->pluck('id')->implode(',') }}">
-    //                                 <a class="edit-artile" id="edit-article-js" href="javascript:void(0)">` + item.edit_article + `</a>
-    //                                 <a class="delete-artile" id="delete-article-js" href="javascript:void(0)">` + item.delete_article + `</a>
-    //                             </div>
-    //                         </div>
-    //                         <p class="med-history__info">` + item.content + `</p>
-    //                     </div>
-    //                 `);
-    //             }
-    //         },
-    //         error: function(data) {
-    //             // $("#preloader").css("display", "none");
-    //             // for (const key in data.responseJSON.errors) {
-    //             //     if (data.responseJSON.errors.hasOwnProperty(key)) {
-    //             //         const element = data.responseJSON.errors[key];
-    //             //         $("#" + key + "-error").text(element[0]);
-    //             //     }
-    //             // }
-    //             // $("#add-comment-form button").prop("disabled", false);
-    //             // $("#send-comment").removeClass("disabled-button");
-    //         }
-    //     });
-    // }
-
-    // Отправка истории
-    $(".add-story__form").on("submit", function(e) {
+    // Добавление истории
+    $("#add-story__form").on("submit", function (e) {
         e.preventDefault();
 
         let formData = new FormData();
         let image_file = $(e.target).find('[name="image-file"]').prop('files')[0];
+        CKEDITOR.instances.ckeditor_add.updateElement();
         formData.append('headline', $(e.target).find('[name="headline"]').val());
         formData.append('your-story', $(e.target).find('[name="your-story"]').val());
         formData.append('anonym', $(e.target).find('[name="anonym"]').val());
-        formData.append('story-tags', $(e.target).find('[name="story-tags"]').val());
+        formData.append('story-tags', $(e.target).find('.js-example-basic-multiple').val());
         formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
-        if (typeof image_file != "undefined") {
-            formData.append('image-file', image_file);
+        if ($(e.target).find('[name=image-file]').prop('files').length != 0) {
+            formData.append('image-file', $(e.target).find('[name="image-file"]').prop('files')[0]);
         }
-        // $("#add-comm-error").text("");
-        // $("#send-comment").prop("disabled", true);
-        // $("#send-comment").addClass("disabled-button");
 
         $.ajax({
             type: "POST",
@@ -117,52 +78,89 @@ document.addEventListener("DOMContentLoaded", function (event) {
             data: formData,
             contentType: false,
             processData: false,
-            success: function(data) {
+            success: function (data) {
+                console.log(data);
                 $("#preloader").css("display", "none");
                 $.fancybox.open({
                     src: "#success-modal",
                     type: "inline"
                 });
+                if (($('#med-history-js').find('.pagination').find('*').length == 0) ||
+                    ($('#med-history-js').find('*').length != 0) && ($('#med-history-js').find('.pagination__list').children().first().hasClass('disabled'))) {
 
-//             $('.med-history').find('[name="member-cases-list"]').empty();
-                //             for (const item of data) {
-                //                 let publishedStatusClass = '';
-                //                 let publishedStatusText = '';
-                //                 let imgSrc = '';
-                //                 if(item.is_active) {
-                //                     publishedStatusClass = "member_case_published";
-                //                     publishedStatusText = item.member_case_published;
-                //                 }
-                //                 else {
-                //                     publishedStatusClass = "member_case_on_moder";
-                //                     publishedStatusText = item.member_case_on_moder;
-                //                 }
-                //                 if (item.img == null) {
-                //                     imgSrc = "/img/med-history.png";
-                //                 }
-                //                 else {
-                //                     imgSrc = item.img;
-                //                 }
-                //
-                //                 $('.med-history').find('[name="member-cases-list"]').append(`
-                //                     <div class="med-history-item">
-                //                         <div class="member_case_title">
-                //                             <h3 class="med-history__name">` + item.title + `</h3>
-                //                             <label class="` + publishedStatusClass + `">` + publishedStatusText + `</label>
-                //                         </div>
-                //                         <img class="med-history__img" src="` + imgSrc + `" alt="">
-                //                         <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">` + item.updated_at_format + `</a>
-                //                             <div class="med-history__settings-right" obj-id="` + item.id + `" data-tags="{{ $memberCase->tags->pluck('id')->implode(',') }}">
-                //                                 <a class="edit-artile" id="edit-article-js" href="javascript:void(0)">` + item.edit_article + `</a>
-                //                                 <a class="delete-artile" id="delete-article-js" href="javascript:void(0)">` + item.delete_article + `</a>
-                //                             </div>
-                //                         </div>
-                //                         <p class="med-history__info">` + item.content + `</p>
-                //                     </div>
-                //                 `);
-                //             }
+                    $('.med-history').prepend(`
+                                    <div class="med-history-item">
+                                        <div class="member_case_title">
+                                            <h3 class="med-history__name">` + data.title + `</h3>
+                                            <label class="member_case_on_moder">` + data.member_case_on_moderation + `</label>
+                                        </div>
+                                        <img class="med-history__img" src="` + data.img + `" alt="">
+                                        <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">` + data.updated_at_format + `</a>
+                                            <div class="med-history__settings-right" obj-id="` + data.id + `>
+                                                <a class="edit-artile" id="edit-article-js" href="javascript:void(0)">` + data.edit_article + `</a>
+                                                <a class="delete-artile" id="delete-article-js" href="javascript:void(0)">` + data.delete_article + `</a>
+                                            </div>
+                                        </div>
+                                        <p class="med-history__info">` + data.content + `</p>
+                                    </div>
+                                `);
+                }
+                $("#med-history-js, #add-story-js").slideToggle();
             },
-            error: function(data) {
+            error: function (data) {
+                // $("#preloader").css("display", "none");
+                // for (const key in data.responseJSON.errors) {
+                //     if (data.responseJSON.errors.hasOwnProperty(key)) {
+                //         const element = data.responseJSON.errors[key];
+                //         $("#" + key + "-error").text(element[0]);
+                //     }
+                // }
+                // $("#add-comment-form button").prop("disabled", false);
+                // $("#send-comment").removeClass("disabled-button");
+            }
+        });
+    });
+
+    // Изменение истории
+    $("#edit-story__form").on("submit", function (e) {
+        e.preventDefault();
+
+        let formData = new FormData();
+        CKEDITOR.instances.ckeditor_edit.updateElement();
+        formData.append('id', $(e.target).find('[name=id]').val());
+        formData.append('headline', $(e.target).find('[name="headline"]').val());
+        formData.append('your-story', $(e.target).find('[name="your-story"]').val());
+        formData.append('anonym', $(this).find('[name="anonym"]').val());
+        formData.append('story-tags', $(e.target).find('.js-example-basic-multiple').val());
+        formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+        if ($(e.target).find('[name=image-file]').prop('files').length != 0) {
+            formData.append('image-file', $(e.target).find('[name="image-file"]').prop('files')[0]);
+        }
+        console.log($(e.target).find('[name="headline"]').val(), $(this).find('[name="anonym"]').val());
+
+        $.ajax({
+            type: "POST",
+            url: "/member_cases/update_post",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
+                let medHistoryItem = $('#med-history-js').find('[obj-id=' + data.id + ']').parent().parent();
+                $(medHistoryItem).find('.med-history__name').html(data.title);
+                $(medHistoryItem).find('.member_case_title label').removeClass().addClass("member_case_on_moder");
+                $(medHistoryItem).find('.member_case_title label').html(data.member_case_on_moderation);
+                $(medHistoryItem).find('.med-history__img').attr('src', data.img);
+                $(medHistoryItem).find('.med-history__date').html(data.updated_at_format);
+                $(medHistoryItem).find('.med-history__info').html(data.content);
+                console.log(medHistoryItem);
+                $("#med-history-js, #edit-story-js").slideToggle();
+            },
+            error: function (data) {
                 // $("#preloader").css("display", "none");
                 // for (const key in data.responseJSON.errors) {
                 //     if (data.responseJSON.errors.hasOwnProperty(key)) {
@@ -239,8 +237,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $('#edit-story-item-image').find('.image').on('load', function () {
         setMedicalHistoryAvatar('#edit-story-item-image', '#edit-story-img');
     });
-
-
 
 
     function setMedicalHistoryAvatar(selector1, selector2) {
