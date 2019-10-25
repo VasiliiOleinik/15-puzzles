@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title')
-    <title>{{ config('puzzles.literature.title_'.app()->getLocale()) }}</title>
+    <title>{{ $page->pageLang->title }}</title>
 @endsection
 @section('description')
-    <meta content="{{ config('puzzles.literature._description_'.app()->getLocale()) }}" name="description">
+    <meta content="{!! $page->pageLang->description !!}" name="description">
 @endsection
 @section('literature-js')
     <!--  scripts you need to search for tags   -->
@@ -18,9 +18,9 @@
 @endsection
 @section('content')
         <main class="main">
-          <div class="box">            
+          <div class="box">
             @include('literature.literature-left.literature-left')
-            @include('literature.literature-right.literature-right')   
+            @include('literature.literature-right.literature-right')
           </div>
         </main>
 @endsection

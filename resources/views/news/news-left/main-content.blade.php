@@ -1,4 +1,4 @@
-<h1 class="title">{{ $page->h1 }}</h1>
+<h1 class="title">{{ $page->pageLang->h1 }}</h1>
 <div class="post_container">
   @foreach($articles as $article)
   <div class="post">

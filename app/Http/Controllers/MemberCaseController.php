@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\PageLang;
 use App\Models\Tag;
 use App\Models\TagLanguage;
 use App\Models\MemberCase;
 use App\Models\Comment;
+use App\Service\Properties;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
@@ -21,19 +23,16 @@ class MemberCaseController extends Controller
      */
     public function index(Request $request)
     {
-        $page = PageLang::with('page')
-            ->where('pages_id', 6)
-            ->first();
-
+        $page = Page::with('pageLang')->where('name_page', Properties::PAGE_MEMBER_CASES)->first();
         $memberCases = Cache::remember(
             'memberCases',
             now()->addDay(1),
-            function(){
+            function () {
                 return MemberCase::with('tags')->get();
             }
         );
         //Выбраны тэги
-        if($request->tag){
+        if ($request->tag) {
             $memberCasesId = array();
             $tags = Tag::with('memberCases')
                 ->whereIn('id', [$request->tag])
@@ -82,13 +81,13 @@ class MemberCaseController extends Controller
     public function createPost(Request $request)
     {
         $validatedData = $request->validate([
-        'headline' => ['required', 'string', 'max:191'],
-        'your-story' => ['required'],
-        //'img' => ['nullable'],
-        'story-tags' => ['required'],
+            'headline' => ['required', 'string', 'max:191'],
+            'your-story' => ['required'],
+            //'img' => ['nullable'],
+            'story-tags' => ['required'],
         ]);
 
-        $tags = explode(",",$request['story-tags']);
+        $tags = explode(",", $request['story-tags']);
 
         // временно
         //$tags = Tag::all();
@@ -101,7 +100,7 @@ class MemberCaseController extends Controller
         // }
         $memberCase->title = $request['headline'];
         $memberCase->content = $request['your-story'];
-        $memberCase->description = substr($memberCase->content,0,186);
+        $memberCase->description = substr($memberCase->content, 0, 186);
         $memberCase->status = "moderating";
         // if($request->anonim == null){
         //   $memberCase->anonym = 0;
@@ -110,16 +109,15 @@ class MemberCaseController extends Controller
         // }
         $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
 
-        if($request->has('image-file'))
-        {
+        if ($request->has('image-file')) {
             $image = $request->file('image-file');
-            $name = str_random(32).'.' . $image->getClientOriginalExtension();
+            $name = str_random(32) . '.' . $image->getClientOriginalExtension();
             $folder = '/images/uploads';
             $memberCase->img = $image->storeAs($folder, $name, 'public');
         }
 
         $memberCase->save();
-        $memberCase->alias = \URLify::filter($memberCase->title.' '.$memberCase->created_at.' '.$memberCase->id, 190);
+        $memberCase->alias = \URLify::filter($memberCase->title . ' ' . $memberCase->created_at . ' ' . $memberCase->id, 190);
         $memberCase->save();
         $memberCase->tags()->attach($tags);
 
@@ -136,13 +134,13 @@ class MemberCaseController extends Controller
     public function updatePost(Request $request)
     {
         $validatedData = $request->validate([
-        'headline' => ['required', 'string', 'max:191'],
-        'your-story' => ['required'],
-        //'img' => ['nullable'],
-        'story-tags' => ['required'],
+            'headline' => ['required', 'string', 'max:191'],
+            'your-story' => ['required'],
+            //'img' => ['nullable'],
+            'story-tags' => ['required'],
         ]);
 
-        $tags = explode(",",$request['story-tags']);
+        $tags = explode(",", $request['story-tags']);
         $memberCase = MemberCase::find($request['id']);
 
         /*if($request->img != null){
@@ -150,7 +148,7 @@ class MemberCaseController extends Controller
         }*/
         $memberCase->title = $request['headline'];
         $memberCase->content = $request['your-story'];
-        $memberCase->description = substr($memberCase->content,0,186);
+        $memberCase->description = substr($memberCase->content, 0, 186);
         $memberCase->status = "moderating";
         $memberCase->is_active = false;
 //        if($request->anonim == null){
@@ -160,10 +158,9 @@ class MemberCaseController extends Controller
 //        }
         $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
 
-        if($request->has('image-file'))
-        {
+        if ($request->has('image-file')) {
             $image = $request->file('image-file');
-            $name = str_random(32).'.' . $image->getClientOriginalExtension();
+            $name = str_random(32) . '.' . $image->getClientOriginalExtension();
             $folder = '/images/uploads';
             $memberCase->img = $image->storeAs($folder, $name, 'public');
         }
@@ -179,7 +176,7 @@ class MemberCaseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -190,7 +187,7 @@ class MemberCaseController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\MemberCase  $id
+     * @param \App\Models\MemberCase $id
      * @return \Illuminate\Http\Response
      */
     public function show($locale, $alias)
@@ -198,7 +195,7 @@ class MemberCaseController extends Controller
         $memberCases = Cache::remember(
             'memberCases',
             now()->addDay(1),
-            function(){
+            function () {
                 return MemberCase::with('tags')->get();
             }
         );
@@ -210,11 +207,11 @@ class MemberCaseController extends Controller
             ->get()
             ->pluck('id');
 
-        $tagLanguages = TagLanguage::whereIn('tag_id',$tags)->get();
+        $tagLanguages = TagLanguage::whereIn('tag_id', $tags)->get();
         return view('member-cases.single.member-case',
             [
                 'memberCase' => MemberCase::with('user', 'tags')->find($id),
-                'comments' => Comment::with('user')->where('member_case_id','=',$id)->get(),
+                'comments' => Comment::with('user')->where('member_case_id', '=', $id)->get(),
                 'tags' => $tagLanguages
             ]
         );
@@ -223,7 +220,7 @@ class MemberCaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\MemberCase  $memberCase
+     * @param \App\Models\MemberCase $memberCase
      * @return \Illuminate\Http\Response
      */
     public function edit(MemberCase $memberCase)
@@ -234,8 +231,8 @@ class MemberCaseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\MemberCase  $memberCase
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\MemberCase $memberCase
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, MemberCase $memberCase)
@@ -246,7 +243,7 @@ class MemberCaseController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\MemberCase  $memberCase
+     * @param \App\Models\MemberCase $memberCase
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)

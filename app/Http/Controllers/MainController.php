@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book\Book;
 use App\Models\Book\BookLanguage;
 use App\Models\Group;
+use App\Models\Page;
 use App\Models\PageLang;
 use App\Models\User\User;
 use App\Models\Permission;
@@ -29,6 +30,7 @@ use App\Repository\LaboratoryRepository;
 use App\Service\FilterMainPageService;
 use App\Service\LaboratoryService;
 use App\Service\PazzlesService;
+use App\Service\Properties;
 use Illuminate\Support\Facades\Cache;
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -96,7 +98,7 @@ class MainController extends Controller
     {
 
 
-        $page = PageLang::with('page')->where('pages_id', 5)->first();
+        $page = Page::with('pageLang')->where('name_page', Properties::PAGE_MAIN)->first();
         $newsLatest = Cache::remember('newsLatest_' . app()->getLocale(), now()->addDay(1), function () {
             $latest = Article::orderBy('id', 'desc')->paginate(3)->pluck('id');
             return ArticleLanguage::with('article')->whereIn('article_id', $latest)

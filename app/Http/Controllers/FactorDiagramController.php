@@ -7,10 +7,13 @@ use App\Models\Factor\Factor;
 
 //use App\Models\Type;
 use App\Models\Factor\FactorLanguage;
+use App\Models\NameCols;
+use App\Models\Page;
 use App\Models\Method;
 use App\Models\PageLang;
 use App\Models\Type;
 use App\Scopes\LanguageScope;
+use App\Service\Properties;
 use Illuminate\Http\Request;
 
 class FactorDiagramController extends Controller
@@ -20,10 +23,8 @@ class FactorDiagramController extends Controller
      */
     public function index()
     {
-        $page = PageLang::with('page')
-            ->where('pages_id', 2)
-            ->first();
-
+        $page = Page::with('pageLang')->where('name_page', Properties::PAGE_FACTOR_DIAGRAM)->first();
+        $colNames = NameCols::with('langCols')->first();
         $type1 = Type::with('factors', 'typesLang')
             ->limit(3)
             ->get();
@@ -38,7 +39,8 @@ class FactorDiagramController extends Controller
             compact(
                 'type1',
                 'type2',
-                'page'
+                'page',
+                'colNames'
             )
         );
     }

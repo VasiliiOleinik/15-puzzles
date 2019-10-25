@@ -43,11 +43,11 @@ class RemedyLanguages extends Section implements Initializable
             return Remedy::count();
         });
 
-        $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {            
+        $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {
         });*/
     }
 
-   /**
+    /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
      *
      * @var bool
@@ -68,18 +68,18 @@ class RemedyLanguages extends Section implements Initializable
      * @return DisplayInterface
      */
     public function onDisplay()
-    {       
+    {
         $display = AdminDisplay::datatablesAsync();
         $display
             ->with(['remedy'])
             ->setColumns(
-                //AdminColumn::text('remedy_id')->setLabel('remedy id'),
+            //AdminColumn::text('remedy_id')->setLabel('remedy id'),
                 AdminColumnEditable::text('name')->setLabel('Название лекарства'),
                 AdminColumnEditable::textarea('content')->setLabel('Описание лекарства'),
                 AdminColumn::text('remedy.url')->setLabel('Ссылка на лекарство'),
                 AdminColumn::text('language')->setLabel('Язык')
             )
-            ->setApply(function($query) {
+            ->setApply(function ($query) {
                 $query->orderBy('remedy_id', 'desc');
             });
 
@@ -92,10 +92,10 @@ class RemedyLanguages extends Section implements Initializable
      * @return FormInterface
      */
     public function onEdit($id)
-    {        
+    {
         $form = AdminForm::panel()->addBody([
-            AdminFormElement::text('name')->setLabel('Название лекарства')->setReadonly(1), 
-            AdminFormElement::text('remedy.url')->setLabel('Ссылка на лекарство'),           
+            AdminFormElement::text('name')->setLabel('Название лекарства')->setReadonly(1),
+            AdminFormElement::text('remedy.url')->setLabel('Ссылка на лекарство'),
         ]);
         return $form;
     }
@@ -105,27 +105,27 @@ class RemedyLanguages extends Section implements Initializable
      */
     public function onCreate()
     {
-        Config::set('app.locale', 'eng');            
+        Config::set('app.locale', 'eng');
 
         //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
         //(заполняются hidden поля на вкладке связей)
-        $scripts = "<script src='/js/backend/factorLanguages.js')></script>";        
+        $scripts = "<script src='/js/backend/factorLanguages.js')></script>";
 
         $formEng = AdminForm::panel()
             ->addBody([
-            AdminFormElement::custom()
-                ->setDisplay(function($instance) use($scripts) {
-                    return $scripts;
-                }),
-            AdminFormElement::text('name')->setName('nameEng')->setLabel('Название лекарства')->required(),
-            AdminFormElement::ckeditor('content')->setName('contentEng')->setLabel('Описание лекарства')->required()
-        ]);
-        $formRu = AdminForm::panel()->addBody([           
+                AdminFormElement::custom()
+                    ->setDisplay(function ($instance) use ($scripts) {
+                        return $scripts;
+                    }),
+                AdminFormElement::text('name')->setName('nameEng')->setLabel('Название лекарства')->required(),
+                AdminFormElement::ckeditor('content')->setName('contentEng')->setLabel('Описание лекарства')->required()
+            ]);
+        $formRu = AdminForm::panel()->addBody([
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название лекарства')->required(),
             AdminFormElement::ckeditor('content')->setName('contentRu')->setLabel('Описание лекарства')->required()
         ]);
         $formRelations = AdminForm::panel()->addBody([
-            AdminFormElement::text('url')->setLabel('Ссылка на лекарство'),   
+            AdminFormElement::text('url')->setLabel('Ссылка на лекарство'),
 
             AdminFormElement::hidden('nameEng'),
             AdminFormElement::hidden('contentEng'),
@@ -137,7 +137,7 @@ class RemedyLanguages extends Section implements Initializable
         $tabs->appendTab($formEng, 'Лекарство eng');
         $tabs->appendTab($formRu, 'Лекарство ru');
         $tabs->appendTab($formRelations, 'Другое');
-        
+
         return $tabs;
     }
 

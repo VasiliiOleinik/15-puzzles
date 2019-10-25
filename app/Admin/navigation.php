@@ -60,11 +60,18 @@ return [
     (new Page(\App\Models\Question::class))->setTitle('FAQ'),
     (new Page(\App\Models\Tag::class))->setTitle('Теги'),
     (new Page(\App\Models\Options::class))->setTitle('Настройки'),
-    (new Page(\App\Models\Factor\FactorDiagram::class))->setTitle('Факторная диаграмма'),
+    [
+        'title' => 'Факторная диаграмма',
+        'pages' => [
+            (new Page(\App\Models\NameCols::class))->setTitle('Имя колонок'),
+            (new Page(\App\Models\Factor\FactorDiagram::class))->setTitle('Факторная диаграмма'),
+        ]
+    ],
     (new Page(\App\Models\Type::class))->setTitle('Группы факторов'),
     (new Page(\App\Models\SocialNetwork::class))->setTitle('Социальные Сети'),
     (new Page(\App\Models\Country::class))->setTitle('Страны'),
     (new Page(\App\Models\Group::class))->setTitle('Типы факторов'),
     (new Page(\App\Models\Police\Police::class))->setTitle('Политики'),
     (new Page(\App\Models\Footer::class))->setTitle('Футер'),
+
 ];

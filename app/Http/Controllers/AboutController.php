@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Factor\FactorLanguage;
+use App\Models\Page;
 use App\Repository\AboutRepository;
 use App\Service\Properties;
 use Illuminate\Support\Facades\Cache;
@@ -25,6 +26,7 @@ class AboutController extends Controller
     public function index()
     {
         $dataPage = $this->repository->getDataPage(Properties::PAGE_ABOUT);
+        $page = Page::with('pageLang')->where('name_page', Properties::PAGE_ABOUT)->first();
         $factors = Cache::remember(
             'factor_' . app()->getLocale(),
             now()->addDay(1),
@@ -35,11 +37,14 @@ class AboutController extends Controller
         $lits = BookLanguage::with('book')
             ->latest('id')
             ->take(5)->get();
-        return view('about.about',
+        return view(
+            'about.about',
             compact([
                 'factors',
                 'dataPage',
-                'lits'
-            ]));
+                'lits',
+                'page'
+            ])
+        );
     }
 }

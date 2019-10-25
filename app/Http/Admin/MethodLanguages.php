@@ -40,11 +40,11 @@ class MethodLanguages extends Section implements Initializable
             return Method::count();
         });
 
-        $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {            
+        $this->creating(function($config, \Illuminate\Database\Eloquent\Model $model) {
         });*/
     }
 
-   /**
+    /**
      * @see http://sleepingowladmin.ru/docs/model_configuration#ограничение-прав-доступа
      *
      * @var bool
@@ -68,14 +68,14 @@ class MethodLanguages extends Section implements Initializable
     {
         $display = AdminDisplay::datatablesAsync();
         $display
-            ->with(['method'])            
+            ->with(['method'])
             ->setColumns(
-                //AdminColumn::text('method_id')->setLabel('method id'),
-                AdminColumnEditable::text('name')->setLabel('Название метода лечения'),            
+            //AdminColumn::text('method_id')->setLabel('method id'),
+                AdminColumnEditable::text('name')->setLabel('Название метода лечения'),
                 AdminColumnEditable::textarea('content')->setLabel('Полное описание метода лечения'),
                 AdminColumn::text('language')->setLabel('Язык')
             )
-            ->setApply(function($query) {
+            ->setApply(function ($query) {
                 $query->orderBy('method_id', 'desc');
             });
 
@@ -87,25 +87,25 @@ class MethodLanguages extends Section implements Initializable
      */
     public function onCreate()
     {
-        Config::set('app.locale', 'eng');            
+        Config::set('app.locale', 'eng');
 
         //Эти скрипты делают возможным отправку всех нужных полей форм с трех табов
         //(заполняются hidden поля на вкладке связей)
-        $scripts = "<script src='/js/backend/admin-methods.js')></script>";        
+        $scripts = "<script src='/js/backend/admin-methods.js')></script>";
 
         $formEng = AdminForm::panel()->addBody([
             AdminFormElement::custom()
-                ->setDisplay(function($instance) use($scripts) {
+                ->setDisplay(function ($instance) use ($scripts) {
                     return $scripts;
                 }),
             AdminFormElement::text('name')->setName('nameEng')->setLabel('Название метода')->required(),
             AdminFormElement::ckeditor('content')->setName('contentEng')->setLabel('Полное описание метода')->required()
         ]);
-        $formRu = AdminForm::panel()->addBody([           
+        $formRu = AdminForm::panel()->addBody([
             AdminFormElement::text('name')->setName('nameRu')->setLabel('Название метода')->required(),
             AdminFormElement::ckeditor('content')->setName('contentRu')->setLabel('Полное описание метода')->required()
         ]);
-        $formRelations = AdminForm::panel()->addBody([        
+        $formRelations = AdminForm::panel()->addBody([
             AdminFormElement::hidden('nameEng'),
             AdminFormElement::hidden('contentEng'),
             AdminFormElement::hidden('nameRu'),
@@ -116,10 +116,10 @@ class MethodLanguages extends Section implements Initializable
         $tabs->appendTab($formEng, 'Метод лечения eng');
         $tabs->appendTab($formRu, 'Метод лечения ru');
         $tabs->appendTab($formRelations, 'Метод лечения другое');
-        
+
         return $tabs;
     }
-    
+
     /**
      * @return void
      */
