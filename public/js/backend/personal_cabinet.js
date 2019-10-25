@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
             //     "_token": $('meta[name="csrf-token"]').attr('content'),
             // },
             success: function (data) {
-                console.log(data);
                 let editor = CKEDITOR.instances.ckeditor_edit;
                 $('#edit-story__form').find('[name=id]').val(data.id);
                 $('#edit-story__form').find('.headline.inp').val(data.title);
@@ -19,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 if (data.anonym) {
                     $('#edit-story__form').find('[name="anonym"]').prop('checked', true);
                 }
-
                 editor.setData(data.content);
                 $('#edit-story__form').find('.image').attr('src', data.img);
                 $('#med-history-js, #edit-story-js').slideToggle();
@@ -65,7 +63,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         CKEDITOR.instances.ckeditor_add.updateElement();
         formData.append('headline', $(e.target).find('[name="headline"]').val());
         formData.append('your-story', $(e.target).find('[name="your-story"]').val());
-        formData.append('anonym', $(e.target).find('[name="anonym"]').val());
+        formData.append('anonym', $(e.target).find('[name="anonym"]').prop('checked'));
         formData.append('story-tags', $(e.target).find('.js-example-basic-multiple').val());
         formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
         if ($(e.target).find('[name=image-file]').prop('files').length != 0) {
@@ -96,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                                         </div>
                                         <img class="med-history__img" src="` + data.img + `" alt="">
                                         <div class="med-history__settings"><a class="med-history__date" href="javascript:void(0)">` + data.updated_at_format + `</a>
-                                            <div class="med-history__settings-right" obj-id="` + data.id + `>
+                                            <div class="med-history__settings-right" obj-id="` + data.id + `">
                                                 <a class="edit-artile" id="edit-article-js" href="javascript:void(0)">` + data.edit_article + `</a>
                                                 <a class="delete-artile" id="delete-article-js" href="javascript:void(0)">` + data.delete_article + `</a>
                                             </div>
@@ -130,13 +128,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
         formData.append('id', $(e.target).find('[name=id]').val());
         formData.append('headline', $(e.target).find('[name="headline"]').val());
         formData.append('your-story', $(e.target).find('[name="your-story"]').val());
-        formData.append('anonym', $(this).find('[name="anonym"]').val());
+        formData.append('anonym', $(this).find('[name="anonym"]').prop('checked'));
         formData.append('story-tags', $(e.target).find('.js-example-basic-multiple').val());
         formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
         if ($(e.target).find('[name=image-file]').prop('files').length != 0) {
             formData.append('image-file', $(e.target).find('[name="image-file"]').prop('files')[0]);
         }
-        console.log($(e.target).find('[name="headline"]').val(), $(this).find('[name="anonym"]').val());
 
         $.ajax({
             type: "POST",

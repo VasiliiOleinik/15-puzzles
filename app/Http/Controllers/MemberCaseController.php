@@ -134,8 +134,7 @@ class MemberCaseController extends Controller
         $memberCase->content = $request['your-story'];
         $memberCase->description = substr($memberCase->content,0,186);
         $memberCase->status = "moderating";
-        $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
-
+        $memberCase->anonym = json_decode($request['anonym']);
 
         if($request->has('image-file'))
         {
@@ -196,8 +195,7 @@ class MemberCaseController extends Controller
         $memberCase->description = substr($memberCase->content,0,186);
         $memberCase->status = "moderating";
         $memberCase->is_active = false;
-        $memberCase->anonym = ($request['anonym'] == 'on') ? 1 : 0;
-        Debugbar::info($request['anonym']);
+        $memberCase->anonym = json_decode($request['anonym']);
 
         if($request->has('image-file'))
         {
