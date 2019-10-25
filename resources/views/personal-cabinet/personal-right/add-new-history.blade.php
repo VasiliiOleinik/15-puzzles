@@ -9,7 +9,6 @@
         </div>
         <div class="labels">
             <textarea id="ckeditor_add" class="story inp dinamic-input-js" name="your-story"></textarea>
-{{--            <label class="textarea" for="your-story" class="dinamic-label-js">@lang('personal_cabinet.your_story')</label>--}}
             <label id="add-story-your-story-error" class="invalid" for="your-story"></label>
         </div>
         <div class="add-images">

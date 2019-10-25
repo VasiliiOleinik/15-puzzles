@@ -56,6 +56,13 @@ $( document ).ready(function() {
                                     </div>
                                 `);
                 }
+                // очистка формы
+                $('#add-story__form').find('.headline.inp').val('');
+                $('#add-story__form').find('.js-example-basic-multiple').val([]).trigger('change');
+                $('#add-story__form').find('[name="anonym"]').prop('checked', false);
+                CKEDITOR.instances.ckeditor_add.setData('');
+                CKEDITOR.instances.ckeditor_add.updateElement();
+                $('#add-story__form').find('.image').attr('src', '/img/upload.png');
                 $("#med-history-js, #add-story-js").slideToggle();
             },
             error: function (data) {
