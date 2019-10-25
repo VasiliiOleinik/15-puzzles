@@ -83,15 +83,15 @@ class Page extends Section
             [
                 AdminFormElement::text('pageEng.h1', 'Заголовок h1 ENG')->required(),
                 AdminFormElement::text('pageEng.title', 'Title ENG')->required(),
-                AdminFormElement::textarea('pageEng.short_description', 'Описание короткое ENG'),
-                AdminFormElement::textarea('pageEng.puzzles_description', 'Текст под баннером ENG'),
+                AdminFormElement::ckeditor('pageEng.short_description', 'Описание короткое ENG'),
+                AdminFormElement::ckeditor('pageEng.puzzles_description', 'Текст под баннером ENG'),
                 AdminFormElement::ckeditor('pageEng.description', 'Главный текст на странице ENG'),
             ],
             [
                 AdminFormElement::text('pageRu.h1', 'Заголовок h1 RU')->required(),
                 AdminFormElement::text('pageRu.title', 'Title RU')->required(),
-                AdminFormElement::textarea('pageRu.short_description', 'Описание короткое RU'),
-                AdminFormElement::textarea('pageRu.puzzles_description', 'Текст под баннером RU'),
+                AdminFormElement::ckeditor('pageRu.short_description', 'Описание короткое RU'),
+                AdminFormElement::ckeditor('pageRu.puzzles_description', 'Текст под баннером RU'),
                 AdminFormElement::ckeditor('pageRu.description', 'Главный текст на странице RU'),
 
                 \AdminFormElement::hidden('pageRu.language')->setDefaultValue('ru'),
