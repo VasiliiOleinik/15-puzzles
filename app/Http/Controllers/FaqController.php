@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\PageLang;
+use App\Service\Properties;
 use Illuminate\Http\Request;
 use App\Models\Question;
 use App\Models\QuestionLanguage;
@@ -25,13 +27,11 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $page = PageLang::with('page')
-            ->where('pages_id', 3)
-            ->first();
+        $page = Page::with('pageLang')->where('name_page', Properties::PAGE_FAQ)->first();
 
         Cache::clear();
-        $questions = Cache::remember('question_'.app()->getLocale(), now()->addDay(1), function(){
-                return QuestionLanguage::with('question')->where('language', app()->getLocale())->get();
+        $questions = Cache::remember('question_' . app()->getLocale(), now()->addDay(1), function () {
+            return QuestionLanguage::with('question')->where('language', app()->getLocale())->get();
         });
         $user = Auth::user();
         return view('faq.faq', compact(['questions', 'user', 'page']));
@@ -40,13 +40,13 @@ class FaqController extends Controller
     /**
      * Sends letter to editor.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
      * @return redirect
      */
     public function letter(FaqFormRequest $request)
     {
         //dd(Lang::get('faq.phone_required'));
-        Mail::to( config('puzzles.options.admin_email') )->send(new LetterToEditor($request));
+        Mail::to(config('puzzles.options.admin_email'))->send(new LetterToEditor($request));
         //return redirect()->back();
         return response()->json([
             'letter_status' => trans('faq.letter_has_sent')
@@ -56,16 +56,16 @@ class FaqController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Support\Facades\Redirect;
      */
     public function create(Request $request)
     {
         $validatedData = $request->validate([
-        'titleEng' => ['required', 'string', 'max:191'],
-        'titleRu' => ['required', 'string', 'max:191'],
-        'contentEng' => ['required', 'max:64000'],
-        'contentRu' => ['required', 'max:64000'],
+            'titleEng' => ['required', 'string', 'max:191'],
+            'titleRu' => ['required', 'string', 'max:191'],
+            'contentEng' => ['required', 'max:64000'],
+            'contentRu' => ['required', 'max:64000'],
         ]);
 
         $questionLanguageEng = new QuestionLanguage;
@@ -97,7 +97,7 @@ class FaqController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

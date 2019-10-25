@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title')
-    <title>{{ config('puzzles.news.title_'.app()->getLocale()) }}</title>
+    <title>{{ $page->pageLang->title }}</title>
 @endsection
 @section('description')
-    <meta content="{{ config('puzzles.news._description_'.app()->getLocale()) }}" name="description">
+    <meta content="{!! $page->pageLang->description !!}" name="description">
 @endsection
 @section('news-js')
     <!--  scripts you need to search for tags   -->

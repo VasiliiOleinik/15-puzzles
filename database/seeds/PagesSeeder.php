@@ -53,7 +53,7 @@ class PagesSeeder extends Seeder
                     'description'=>null,
                     'name_page' => 'factor_diagram',
                     'short_description' => 'факторная диаграмма описание',
-                    'h1'=>null,
+                    'h1'=>'Процессы, в которых участвуют факторы',
                     'video' => null,
                 ],
                 [
@@ -64,7 +64,7 @@ class PagesSeeder extends Seeder
                     'img' => null,
                     'short_description' => 'factor diagram description',
                     'puzzles_description'=>null,
-                    'h1'=>null,
+                    'h1'=>'Processes in which factors are involved',
                     'video' => null,
                 ]
 

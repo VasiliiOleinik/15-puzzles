@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title')
-    <title>{{ config('puzzles.main.title_'.app()->getLocale()) }}</title>
+    <title>{{$page->pageLang->title }}</title>
 @endsection
 @section('description')
-    <meta content="{{ config('puzzles.main._description_'.app()->getLocale()) }}" name="description">
+    <meta content="{!! $page->pageLang->puzzles_description !!}" name="description">
 @endsection
 @section('main-css')
   <link rel="stylesheet" type="text/css" href="{{ asset('css/backend/main.css') }}">

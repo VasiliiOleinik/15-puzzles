@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title')
-    <title>{{ config('puzzles.factor_diagram.title_'.app()->getLocale()) }}</title>
+    <title>{{ $page->pageLang->title }}</title>
 @endsection
 @section('description')
-    <meta content="{{ config('puzzles.factor_diagram._description_'.app()->getLocale()) }}" name="description">
+    <meta content="{!! $page->pageLang->description !!}" name="description">
 @endsection
 @section('main-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/backend/main.css') }}">
@@ -86,30 +86,30 @@
                 </div>
             </div>
             <div class="diagram__info">
-                <div class="diagram__info-title">Processes in which factors are involved</div>
+                <div class="diagram__info-title">{{$page->pageLang->h1}}</div>
                 <div class="diagram__info-selected">
-                    <div class="diagram__info-selected-title">Selected factors:</div>
+                    <div class="diagram__info-selected-title">@lang('factor_diagram.select_factors')</div>
                     <div class="diagram__info-selected-list"></div>
                 </div>
                 <div class="diagram__info-table">
                     <div class="table_row head">
                         <div class="table-column first">
-                            <p class="table-text">Name</p>
+                            <p class="table-text">{{$colNames->langCols->col1}}</p>
                         </div>
                         <div class="table-column second">
-                            <p class="table-text">Groups of related factors</p>
+                            <p class="table-text">{{$colNames->langCols->col2}}</p>
                         </div>
                         <div class="table-column first">
-                            <p class="table-text">Norm</p>
+                            <p class="table-text">{{$colNames->langCols->col3}}</p>
                         </div>
                         <div class="table-column third">
-                            <p class="table-text">Patalogy</p>
+                            <p class="table-text">{{$colNames->langCols->col4}}</p>
                         </div>
                         <div class="table-column fourth">
-                            <p class="table-text">Pathology correction methods</p>
+                            <p class="table-text">{{$colNames->langCols->col5}}</p>
                         </div>
                         <div class="table-column fifth">
-                            <p class="table-text">Testing</p>
+                            <p class="table-text">{{$colNames->langCols->col6}}</p>
                         </div>
                     </div>
                     <div id="table-body">
