@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use App\Models\Factor\Factor;
 use App\Models\Category;
+use App\Models\Type;
 
 class FactorsTableSeeder extends Seeder
 {
@@ -28,6 +29,12 @@ class FactorsTableSeeder extends Seeder
             DB::table('factors')
                 ->where('id', $i + 1)
                 ->update($factor_names[$i]);
+        }
+
+        $factors = Factor::all();
+        $types = Type::with('factors')->get();
+        foreach ($types as $type) {
+            $type->factors()->attach($factors->random(1, 2));
         }
     }
 }
