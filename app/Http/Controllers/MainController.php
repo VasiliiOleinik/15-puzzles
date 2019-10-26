@@ -178,6 +178,7 @@ class MainController extends Controller
      */
     public function mapRefresh(Request $request)
     {
+        app()->setLocale($request->local);
         $filteredData = $this->laboratoryRepository->findLaboratory($request->country, $request->methode);
         $validResponseArray = $this->laboratoriService->getValidResponseArray($filteredData);
         $validResponseArray['laboratoryTable'] = $this->laboratoriService->printTableLaboratories($filteredData);
@@ -202,8 +203,8 @@ class MainController extends Controller
             (
                'main.main-left.main-tabs.' . $item,
                 [$item => $modelItems]
-            );
-            $views[$item] = (string)$view[$item];
+            )->render();
+            $views[$item] = $view[$item];
         }
         return json_encode(['views' => $views, 'models' => $resultFilteringValidArray]);
     }

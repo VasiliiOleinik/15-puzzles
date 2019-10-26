@@ -24,7 +24,7 @@ class FilterMainPageService
         foreach ($this->getNameFilteringModels() as $item){
             $factorsProtocols = implode(',', $filteredData->pluck($item)->all());
             $factorsProtocols = $factorsProtocols !='' ? explode(',', $factorsProtocols): false;
-            $factorsProtocolsArr[$item] = $factorsProtocols ? array_unique($factorsProtocols) : false;
+            $factorsProtocolsArr[$item] = $factorsProtocols ? array_values(array_unique($factorsProtocols)): false;
         }
         return $factorsProtocolsArr;
     }

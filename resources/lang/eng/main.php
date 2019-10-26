@@ -57,4 +57,5 @@ return [
     'address_lab' => 'Address Laboratory',
     'site' => 'Site',
     'phone_lab' => 'Phone',
+    'error_find'=>'Laboratory not found'
 ];

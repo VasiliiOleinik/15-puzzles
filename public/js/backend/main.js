@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             mapInitAttempts > 10) {
             clearInterval(mapInit);
         } else {
-            $('.methods-btn').click();
+            //$('.methods-btn').click();
             mapInitAttempts++;
         }
     }, 1);
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
     //Кликнули на 'найти лаборатории'
     $('.methods-btn').bind('click', function () {
-        $("#preloader").css("display", "flex");
+
         try {
             laboratories_ajax.abort();
         } catch (err) {
@@ -135,15 +135,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
             "_token": $('meta[name="csrf-token"]').attr('content'),
         };
         if(country!=null && method!=null) {
-
+            $(".preload").css("display", "flex");
             laboratories_ajax = $.ajax({
                 type: "post",
-                url: "/map_refresh",
+                url: "map_refresh",
                 data: data,
                 dataType: 'json',
                 complete: function (response) {
                     result = response.responseJSON;
-                    $("#preloader").css("display", "none");
+                    $(".preload").css("display", "none");
                     $('#table_laboratory').html(result.laboratoryTable)
                     //console.log(response.responseJSON);
                     //очистка карты
@@ -177,11 +177,18 @@ document.addEventListener("DOMContentLoaded", function (event) {
                             parseFloat(item.lng)));
                     });
                     }else{
-                        $('#map_canvas').html('not found laboratory');
+                        mapProp = {
+                            center: new google.maps.LatLng(parseFloat(40.595249),
+                                parseFloat(-101.455642)),
+                            zoom: 0,
+                        };
+
+                        //инициализакция карты
+                        var map = new google.maps.Map(document.getElementById("map_canvas"), mapProp);
                     }
                 },
                 error: function (err) {
-                    $("#preloader").css("display", "none");
+                    $(".preload").css("display", "none");
                 }
             });
         }
@@ -197,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     //главный фильтр табов
     function dataFilter(data) {
-        $("#preloader").css("display", "flex");
+        $(".preload").css('display', 'flex');
         try {
             filter_ajax.abort();
         } catch (err) {
@@ -209,16 +216,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
             data: data,
             dataType: 'json',
             complete: function (response) {
-                $("#preloader").css("display", "none");
-                //console.log(response.responseJSON.views);
+                $(".preload").css("display", "none");
                 if (data.factor.length === 0 && data.disease.length === 0 && data.protocol.length === 0) {
-                    location.reload()
-                    // refreshTabsCounts(response.responseJSON.models);
-                    // $('#tabListFactors').html(tab1);
-                    // $('#tabListDiseases').html(tab2);
-                    // $('#tabListProtocols').html(tab3);
-                    // $('#tabListRemedies').html(tab4);
-                    // $('#tabListMarkers').html(tab5);
+                    //location.reload()
+                    refreshTabsCounts(response.responseJSON.models);
+                    $('#tabListFactors').html(tab1);
+                    $('#tabListDiseases').html(tab2);
+                    $('#tabListProtocols').html(tab3);
+                    $('#tabListRemedies').html(tab4);
+                    $('#tabListMarkers').html(tab5);
                 } else {
                     //console.log(data.activeTab)
                     refreshTabsCounts(response.responseJSON.models, data);
@@ -235,7 +241,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             },
             error: function (err) {
-                $("#preloader").css("display", "none");
+                $(".preload").css("display", "none");
             }
         });
     }

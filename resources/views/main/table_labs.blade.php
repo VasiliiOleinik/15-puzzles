@@ -6,13 +6,19 @@
         <div class="methods-table-cell phone">@lang('main.phone_lab')</div>
     </div>
     <div class="methods-laboratories-table__body">
-        @foreach($labs as $lab)
-        <div class="table__body-row">
-            <div class="methods-table-cell name">{{$lab->name}}</div>
-            <div class="methods-table-cell adress">{{$lab->address}}</div>
-            <div class="methods-table-cell site"><a href="{{$lab->link}}" class="methods-table-cell__link" target="_blank">@lang('main.site')</a></div>
-            <div class="methods-table-cell phone">{{$lab->phone}}</div>
-        </div>
-        @endforeach
+        @if($labs->count()!=0)
+            @foreach($labs as $lab)
+            <div class="table__body-row">
+                <div class="methods-table-cell name">{{$lab->name}}</div>
+                <div class="methods-table-cell adress">{{$lab->address}}</div>
+                <div class="methods-table-cell site"><a href="{{$lab->link}}" class="methods-table-cell__link" target="_blank">{{$lab->link}}</a></div>
+                <div class="methods-table-cell phone">{{$lab->phone}}</div>
+            </div>
+            @endforeach
+        @else
+            <div class="table__body-row" style="color: red">
+                @lang('main.error_find')
+            </div>
+        @endif
     </div>
 </div>
