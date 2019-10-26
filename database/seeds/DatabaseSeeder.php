@@ -69,6 +69,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PoliceTableSeeder::class);
         $this->call(FooterSeeder::class);
         $this->call(FooterLangSeeder::class);
+        
+        $this->call(TableNameColsSeeder::class);
+        $this->call(TableNameLangColsSeeder::class);
 
     }
 }

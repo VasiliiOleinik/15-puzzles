@@ -38,7 +38,7 @@ class Type extends Section
     public function onDisplay()
     {
         $display = \AdminDisplay::datatablesAsync()->setColumns([
-            \AdminColumn::text('typesLang.name')->setLabel('Имя фактора'),
+            \AdminColumn::text('typeRu.name')->setLabel('Группа факторов'),
         ]);
         $display->setApply(function ($query) {
             $query->where('language', 'ru');

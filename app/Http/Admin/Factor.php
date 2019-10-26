@@ -61,12 +61,14 @@ class Factor extends Section
         $columns1 = \AdminFormElement::columns([
             [
                 \AdminFormElement::text('factorEng.name')->setLabel('Название ENG'),
-                \AdminFormElement::ckeditor('factorEng.content')->setLabel('Контент ENG'),
+                \AdminFormElement::ckeditor('factorEng.abnormal_condition')->setLabel('Ненормальное состояние ENG'),
+                \AdminFormElement::ckeditor('factorEng.normal_condition')->setLabel('Нормальное состояние ENG'),
 
             ],
             [
                 \AdminFormElement::text('factorRu.name')->setLabel('Название RU'),
-                \AdminFormElement::ckeditor('factorRu.content')->setLabel('Контент RU'),
+                \AdminFormElement::ckeditor('factorRu.abnormal_condition')->setLabel('Ненормальное состояние RU'),
+                \AdminFormElement::ckeditor('factorRu.normal_condition')->setLabel('Нормальное состояние RU'),
 
                 \AdminFormElement::hidden('factorRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('factorEng.language')->setDefaultValue('eng')

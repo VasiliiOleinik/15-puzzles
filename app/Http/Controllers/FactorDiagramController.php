@@ -56,8 +56,8 @@ class FactorDiagramController extends Controller
 
     public function printRowAboutFactor(Request $request)
     {
-        $factors = $this->repository->getProtocolsMarkers($request->id);
-        $factors = HelperService::uniqFilteredData($factors, ['factors', 'protocols', 'markers']);
+        $factors = $this->repository->getProtocolsMarkers(implode(',', $request->id));
+        $factors = HelperService::uniqFilteredData($factors);
 
         return view('factor-diagram.print_factor_row', compact('factors'));
     }

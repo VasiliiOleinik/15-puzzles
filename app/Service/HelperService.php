@@ -6,14 +6,16 @@ namespace App\Service;
 
 class HelperService
 {
-    public static function uniqFilteredData($filteredData, $arrayKeys): array
+    public static function uniqFilteredData($filteredData)
     {
         $dataArr = array();
-        foreach ($arrayKeys as $item) {
-            $data = implode(',', $filteredData->pluck($item)->all());
-            $data = $data != '' ? explode(',', $data) : false;
-            $dataArr[$item] = $data ? array_unique($data) : false;
+        foreach ($filteredData as $item) {
+            $item->protocols_id = explode(',', $item->protocols_id);
+            $item->protocols_name = explode(',', $item->protocols_name);
+            $item->markers_id = isset($item->markers_id) ? explode(',', $item->markers_id) : false;
+            $item->markers_name = isset($item->markers_name) ? explode(',', $item->markers_name) : false;
+            $item->group_factor = explode(',', $item->group_factor);
         }
-        return $dataArr;
+        return $filteredData;
     }
 }
