@@ -12,7 +12,7 @@
             </div>
             <div class="tab-item__content">
                 <div class="text">
-                    <p>{{$remedy->content}}</p>
+                    <p>{!! $remedy->content !!}</p>
                 </div>
                 <a class="show-more" href="javascript:void(0)">@lang('main.show_more')</a><a class="link"
                                                                                              target="_blank"

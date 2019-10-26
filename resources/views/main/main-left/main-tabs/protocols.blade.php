@@ -15,7 +15,7 @@
         <div class="tab-item__content">
           <div class="text">
             <p class="subtitle">{{$protocol->subtitle}}</p>
-            <p>{{$protocol->content}}</p>
+            <p>{!! $protocol->content !!}</p>
           </div>
           <a class="show-more" href="javascript:void(0)">@lang('main.show_more')</a><a class="link protocols" target="_blank"
                                                                          href="{{$protocol->protocol->url}}">{{$protocol->protocol->url}}</a>
