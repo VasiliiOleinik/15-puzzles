@@ -400,9 +400,17 @@ $(function () {
         $("#med-history-js, #add-story-js").slideToggle();
     });
 
-    $("#cancel-edit-form-js").on("click", function () {
-        $("#med-history-js, #edit-story-js").slideToggle();
-    });
+    // $("#submit-button-form-js").on("click", function() {
+    //     $("#med-history-js, #add-story-js").slideToggle();
+    // });
+
+    // $("#submit-edit-form-js").on("click", function() {
+    //     $("#med-history-js, #edit-story-js").slideToggle();
+    // });
+
+  $("#cancel-edit-form-js").on("click", function() {
+    $("#med-history-js, #edit-story-js").slideToggle();
+  });
 
     // Валидация
     $("#contact_form, #subscription-form").validate({

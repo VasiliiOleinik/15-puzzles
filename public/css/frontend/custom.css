@@ -719,15 +719,16 @@ body
 form
 .dinamic-input-js,
 body
-.header-login-modal__container
-.container-recovery-pass
-.recovery-pass-inputs
-form
-.dinamic-input-js {
-    box-shadow: none;
-    border: 1px solid #d6dbde;
-    transition: 0.1s ease-in-out;
-    width: 100%;
+  .header-login-modal__container
+  .container-recovery-pass
+  .recovery-pass-inputs
+  form
+  .dinamic-input-js {
+  box-shadow: none;
+  border: 1px solid #d6dbde;
+  transition: 0.1s ease-in-out;
+  width: 100%;
+  color: rgba(2, 2, 2, 0.6);
 }
 
 body .content-wrapper .page-wrapper .main .box .dinamic-label-js,
@@ -1123,4 +1124,9 @@ body .header-login-modal__container .label label.errors {
 
 .main__right {
     height: 100%s;
+}
+
+
+body .content-wrapper .cke_chrome {
+    width: 100%;
 }

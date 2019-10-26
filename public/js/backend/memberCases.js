@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     usedTags('memberCases', 'all');
 
-    function tagsEmpty() {
-        return $("#tags").val().split(',').length == 1 && $("#tags").val().split(',') == "";
-    };
+    // function tagsEmpty() {
+    //     return $("#tags").val().split(',').length == 1 && $("#tags").val().split(',') == "";
+    // };
 
     /* ------------------ */
     /* ------------------ */
@@ -42,11 +42,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $('#img').val(img);
     };
 
-    $('.submit-form').on('click', function (e) {
-        if (!tagsEmpty()) { 
-            $('#story-tags').val( $('#tags').val().split(',') );
-        }
-    });
+    // $('.submit-form').on('click', function (e) {
+    //     if (!tagsEmpty()) {
+    //         $('#story-tags').val( $('#tags').val().split(',') );
+    //     }
+    // });
 
     // Скрываю label когда input активен (personal page)
     $(
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 "font-size": "10px",
                 "box-shadow": "0px 0px 3px 0px rgba(0,0,0,0.1)"
             });
-            
+
     });
     $(
         ".labels"
@@ -119,8 +119,55 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     });
 
-    /* ------------------ */
-    /* ------------------ */
+    $("#add-member-case__form").on("submit", function (e) {
+        e.preventDefault();
+
+        $("#add-member-case-headline-error").text("");
+        $("#add-member-case-your-story-error").text("");
+        $("#add-member-case-story-tags-error").text("");
+        let formData = new FormData();
+        CKEDITOR.instances.ckeditor_add_member_case.updateElement();
+        formData.append('headline', $("#add-member-case__form").find('[name="headline"]').val());
+        formData.append('your-story', $("#add-member-case__form").find('[name="your-story"]').val());
+        formData.append('anonym', $("#add-member-case__form").find('[name="anonym"]').prop('checked'));
+        formData.append('story-tags', $("#add-member-case__form").find('.js-example-basic-multiple').val());
+        formData.append('_token', $('meta[name="csrf-token"]').attr('content'));
+        if ($("#add-member-case__form").find('[name=image-file]').prop('files').length != 0) {
+            formData.append('image-file', $("#add-member-case__form").find('[name="image-file"]').prop('files')[0]);
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "member_cases/create_post",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
+
+                // очистка формы
+                $("#add-member-case__form").find('.headline.inp').val('');
+                $("#add-member-case__form").find('.js-example-basic-multiple').val([]).trigger('change');
+                $("#add-member-case__form").find('[name="anonym"]').prop('checked', false);
+                CKEDITOR.instances.ckeditor_add_member_case.setData('');
+                CKEDITOR.instances.ckeditor_add_member_case.updateElement();
+                $("#add-member-case__form").find('.image').attr('src', '/img/upload.png');
+            },
+            error: function (data) {
+                $("#preloader").css("display", "none");
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $("#add-member-case-" + key + "-error").text(element[0]);
+                    }
+                }
+            }
+        });
+    });
 
 });
 /* ------------------ */

@@ -39,4 +39,8 @@ return [
     'do_not_publish' => 'Do not publish my data. Publish case anonymously',
     'tag_cloud' => 'Tag cloud',
     'submit_for_moderation' => 'Submit for moderation',
+    'enter_headline' => 'Enter a headline for your story',
+    'headline_too_long' => 'Headline cannot be longer than 190 symbols',
+    'enter_your_story' => 'Enter your story',
+    'your_story_too_short' => 'Minimum length of the text is 10 symbols',
 ];
