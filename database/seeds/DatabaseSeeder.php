@@ -55,9 +55,8 @@ class DatabaseSeeder extends Seeder
         $this->call(BooksTableSeeder::class);
         $this->call(BookLanguagesTableSeeder::class);
         $this->call(LinksForBooksTableSeeder::class);
-
-        $this->call(CountriesTableSeeder::class);
         $this->call(LaboratoriesTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
         $this->call(OptionSeeder::class);
         $this->call(PagesSeeder::class);
         $this->call(TypeLanguageSeeder::class);
@@ -69,7 +68,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PoliceTableSeeder::class);
         $this->call(FooterSeeder::class);
         $this->call(FooterLangSeeder::class);
-        
+
         $this->call(TableNameColsSeeder::class);
         $this->call(TableNameLangColsSeeder::class);
 

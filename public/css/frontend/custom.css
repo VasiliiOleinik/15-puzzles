@@ -1123,9 +1123,8 @@ body .header-login-modal__container .label label.errors {
 }
 
 .main__right {
-    height: 100%s;
+    height: 100%;
 }
-
 
 body .content-wrapper .cke_chrome {
     width: 100%;
