@@ -12,5 +12,13 @@ class GroupSeeder extends Seeder
     public function run()
     {
         factory(Group::class, 4)->create();
+
+        $factors = \App\Models\Factor\Factor::all();
+        $groups = Group::all();
+
+        foreach ($groups as $group){
+
+            $group->factors()->attach($factors->random(1,2));
+        }
     }
 }
