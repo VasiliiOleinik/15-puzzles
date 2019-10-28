@@ -11,7 +11,7 @@
             <div class="table__body-row">
                 <div class="methods-table-cell name">{{$lab->name}}</div>
                 <div class="methods-table-cell adress">{{$lab->address}}</div>
-                <div class="methods-table-cell site"><a href="{{$lab->link}}" class="methods-table-cell__link" target="_blank">{{$lab->link}}</a></div>
+                <div class="methods-table-cell site"><a href="{{$lab->link}}" class="methods-table-cell__link" target="_blank">@lang('site')</a></div>
                 <div class="methods-table-cell phone">{{$lab->phone}}</div>
             </div>
             @endforeach
