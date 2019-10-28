@@ -116,34 +116,34 @@ $(function () {
 
     // Скрываю label когда input активен (personal page)
 
-  $(window).on("load", function() {
-    $(".dinamic-input-js").each(function(index, item) {
-      var value = $.trim($(item).val());
-      if (value) {
-          $(item).closest(".label").addClass("active");
-          $(item).addClass("active");
-      } else {
-          $(item).closest(".label").removeClass("active");
-          $(item).removeClass("active");
-      }
+    $(window).on("load", function () {
+        $(".dinamic-input-js").each(function (index, item) {
+            var value = $.trim($(item).val());
+            if (value) {
+                $(item).closest(".label").addClass("active");
+                $(item).addClass("active");
+            } else {
+                $(item).closest(".label").removeClass("active");
+                $(item).removeClass("active");
+            }
+        });
     });
-  });
 
-  $(function () {
-    $(".label .dinamic-label-js").on("click", function () {
-        $(this).closest(".label").find(".dinamic-input-js").focus();
+    $(function () {
+        $(".label .dinamic-label-js").on("click", function () {
+            $(this).closest(".label").find(".dinamic-input-js").focus();
+        });
+        $(".label .dinamic-input-js").on("keyup", function () {
+            var value = $.trim($(this).val());
+            if (value) {
+                $(this).closest(".label").addClass("active");
+                $(this).addClass("active");
+            } else {
+                $(this).closest(".label").removeClass("active");
+                $(this).removeClass("active");
+            }
+        });
     });
-    $(".label .dinamic-input-js").on("keyup", function () {
-      var value = $.trim($(this).val());
-      if (value) {
-          $(this).closest(".label").addClass("active");
-          $(this).addClass("active");
-      } else {
-          $(this).closest(".label").removeClass("active");
-          $(this).removeClass("active");
-      }
-    });
-});
 
     $(".upload-file input").on("change", function (e) {
         var fileName = $(this)[0].files[0].name;
@@ -408,9 +408,9 @@ $(function () {
     //     $("#med-history-js, #edit-story-js").slideToggle();
     // });
 
-  $("#cancel-edit-form-js").on("click", function() {
-    $("#med-history-js, #edit-story-js").slideToggle();
-  });
+    $("#cancel-edit-form-js").on("click", function () {
+        $("#med-history-js, #edit-story-js").slideToggle();
+    });
 
     // Валидация
     $("#contact_form, #subscription-form").validate({
@@ -506,7 +506,7 @@ $(function () {
             }
         });
     });
-
+    // что это????? зачем?? зачем 4 функции делать одно и тоже???
     // Отправка формы подписки на странице Literature
     $("#literature-subscribe-form").on("submit", function (e) {
         e.preventDefault();
@@ -518,7 +518,10 @@ $(function () {
         $.ajax({
             type: "GET",
             url: "subscriber/create",
-            data: $("#literature-subscribe-form").serialize(),
+            data: {
+                email_subscribe: $("#footer-subscribe-form").serialize(),
+                local: locale
+            },
             success: function (data) {
                 $("#literature-subscribe-form input").val("");
                 $("#literature-subscribe-form button").prop("disabled", false);
@@ -553,7 +556,10 @@ $(function () {
         $.ajax({
             type: "GET",
             url: "subscriber/create",
-            data: $("#member-cases-subscribe-form").serialize(),
+            data: {
+                email_subscribe: $("#footer-subscribe-form").serialize(),
+                local: locale
+            },
             success: function (data) {
                 $("#member-cases-subscribe-form input").val("");
                 $("#member-cases-subscribe-form button").prop("disabled", false);
@@ -588,7 +594,10 @@ $(function () {
         $.ajax({
             type: "GET",
             url: "subscriber/create",
-            data: $("#news-subscribe-form").serialize(),
+            data: {
+                email_subscribe: $("#footer-subscribe-form").serialize(),
+                local: locale
+            },
             success: function (data) {
                 $("#news-subscribe-form input").val("");
                 $("#news-subscribe-form button").prop("disabled", false);
@@ -614,8 +623,8 @@ $(function () {
     });
     // Отправка формы подписки в Footer
     $("#footer-subscribe-form").on("submit", function (e) {
+        $("#preloader").css("display", "flex");
         e.preventDefault();
-
         $("#footer-email-subscribe-error").text("");
         $("#footer-subscribe-form button").prop("disabled", true);
         $("#footer-subscribe-form button").addClass("disabled-button");
@@ -623,11 +632,15 @@ $(function () {
         $.ajax({
             type: "GET",
             url: "subscriber/create",
-            data: $("#footer-subscribe-form").serialize(),
+            data: {
+                email_subscribe: $("#email_subscribe").val(),
+                local: locale
+            },
             success: function (data) {
                 $("#footer-subscribe-form input").val("");
                 $("#footer-subscribe-form button").prop("disabled", false);
                 $("#footer-subscribe-form button").removeClass("disabled-button");
+                $("#footer-email_subscribe-error").text('');
                 $("#preloader").css("display", "none");
                 $.fancybox.open({
                     src: "#success-modal",
@@ -647,7 +660,6 @@ $(function () {
             }
         });
     });
-
     // Отправка комментария
     $("#add-comment-form").on("submit", function (e) {
         e.preventDefault();
@@ -705,6 +717,8 @@ $(function () {
             }
         });
     });
+
+    // конец
 });
 
 $(function () {
@@ -864,6 +878,7 @@ function lazyScroll(anchor, speed) {
         $("html, body").animate({scrollTop: scrollRange}, speed);
     });
 }
+
 //hover
 
 function toggleColor(elem, isColor) {
@@ -889,6 +904,7 @@ function toggleColor(elem, isColor) {
             .removeClass("show");
     }
 }
+
 function hoverFactor() {
     $(".js-item").hover(
         function () {
@@ -913,6 +929,7 @@ function hoverFactor() {
         }
     );
 }
+
 hoverFactor();
 
 // Прелоадер на главной
@@ -927,6 +944,6 @@ $(window).on("load", function () {
 });
 
 // Member cases multi-seselc
-$(function() {
-  $('.js-example-basic-multiple').select2();
+$(function () {
+    $('.js-example-basic-multiple').select2();
 });

@@ -3,8 +3,8 @@
     <button class="header-login-modal__close"><img src="/img/svg/close-modal.svg" alt=""></button>
     <div class="container-authorization">
       <div class="container-authorization__tabs">
-        <div class="authorization-tab active" id="tabs-login">Authorization</div>
-        <div class="authorization-tab" id="tabs-registration">Registration</div>
+        <div class="authorization-tab active" id="tabs-login">@lang('main.Authorization')</div>
+        <div class="authorization-tab" id="tabs-registration">@lang('main.Registration')</div>
       </div>
       @include('layouts.include.login-modal.authentication')
       @include('layouts.include.login-modal.registration')

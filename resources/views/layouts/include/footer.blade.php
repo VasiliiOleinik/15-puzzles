@@ -23,11 +23,11 @@
           <input type="text" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" value="{{ Auth::user()->email }}">
           @endauth
           @guest
-          <input type="text" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')">
+          <input type="text" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" id="email_subscribe">
           @endguest
           <button type="submit">@lang('footer.button_subscribe')</button>
         </form>
-        <label id="footer-email-subscribe-error" class="invalid" for="email-subscribe"></label>
+        <label id="footer-email_subscribe-error" class="invalid" for="email-subscribe"></label>
         <h6 class="footer__h6 evidence-title">@lang('footer.levels')</h6>
         <ul class="footer__evidence">
           <li class="proven">@lang('footer.proven')</li>
@@ -48,7 +48,7 @@
 </footer>
 <div style="display: none;" id="success-modal">
   <div class="success-modal-content">
-	  <h2 class="success-modal-content__header">Спасибо!</h2>
-    <p class="success-modal-content__text">Ваши данные отправлены!</p>
+	  <h2 class="success-modal-content__header">@lang('main.tanks')!</h2>
+    <p class="success-modal-content__text">@lang('main.send_data')!</p>
   </div>
 </div>

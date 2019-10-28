@@ -24,16 +24,17 @@ class SubscribeFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'email-subscribe' => 'required|string|email:filter|max:191',
+            'email_subscribe' => 'required|email:filter|max:191',
         ];
     }
 
     public function messages()
     {
+        app()->setLocale($this->local);
         return [
-            'email-subscribe.required' => trans('subscriber.email_required'),
-            'email-subscribe.email' => trans('subscriber.email_email'),
-            'email-subscribe.max' => trans('subscriber.email_max'),
+            'email_subscribe.required' => trans('subscriber.email_required'),
+            'email_subscribe.email' => trans('subscriber.email_email'),
+            'email_subscribe.max' => trans('subscriber.email_max'),
         ];
     }
 }

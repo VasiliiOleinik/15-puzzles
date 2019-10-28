@@ -19,7 +19,7 @@ class SubscriberController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(SubscribeFormRequest $request, $locale)
+    public function create(SubscribeFormRequest $request)
     {
         $newsLatest = Cache::remember('newsLatest_'.app()->getLocale(), now()->addDay(1), function(){
                 $latest = Article::orderBy('id','desc')->paginate(3)->pluck('id');
@@ -27,23 +27,21 @@ class SubscriberController extends Controller
                                                        ->orderBy('article_id','desc')->paginate(3);
         });
         //проверяем подписан ли уже этот email
-        if(Subscriber::where('email','=',$request['email-subscribe'])->count() == 0){
+        if (Subscriber::where('email', '=', $request['email_subscribe'])->count() == 0) {
             $subscriber = new Subscriber;
-            $subscriber->email = $request['email-subscribe'];
-            $subscriber->language = $locale;
+            $subscriber->email = $request['email_subscribe'];
+            $subscriber->language = $request->local;
             $subscriber->save();
 
-            Mail::to( $subscriber->email )
-                ->send( new LetterToSubscriber($newsLatest, $subscriber->language) );
+            Mail::to($subscriber->email)
+                ->send(new LetterToSubscriber($newsLatest, $subscriber->language));
 
             $mailSender = new MailSenderController();
             $mailSender->updateContact($subscriber->email);
 
             $answer = trans('subscriber.successfully_subscribed');
 
-        }
-        else
-        {
+        } else {
             $answer = trans('subscriber.already_subscribed');
         }
         return response()->json([

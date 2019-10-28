@@ -57,5 +57,16 @@ return [
     'address_lab' => 'Address Laboratory',
     'site' => 'Site',
     'phone_lab' => 'Phone',
-    'error_find'=>'Laboratory not found'
+    'error_find'=>'Laboratory not found',
+    'tanks' => "Thank",
+    'send_data' => "Your details have been sent!",
+    "Authorization"=>"Authorization",
+    "Registration"=>'Registration',
+    "login"=>'Login',
+    "password"=>'Password',
+    "enter"=>'Login',
+    "forgot_pass"=>'Forgot you password?',
+    "confirm_pass" => 'Confirm password',
+    'confirm_button' => 'By clicking on the "Registration" button, I agree that I have read and accepted the',
+    "Terms"=>'Terms of Use.'
 ];
