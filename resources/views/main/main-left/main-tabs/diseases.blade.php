@@ -16,7 +16,7 @@
         </div>
         <div class="tab-item__content">
           <div class="text">
-            <p>{{$disease->content}}</p>
+            <p>{!! $disease->content !!}</p>
           </div>
           <a class="show-more" href="javascript:void(0)">@lang('main.show_more')</a>
         </div>

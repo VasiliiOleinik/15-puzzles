@@ -26,7 +26,7 @@
                   <div class="tab-faq-list">
                     <div class="tab-faq-item">
                       <h4 class="tab-faq-title">{{ $question->name }}</h4>
-                      <p class="tab-faq-text">{{ $question->content }}</p>
+                      <p class="tab-faq-text">{!! $question->content !!}</p>
                     </div>
                   </div>
                 </div>

@@ -22,7 +22,7 @@
                             </label>
                             <div class="method-item__content">
                                 <div class="text markers">
-                                    <p>{{isset($method->methodLanguage->first()->content) ? $method->methodLanguage->first()->content : false}}</p>
+                                    <p>{!! isset($method->methodLanguage->first()->content) ? $method->methodLanguage->first()->content : false !!}</p>
                                 </div>
                             </div>
                         </div>
