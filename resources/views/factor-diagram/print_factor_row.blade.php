@@ -11,13 +11,13 @@
         <div class="table-column first">
             <p class="table-text">{{str_limit(strip_tags($factor->normal_condition), 200, '...')}}</p>
             @if(mb_strlen(strip_tags($factor->normal_condition),'UTF-8') > 200)
-                <a data-src="#hidden-content" href="javascript:;" class="table-method show_norm_condition" data-id="{{$factor->factor}}">Показать больше</a>
+                <a data-src="#hidden-content" href="javascript:;" class="table-method show_norm_condition" data-id="{{$factor->factor}}">@lang('main.show_more')</a>
             @endif
         </div>
         <div class="table-column third">
             <p class="table-text">{{str_limit(strip_tags($factor->abnormal_condition), 200, '...')}}</p>
             @if(mb_strlen(strip_tags($factor->abnormal_condition),'UTF-8') > 200)
-                <a  data-src="#hidden-content" href="javascript:;" class="table-method show_abnorm_condition" data-id="{{$factor->factor}}">Показать больше</a>
+                <a  data-src="#hidden-content" href="javascript:;" class="table-method show_abnorm_condition" data-id="{{$factor->factor}}">@lang('main.show_more')</a>
             @endif
         </div>
         <div class="table-column fourth">
