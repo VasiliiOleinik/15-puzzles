@@ -99,6 +99,7 @@ class MainController extends Controller
 
 
         $page = Page::with('pageLang')->where('name_page', Properties::PAGE_MAIN)->first();
+
         $newsLatest = Cache::remember('newsLatest_' . app()->getLocale(), now()->addDay(1), function () {
             $latest = Article::orderBy('id', 'desc')->paginate(3)->pluck('id');
             return ArticleLanguage::with('article')->whereIn('article_id', $latest)
