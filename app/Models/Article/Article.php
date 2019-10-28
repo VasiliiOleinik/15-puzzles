@@ -85,4 +85,9 @@ class Article extends Model
             ->where('language', 'ru');
     }
 
+    public function articleLang()
+    {
+        return $this->hasOne(ArticleLanguage::class);
+    }
+
 }

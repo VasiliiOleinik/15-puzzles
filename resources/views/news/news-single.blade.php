@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('title')
-    <title>{{ $page->pageLang->title }}</title>
+    <title>{{ $page->articleLang->title }}</title>
 @endsection
 @section('description')
-    <meta content="{!! $page->pageLang->description !!}" name="description">
+    <meta content="{!! $page->articleLang->description !!}" name="description">
 @endsection
 @section('news-js')
     <!--  scripts you need to search for tags   -->

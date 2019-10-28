@@ -104,6 +104,7 @@ class NewsController extends Controller
             }
         );
         $id = Article::where('alias', $alias)->first()->id;
+        $page = Article::where('alias', $alias)->first();
         //категории для новостей
         $categoriesForNews = Cache::remember(
             'categoryForNews_' . app()->getLocale(),
@@ -112,7 +113,11 @@ class NewsController extends Controller
                 return CategoryForNewsLanguage::with('categoriesForNews')->get();
             }
         );
-        return view('news.news-single', ['article' => ArticleLanguage::where("article_id", '=', $id)->first(), 'categoriesForNews' => $categoriesForNews]);
+        return view('news.news-single', [
+            'article' => ArticleLanguage::where("article_id", '=', $id)->first(),
+            'categoriesForNews' => $categoriesForNews,
+            'page'=>$page
+        ]);
     }
 
     /**
