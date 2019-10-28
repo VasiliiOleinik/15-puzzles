@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CircleDiagram;
 use App\Models\Factor\Factor;
 
 
@@ -33,6 +34,12 @@ class FactorDiagramController extends Controller
     public function index()
     {
         $page = Page::with('pageLang')->where('name_page', Properties::PAGE_FACTOR_DIAGRAM)->first();
+        $factorDiagram = CircleDiagram::all()
+        ->where('status', 'default');
+        foreach ($factorDiagram as $s){
+            $x = $s->defaultImage;
+            $z = $s->colorImage;
+        }
         $colNames = NameCols::with('langCols')->first();
         $type1 = Type::with('factors', 'typesLang')
             ->limit(3)
@@ -49,7 +56,8 @@ class FactorDiagramController extends Controller
                 'type1',
                 'type2',
                 'page',
-                'colNames'
+                'colNames',
+                'factorDiagram'
             )
         );
     }
