@@ -19,11 +19,13 @@
                             <label class="group_title"><img src="{{$type->img}}"
                                                             alt="img" width="50px">
                                 <input class="group_title_checkbox" type="checkbox"><span
-                                    class="checkbox-custom"></span><span class="label">{{isset($type->typesLang->name) ? $type->typesLang->name : false }}</span>
+                                    class="checkbox-custom"></span><span
+                                    class="label">{{isset($type->typesLang->name) ? $type->typesLang->name : false }}</span>
                             </label>
                             <div class="group_content">
                                 @foreach($type->factors as $factor)
-                                    <div class="group_item js-item reverse" id="{{isset($factor->id) ? $factor->id : false}}"
+                                    <div class="group_item js-item reverse"
+                                         id="{{isset($factor->id) ? $factor->id : false}}"
                                          data-json=@foreach($factor->organ as $organ){!!$organ->name!!},@endforeach>
                                         <p>{{isset($factor->factorLanguage->name) ? $factor->factorLanguage->name : false}}</p>
                                     </div>
@@ -33,36 +35,39 @@
                     @endforeach
                 </div>
                 <div class="diagram__center">
-                    <h2 class="diagram__center-title">{{ $page->h1 }}</h2>
+                    <h2 class="diagram__center-title">{{ $page->pageLang->h1 }}</h2>
                     <div class="diagram__center-circle-container">
-                        <div class="circle" id="organ_system">
-                            <img class="grey" src="/../img/diagram_ico/bg-grey.jpg" alt="">
-                            <img class="color" src="/../img/diagram_ico/bg-color.jpg" alt="">
-                            <div class="target organ_system">
-                                <span class="target__span">target organ system</span><span class="treangle treangle-organ_system"></span>
+                        @foreach($factorDiagram as $item)
+                            <div class="circle" id="{{$item->name}}">
+                                <img class="grey" src="{{asset($item->defaultImage->img)}}" alt="">
+                                <img class="color" src="{{asset($item->colorImage->img)}}" alt="">
+                                <div class="target organ_system">
+                                    <span class="target__span">{{$item->circleLang->name_target}}</span><span
+                                        class="treangle treangle-organ_system"></span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="circle" id="organ">
-                            <img class="grey" src="/../img/diagram_ico/organ-grey.png" alt="" class="">
-                            <img class="color" src="/../img/diagram_ico/organ-color.png" alt="" class="">
-                            <div class="target organ">
-                                <span class="target__span">target organ</span><span class="treangle treangle-organ"></span>
-                            </div>
-                        </div>
-                        <div class="circle" id="matrix">
-                            <img class="grey" src="/../img/diagram_ico/matrix-grey.png" alt="" class="">
-                            <img class="color" src="/../img/diagram_ico/matrix-color.png" alt="" class="">
-                            <div class="target matrix">
-                                <span class="target__span">target matrix</span><span class="treangle treangle-matrix"></span>
-                            </div>
-                        </div>
-                        <div class="circle" id="cell">
-                            <img class="grey" src="/../img/diagram_ico/cell-grey.png" alt="" class="">
-                            <img class="color" src="/../img/diagram_ico/cell-color.png" alt="" class="">
-                            <div class="target cell">
-                                <span class="target__span">target cell</span><span class="treangle treangle-cell"></span>
-                            </div>
-                        </div>
+                        @endforeach
+                        {{--                        <div class="circle" id="organ">--}}
+                        {{--                            <img class="grey" src="/../img/diagram_ico/organ-grey.png" alt="" class="">--}}
+                        {{--                            <img class="color" src="/../img/diagram_ico/organ-color.png" alt="" class="">--}}
+                        {{--                            <div class="target organ">--}}
+                        {{--                                <span class="target__span">target organ</span><span class="treangle treangle-organ"></span>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
+                        {{--                        <div class="circle" id="matrix">--}}
+                        {{--                            <img class="grey" src="/../img/diagram_ico/matrix-grey.png" alt="" class="">--}}
+                        {{--                            <img class="color" src="/../img/diagram_ico/matrix-color.png" alt="" class="">--}}
+                        {{--                            <div class="target matrix">--}}
+                        {{--                                <span class="target__span">target matrix</span><span class="treangle treangle-matrix"></span>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
+                        {{--                        <div class="circle" id="cell">--}}
+                        {{--                            <img class="grey" src="/../img/diagram_ico/cell-grey.png" alt="" class="">--}}
+                        {{--                            <img class="color" src="/../img/diagram_ico/cell-color.png" alt="" class="">--}}
+                        {{--                            <div class="target cell">--}}
+                        {{--                                <span class="target__span">target cell</span><span class="treangle treangle-cell"></span>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
                     </div>
                 </div>
                 <div class="diagram__right">
@@ -71,11 +76,13 @@
                             <label class="group_title"><img src="{{$type->img}}"
                                                             alt="img" width="50px">
                                 <input class="group_title_checkbox" type="checkbox"><span
-                                    class="checkbox-custom"></span><span class="label">{{isset($type->typesLang->name) ? $type->typesLang->name : false }}</span>
+                                    class="checkbox-custom"></span><span
+                                    class="label">{{isset($type->typesLang->name) ? $type->typesLang->name : false }}</span>
                             </label>
                             <div class="group_content">
                                 @foreach($type->factors as $factor)
-                                    <div class="group_item js-item reverse" id="{{isset($factor->id) ? $factor->id : false}}"
+                                    <div class="group_item js-item reverse"
+                                         id="{{isset($factor->id) ? $factor->id : false}}"
                                          data-json=@foreach($factor->organ as $organ){!!$organ->name!!},@endforeach>
                                         <p>{{isset($factor->factorLanguage->name) ? $factor->factorLanguage->name : false}}</p>
                                     </div>

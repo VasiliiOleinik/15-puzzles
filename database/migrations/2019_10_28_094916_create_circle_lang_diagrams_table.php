@@ -15,9 +15,9 @@ class CreateCircleLangDiagramsTable extends Migration
     {
         Schema::create('circle_lang_diagrams', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('circle_diagram_id');
-            $table->string('lang');
-            $table->string('name');
+            $table->string('circle_diagram_name');
+            $table->string('language');
+            $table->string('name_target');
             $table->timestamps();
         });
     }

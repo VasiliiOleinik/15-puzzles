@@ -71,6 +71,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(TableNameColsSeeder::class);
         $this->call(TableNameLangColsSeeder::class);
+        $this->call(CircleDiagramSeeder::class);
+        $this->call(CircleLangDiagramSeeder::class);
 
     }
 }

@@ -65,6 +65,7 @@ return [
         'pages' => [
             (new Page(\App\Models\NameCols::class))->setTitle('Имя колонок'),
             (new Page(\App\Models\Factor\FactorDiagram::class))->setTitle('Факторная диаграмма'),
+            (new Page(\App\Models\CircleDiagram::class))->setTitle('Цели для факторов'),
         ]
     ],
     (new Page(\App\Models\Type::class))->setTitle('Группы факторов'),

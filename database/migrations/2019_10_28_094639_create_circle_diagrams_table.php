@@ -16,7 +16,8 @@ class CreateCircleDiagramsTable extends Migration
         Schema::create('circle_diagrams', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('img');
-            $table->string('name_circle');
+            $table->string('name');
+            $table->string('status');
             $table->timestamps();
         });
     }

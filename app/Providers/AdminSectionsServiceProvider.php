@@ -45,6 +45,7 @@ class AdminSectionsServiceProvider extends ServiceProvider
         \App\Models\Police\Police::class => 'App\Http\Admin\Police',
         \App\Models\Footer::class => 'App\Http\Admin\Footer',
         \App\Models\NameCols::class => 'App\Http\Admin\NameCols',
+        \App\Models\CircleDiagram::class => 'App\Http\Admin\CircleDiagram',
     ];
 
     //protected $router->get('/factorLanguages/create', ['as' => 'admin.factorLanguages.create', 'uses' => '\App\Http\Controllers\MainController@index']);
