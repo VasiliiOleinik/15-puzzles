@@ -47,18 +47,20 @@ class Article extends Section
             ->with(['articlesRu'])
             ->setColumns(
                 [
-                    AdminColumn::text('articlesRu.title')->setLabel('Название статьи'),
-                    AdminColumn::text('alias')->setLabel('Алиас(название страницы)')->setOrderable(false),
+                    //AdminColumn::text('articlesRu')->setLabel('Название статьи'),
+                    AdminColumn::text('alias')->setLabel('Алиас(название страницы)'),
                     \AdminColumnEditable::checkbox('is_active', 'Да', 'Нет', 'Показывать')->setOrderable(false),
                     AdminColumn::text('created_at')->setLabel('Дата создания')->setOrderable(false),
                 ]
             );
+
         $display->setColumnFilters([
             \AdminColumnFilter::text()->setPlaceholder('Введите название')->setOperator(FilterInterface::CONTAINS),
         ]);
+
         $display->setApply(function ($query) {
-            $query->where('language', 'ru');
             $query->orderBy('created_at', 'desc');
+            //$query->where('article_languages.language', 'ru');
         });
 
 

@@ -63,12 +63,14 @@ class Factor extends Section
                 \AdminFormElement::text('factorEng.name')->setLabel('Название ENG'),
                 \AdminFormElement::ckeditor('factorEng.abnormal_condition')->setLabel('Ненормальное состояние ENG'),
                 \AdminFormElement::ckeditor('factorEng.normal_condition')->setLabel('Нормальное состояние ENG'),
+                \AdminFormElement::ckeditor('factorEng.content')->setLabel('Контент ENG'),
 
             ],
             [
                 \AdminFormElement::text('factorRu.name')->setLabel('Название RU'),
                 \AdminFormElement::ckeditor('factorRu.abnormal_condition')->setLabel('Ненормальное состояние RU'),
                 \AdminFormElement::ckeditor('factorRu.normal_condition')->setLabel('Нормальное состояние RU'),
+                \AdminFormElement::ckeditor('factorRu.content')->setLabel('Контент ENG'),
 
                 \AdminFormElement::hidden('factorRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('factorEng.language')->setDefaultValue('eng')

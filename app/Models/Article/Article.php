@@ -81,7 +81,7 @@ class Article extends Model
 
     public function articlesRu()
     {
-        return $this->hasOne(ArticleLanguage::class)->withoutGlobalScope(LanguageScope::class)
+        return $this->hasOne(ArticleLanguage::class)
             ->where('language', 'ru');
     }
 
