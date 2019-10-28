@@ -33,16 +33,17 @@
       </div>
       <div class="header__login">
           @guest
-          <button id="login-btn" data-fancybox data-src="#header-login-modal-js"><img src="/img/svg/user.svg" alt="User">
+          <button id="login-btn" data-fancybox data-src="#header-login-modal-js">
+            <div class="user-ico"><img src="/img/svg/user.svg" alt="User"></div>
             <span>@lang('header.login')</span>
           </button>
           @endguest
           @auth
           <button >
           @if( Auth::user()->img==null )
-            <img src="{{ asset('images/no_avatar.png') }}" alt="User">
+           <div class="user-ico"><img src="{{ asset('images/no_avatar.png') }}" alt="User"></div>
           @else
-            <img src="{{Auth::user()->img}}" alt="User">
+            <div class="user-ico"><img src="{{Auth::user()->img}}" alt="User"></div>
           @endif
           </button>
           <a class="logout" href="{{ route('logout', app()->getLocale() ) }}"
