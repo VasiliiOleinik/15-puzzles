@@ -70,7 +70,7 @@ class Factor extends Section
                 \AdminFormElement::text('factorRu.name')->setLabel('Название RU'),
                 \AdminFormElement::ckeditor('factorRu.abnormal_condition')->setLabel('Ненормальное состояние RU'),
                 \AdminFormElement::ckeditor('factorRu.normal_condition')->setLabel('Нормальное состояние RU'),
-                \AdminFormElement::ckeditor('factorRu.content')->setLabel('Контент ENG'),
+                \AdminFormElement::ckeditor('factorRu.content')->setLabel('Контент RU'),
 
                 \AdminFormElement::hidden('factorRu.language')->setDefaultValue('ru'),
                 \AdminFormElement::hidden('factorEng.language')->setDefaultValue('eng')
