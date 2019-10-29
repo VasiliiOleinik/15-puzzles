@@ -105,7 +105,7 @@ class MemberCaseController extends Controller
 
         $memberCase->user_id = Auth::id();
         $memberCase->title = $request['headline'];
-        $memberCase->content = $request['your-story'];
+        $memberCase->content = mb_convert_encoding($request['your-story'], 'UTF-8');
         $memberCase->description = substr($memberCase->content,0,186);
         $memberCase->status = "moderating";
         $memberCase->anonym = json_decode($request['anonym']);
@@ -155,7 +155,7 @@ class MemberCaseController extends Controller
         $memberCase = MemberCase::find($request['id']);
 
         $memberCase->title = $request['headline'];
-        $memberCase->content = $request['your-story'];
+        $memberCase->content = mb_convert_encoding($request['your-story'], 'UTF-8');
         $memberCase->description = substr($memberCase->content,0,186);
         $memberCase->status = "moderating";
         $memberCase->is_active = false;
