@@ -116,7 +116,6 @@ $(function() {
   // Скрываю label когда input активен (personal page)
   $(function() {
     $(".dinamic-input-js").each(function(index, item) {
-        console.log($(item));
         var value = $.trim($(item).val());
         if (value) {
           $(item)
@@ -865,4 +864,12 @@ $(function() {
         .addClass("active");
     }
   });
+});
+
+$(document).ready(function()
+{
+    $("#fileuploader").uploadFile({
+        url: "YOUR_FILE_UPLOAD_URL",
+        fileName: "myfile"
+    });
 });

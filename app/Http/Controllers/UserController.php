@@ -33,7 +33,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -44,7 +44,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User\User  $user
+     * @param \App\Models\User\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -55,19 +55,19 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User\User  $user
+     * @param \App\Models\User\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
     {
-        
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User\User  $user
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\User\User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
@@ -77,17 +77,20 @@ class UserController extends Controller
             'first_name' => ['max:191'],
             'middle_name' => ['max:191'],
             'last_name' => ['max:191'],
-            'password' => ['nullable','regex:/^[a-zA-Z]+$/u','min:8', 'max:191'],
+            'password' => ['nullable', 'regex:/^[a-zA-Z]+$/u', 'min:8', 'max:191'],
             'img' => ['nullable'],
         ]);
 
-        if($request->password != null){         
-          $user->password = Hash::make($request->password);
+        if ($request->password != null) {
+            $user->password = Hash::make($request->password);
         }
-        if($request->img != null){         
-          $user->img = $request['img'];
+        if ($request->img != null) {
+            $storagePath = '/public/user/main_photo/' . Auth::id();
+            \Storage::deleteDirectory($storagePath);
+            $url = $request->file('image_download')->store($storagePath, 'public');
+            $user->img = $url;
         }
-        $user->update($request->except(['password','img']));        
+        //$user->update($request->except(['password', 'img']));
 
         $user->save();
 
@@ -99,7 +102,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User\User  $user
+     * @param \App\Models\User\User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)
