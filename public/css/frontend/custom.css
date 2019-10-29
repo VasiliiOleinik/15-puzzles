@@ -1132,3 +1132,7 @@ body .header-login-modal__container .label label.errors {
 body .content-wrapper .cke_chrome {
     width: 100%;
 }
+
+.header-login-modal__container .container-authorization__reg .reg-inputs form .modal-reg-btn {
+    margin-top: 15px;
+}

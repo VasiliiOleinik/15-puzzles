@@ -50,8 +50,13 @@
                           <label id="faq-name-error" class="invalid" for="name"></label>
                       </div>
                       <div class="label">
-                        <input id="faq-phone" type="text" name="phone" class="dinamic-input-js">
-                        <label for="phone" class="dinamic-label-js">@lang('faq.your_phone')</label>
+                        @auth
+                          <input id="faq-phone" type="text" name="phone" class="dinamic-input-js" value="{{ $user->phone }}">
+                        @endauth
+                        @guest
+                          <input id="faq-phone" type="text" name="phone" class="dinamic-input-js">
+                        @endauth
+                        <label for="phone" class="dinamic-label-js">@lang('faq.your_phone')<span class="required">*</span></label>
                         <label id="faq-phone-error" class="invalid" for="phone"></label>
                       </div>
                       <div class="label">
