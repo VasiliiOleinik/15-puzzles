@@ -118,6 +118,7 @@ $(function () {
 
     $(window).on("load", function () {
         $(".dinamic-input-js").each(function (index, item) {
+            console.log($(item));
             var value = $.trim($(item).val());
             if (value) {
                 $(item).closest(".label").addClass("active");
@@ -143,18 +144,6 @@ $(function () {
                 $(this).removeClass("active");
             }
         });
-    });
-
-    $(".upload-file input").on("change", function (e) {
-        var fileName = $(this)[0].files[0].name;
-        $("#personal_file_name").val("");
-        $("#personal_file_name").val(fileName);
-    });
-
-    $("#personal_file_name").on("change", function () {
-        if ($(this).val().length == 0) {
-            $(this).val("File name");
-        }
     });
 
     // date-inp = класс для всех полей с датой
@@ -946,4 +935,9 @@ $(window).on("load", function () {
 // Member cases multi-seselc
 $(function () {
     $('.js-example-basic-multiple').select2();
+    $('#birthday').on('change', function(){
+       if($(this).val() != "") {
+        $(this).parent().addClass('active');
+       }
+    });
 });
