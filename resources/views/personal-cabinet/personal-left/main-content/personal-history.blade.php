@@ -14,7 +14,7 @@
                     <div class="upload-info">
                       <!-- file name -->
                       <div class="label">
-                        <input id="personal_file_name" type="text" class="dinamic-input-js form-control @error('file_name') is-invalid @enderror" name="file_name" value="" autofocus required>
+                        <input id="personal_file_name" type="text" class="dinamic-input-js form-control @error('file_name') is-invalid @enderror" name="file_name" value="" autofocus>
                         <input id="personal_file_type" type="hidden" name="file_type" required>
                         <input id="personal_file_size" type="hidden" name="file_size" required>
                         <label for="file_name" class="dinamic-label-js">@lang('personal_cabinet.file_name')<span>*</span></label>
