@@ -866,7 +866,7 @@ $(document).on("click", "#send-form-btn", function () {
 });
 
 $(function () {
-    lazyScroll($("#faq-left-sticky, .r-tabs-anchor"), 500);
+    lazyScroll($("#faq-left-sticky, .faq__tabs-nav-item a"), 500);
 });
 
 // Lazy scroll
