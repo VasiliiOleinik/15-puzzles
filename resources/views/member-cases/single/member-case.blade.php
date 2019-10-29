@@ -34,9 +34,6 @@
                     @else
                       <img class="case-container__img" src="{{ asset($memberCase->img) }}" alt="">
                     @endif
-                    <p class="case-container__title">
-                      {!!$memberCase->description!!}
-                    </p>
                     <span class="case-container__text">
                       {!!$memberCase->content!!}
                     </span>
