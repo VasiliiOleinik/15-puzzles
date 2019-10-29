@@ -114,10 +114,8 @@ $(function() {
   });
 
   // Скрываю label когда input активен (personal page)
-
-  $(window).on("load", function() {
-    setTimeout(function() {
-      $(".dinamic-input-js").each(function(index, item) {
+  $(function() {
+    $(".dinamic-input-js").each(function(index, item) {
         console.log($(item));
         var value = $.trim($(item).val());
         if (value) {
@@ -132,10 +130,8 @@ $(function() {
           $(item).removeClass("active");
         }
       });
-    }, 1000);
-  });
 
-  $(function() {
+
     $(".label .dinamic-label-js").on("click", function() {
       $(this)
         .closest(".label")
