@@ -731,6 +731,14 @@ body
   color: rgba(2, 2, 2, 0.6);
 }
 
+.upload-info div.label .dinamic-label-js {
+    color: rgba(2, 2, 2, 0.6);
+}
+
+.personal-left .search-byHistory__result .result-item__text .name {
+    word-wrap: break-word;
+}
+
 body .content-wrapper .page-wrapper .main .box .dinamic-label-js,
 body
 .header-login-modal__container
