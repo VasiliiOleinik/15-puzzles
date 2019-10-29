@@ -93,7 +93,7 @@ class Users extends Section implements Initializable
      */
     public function onDisplay()
     {
-        $display = AdminDisplay::datatablesAsync();
+        $display = AdminDisplay::datatablesAsync()->addStyle('admin.css', 'css/frontend/admin.css');
         $display
             ->with(['role'])
             ->setColumns(
