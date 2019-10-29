@@ -46,8 +46,7 @@
             <div class="user-ico"><img src="{{Auth::user()->img}}" alt="User"></div>
           @endif
           </button>
-          <a class="logout" href="{{ route('logout', app()->getLocale() ) }}"
-             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{Auth::user()->nickname}}</a>
+          <a class="logout" href="{{ url(app()->getLocale().'/personal_cabinet') }}">{{Auth::user()->nickname}}</a>
           <form id="logout-form" action="{{ route('logout', app()->getLocale() ) }}" method="POST" style="display: none;">
             @csrf
           </form>
