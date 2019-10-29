@@ -12,9 +12,10 @@ let locale = $('html').attr('lang');
 /*     DOCUMENT READY      */
 /* ----------------------- */
 document.addEventListener("DOMContentLoaded", function () {
-    
+
     //кликнули на login submit
     $('.modal-login-btn').click(function (event) {
+        $("#preloader").css("display", "flex");
         event.preventDefault();
         $('.errors').remove();
         $(this).attr("disabled", true);
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
             data: data,
             dataType: 'json',
             complete: function (data) {
+                $("#preloader").css("display", "none");
                 console.log(data.responseText);
                 $('.modal-login-btn').removeAttr("disabled");
                 if(data.responseJSON.auth === "success")
@@ -48,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             },
             error: function (err) {
+                $("#preloader").css("display", "none");
                 $('.modal-login-btn').removeAttr("disabled");
                 if (err.status === 422) { // when status code is 422, it's a validation issue
 
@@ -64,6 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     //кликнули на registration submit
     $('.modal-reg-btn').click(function (event) {
+        $("#preloader").css("display", "flex");
         event.preventDefault();
         $('.errors').remove();
         $(this).attr("disabled", true);
@@ -91,16 +95,17 @@ document.addEventListener("DOMContentLoaded", function () {
             data: data,
             dataType: 'json',
             complete: function (data) {
+                $("#preloader").css("display", "none");
                 //console.log(data.responseText);
                 $('.modal-reg-btn').removeAttr("disabled");
                 if (data.responseJSON) {
-                    $('.spinner-register').remove();                    
+                    $('.spinner-register').remove();
                     if (data.responseJSON.auth === "success") {
                         createCookie(locale, locale, 1);
                         $('.fancybox-close-small').click();
                         location.href = "/" + locale + "/personal_cabinet";
                     }
-                    if (data.responseJSON.errorsRegister) {                        
+                    if (data.responseJSON.errorsRegister) {
                         $('.errors').remove();
                         $('#errors-register').html('');
                         // display errors on each form field
@@ -112,16 +117,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             },
             error: function (err) {
+                $("#preloader").css("display", "none");
                 console.log(err.responseText);
                 $('.modal-reg-btn').removeAttr("disabled");
                 $('.errors').html('');
-                $('#errors-register').html('Error try again.');                
+                $('#errors-register').html('Error try again.');
             }
         });
     })
 
     //кликнули на reset password submit
     $('#recovery-pass-js').click(function (event) {
+        $("#preloader").css("display", "flex");
         event.preventDefault();
         //очищаем поле ошибок
         $('.errors').remove();
@@ -138,7 +145,8 @@ document.addEventListener("DOMContentLoaded", function () {
             url: "/" + locale + "/password/email",
             data: data,
             dataType: 'json',
-            complete: function (data) {                                
+            complete: function (data) {
+                $("#preloader").css("display", "none");
                 //console.log(data.responseText);
                 //Проверка на то, существует ли указанный email
                 if (data.responseJSON.message == "Invalid user") {
@@ -161,6 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             },
             error: function (err) {
+                $("#preloader").css("display", "none");
                 $('#recovery-pass-js').removeAttr("disabled");
                 if (err.status === 422) { // when status code is 422, it's a validation issue
 
@@ -175,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     })
 
-    if (document.URL.indexOf("email/verify") >= 0) { 
+    if (document.URL.indexOf("email/verify") >= 0) {
         createCookie('locale', locale, 1)
     }
 });

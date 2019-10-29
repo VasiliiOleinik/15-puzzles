@@ -68,5 +68,9 @@ return [
     "forgot_pass"=>'Forgot you password?',
     "confirm_pass" => 'Confirm password',
     'confirm_button' => 'By clicking on the "Registration" button, I agree that I have read and accepted the',
-    "Terms"=>'Terms of Use.'
+    "Terms"=>'Terms of Use.',
+    "Recovery"=>'Recovery',
+    "link_send"=>'Password reset link sent to your email',
+    "recovery_pass"=>"recovery password",
+    "back_login"=>'Back to login',
 ];

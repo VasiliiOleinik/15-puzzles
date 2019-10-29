@@ -21,9 +21,8 @@ Route::group([ 'middleware' => 'debugbarDisable' ], function() {
     Route::get('/pages/news','App\Http\Controllers\PagesController@news')->name('admin.pages.news');
     Route::get('/pages/literature','App\Http\Controllers\PagesController@literature')->name('admin.pages.literature');
     Route::get('/pages/faq','App\Http\Controllers\PagesController@faq')->name('admin.pages.faq');
-
     Route::post('/pages/post', 'App\Http\Controllers\PagesController@post')->name('admin.pages.post');
-}); 
+});
 
 Route::get('information', ['as' => 'admin.information', function () {
 	$content = 'Define your information here.';
