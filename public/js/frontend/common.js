@@ -477,160 +477,82 @@ $(function() {
     $("#faq-email-error").text("");
     $("#faq-letter-error").text("");
 
-    $.ajax({
-      type: "POST",
-      url: "faq",
-      data: $("#faq-form").serialize(),
-      success: function(data) {
-        $("#faq-name").val("");
-        $("#faq-phone").val("");
-        $("#faq-email").val("");
-        $("#faq-letter").val("");
-        $("#preloader").css("display", "none");
-        $.fancybox.open({
-          src: "#success-modal",
-          type: "inline"
+        $.ajax({
+            type: "POST",
+            url: "faq",
+            data: $("#faq-form").serialize(),
+            success: function (data) {
+                $("#faq-name").val("");
+                $("#faq-phone").val("");
+                $("#faq-email").val("");
+                $("#faq-letter").val("");
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
+            },
+            error: function (data) {
+                $("#preloader").css("display", "none");
+                for (const key in data.responseJSON.errors) {
+                    if (data.responseJSON.errors.hasOwnProperty(key)) {
+                        const element = data.responseJSON.errors[key];
+                        $("#faq-" + key + "-error").text(element[0]);
+                    }
+                }
+            }
         });
-      },
-      error: function(data) {
-        $("#preloader").css("display", "none");
-        for (const key in data.responseJSON.errors) {
-          if (data.responseJSON.errors.hasOwnProperty(key)) {
-            const element = data.responseJSON.errors[key];
-            $("#faq-" + key + "-error").text(element[0]);
-          }
-        }
-      }
     });
-  });
-  // что это????? зачем?? зачем 4 функции делать одно и тоже???
-  // Отправка формы подписки на странице Literature
-  $("#literature-subscribe-form").on("submit", function(e) {
-    e.preventDefault();
 
-    $("#literature-subscribe-form label").text("");
-    $("#literature-subscribe-form button").prop("disabled", true);
-    $("#literature-subscribe-form button").addClass("disabled-button");
+    // Отправка формы подписки на страницах MemberCases, news, Literature
+    $("#member-cases-subscribe-form, #literature-subscribe-form, #news-subscribe-form").on("submit", function(e) {
+        $("#preloader").css("display", "flex");
+        e.preventDefault();
+    let subscribeForm = e.target;
+
+    $(subscribeForm).find("label").text("");
+    $(subscribeForm).find("button").prop("disabled", true);
+    $(subscribeForm).find("button").addClass("disabled-button");
 
     $.ajax({
       type: "GET",
       url: "subscriber/create",
       data: {
-        email_subscribe: $("#footer-subscribe-form").serialize(),
+        email_subscribe: $(subscribeForm).find("[name=email-subscribe]").val(),
         local: locale
       },
       success: function(data) {
-        $("#literature-subscribe-form input").val("");
-        $("#literature-subscribe-form button").prop("disabled", false);
-        $("#literature-subscribe-form button").removeClass("disabled-button");
-        $("#preloader").css("display", "none");
-        $.fancybox.open({
-          src: "#success-modal",
-          type: "inline"
+        $(subscribeForm).find("input").val("");
+                $(subscribeForm).find("button").prop("disabled", false);
+                $(subscribeForm).find("button").removeClass("disabled-button");
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
+            },
+            error: function (data) {
+                $("#preloader").css("display", "none");
+                $(subscribeForm).find("label.invalid").text(data.responseJSON.errors.email_subscribe[0]);
+                $(subscribeForm).find("button").prop("disabled", false);
+                $(subscribeForm).find("button").removeClass("disabled-button");
+            }
         });
-      },
-      error: function(data) {
-        $("#preloader").css("display", "none");
-        for (const key in data.responseJSON.errors) {
-          if (data.responseJSON.errors.hasOwnProperty(key)) {
-            const element = data.responseJSON.errors[key];
-            $("#literature-" + key + "-error").text(element[0]);
-          }
-        }
-        $("#literature-subscribe-form button").prop("disabled", false);
-        $("#literature-subscribe-form button").removeClass("disabled-button");
-      }
     });
-  });
-  // Отправка формы подписки на странице Member's cases
-  $("#member-cases-subscribe-form").on("submit", function(e) {
-    e.preventDefault();
 
-    $("#member-cases-subscribe-form label").text("");
-    $("#member-cases-subscribe-form button").prop("disabled", true);
-    $("#member-cases-subscribe-form button").addClass("disabled-button");
+    // Отправка формы подписки в Footer
+    $("#footer-subscribe-form").on("submit", function (e) {
+        $("#preloader").css("display", "flex");
+        e.preventDefault();
+        $("#footer-email-subscribe-error").text("");
+        $("#footer-subscribe-form button").prop("disabled", true);
+        $("#footer-subscribe-form button").addClass("disabled-button");
 
     $.ajax({
       type: "GET",
       url: "subscriber/create",
       data: {
-        email_subscribe: $("#footer-subscribe-form").serialize(),
-        local: locale
-      },
-      success: function(data) {
-        $("#member-cases-subscribe-form input").val("");
-        $("#member-cases-subscribe-form button").prop("disabled", false);
-        $("#member-cases-subscribe-form button").removeClass("disabled-button");
-        $("#preloader").css("display", "none");
-        $.fancybox.open({
-          src: "#success-modal",
-          type: "inline"
-        });
-      },
-      error: function(data) {
-        $("#preloader").css("display", "none");
-        for (const key in data.responseJSON.errors) {
-          if (data.responseJSON.errors.hasOwnProperty(key)) {
-            const element = data.responseJSON.errors[key];
-            $("#member-cases-" + key + "-error").text(element[0]);
-          }
-        }
-        $("#member-cases-subscribe-form button").prop("disabled", false);
-        $("#member-cases-subscribe-form button").removeClass("disabled-button");
-      }
-    });
-  });
-  // Отправка формы подписки на странице News
-  $("#news-subscribe-form").on("submit", function(e) {
-    e.preventDefault();
-
-    $("#news-subscribe-form label").text("");
-    $("#news-subscribe-form button").prop("disabled", true);
-    $("#news-subscribe-form button").addClass("disabled-button");
-
-    $.ajax({
-      type: "GET",
-      url: "subscriber/create",
-      data: {
-        email_subscribe: $("#footer-subscribe-form").serialize(),
-        local: locale
-      },
-      success: function(data) {
-        $("#news-subscribe-form input").val("");
-        $("#news-subscribe-form button").prop("disabled", false);
-        $("#news-subscribe-form button").removeClass("disabled-button");
-        $("#preloader").css("display", "none");
-        $.fancybox.open({
-          src: "#success-modal",
-          type: "inline"
-        });
-      },
-      error: function(data) {
-        $("#preloader").css("display", "none");
-        for (const key in data.responseJSON.errors) {
-          if (data.responseJSON.errors.hasOwnProperty(key)) {
-            const element = data.responseJSON.errors[key];
-            $("#news-" + key + "-error").text(element[0]);
-          }
-        }
-        $("#news-subscribe-form button").prop("disabled", false);
-        $("#news-subscribe-form button").removeClass("disabled-button");
-      }
-    });
-  });
-  // Отправка формы подписки в Footer
-  $("#footer-subscribe-form").on("submit", function(e) {
-    $("#preloader").css("display", "flex");
-    e.preventDefault();
-    $("#footer-email-subscribe-error").text("");
-    $("#footer-subscribe-form button").prop("disabled", true);
-    $("#footer-subscribe-form button").addClass("disabled-button");
-
-    $.ajax({
-      type: "GET",
-      url: "subscriber/create",
-      data: {
-        email_subscribe: $("#email_subscribe").val(),
+        email_subscribe: $("#footer_email_subscribe").val(),
         local: locale
       },
       success: function(data) {
@@ -638,20 +560,15 @@ $(function() {
         $("#footer-subscribe-form button").prop("disabled", false);
         $("#footer-subscribe-form button").removeClass("disabled-button");
         $("#footer-email_subscribe-error").text("");
-        $("#preloader").css("display", "none");
-        $.fancybox.open({
-          src: "#success-modal",
-          type: "inline"
-        });
-      },
-      error: function(data) {
-        $("#preloader").css("display", "none");
-        for (const key in data.responseJSON.errors) {
-          if (data.responseJSON.errors.hasOwnProperty(key)) {
-            const element = data.responseJSON.errors[key];
-            $("#footer-" + key + "-error").text(element[0]);
-          }
-        }
+                $("#preloader").css("display", "none");
+                $.fancybox.open({
+                    src: "#success-modal",
+                    type: "inline"
+                });
+            },
+            error: function (data) {
+                $("#preloader").css("display", "none");
+                $("#footer-email_subscribe-error").text(data.responseJSON.errors.email_subscribe[0]);
         $("#footer-subscribe-form button").prop("disabled", false);
         $("#footer-subscribe-form button").removeClass("disabled-button");
       }

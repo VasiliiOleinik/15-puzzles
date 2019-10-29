@@ -20,10 +20,10 @@
         <h6 class="footer__h6">@lang('footer.title_subscribe')</h6>
         <form id="footer-subscribe-form" class="footer__subscribe" method="get">
           @auth
-          <input type="text" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" value="{{ Auth::user()->email }}">
+          <input type="text" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" value="{{ Auth::user()->email }}" id="footer_email_subscribe">
           @endauth
           @guest
-          <input type="text" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" id="email_subscribe">
+          <input type="text" name="email-subscribe" placeholder="@lang('footer.placeholder_subscribe')" id="footer_email_subscribe">
           @endguest
           <button type="submit">@lang('footer.button_subscribe')</button>
         </form>

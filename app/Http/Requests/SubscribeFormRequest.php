@@ -24,7 +24,7 @@ class SubscribeFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'email_subscribe' => 'required|email:filter|max:191',
+            'email_subscribe' => 'required|email:filter|max:191|unique:subscribers,email',
         ];
     }
 
@@ -35,6 +35,7 @@ class SubscribeFormRequest extends FormRequest
             'email_subscribe.required' => trans('subscriber.email_required'),
             'email_subscribe.email' => trans('subscriber.email_email'),
             'email_subscribe.max' => trans('subscriber.email_max'),
+            'email_subscribe.unique' => trans('subscriber.already_subscribed'),
         ];
     }
 }
