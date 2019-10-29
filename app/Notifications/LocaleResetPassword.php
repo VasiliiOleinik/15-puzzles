@@ -42,9 +42,9 @@ class LocaleResetPassword extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)        
+        return (new MailMessage)
             ->subject(__('app.name')." - ".__('reset.subject'))
-            ->action(__('reset.link_title'), url(config('app.url').'/password/reset/'.csrf_token().'&'.$notifiable->getEmailForPasswordReset() ))
+            ->action(__('reset.link_title'), url(config('app.url').'/'.app()->getLocale().'/password/reset/'.csrf_token().'&'.$notifiable->getEmailForPasswordReset() ))
             ->markdown('vendor.notifications.reset');
     }
 

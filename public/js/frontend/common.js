@@ -330,12 +330,12 @@ $("#back-to-login-js").on("click", function() {
 });
 // Успешная смена пароля
 $("#recovery-pass-js").on("click", function(e) {
-  e.preventDefault();
-  $(".recovery-pass-inputs form").hide();
-  $(".recovery-pass-footer-link").hide();
-  $(".recovery-pass-inputs .recovery-success").show();
-  $(".recovery-pass-footer-link.close").show();
-  $(".recovery-pass-inputs").addClass("success");
+  //e.preventDefault();
+  // $(".recovery-pass-inputs form").hide();
+  // $(".recovery-pass-footer-link").hide();
+  // $(".recovery-pass-inputs .recovery-success").show();
+  // $(".recovery-pass-footer-link.close").show();
+  // $(".recovery-pass-inputs").addClass("success");
 });
 // Закрытие модалки
 $(" #close-recovery-js, .fancybox-container").on("click", function() {

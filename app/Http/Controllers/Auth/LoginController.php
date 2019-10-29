@@ -42,10 +42,9 @@ class LoginController extends Controller
            'login'           => 'required|max:255',
             'password'           => 'required',
         ]);
-        //dd(Auth::attempt(['nickname' => $request->login, 'password' => $request->password]));
         if (Auth::attempt(['email' => $request->login, 'password' => $request->password])) {
             // Success
-            return json_encode(["auth"=>"success", "admin"=>json_encode(Auth::user()->isAdmin()) ]);//redirect()->intended();
+            return json_encode(["auth"=>"success"]);//redirect()->intended();
         } else {
             // Go back on error (or do what you want)
             return json_encode(array('auth'=>'failed'));//redirect()->back();
