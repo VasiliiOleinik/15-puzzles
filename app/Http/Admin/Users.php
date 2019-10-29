@@ -101,8 +101,8 @@ class Users extends Section implements Initializable
                 AdminColumn::link('nickname')->setLabel('логин'),
                 AdminColumn::text('role.name')->setLabel('роль'),
                 AdminColumnEditable::text('first_name')->setLabel('имя'),
-                AdminColumnEditable::text('middle_name')->setLabel('фамилия'),
-                AdminColumnEditable::text('last_name')->setLabel('отчество'),
+                AdminColumnEditable::text('last_name')->setLabel('фамилия'),
+                AdminColumnEditable::text('middle_name')->setLabel('отчество'),
                 AdminColumn::text('email')->setLabel('почта'),
                 AdminColumn::text('birthday')->setLabel('дата рождения')
             )
@@ -113,10 +113,10 @@ class Users extends Section implements Initializable
             //поля поиска
             ->setColumnFilters(
             [
-                null,
                 AdminColumnFilter::text()
                     ->setPlaceholder('Введите логин')
                     ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                null,
                 AdminColumnFilter::text()
                     ->setPlaceholder('Введите имя')
                     ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
@@ -160,8 +160,8 @@ class Users extends Section implements Initializable
             AdminFormElement::select('role_id', 'Роль')->setModelForOptions(\App\Models\Role\Role::class)->setDisplay('name')
                                               ->setDefaultValue('1')->required(),
             AdminFormElement::text('first_name', 'имя')->setValidationRules($rulesName),
-            AdminFormElement::text('middle_name', 'фамилия')->setValidationRules($rulesName),
-            AdminFormElement::text('last_name', 'отчество')->setValidationRules($rulesName),
+            AdminFormElement::text('last_name', 'фамилия')->setValidationRules($rulesName),
+            AdminFormElement::text('middle_name', 'отчество')->setValidationRules($rulesName),
 
             AdminFormElement::image('img')->setLabel('картинка'),
             AdminFormElement::text('email', 'почта')->setValidationRules($rulesEmail)->required(),
