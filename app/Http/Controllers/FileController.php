@@ -20,7 +20,7 @@ class FileController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth','verified']);
+        $this->middleware(['auth']);
     }
 
     /**
@@ -30,6 +30,10 @@ class FileController extends Controller
      */
     public function index(Request $request)
     {
+
+        if(!$request->user()->email_verified_at){
+            return redirect('email/verify');
+        }
         $search_file = [
             "name" => $request->search_file_name,
             "date_from" => $request->search_file_date_from,

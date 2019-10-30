@@ -91,7 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
             dataType: 'json',
             complete: function (data) {
                 $("#preloader").css("display", "none");
-                //console.log(data.responseText);
                 $('.modal-reg-btn').removeAttr("disabled");
                 if (data.responseJSON) {
                     $('.spinner-register').remove();
