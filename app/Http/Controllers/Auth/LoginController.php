@@ -51,7 +51,7 @@ class LoginController extends Controller
             return json_encode(["auth"=>"success"]);//redirect()->intended();
         } else {
             // Go back on error (or do what you want)
-            return json_encode(array('auth'=>'failed'));//redirect()->back();
+            return json_encode(array('auth'=>'failed', 'auth_error' => trans('login.auth_error')));//redirect()->back();
         }
 
     }

@@ -15,4 +15,5 @@ return [
     'login_required' => 'Enter your e-mail',
     'login_max' => "The entered value is too long",
     'password_required' => "Enter your password",
+    'auth_error' => 'Login or password invalid',
 ];

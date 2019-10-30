@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 }
                 if (data.responseJSON.auth === "failed") {
-                    $('.errors-auth').html('Login or password invalid')
+                    $('.errors-auth').html(data.responseJSON.auth_error)
                 }
             },
             error: function (err) {
