@@ -75,7 +75,7 @@
                   <div class="case-comm-list"><span class="case-info-title">@lang("member_cases.comments")</span>
                     @foreach($comments as $comment)
                     <div class="case-comm-item">
-                      <div class="comm-item-header"><img src="{{ $comment->user->img ? $comment->user->img : asset('images/no_avatar.png')}}">
+                      <div class="comm-item-header"><img src="{{ $comment->user->img ? asset($comment->user->img) : asset('images/no_avatar.png')}}">
                         <div class="item-header-info">
                           <p class="comm-author">{{$comment->user->nickname}}</p><span class="comm-date">{{$comment->updated_at->format('d.m.Y')}}</span>
                         </div>
