@@ -7,6 +7,7 @@ use App\Models\Book\BookLanguage;
 use App\Models\Group;
 use App\Models\Page;
 use App\Models\PageLang;
+use App\Models\Police\Police;
 use App\Models\User\User;
 use App\Models\Permission;
 use App\Models\Factor\Factor;
@@ -116,6 +117,7 @@ class MainController extends Controller
         $countries = Country::all();
         $laboratories = Laboratory::all();
         $typeFactors = $this->pazzlesService->chunkCollect(Group::all());
+        $pagePolicy = Police::find(2);
         //$map = $this->initMap($laboratories);
         //$mapJs = $map['js'];
         $lits = BookLanguage::with('book')
@@ -123,7 +125,7 @@ class MainController extends Controller
             ->take(5)->get();
         $data = [
             'factors', 'diseases', 'protocols', 'remedies', 'markers', 'methods',
-            'newsLatest', 'markerMethods', 'countries', 'lits', 'page', 'typeFactors'
+            'newsLatest', 'markerMethods', 'countries', 'lits', 'page', 'typeFactors','pagePolicy'
         ];
         return view('main.main', compact($data));
     }

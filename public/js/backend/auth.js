@@ -35,17 +35,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 $("#preloader").css("display", "none");
                 console.log(data.responseText);
                 $('.modal-login-btn').removeAttr("disabled");
-                if(data.responseJSON.auth === "success")
-                {
+                if (data.responseJSON.auth === "success") {
                     $('.fancybox-close-small').click();
-                    if (data.responseJSON.admin === "false") {
-                        location.href = "/" + locale + "/personal_cabinet";
-                    } else {
-                        location.href = "/admin";
-                    }
+                    location.href = "/" + locale + "/personal_cabinet";
+
                 }
-                if(data.responseJSON.auth === "failed")
-                {
+                if (data.responseJSON.auth === "failed") {
                     $('.errors-auth').html('Login or password invalid')
                 }
             },
@@ -111,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         // display errors on each form field
                         $.each(data.responseJSON.errorsRegister, function (i, error) {
                             let el = $(document).find('[name="' + i + '"]');
-                            el.after($('<label class="errors ' + i +'">' + error[0] + '</label>'));
+                            el.after($('<label class="errors ' + i + '">' + error[0] + '</label>'));
                         });
                     }
                 }
@@ -190,6 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* ------------------ */
+
 /* ------------------ */
 
 

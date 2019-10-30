@@ -80,7 +80,6 @@ class UserController extends Controller
             'password' => ['nullable', 'regex:/^[a-zA-Z]+$/u', 'min:8', 'max:191'],
             'img' => ['nullable'],
         ]);
-
         if ($request->password != null) {
             $user->password = Hash::make($request->password);
         }
@@ -90,8 +89,16 @@ class UserController extends Controller
             $url = \Storage::putFile($storagePath,  $request->file('image_download'));
             $url = str_replace('public', 'storage', $url);
             $user->img = $url;
+            $user->save();
         }
-        $user->save();
+        $user = $user->update([
+            'first_name' => $request->first_name,
+            'middle_name' => $request->middle_name,
+            'last_name' => $request->last_name,
+            'password' => $request->password,
+            'birthday' => $request->birthday,
+        ]);
+
 
         $request->session()->flash('status-user_update', 'You have successfully updated your personal data.');
 

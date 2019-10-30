@@ -51,6 +51,6 @@
   </div>
   <div class="reg-footer">
     <p class="reg-footer__term">@lang('main.confirm_button')<a
-              href="javascript:void(0)">@lang('main.Terms')</a></p>
+              href="{{app()->getLocale()}}/police/{{app('policeTerms')->alias}}"> @lang('main.Terms')</a></p>
   </div>
 </div>

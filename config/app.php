@@ -182,6 +182,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\SocialNetwork::class,
         App\Providers\PoliceServiceProvider::class,
+        App\Providers\PagePolisy::class
     ],
 
     /*

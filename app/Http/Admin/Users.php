@@ -97,7 +97,7 @@ class Users extends Section implements Initializable
         $display
             ->with(['role'])
             ->setColumns(
-                //AdminColumn::link('id')->setLabel('id'),
+            //AdminColumn::link('id')->setLabel('id'),
                 AdminColumn::link('nickname')->setLabel('логин'),
                 AdminColumn::text('role.name')->setLabel('роль'),
                 AdminColumnEditable::text('first_name')->setLabel('имя'),
@@ -106,36 +106,36 @@ class Users extends Section implements Initializable
                 AdminColumn::text('email')->setLabel('почта'),
                 AdminColumn::text('birthday')->setLabel('дата рождения')
             )
-            ->setApply(function($query) {
+            ->setApply(function ($query) {
                 $query->orderBy('id', 'desc');
             });
         $display
             //поля поиска
             ->setColumnFilters(
-            [
-                AdminColumnFilter::text()
-                    ->setPlaceholder('Введите логин')
-                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
-                null,
-                AdminColumnFilter::text()
-                    ->setPlaceholder('Введите имя')
-                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
-                AdminColumnFilter::text()
-                    ->setPlaceholder('Введите фамилию')
-                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
-                AdminColumnFilter::text()
-                    ->setPlaceholder('Введите отчество')
-                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
-                AdminColumnFilter::text()
-                    ->setPlaceholder('Введите почту')
-                    ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
-                // Поиск по диапазону дат
-                AdminColumnFilter::range()->setFrom(
-                    AdminColumnFilter::date()->setPlaceholder('From Date')->setFormat('d.m.Y')
-                )->setTo(
-                    AdminColumnFilter::date()->setPlaceholder('To Date')->setFormat('d.m.Y')
-                )
-            ]
+                [
+                    AdminColumnFilter::text()
+                        ->setPlaceholder('Введите логин')
+                        ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                    null,
+                    AdminColumnFilter::text()
+                        ->setPlaceholder('Введите имя')
+                        ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                    AdminColumnFilter::text()
+                        ->setPlaceholder('Введите фамилию')
+                        ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                    AdminColumnFilter::text()
+                        ->setPlaceholder('Введите отчество')
+                        ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                    AdminColumnFilter::text()
+                        ->setPlaceholder('Введите почту')
+                        ->setOperator(\SleepingOwl\Admin\Display\Filter\FilterBase::CONTAINS),
+                    // Поиск по диапазону дат
+                    AdminColumnFilter::range()->setFrom(
+                        AdminColumnFilter::date()->setPlaceholder('From Date')->setFormat('d.m.Y')
+                    )->setTo(
+                        AdminColumnFilter::date()->setPlaceholder('To Date')->setFormat('d.m.Y')
+                    )
+                ]
             );
         $display->getColumnFilters()->setPlacement('table.header');
 
@@ -150,7 +150,7 @@ class Users extends Section implements Initializable
     public function onEdit($id)
     {
         $rulesNickname = ['required', 'string', 'max:191', Rule::unique('users')->ignore($id)];
-        $rulesName = ['nullable','string', 'max:191'];
+        $rulesName = ['nullable', 'string', 'max:191'];
         $rulesEmail = ['required', 'string', 'email', 'max:191', Rule::unique('users')->ignore($id)];
         $rulesBirthday = ['nullable|date_format:d.m.Y|before:today'];
 
@@ -158,12 +158,14 @@ class Users extends Section implements Initializable
         return AdminForm::panel()->addBody([
             AdminFormElement::image('img')->setLabel('Изображение'),
             AdminFormElement::text('nickname', 'логин')->setValidationRules($rulesNickname)->required(),
-            AdminFormElement::select('role_id', 'Роль')->setModelForOptions(\App\Models\Role\Role::class)->setDisplay('name')
-                                              ->setDefaultValue('1')->required(),
+            AdminFormElement::select('role_id', 'Роль')
+                ->setModelForOptions(\App\Models\Role\Role::class)
+                ->setDisplay('name')
+                ->setDefaultValue('1')
+                ->required(),
             AdminFormElement::text('first_name', 'имя')->setValidationRules($rulesName),
             AdminFormElement::text('last_name', 'фамилия')->setValidationRules($rulesName),
             AdminFormElement::text('middle_name', 'отчество')->setValidationRules($rulesName),
-
             AdminFormElement::image('img')->setLabel('картинка'),
             AdminFormElement::text('email', 'почта')->setValidationRules($rulesEmail)->required(),
             AdminFormElement::text('birthday', 'дата рождения')->setValidationRules($rulesBirthday),
@@ -178,7 +180,7 @@ class Users extends Section implements Initializable
     public function onCreate()
     {
         $rulesNickname = ['required', 'string', 'max:191', Rule::unique('users')];
-        $rulesName = ['nullable','string', 'max:191'];
+        $rulesName = ['nullable', 'string', 'max:191'];
         $rulesEmail = ['required', 'string', 'email', 'max:191', Rule::unique('users')];
         $rulesBirthday = ['nullable|date_format:d.m.Y|before:today'];
 
@@ -186,12 +188,10 @@ class Users extends Section implements Initializable
             AdminFormElement::image('img')->setLabel('Изображение'),
             AdminFormElement::text('nickname', 'логин')->setValidationRules($rulesNickname)->required(),
             AdminFormElement::select('role_id', 'Роль')->setModelForOptions(\App\Models\Role\Role::class)->setDisplay('name')
-                                              ->setDefaultValue('1')->required(),
+                ->setDefaultValue('1')->required(),
             AdminFormElement::text('first_name', 'имя')->setValidationRules($rulesName),
             AdminFormElement::text('middle_name', 'фамилия')->setValidationRules($rulesName),
             AdminFormElement::text('last_name', 'отчество')->setValidationRules($rulesName),
-
-
             AdminFormElement::text('email', 'почта')->setValidationRules($rulesEmail)->required(),
             AdminFormElement::text('birthday', 'дата рождения')->setValidationRules($rulesBirthday)
 
@@ -214,7 +214,7 @@ class Users extends Section implements Initializable
         // remove if unused
     }
 
-     //заголовок для создания записи
+    //заголовок для создания записи
     public function getCreateTitle()
     {
         return 'Создание пользователя';
