@@ -154,8 +154,9 @@ class Users extends Section implements Initializable
         $rulesEmail = ['required', 'string', 'email', 'max:191', Rule::unique('users')->ignore($id)];
         $rulesBirthday = ['nullable|date_format:d.m.Y|before:today'];
 
-        $image =  '<img id="img-admin" src="'.$this->model::find($id)->img.'" width="100%" style="max-width: 800px;">';
+
         return AdminForm::panel()->addBody([
+            AdminFormElement::image('img')->setLabel('Изображение'),
             AdminFormElement::text('nickname', 'логин')->setValidationRules($rulesNickname)->required(),
             AdminFormElement::select('role_id', 'Роль')->setModelForOptions(\App\Models\Role\Role::class)->setDisplay('name')
                                               ->setDefaultValue('1')->required(),
@@ -181,8 +182,8 @@ class Users extends Section implements Initializable
         $rulesEmail = ['required', 'string', 'email', 'max:191', Rule::unique('users')];
         $rulesBirthday = ['nullable|date_format:d.m.Y|before:today'];
 
-        $image =  '<img id="img-admin" width="100%" style="max-width: 800px;">';
         return AdminForm::panel()->addBody([
+            AdminFormElement::image('img')->setLabel('Изображение'),
             AdminFormElement::text('nickname', 'логин')->setValidationRules($rulesNickname)->required(),
             AdminFormElement::select('role_id', 'Роль')->setModelForOptions(\App\Models\Role\Role::class)->setDisplay('name')
                                               ->setDefaultValue('1')->required(),
@@ -190,12 +191,6 @@ class Users extends Section implements Initializable
             AdminFormElement::text('middle_name', 'фамилия')->setValidationRules($rulesName),
             AdminFormElement::text('last_name', 'отчество')->setValidationRules($rulesName),
 
-            AdminFormElement::custom()
-                    ->setDisplay(function($instance) use($image) {
-                        return $image;
-                    }),
-            AdminFormElement::hidden('img')->setLabel('картинка'),
-            AdminFormElement::view('sleeping-owl.input-type-file'),
 
             AdminFormElement::text('email', 'почта')->setValidationRules($rulesEmail)->required(),
             AdminFormElement::text('birthday', 'дата рождения')->setValidationRules($rulesBirthday)
