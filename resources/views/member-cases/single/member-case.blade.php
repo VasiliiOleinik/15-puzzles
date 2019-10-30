@@ -64,8 +64,8 @@
                     <form id="add-comment-form" method="get">
                       <input type="hidden" name="member-case-id" value="{{ $memberCase->id }}">
                       <div class="label">
-                        <textarea id="add-comment-text" name="add-comm" type="text"></textarea>
-                        <label for="add-comm">@lang('member_cases.add_comment')</label>
+                        <textarea class="dinamic-input-js" id="add-comment-text" name="add-comm" type="text" value="value"></textarea>
+                        <label for="add-comm" class="dinamic-label-js">@lang('member_cases.add_comment')</label>
                       </div>
                       <label id="add-comm-error" class="invalid" for="add-comm"></label>
                       <button id="send-comment" class="send-comment" type="submit">@lang('member_cases.send_comment')</button>
