@@ -32,7 +32,7 @@ class FileController extends Controller
     {
 
         if(!$request->user()->email_verified_at){
-            return redirect('email/verify');
+            return redirect(app()->getLocale().'/email/verify');
         }
         $search_file = [
             "name" => $request->search_file_name,
