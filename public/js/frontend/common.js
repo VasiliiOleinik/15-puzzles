@@ -157,8 +157,7 @@ $(function () {
     $(".date-inp").mask("99.99.9999");
     $(".date-inp")
         .datepicker({
-            dateFormat: "dd.mm.yy",
-            language: (locale == 'ru' ? 'ru' : 'en'),
+            language: (locale == 'ru' ? 'ru' : 'en-GB'),
             onClose: function (item, obj) {
                 if ($(".date-inp").val().length == "") {
                     $(".date-inp")

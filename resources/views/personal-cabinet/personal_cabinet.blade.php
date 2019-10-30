@@ -23,4 +23,5 @@
     <script src="{{ asset('js/backend/personal_cabinet.js') }}" defer></script>
     <script src="{{ asset('js/backend/bootstrap datepicker/bootstrap-datepicker.min.js') }}" defer></script>
     <script src="{{ asset('js/backend/bootstrap datepicker/bootstrap-datepicker.ru.js') }}" charset="UTF-8" defer></script>
+    <script src="{{ asset('js/backend/bootstrap datepicker/bootstrap-datepicker.en-GB.js') }}" charset="UTF-8" defer></script>
 @endsection
