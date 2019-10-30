@@ -87,11 +87,10 @@ class UserController extends Controller
         if ($request->img != null) {
             $storagePath = '/public/user/main_photo/' . Auth::id();
             \Storage::deleteDirectory($storagePath);
-            $url = $request->file('image_download')->store($storagePath, 'public');
+            $url = \Storage::putFile($storagePath,  $request->file('image_download'));
+            $url = str_replace('public', 'storage', $url);
             $user->img = $url;
         }
-        //$user->update($request->except(['password', 'img']));
-
         $user->save();
 
         $request->session()->flash('status-user_update', 'You have successfully updated your personal data.');

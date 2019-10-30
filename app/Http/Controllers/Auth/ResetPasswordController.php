@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ResetPasswordRequest;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use App\Models\User\User;
@@ -33,7 +34,7 @@ class ResetPasswordController extends Controller
         $this->middleware('guest');
     }
 
-    public function reset(Request $request){
+    public function reset(ResetPasswordRequest $request){
 
         $this->validate($request, [
             'password' => ['required', 'string', 'min:8', "regex:/^([0-9\p{Latin}]+[\ -]?)+[a-zA-Z0-9]+$/u"],
@@ -42,7 +43,8 @@ class ResetPasswordController extends Controller
         $user = User::where("email","=",$request->email)->first();
         $user->password =  Hash::make($request->password);
         $user->save();
-
+        $credentials = $request->only('email', 'password');
+        \Auth::attempt($credentials);
         return redirect(app()->getLocale() . '/personal_cabinet');
     }
 
