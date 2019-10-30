@@ -61,7 +61,7 @@ return [
     'send_data' => 'Ваши данные отправлены',
     "Authorization" => "Авторизация",
     "Registration" => 'Регистрация',
-    "login" => 'Логин',
+    "login" => 'Почта',
     "password" => 'Пароль',
     "enter" => 'Войти',
     "confirm_pass" => 'Подтвердить пароль',

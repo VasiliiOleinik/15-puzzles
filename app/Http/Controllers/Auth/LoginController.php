@@ -41,6 +41,10 @@ class LoginController extends Controller
         $this->validate($request, [
            'login'           => 'required|max:255',
             'password'           => 'required',
+        ],[
+            'login.required' => trans('login.login_required'),
+            'login.max' => trans('login.login_max'),
+            'password.required' => trans('login.password_required'),
         ]);
         if (Auth::attempt(['email' => $request->login, 'password' => $request->password])) {
             // Success
