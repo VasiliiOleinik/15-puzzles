@@ -62,6 +62,7 @@ return [
     "Authorization" => "Авторизация",
     "Registration" => 'Регистрация',
     "login" => 'Почта',
+    "nickname" => 'Псевдоним',
     "password" => 'Пароль',
     "enter" => 'Войти',
     "confirm_pass" => 'Подтвердить пароль',

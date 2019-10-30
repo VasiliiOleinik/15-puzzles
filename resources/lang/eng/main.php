@@ -63,6 +63,7 @@ return [
     "Authorization"=>"Authorization",
     "Registration"=>'Registration',
     "login"=>'E-mail',
+    "nickname" => 'Nickname',
     "password"=>'Password',
     "enter"=>'Login',
     "forgot_pass"=>'Forgot you password?',
