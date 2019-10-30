@@ -4,7 +4,7 @@
         @csrf
         <div class="label">
             <input class="headline inp dinamic-input-js" type="text" name="headline">
-            <label for="headline" class="dinamic-label-js">@lang('personal_cabinet.headline')</label>
+            <label for="headline" class="dinamic-label-js">@lang('personal_cabinet.headline')<span>*</span></label>
             <label id="add-story-headline-error" class="invalid" for="headline"></label>
         </div>
         <h3 class="add-images__title">@lang('member_cases.your_story')</h3>
