@@ -62,7 +62,7 @@ return [
     'send_data' => "Your details have been sent!",
     "Authorization"=>"Authorization",
     "Registration"=>'Registration',
-    "login"=>'Login',
+    "login"=>'E-mail',
     "password"=>'Password',
     "enter"=>'Login',
     "forgot_pass"=>'Forgot you password?',

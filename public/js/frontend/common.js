@@ -158,6 +158,7 @@ $(function() {
   $(".date-inp")
     .datepicker({
       dateFormat: "dd.mm.yy",
+      language: (locale == 'ru' ? 'ru' : 'en'),
       onClose: function(item, obj) {
         if ($(".date-inp").val().length == "") {
           $(".date-inp")

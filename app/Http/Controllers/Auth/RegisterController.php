@@ -60,9 +60,21 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'nickname' => ['required', 'unique:users', 'string', 'max:191', "regex:/^([0-9\p{Latin}]+[\ -]?)+[a-zA-Z0-9]+$/u"],
-            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+            'email' => ['required', 'string', 'email:filter', 'max:191', 'unique:users'],
             'password-register' => ['required', 'string', 'min:8', "regex:/^([0-9\p{Latin}]+[\ -]?)+[a-zA-Z0-9]+$/u"],
             'confirm-password-register' => ['max:191', 'same:password-register'],
+        ],[
+            'nickname.required' => trans('register.nickname_required'),
+            'nickname.unique' => trans('register.nickname_unique'),
+            'nickname.max' => trans('register.nickname_max'),
+            'email.required' => trans('register.email_required'),
+            'email.email' => trans('register.email_email'),
+            'email.max' => trans('register.email_max'),
+            'email.unique' => trans('register.email_unique'),
+            'password-register.required' => trans('register.password-register.required'),
+            'password-register.min' => trans('register.password-register.min'),
+            'confirm-password-register.same' => trans('register.confirm-password-register.same'),
+            'confirm-password-register.max' => trans('register.confirm-password-register.max'),
         ]);
     }
 
