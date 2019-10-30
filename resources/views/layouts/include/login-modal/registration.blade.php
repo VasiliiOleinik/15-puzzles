@@ -5,7 +5,7 @@
       <div class="label required">
         <input name="nickname" type="text" class="dinamic-input-js @error('nickname') is-invalid @enderror"
               value="{{ old('nickname') }}" autocomplete="nickname" autofocus>
-        <label for="nickname" class="dinamic-label-js">@lang('main.login') <span>*</span></label>
+        <label for="nickname" class="dinamic-label-js">@lang('main.nickname') <span>*</span></label>
         @error('nickname')
         <label for="nickname" class="invalid-feedback" role="alert">
           <strong>{{ $message }}</strong>
