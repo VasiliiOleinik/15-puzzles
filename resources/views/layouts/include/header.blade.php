@@ -45,7 +45,7 @@
             </div>
             <div class="header__login">
                 @guest
-                    <button id="login-btn" data-fancybox data-src="#header-login-modal-js">
+                    <button id="login-bt" data-fancybox data-src="#header-login-modal-js">
                         <div class="user-ico"><img src="/img/svg/user.svg" alt="User"></div>
                         <span>@lang('header.login')</span>
                     </button>
@@ -65,7 +65,7 @@
                         @csrf
                     </form>
                 @endauth
-                <div class="login-modal">
+                <div class="login-modal" @if(!Auth::id()) style="display: none !important" @endif>
                     <a href="{{ url(app()->getLocale().'/personal_cabinet') }}"
                        class="login-modal__link">@lang('header.personal')</a>
                     @auth
