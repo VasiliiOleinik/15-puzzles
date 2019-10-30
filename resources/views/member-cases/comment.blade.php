@@ -1,5 +1,5 @@
 <div class="case-comm-item">
-    <div class="comm-item-header"><img src="{{ asset($comment->user->img) }}">
+    <div class="comm-item-header"><img src="{{ $comment->user->img ? asset($comment->user->img) : asset('images/no_avatar.png') }}">
         <div class="item-header-info">
             <p class="comm-author">{{$comment->user->nickname}}</p><span class="comm-date">{{$comment->updated_at->format('d.m.Y')}}</span>
         </div>
