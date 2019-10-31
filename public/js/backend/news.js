@@ -6,10 +6,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
     /* ------------------ */
     /*     VARIABLES      */
     /* ------------------ */
-    let categoryAjax, tagsAjax;    
+    let categoryAjax, tagsAjax;
     /* ------------------ */
     /* ------------------ */
-    
+
     tagsAjax = usedTags('articles');
 
 
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             });
         }
-    }    
+    }
 
     function clearFilter() {
         //tagsActiveCloud = [];
@@ -56,12 +56,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
     */
 
-    $('.post').on('click', function (e) {
+    /*$('.post').on('click', function (e) {
         e.preventDefault();
-        let newsId = $(this).find('a').attr('obj-id');        
+        let newsId = $(this).find('a').attr('obj-id');
         createCookie('newsId', newsId, 1);
         location.href = $(this).find('a').attr('href');
-    })
+    })*/
 
     //клик на сброс фильтра
     $('.clear-filter-btn').on('click', function () {
@@ -83,11 +83,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let index = categoriesForNewsActive.indexOf(category);
             if (index !== -1) categoriesForNewsActive.splice(index, 1);
         }
-        
+
         let tagsActive = $("#tags").val().split(',');
         //мерджим два массива тэгов (из поля "Search" и из облака)
-        if (tagsActive[0] == "" && tagsActiveCloud.length > 0) {            
-            tagsActive = tagsActiveCloud;            
+        if (tagsActive[0] == "" && tagsActiveCloud.length > 0) {
+            tagsActive = tagsActiveCloud;
         } else {
             tagsActive = tagsActive.concat(tagsActiveCloud);
         }
@@ -128,15 +128,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
         else {
             $('.tt-input').attr('placeholder', 'Search');
         }
-        
-        let tagsActive = $("#tags").val().split(',');        
+
+        let tagsActive = $("#tags").val().split(',');
         //мерджим два массива тэгов (из поля "Search" и из облака)
         if (tagsActive[0] == "" && tagsActiveCloud.length > 0) {
             tagsActive = tagsActiveCloud;
         } else {
             tagsActive = tagsActive.concat(tagsActiveCloud);
         }
-        
+
         let data = setData(categoriesForNewsActive, categoriesForBooksActive, tagsActive);
 
         newsAjax = $.ajax({
