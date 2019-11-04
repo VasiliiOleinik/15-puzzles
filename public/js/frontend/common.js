@@ -738,19 +738,19 @@ $(function () {
 });
 
 // Preloader settings
-$(function () {
-    if ($("#preloader").css("display") == "block") {
-        $("html, body").css({
-            overflow: "hidden",
-            height: "100%"
-        });
-    } else {
-        $("html, body").css({
-            overflow: "auto",
-            height: "auto"
-        });
-    }
-});
+// $(function () {
+//     if ($("#preloader").css("display") == "block") {
+//         $("html, body").css({
+//             overflow: "hidden",
+//             height: "100%"
+//         });
+//     } else {
+//         $("html, body").css({
+//             overflow: "auto",
+//             height: "auto"
+//         });
+//     }
+// });
 $(document).on("click", "#send-form-btn", function () {
     $("#preloader").css("display", "flex");
 });
@@ -831,6 +831,7 @@ $(window).on("load", function () {
             overflow: "auto",
             height: "auto"
         });
+        $("html, body").delay(350).removeAttr( 'style' );
 });
 
 // Member cases multi-seselc
@@ -845,9 +846,11 @@ $(function () {
     });
 });
 
-$(document).ready(function () {
+$(function () {
     $("#fileuploader").uploadFile({
         url: "YOUR_FILE_UPLOAD_URL",
         fileName: "myfile"
     });
 });
+
+

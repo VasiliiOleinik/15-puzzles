@@ -8,9 +8,6 @@
 <div id="preloader" class="{{ 'main' === Route::currentRouteName() ? 'main-page-preloader' : ''}}">
     <img src="/img/preloader.svg" alt="preloader">
 </div>
-<div id="preloader" class="preload" style="display:none">
-    <img src="/img/preloader.svg" alt="preloader">
-</div>
 <div class="content-wrapper" id="contentWrapper">
   <div class="page-wrapper" id="pageWrapper">
     @include('layouts.include.login-modal.login-modal')
